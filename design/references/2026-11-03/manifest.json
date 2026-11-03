@@ -1,0 +1,104 @@
+{
+  "review_date": "2026-11-03",
+  "review_timezone": "America/Chicago",
+  "capture_method": "Browser screenshot API; unaltered viewport images; no generated assets",
+  "note": "Capture timestamps use local file-save time. Screenshots do not preserve motion. Reference branding is not a production asset.",
+  "captures": [
+    {
+      "component_id": "F1",
+      "file": "firecrawl-grid-hero.jpg",
+      "source_url": "https://www.firecrawl.dev/",
+      "description": "Hero tile grid and technical texture",
+      "captured_at_utc": "2026-11-03T17:37:57.856748+00:00",
+      "width": 1280,
+      "height": 720,
+      "mime_type": "image/jpeg",
+      "bytes": 73405,
+      "sha256": "88f1e23c2ab739e2276798e9d32031f2febc59c8cbb64cb192ef2292ad08e39c"
+    },
+    {
+      "component_id": "F2",
+      "file": "firecrawl-code-output.jpg",
+      "source_url": "https://www.firecrawl.dev/",
+      "description": "Python input and JSON output panels",
+      "captured_at_utc": "2026-11-03T17:38:22.338711+00:00",
+      "width": 1280,
+      "height": 720,
+      "mime_type": "image/jpeg",
+      "bytes": 50019,
+      "sha256": "f4938f7489a654922af60af2567e3f9a9e81cdfbbb6c2872028dccd5ff9c7607"
+    },
+    {
+      "component_id": "M1",
+      "file": "modal-geometric-field.jpg",
+      "source_url": "https://modal.com/",
+      "description": "Repeated geometric marks in introductory artwork",
+      "captured_at_utc": "2026-11-03T17:38:10.927056+00:00",
+      "width": 1265,
+      "height": 712,
+      "mime_type": "image/jpeg",
+      "bytes": 72032,
+      "sha256": "8fab918536e20a8f9ee56f85078ab22030bd537bab8a8500da309b90f0906552"
+    },
+    {
+      "component_id": "M2",
+      "file": "modal-training-flow.jpg",
+      "source_url": "https://modal.com/#workloads-training",
+      "description": "Training architecture diagram",
+      "captured_at_utc": "2026-11-03T17:38:17.728344+00:00",
+      "width": 1265,
+      "height": 712,
+      "mime_type": "image/jpeg",
+      "bytes": 56016,
+      "sha256": "9c7761c14deb31ad5bc17a2df1f59c6e1e8b2d50a9f32c7d2f00c35855cb5db1"
+    },
+    {
+      "component_id": "T1",
+      "file": "trigger-use-case-tabs.jpg",
+      "source_url": "https://trigger.dev/",
+      "description": "Human in the loop tab selected",
+      "captured_at_utc": "2026-11-03T17:38:22.377708+00:00",
+      "width": 1265,
+      "height": 712,
+      "mime_type": "image/jpeg",
+      "bytes": 85678,
+      "sha256": "b97f9075a949e8985d8879eee9202ea7bf3a44d59db2e17ec34f7d7d545b65e9"
+    },
+    {
+      "component_id": "T2",
+      "file": "trigger-workflow-diagrams.jpg",
+      "source_url": "https://trigger.dev/",
+      "description": "Workflow diagram cards",
+      "captured_at_utc": "2026-11-03T17:38:36.395663+00:00",
+      "width": 1265,
+      "height": 712,
+      "mime_type": "image/jpeg",
+      "bytes": 54080,
+      "sha256": "984846e95626dcb431f44b4c95ca2e32de46b197a0df8c5b485f8b78487ea81c"
+    },
+    {
+      "component_id": "L1",
+      "file": "langfuse-activity-sidebar.jpg",
+      "source_url": "https://langfuse.com/",
+      "description": "Homepage activity rail; cookie banner dismissed",
+      "captured_at_utc": "2026-11-03T17:37:46.595366+00:00",
+      "width": 1425,
+      "height": 990,
+      "mime_type": "image/jpeg",
+      "bytes": 116518,
+      "sha256": "5cfa7014a25058091d32f8945cd29763b671c35b1e53284ee4449887fb634aa8"
+    },
+    {
+      "component_id": "L2",
+      "file": "langfuse-trace-preview.jpg",
+      "source_url": "https://langfuse.com/",
+      "description": "Observability product preview selected",
+      "captured_at_utc": "2026-11-03T17:38:59.043868+00:00",
+      "width": 1425,
+      "height": 990,
+      "mime_type": "image/jpeg",
+      "bytes": 115680,
+      "sha256": "70cbc633b25010f60dc258178897dab6fa1b1a7593157458d7a83ebd1c6c5d87"
+    }
+  ]
+}
