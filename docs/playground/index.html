@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Granite Query · Light and form</title>
-  <meta name="description" content="An isolated study of shaded glyphs, a sparse startup reveal and highlight-led shape changes.">
+  <meta name="description" content="An isolated reconstruction of the recorded Modal geometric field, its reflected fragments, spacing and mouse response.">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="./granite/study.css">
-  <script type="module" src="./granite/field.js?v=recording-20261103-2"></script>
+  <link rel="stylesheet" href="./granite/study.css?v=replica-20261103-3">
+  <script type="module" src="./granite/field.js?v=replica-20261103-3"></script>
 </head>
 <body>
   <a class="skip" href="#controls">Skip to motion controls</a>
@@ -16,19 +16,18 @@
   </header>
   <main>
     <section class="hero" aria-labelledby="hero-title">
-      <canvas id="glyph-field" role="img" aria-label="An automatically changing green glyph field with nested squares, stepped blocks, stacked slabs, smooth rounded tiers and three faint repetitions. Move the pointer to gently turn the entire arrangement. No click is needed."></canvas>
+      <canvas id="glyph-field" role="img" aria-label="A compact green glyph field cycling through an open box, separated plates, eight small cubes and stairs, with faint reflected fragments. Move the pointer to gently turn the field. No click is needed."></canvas>
       <div class="hero-copy">
-        <p class="eyebrow">Teacher–student learning</p>
-        <h1 id="hero-title">Learning more.<br><span>From less.</span></h1>
+        <h1 id="hero-title">Learning more. <span>From less.</span></h1>
         <p class="description">Studying how verified examples can help Granite learn mathematical reasoning.</p>
         <div class="hero-actions"><a class="primary" href="../">Follow the research <span aria-hidden="true">↗</span></a><a class="secondary" href="https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md" target="_blank" rel="noreferrer">Read the methods <span aria-hidden="true">↗</span></a></div>
       </div>
-      <div class="field-caption"><span id="form-name">Nested squares</span><span>Move to explore · Forms change automatically</span></div>
+      <div class="field-caption"><span id="form-name">Box</span><span>Move to explore · Forms change automatically</span></div>
       <noscript><p class="no-script">Enable JavaScript to explore the geometric motion.</p></noscript>
     </section>
     <section class="controls" id="controls" aria-label="Light and motion controls">
-      <div class="motion-group"><label for="form-mode">Form</label><select id="form-mode"><option value="auto">Play sequence</option><option value="frames">Nested squares</option><option value="steps">Stepped blocks</option><option value="slabs">Stacked slabs</option><option value="tiers">Rounded tiers</option></select><button id="pause-motion" aria-pressed="false">Pause</button><button id="reset-motion">Restart reveal</button></div>
-      <div class="color-group"><div class="color-control"><label for="base-color">Hue</label><input type="color" id="base-color" value="#78e865" aria-label="Field hue"><input id="base-hex" class="hex" aria-label="Field hex color" value="#78E865" maxlength="7" spellcheck="false" pattern="#[0-9A-Fa-f]{6}"></div><span class="color-note">One hue · Shaded highlights</span><button id="reset-colors">Reset hue</button></div>
+      <div class="motion-group"><label for="form-mode">Form</label><select id="form-mode"><option value="auto">Play sequence</option><option value="box">Box</option><option value="layers">Separated plates</option><option value="cubes">Small cubes</option><option value="stairs">Stairs</option></select><button id="pause-motion" aria-pressed="false">Pause</button><button id="reset-motion">Restart reveal</button></div>
+      <div class="color-group"><div class="color-control"><label for="base-color">Hue</label><input type="color" id="base-color" value="#7fee64" aria-label="Field hue"><input id="base-hex" class="hex" aria-label="Field hex color" value="#7FEE64" maxlength="7" spellcheck="false" pattern="#[0-9A-Fa-f]{6}"></div><span class="color-note">Reference green</span><button id="reset-colors">Reset hue</button></div>
       <p id="motion-status" class="sr-only" role="status">Animation playing.</p>
     </section>
   </main>

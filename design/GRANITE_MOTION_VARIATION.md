@@ -1,74 +1,76 @@
-# Granite Query light and form study
+# Modal reference reconstruction in the Granite Query playground
 
-The isolated playground uses green temporarily to review depth, glyph detail and motion. It is not the final project palette. The homepage and the preserved Modal comparison remain outside this change.
+The current task is to reproduce the supplied Modal reference before exploring variations. The custom nested frames, weave, folded loop, helix and rounded tiers have been removed from the active playground. The research homepage and the earlier Modal comparison files remain unchanged.
 
-## Reference recording, November 3, 2026
+## Current visual target
 
-The user supplied a 45.4-second screen recording named **modal hero.mov** and confirmed that they moved the mouse without clicking. The recording is the current motion reference. It was reviewed as an overview and in 50 ms sampled clips. The source has variable frame timing, so these timecodes and durations are approximate.
+Reference evidence is the user's 45.4-second **modal hero.mov** recording, supplied November 3, 2026, plus the earlier captured Modal fields. The user confirmed mouse movement without clicking. Recording extracts remain local; they are not uploaded with this change.
 
-| Recording time | Visible behavior |
+The source's compact object, empty surrounding area, limited glyph population and fragmentary reflections are part of the target. Filling the hero with a large stippled sculpture missed that composition. The page now places the text above a smaller, centered field.
+
+At desktop sizes the box spans approximately a quarter of the content width. The illustration unit is 7.4% of that width, with responsive limits. The glyph spacing and mark size scale with the illustration rather than staying as large fixed screen pixels on a phone. The sampling grid is anchored to the scene center, preserving the structure's proportions and cell identities when resized.
+
+The nominal 95 px illustration unit uses a 6.4 px staggered pitch and a 7.4 px glyph footprint; the visible ink is smaller than that footprint. The renderer samples only the compact field region. Empty holes in the cage and the space between the small cubes remain empty.
+
+## Recorded formations and order
+
+| Form | Reconstructed geometry |
 | --- | --- |
-| Around 2.50–2.95 s | Sparse, muted marks suggest the outline while the main field remains unlit. |
-| Around 3.00–3.25 s | A bright central ignition spreads through the shape rapidly; it settles afterward. |
-| Around 7.95–8.05 s | Brighter parts of the box flare while the darker field stays muted. |
-| Around 8.10–8.25 s | A few in-between frames reshape the box into separated plates. It is a very fast morph rather than a literal hard cut. |
-| Around 8.30 s onward | The new form holds while highlights continue moving over the surfaces. |
-| Later cycles | Changes recur roughly five seconds apart as the pointer moves, and also while it is nearly still. |
+| Box | Twelve beams form the twelve edges of an open cubic cage. |
+| Separated plates | Three thin, aligned square plates with vertical gaps. |
+| Small cubes | Eight cubes at the corners of a larger cube; front and back projections overlap differently as the mouse turns the view. |
+| Stairs | Five contiguous stair sections, with visible treads, risers and a continuous side wall. |
 
-The earlier implementation interpreted the blink as a direct geometry cut. The recording corrects that interpretation: the transition contains a brief reshaping window. Likewise, the earlier randomly filling startup missed the long sparse hold followed by the fast central ignition.
+The sequence is **box → plates → small cubes → stairs**, matching the supplied recording. It uses a fixed camera scale. The four configurations are proportioned to a consistent projected width. There are twelve scene slots, with unused slots skipped.
 
-Pointer movement changes the perspective gently, including the repeated silhouettes. Moving surface highlights are also visible between geometry changes. The current implementation separates an autonomous shape clock, moving surface illumination and damped pointer pose. The recording does not recover Modal's implementation or prove which internal effects use the cursor.
+The atlas now follows the visible symbol vocabulary: disks, hearts, stars, Y marks, triangles, crosses, rings, diamonds and squares. Filled marks receive more samples than outlines. Glyph identity stays stable during the animation.
 
-The original recording and extracted images stay local. Only authored code, tests and these findings are published.
+## Reflected fragments
 
-## Review decisions retained
+The earlier renderer placed three smaller, identically oriented copies around the main object. This made complete duplicates easy to recognize.
 
-- Keep nested squares, stepped blocks and separated slabs.
-- Remove the folded loop, weave and double helix. Their curved subjects exposed straight box segments.
-- Improve both large forms and tiny marks. Rounded tiers use analytic cylinder surfaces with continuous side normals.
-- Use one hue with dark shadows and pale highlights instead of assigning blue and pink to different material regions.
-- Keep three dim repetitions: left, upper right and a weaker lower right.
-- Pointer motion should gently turn the field. Clicking it must not advance the form. The explicit selector remains a review control.
+The current reconstruction casts rays through axis-reflected geometry:
 
-## One-hue material and moving light
+- The left view reverses the depth axis, exposing the stairs' flat back.
+- The upper view reverses the vertical axis, exposing undersides.
+- The lower-right view reverses the horizontal axis and is substantially weaker.
 
-The default base is **#78E865**, with **#040804** as the background. One swatch and hex field derive the shadow and highlight ramp. Page accents follow that hue; the background stays the dark reference neutral during this study.
+Each view has its own offset, scale, directional fade and depth falloff. The upper and lower views are vertically foreshortened to match the flatter reference fragments. All share the same damped camera turn. The foreground volume occludes reflected geometry, including behind the cage's holes, leaving partial silhouettes outside the primary object. The lower-right view is a faint hint rather than another complete, equally prominent form.
 
-Surface normals determine face illumination. GPU shadow rays account for occlusion from other solids. A slowly moving directional light and a smooth band travelling through world space change the highlight positions even with a stationary pointer. Stable per-cell variation and a few brighter marks create detail within each face. A flare lifts the already-bright marks while preserving the darkest areas.
+These are authored transforms selected to match the observed appearance. They are not recovered Modal scene parameters or proof of its internal mirror implementation.
 
-This is an authored lighting model, not an extraction of Modal's shader. The resulting material and different candidate hues still need visual review.
+## Color and illumination
 
-## Large forms and small marks
+The reference green is **#7FEE64** on **#040804**, with dark green shadows and pale yellow-green highlights. The working palette is a reference match, not a custom Granite Query brand direction.
 
-| Form | Construction |
+Face normals, directional shadow tests, a moving light and a travelling surface band create the changing brightness. Stable per-cell variation adds detail. Bright areas flare while the darkest areas remain muted. Reflections use a much less saturated material.
+
+The headline, description and actions are centered above the field. Project-specific branding, copy and working research links remain. The illustration uses no captured Modal raster image as a replacement for the live geometry.
+
+## Motion evidence and implementation
+
+The recording was inspected as an overview and in 50 ms sampled clips; timecodes are approximate because it has variable frame timing.
+
+| Recording time | Observation |
 | --- | --- |
-| Nested squares | Four square frames staggered in depth; sixteen beams. |
-| Stepped blocks | Five adjacent columns sharing a baseline, facing the camera so both treads and risers are visible. |
-| Stacked slabs | Three separated plates, slightly offset. |
-| Rounded tiers | Three analytic elliptical cylinders with smooth side normals. |
+| Around 2.50–2.95 s | Sparse, muted outline marks hold before ignition. |
+| Around 3.00–3.25 s | Illumination rapidly spreads through the field from the center. |
+| Around 7.95–8.05 s | Bright sections flare before the change. |
+| Around 8.10–8.25 s | A few in-between frames reshape the box into plates. |
+| Later cycles | Changes recur roughly five seconds apart while the mouse moves or remains nearly still. |
 
-Sixteen GPU slots accommodate the forms; unused slots have zero dimensions and are skipped. During the brief reshape, disappearing parts shrink toward nearby active target solids rather than collecting at a common central point. The camera scale stays fixed. The curved tiers retain analytic curved surfaces in their settled state.
+The reconstruction retains the sparse startup hold, center-out ignition, short highlight-led reshape and five-second automatic cycle. The chosen event has a 4.5-second hold plus a 0.5-second event; geometry reshapes for 200 ms within that event. It is not the earlier multi-second disassembly or a literal hard cut.
 
-The sixteen-mark atlas contains disks, rings, arcs, curved strokes, split disks, lenses, rounded crosses, triangles, three-dot clusters and droplets. Filled marks receive more samples than outlines. A 6.8 px glyph footprint on a staggered 5.4 px lattice leaves gaps between marks. Cell identity remains stable across frames.
+Mouse movement adds up to about six degrees of yaw and 3.7 degrees of pitch. It does not restart the sequence or require a click. Clicking the field does not advance a form. The selector is an explicit review control.
 
-## Choreography and interaction
+Pause freezes the clock and pointer response. Selecting while paused shows a complete form immediately. Escape pauses. Restart replays startup and clears pointer influence. Reduced-motion preference starts fully visible and paused. Touch drags scroll normally, and hidden/offscreen fields stop scheduling frames.
 
-Startup holds sparse, muted outline marks for about **0.96 seconds**. A center-out reveal fills the existing glyph positions over approximately **0.27 seconds**, with the highlight settling by **1.55 seconds**. There is no geometry zoom.
+## Verification and publishing
 
-The autonomous cycle is **five seconds per form**: a **4.5-second hold** and a **0.5-second transition event**. Bright marks flare first; geometry reshapes between **0.20 and 0.40 seconds** into the event, then the light settles. This replaces both the earlier multi-second disassembly and the later hard cut. The values approximate the supplied recording and can be refined further.
+Eleven current tests cover reference geometry counts, projected scale and empty space, cage holes, reflected stair silhouettes, foreground occlusion, selective flaring, brief morph bounds, startup, palette ranges, pointer pose, retargeting and moving light. The six preserved Modal geometry tests also pass.
 
-Mouse position across the hero controls up to about **6 degrees of yaw** and **3.7 degrees of pitch**, with damping. The primary object and all repetitions use the same camera transform. Moving the mouse does not reset the automatic sequence or trigger the next form. Clicking the field has no form-changing handler.
+Browser review checks all four configurations, the reflected back/underside views, compact desktop composition, proportional mobile glyphs without horizontal overflow, actual WebGL shader logs and the Canvas fallback. The fallback uses the same reflected views and foreground clipping at a lower sampling density, with simpler light/shadow treatment.
 
-The selector pins a form or plays the sequence. Selecting while paused displays a complete form immediately. A playing selection uses the short transition; retargeting starts at the displayed geometry without restarting the flare clock. Pause freezes the clock and pointer response; Escape pauses. **Restart reveal** resets pointer influence and replays startup, respecting reduced-motion preference. Reduced motion starts fully visible and paused. Touch drags scroll normally. Hidden and offscreen fields stop scheduling frames.
+The entry script, geometry import and stylesheet carry the same version query to avoid stale mixed releases. No runtime packages or build step are added. Publishing is restricted to playground code, its tests and these notes. Every other repository blob, including the homepage and preserved Modal comparison, is checked against the latest parent tree.
 
-## Verification and boundaries
-
-Ten current tests cover finite distinct formations, selective bright-area flaring, the short reshape interval, cycle closure, startup hold and radial reveal, palette bounds, limited pointer pose, continuous cylinder normals, interruption start/end geometry, and moving illumination with fixed geometry. The six preserved Modal tests also pass.
-
-Browser review checks the actual WebGL output and shader logs, sparse hold and ignition, short in-between geometry, autonomous playback, ignored field clicks, pointer response, mobile layout without horizontal overflow, and the Canvas fallback. The fallback shares geometry, timing and travelling surface light at a lower density, with simpler shading and no GPU shadow rays.
-
-There are no new runtime packages or build steps. Publication is limited to the playground, its tests and documentation. The homepage and all other repository blobs are compared against the latest parent tree.
-
-The entry script and its geometry import carry the same recording-version query. Public verification caught the new HTML loading an earlier cached animation, so both module URLs change together for this release.
-
-The recording improves the evidence for this pass. The different geometry, composition, glyph shapes and remaining lighting differences mean this is still an independent study rather than a pixel-perfect reproduction.
+This study now follows the reference formations and composition. Glyph placement, shading and reflection falloff remain independently authored approximations rather than extracted source code.
