@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Granite Query · Color and motion</title>
-  <meta name="description" content="An original blue and pink geometric motion study for Granite Query.">
+  <title>Granite Query · Light and form</title>
+  <meta name="description" content="An isolated study of shaded glyphs, a sparse startup reveal and highlight-led shape changes.">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="./granite/study.css">
   <script type="module" src="./granite/field.js"></script>
@@ -11,24 +11,24 @@
 <body>
   <a class="skip" href="#controls">Skip to motion controls</a>
   <header class="site-header">
-    <a class="brand" href="./" aria-label="Granite Query playground"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="m18 3 14 8-14 8L4 11Z" fill="none" stroke="var(--blue)" stroke-width="1.7"/><path d="M4 11v14l14 8 14-8V11M18 19v14" fill="none" stroke="var(--pink)" stroke-width="1.7"/></svg><span>Granite Query</span></a>
+    <a class="brand" href="./" aria-label="Granite Query playground"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="m18 3 14 8-14 8L4 11Z" fill="none" stroke="var(--highlight)" stroke-width="1.7"/><path d="M4 11v14l14 8 14-8V11M18 19v14" fill="none" stroke="var(--accent)" stroke-width="1.7"/></svg><span>Granite Query</span></a>
     <nav aria-label="Playground navigation"><a href="../">Research log</a><a href="./modal-study.html">Modal study</a><a class="source-link" href="https://github.com/AviSrikumeran/granite-query" target="_blank" rel="noreferrer">Source ↗</a></nav>
   </header>
   <main>
     <section class="hero" aria-labelledby="hero-title">
-      <canvas id="glyph-field" role="img" aria-label="A blue and pink geometric glyph field transforming between a folded loop, nested frames, a weave and a double helix. Move the pointer to turn and light the structure; click to change its form."></canvas>
+      <canvas id="glyph-field" role="img" aria-label="A shaded green glyph field showing nested squares, stepped blocks, stacked slabs and smooth rounded tiers, with three faint repetitions. Move the pointer to turn the entire arrangement; click to change its form."></canvas>
       <div class="hero-copy">
         <p class="eyebrow">Teacher–student learning</p>
         <h1 id="hero-title">Learning more.<br><span>From less.</span></h1>
         <p class="description">Studying how verified examples can help Granite learn mathematical reasoning.</p>
         <div class="hero-actions"><a class="primary" href="../">Follow the research <span aria-hidden="true">↗</span></a><a class="secondary" href="https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md" target="_blank" rel="noreferrer">Read the methods <span aria-hidden="true">↗</span></a></div>
       </div>
-      <div class="field-caption"><span id="form-name">Folded loop</span><span>Move to turn · Click to transform</span></div>
+      <div class="field-caption"><span id="form-name">Nested squares</span><span>Move to turn · Click to change</span></div>
       <noscript><p class="no-script">Enable JavaScript to explore the geometric motion.</p></noscript>
     </section>
-    <section class="controls" id="controls" aria-label="Color and motion controls">
-      <div class="motion-group"><label for="form-mode">Form</label><select id="form-mode"><option value="auto">Play sequence</option><option value="loop">Folded loop</option><option value="frames">Nested frames</option><option value="weave">Weave</option><option value="helix">Double helix</option></select><button id="pause-motion" aria-pressed="false">Pause</button><button id="reset-motion">Restart</button></div>
-      <div class="color-group"><div class="color-control"><label for="blue-color">Blue</label><input type="color" id="blue-color" value="#81d9fa" aria-label="Blue color"><input id="blue-hex" class="hex" aria-label="Blue hex color" value="#81D9FA" maxlength="7" spellcheck="false" pattern="#[0-9A-Fa-f]{6}"></div><div class="color-control"><label for="pink-color">Pink</label><input type="color" id="pink-color" value="#ff79bd" aria-label="Pink color"><input id="pink-hex" class="hex" aria-label="Pink hex color" value="#FF79BD" maxlength="7" spellcheck="false" pattern="#[0-9A-Fa-f]{6}"></div><button id="reset-colors">Reset colors</button></div>
+    <section class="controls" id="controls" aria-label="Light and motion controls">
+      <div class="motion-group"><label for="form-mode">Form</label><select id="form-mode"><option value="auto">Play sequence</option><option value="frames">Nested squares</option><option value="steps">Stepped blocks</option><option value="slabs">Stacked slabs</option><option value="tiers">Rounded tiers</option></select><button id="pause-motion" aria-pressed="false">Pause</button><button id="reset-motion">Restart reveal</button></div>
+      <div class="color-group"><div class="color-control"><label for="base-color">Hue</label><input type="color" id="base-color" value="#78e865" aria-label="Field hue"><input id="base-hex" class="hex" aria-label="Field hex color" value="#78E865" maxlength="7" spellcheck="false" pattern="#[0-9A-Fa-f]{6}"></div><span class="color-note">One hue · Shaded highlights</span><button id="reset-colors">Reset hue</button></div>
       <p id="motion-status" class="sr-only" role="status">Animation playing.</p>
     </section>
   </main>

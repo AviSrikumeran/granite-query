@@ -1,36 +1,44 @@
-import {FORMS,FORM_LABELS,BOX_COUNT,TRANSITION,STEP,SHAPES,boxesAt,mixBoxes,easeProgress,traceBoxes} from './geometry.mjs';
+import {FORMS,FORM_LABELS,BOX_COUNT,BOOT,STEP,TRANSITION,SHAPES,boxesAt,switchState,traceBoxes,revealAt,highlightFlare,paletteRamp,smooth} from './geometry.mjs';
 
-// Independent Granite Query motion study. The Modal reference remains separate.
+// Independent scene: shape changes commit under a short highlight flare.
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let canvas=document.querySelector('#glyph-field');
-const pauseButton=document.querySelector('#pause-motion'),formControl=document.querySelector('#form-mode');
+const hero=document.querySelector('.hero'),pauseButton=document.querySelector('#pause-motion'),formControl=document.querySelector('#form-mode');
 const formName=document.querySelector('#form-name'),status=document.querySelector('#motion-status');
-const DEFAULTS={blue:'#81d9fa',pink:'#ff79bd'};
-const palette={...DEFAULTS};
-const parseHex=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255);
+const DEFAULT_COLOR='#78e865';
+let color=DEFAULT_COLOR,ramp=paletteRamp(color);
 let width=0,height=0,ratio=1,time=0,previous=0,request=0,frames=0;
-let paused=reducedMotion.matches,visible=!document.hidden,inView=true,mode='auto',sequenceOffset=0,morph=null;
+let paused=reducedMotion.matches,visible=!document.hidden,inView=true,mode='auto',sequenceOffset=0,manual=null,bootSkipped=reducedMotion.matches;
 let renderer,layout;
-const pointer={x:-2000,y:-2000,strength:0,turn:0};
-const centers=new Float32Array(BOX_COUNT*3),halves=new Float32Array(BOX_COUNT*3),rotations=new Float32Array(BOX_COUNT*4);
-const PITCH=5.6,GLYPH_SIZE=7.8,POINT_SIZE=12;
+const pointer={x:-2000,y:-2000,strength:0,turn:0,tilt:0};
+const centers=new Float32Array(BOX_COUNT*3),halves=new Float32Array(BOX_COUNT*3),rotations=new Float32Array(BOX_COUNT*4),kinds=new Float32Array(BOX_COUNT);
+const PITCH=5.4,GLYPH_SIZE=6.8,POINT_SIZE=13;
+const ECHOES=[[-1.94,.05,.74,.24],[1.02,-1.19,.65,.21],[1.1,1.28,.67,.16]];
+const rgb=values=>'rgb('+values.map(v=>Math.round(v*255)).join(',')+')';
+const hash=(x,y)=>{const n=Math.sin(x*127.1+y*311.7)*43758.5453;return n-Math.floor(n);};
 
-function makeAtlas(color='#fff'){
+function makeAtlas(fill='#fff'){
   const image=document.createElement('canvas');image.width=1024;image.height=64;
-  const ctx=image.getContext('2d');ctx.fillStyle=color;ctx.strokeStyle=color;
+  const ctx=image.getContext('2d');ctx.fillStyle=fill;ctx.strokeStyle=fill;
   for(let kind=0;kind<16;kind++){
     ctx.save();ctx.translate(kind*64+32,32);ctx.lineWidth=7;ctx.lineCap='round';ctx.lineJoin='round';
-    if(kind===0||kind===8||kind===13){ctx.beginPath();ctx.arc(0,0,22,0,Math.PI*2);kind===0?ctx.fill():ctx.stroke();if(kind===13){ctx.beginPath();ctx.arc(0,0,6,0,Math.PI*2);ctx.fill();}}
-    if(kind===1){ctx.beginPath();for(let k=0;k<6;k++){const a=k*Math.PI/3;ctx[k?'lineTo':'moveTo'](21*Math.cos(a),21*Math.sin(a));}ctx.closePath();ctx.stroke();}
-    if(kind===2||kind===7||kind===12){ctx.beginPath();const n=kind===2?6:kind===12?4:5;for(let k=0;k<n*2;k++){const a=k*Math.PI/n-Math.PI/2,r=k%2?11:24;ctx[k?'lineTo':'moveTo'](r*Math.cos(a),r*Math.sin(a));}ctx.closePath();kind===12?ctx.stroke():ctx.fill();}
-    if(kind===3){ctx.fillRect(-3,-22,6,44);ctx.fillRect(-22,-3,44,6);}
-    if(kind===4){ctx.beginPath();ctx.moveTo(-19,-19);ctx.lineTo(0,0);ctx.lineTo(19,-19);ctx.moveTo(0,0);ctx.lineTo(0,22);ctx.stroke();}
-    if(kind===5||kind===11){const sign=kind===5?1:-1;ctx.beginPath();ctx.moveTo(0,-22*sign);ctx.lineTo(23,19*sign);ctx.lineTo(-23,19*sign);ctx.closePath();ctx.fill();}
-    if(kind===6){ctx.beginPath();ctx.moveTo(0,-23);ctx.lineTo(22,0);ctx.lineTo(0,23);ctx.lineTo(-22,0);ctx.closePath();ctx.stroke();}
-    if(kind===9)ctx.fillRect(-18,-18,36,36);
-    if(kind===10){ctx.beginPath();ctx.moveTo(-17,-17);ctx.lineTo(17,17);ctx.moveTo(-17,17);ctx.lineTo(17,-17);ctx.stroke();}
-    if(kind===14)for(const y of [-14,0,14])ctx.fillRect(-20,y-2,40,4);
-    if(kind===15){ctx.beginPath();ctx.moveTo(-20,8);ctx.lineTo(0,-12);ctx.lineTo(20,8);ctx.stroke();}
+    const arc=(r,a=0,b=Math.PI*2)=>{ctx.beginPath();ctx.arc(0,0,r,a,b);};
+    if(kind===0){arc(19);ctx.fill();}
+    if(kind===1){arc(20);ctx.stroke();}
+    if(kind===2){arc(21,-Math.PI*.8,Math.PI*.8);ctx.stroke();}
+    if(kind===3){ctx.beginPath();ctx.moveTo(-17,11);ctx.quadraticCurveTo(0,-28,17,11);ctx.stroke();}
+    if(kind===4){arc(21);ctx.fill();ctx.globalCompositeOperation='destination-out';ctx.fillRect(-3,-26,6,52);}
+    if(kind===5){ctx.beginPath();ctx.moveTo(0,-19);ctx.lineTo(0,19);ctx.moveTo(-19,0);ctx.lineTo(19,0);ctx.stroke();}
+    if(kind===6){ctx.beginPath();ctx.ellipse(0,0,23,12,-Math.PI/4,0,Math.PI*2);ctx.fill();}
+    if(kind===7){ctx.beginPath();ctx.moveTo(-17,-15);ctx.lineTo(0,0);ctx.lineTo(17,-15);ctx.moveTo(0,0);ctx.lineTo(0,20);ctx.stroke();}
+    if(kind===8){ctx.beginPath();ctx.moveTo(-17,-17);ctx.lineTo(17,17);ctx.moveTo(-17,17);ctx.lineTo(17,-17);ctx.stroke();}
+    if(kind===9){ctx.beginPath();ctx.moveTo(-16,13);ctx.lineTo(0,-17);ctx.lineTo(16,13);ctx.closePath();ctx.fill();}
+    if(kind===10){for(let i=0;i<3;i++){const a=i*Math.PI*2/3;ctx.beginPath();ctx.arc(13*Math.cos(a),13*Math.sin(a),8,0,Math.PI*2);ctx.fill();}}
+    if(kind===11){ctx.beginPath();ctx.moveTo(-18,8);ctx.quadraticCurveTo(-2,-22,18,8);ctx.moveTo(-18,18);ctx.quadraticCurveTo(-2,-12,18,18);ctx.stroke();}
+    if(kind===12){arc(21,0,Math.PI);ctx.stroke();arc(21,Math.PI,Math.PI*2);ctx.setLineDash([5,9]);ctx.stroke();}
+    if(kind===13){ctx.beginPath();ctx.moveTo(0,-22);ctx.bezierCurveTo(22,-4,24,16,0,23);ctx.bezierCurveTo(-24,16,-22,-4,0,-22);ctx.fill();}
+    if(kind===14){ctx.beginPath();ctx.moveTo(-17,0);ctx.lineTo(17,0);ctx.lineWidth=13;ctx.stroke();}
+    if(kind===15){ctx.beginPath();ctx.moveTo(-19,13);ctx.quadraticCurveTo(-10,-21,0,-1);ctx.quadraticCurveTo(11,19,19,-13);ctx.stroke();}
     ctx.restore();
   }
   return image;
@@ -42,58 +50,93 @@ attribute vec2 a_cell;
 uniform vec2 u_resolution,u_center,u_pointer;
 uniform vec3 u_centers[16],u_halves[16];
 uniform vec4 u_rotations[16];
-uniform float u_time,u_ratio,u_unit,u_turn,u_pointerStrength,u_aa,u_footprint,u_mobile;
-varying float v_energy,v_glyph,v_hue,v_tint;
+uniform float u_kinds[16];
+uniform float u_time,u_reveal,u_flash,u_ratio,u_unit,u_turn,u_tilt,u_pointerStrength,u_aa,u_footprint,u_mobile;
+varying float v_energy,v_glyph,v_tint,v_reveal;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+1.),f.x),f.y);}
-vec3 yaw(vec3 p){float c=cos(u_turn),s=sin(u_turn);return vec3(p.x*c-p.z*s,p.y,p.x*s+p.z*c);}
+vec3 camera(vec3 p){float c=cos(u_turn),s=sin(u_turn),ct=cos(u_tilt),st=sin(u_tilt);vec3 q=vec3(p.x*c-p.z*s,p.y,p.x*s+p.z*c);return vec3(q.x,q.y*ct-q.z*st,q.y*st+q.z*ct);}
 vec3 rotate(vec4 q,vec3 p){return p+2.*cross(q.xyz,cross(q.xyz,p)+q.w*p);}
-vec3 trace(vec2 screen){
+vec2 interval(vec3 o,vec3 d,vec3 h,float kind){
+  if(kind>.5){
+    vec2 od=o.xz/h.xz,dd=d.xz/h.xz;
+    float a=dot(dd,dd),b=2.*dot(od,dd),c=dot(od,od)-1.,disc=b*b-4.*a*c;
+    if(disc<0.)return vec2(1000.,-1000.);
+    vec2 radial=vec2(-b-sqrt(disc),-b+sqrt(disc))/(2.*a),caps=(vec2(-h.y,h.y)-o.y)/d.y;
+    return vec2(max(radial.x,min(caps.x,caps.y)),min(radial.y,max(caps.x,caps.y)));
+  }
+  vec3 safe=mix(vec3(.00001),d,step(vec3(.00001),abs(d))),inv=1./safe;
+  vec3 a=(-h-o)*inv,b=(h-o)*inv,lo=min(a,b),hi=max(a,b);
+  return vec2(max(lo.x,max(lo.y,lo.z)),min(hi.x,min(hi.y,hi.z)));
+}
+vec3 trace(vec2 screen,bool detailed){
   vec2 local=(screen-u_center)/u_unit;
-  vec3 origin=yaw(vec3(local.x/1.7320508,-local.y,-local.x/1.7320508)+8.);
-  vec3 direction=yaw(vec3(-.57735027));
-  float nearest=1000.,energy=0.,hue=.5;
+  vec3 origin=camera(vec3(local.x/1.7320508,-local.y,-local.x/1.7320508)+8.);
+  vec3 direction=camera(vec3(-.57735027));
+  float nearest=1000.,energy=0.,rim=0.;
+  vec3 surface=vec3(0.),surfaceNormal=vec3(0.);
   for(int i=0;i<16;i++){
+    vec3 h=u_halves[i];if(min(h.x,min(h.y,h.z))<.001)continue;
     vec4 q=u_rotations[i],inverse=vec4(-q.xyz,q.w);
     vec3 o=rotate(inverse,origin-u_centers[i]),d=rotate(inverse,direction);
-    vec3 safe=mix(vec3(.00001),d,step(vec3(.00001),abs(d))),inv=1./safe;
-    vec3 a=(-u_halves[i]-o)*inv,b=(u_halves[i]-o)*inv;
-    vec3 low=min(a,b),high=max(a,b);
-    float entry=max(low.x,max(low.y,low.z)),exit=min(high.x,min(high.y,high.z));
+    vec2 range=interval(o,d,h,u_kinds[i]);
+    float entry=range.x,exit=range.y;
     if(entry<=exit+u_aa&&exit>0.&&entry<nearest){
-      nearest=entry;
-      vec3 point=o+d*entry,world=origin+direction*entry;
-      vec3 margin=max(vec3(0.),u_halves[i]-abs(point));
-      float second=min(max(margin.x,margin.y),max(min(margin.x,margin.y),margin.z));
-      float rim=exp(-pow(second/.11,2.));
-      vec3 normal=entry==low.y?vec3(0.,-sign(d.y),0.):(entry==low.x?vec3(-sign(d.x),0.,0.):vec3(0.,0.,-sign(d.z)));
-      vec3 worldNormal=rotate(q,normal);
-      float diffuse=.48+.52*max(0.,dot(worldNormal,normalize(vec3(-.2,1.,.7))));
-      float coverage=1.-smoothstep(-u_aa,u_aa,entry-exit);
-      energy=(.44*diffuse+.47*rim)*coverage;
-      hue=clamp(.5+world.x*.3+world.y*.2+world.z*.22,0.,1.);
+      nearest=entry;vec3 p=o+d*entry,normal;
+      if(u_kinds[i]>.5){
+        bool cap=abs(abs(p.y)-h.y)<.003;
+        normal=cap?vec3(0.,sign(p.y),0.):normalize(vec3(p.x/(h.x*h.x),0.,p.z/(h.z*h.z)));
+        float edge=cap?abs(1.-length(p.xz/h.xz))*min(h.x,h.z):h.y-abs(p.y);
+        rim=exp(-pow(edge/.1,2.));
+      }else{
+        vec3 margin=max(vec3(0.),h-abs(p));
+        float second=min(max(margin.x,margin.y),max(min(margin.x,margin.y),margin.z));
+        rim=exp(-pow(second/.1,2.));
+        vec3 distance=abs(abs(p)-h);
+        normal=distance.y<distance.x&&distance.y<distance.z?vec3(0.,sign(p.y),0.):(distance.x<distance.z?vec3(sign(p.x),0.,0.):vec3(0.,0.,sign(p.z)));
+      }
+      surface=origin+direction*entry;surfaceNormal=rotate(q,normal);
+      float diffuse=max(0.,dot(surfaceNormal,normalize(vec3(-.45,.8,.45))));
+      energy=(.16+diffuse*.72+rim*.25)*(1.-smoothstep(-u_aa,u_aa,entry-exit));
     }
   }
-  return vec3(energy,hue,nearest);
+  if(detailed&&energy>0.){
+    vec3 light=normalize(vec3(-.45,.8,.45)),start=surface+surfaceNormal*.015;
+    float shade=1.;
+    for(int i=0;i<16;i++){
+      vec3 h=u_halves[i];if(min(h.x,min(h.y,h.z))<.001)continue;
+      vec4 inverse=vec4(-u_rotations[i].xyz,u_rotations[i].w);
+      vec2 hit=interval(rotate(inverse,start-u_centers[i]),rotate(inverse,light),h,u_kinds[i]);
+      if(hit.y>max(hit.x,.025)&&hit.x>.005)shade=.56;
+    }
+    energy*=shade;
+  }
+  return vec3(energy,rim,nearest<999.?1.:0.);
 }
 void main(){
   vec2 p=a_cell;
-  vec3 coreSample=trace(p);
-  vec3 left=trace((p-u_center+vec2(1.7,-.12)*u_unit)/.76+u_center);
-  vec3 right=trace((p-u_center-vec2(1.18,-.86)*u_unit)/.66+u_center);
-  float echo=max(left.x,right.x)*.15;
-  float grain=.87+.13*noise(p*.035+vec2(u_time*.02,-u_time*.015));
-  vec2 ellipse=(p-u_center)/vec2(u_unit*3.1,u_unit*2.4);
-  float envelope=exp(-pow(length(ellipse),4.)*.45);
-  float edge=(1.-smoothstep(u_resolution.y*.88,u_resolution.y*.98,p.y));
-  edge*=mix(smoothstep(u_resolution.x*.37,u_resolution.x*.49,p.x),1.,u_mobile);
-  float lamp=exp(-dot(p-u_pointer,p-u_pointer)/13500.)*u_pointerStrength;
-  v_energy=clamp(max(coreSample.x*1.3,echo)*grain*envelope*edge+lamp*.17*step(.01,coreSample.x),0.,1.);
-  v_tint=step(echo,coreSample.x)*step(.01,coreSample.x);
-  v_hue=mix(clamp((p.x-u_center.x)/u_unit*.23+.5,0.,1.),coreSample.y,v_tint);
-  v_hue=clamp(v_hue+.07*sin(u_time*.16+p.y*.005),0.,1.);
-  float choice=floor(hash(a_cell+vec2(17.,53.))*24.);
-  v_glyph=choice<16.?choice:(choice<19.?0.:(choice<21.?2.:(choice<23.?4.:7.)));
+  vec3 core=trace(p,true);
+  vec3 left=trace((p-u_center-vec2(-1.94,.05)*u_unit)/.74+u_center,false);
+  vec3 upper=trace((p-u_center-vec2(1.02,-1.19)*u_unit)/.65+u_center,false);
+  vec3 lower=trace((p-u_center-vec2(1.1,1.28)*u_unit)/.67+u_center,false);
+  float echoes=max(left.x*.24,max(upper.x*.21,lower.x*.16));
+  float seed=hash(p+vec2(17.,53.)),grain=.56+.64*hash(p+7.);
+  float patch=.88+.12*sin(p.x*.029+p.y*.023);
+  vec2 ellipse=(p-u_center)/vec2(u_unit*3.4,u_unit*2.9);
+  float envelope=exp(-pow(length(ellipse),4.)*.25);
+  float edge=1.-smoothstep(u_resolution.y*.95,u_resolution.y,p.y);
+  edge*=mix(smoothstep(u_resolution.x*.37,u_resolution.x*.48,p.x),1.,u_mobile);
+  float spark=step(.93,hash(p+vec2(23.,47.)))*.22*smoothstep(.4,.75,core.x);
+  float light=core.x*grain*patch+spark;
+  float flare=u_flash*.8*smoothstep(.48,.85,light);
+  float lamp=exp(-dot(p-u_pointer,p-u_pointer)/19000.)*u_pointerStrength;
+  float primary=light+flare+lamp*.055*core.z;
+  v_energy=max(primary,echoes*grain)*envelope*edge;
+  v_tint=step(echoes,light)*core.z;
+  float delay=seed*.55+(1.-core.y)*.12;
+  float boot=smoothstep(delay,delay+.3,clamp(u_reveal/1.15,0.,1.));
+  v_reveal=max(boot,step(.982,seed)*.12*max(core.y,max(left.y,max(upper.y,lower.y))));
+  float choice=floor(hash(p+vec2(83.,19.))*32.);
+  v_glyph=choice<16.?choice:(choice<21.?0.:(choice<24.?6.:(choice<27.?9.:(choice<29.?10.:(choice<31.?13.:14.)))));
   gl_Position=vec4(p.x/u_resolution.x*2.-1.,1.-p.y/u_resolution.y*2.,0.,1.);
   gl_PointSize=u_footprint*u_ratio;
 }`;
@@ -101,19 +144,19 @@ const fragment=`
 precision highp float;
 uniform sampler2D u_atlas;
 uniform float u_footprint,u_glyphSize;
-uniform vec3 u_blue,u_pink;
-varying float v_energy,v_glyph,v_hue,v_tint;
+uniform vec3 u_base,u_shadow,u_highlight;
+varying float v_energy,v_glyph,v_tint,v_reveal;
 void main(){
-  if(v_energy<.005)discard;
-  vec3 color=mix(u_blue,u_pink,smoothstep(.12,.88,v_hue));
-  color=mix(color*.56,color,v_tint);
-  color=mix(color,vec3(.96,.97,1.),smoothstep(.64,1.,v_energy)*.18*v_tint);
+  if(v_energy*v_reveal<.004)discard;
+  vec3 ink=mix(u_shadow,u_base,smoothstep(.12,.68,v_energy));
+  ink=mix(ink,u_highlight,smoothstep(.62,1.2,v_energy)*.85);
+  vec3 color=mix(vec3(.39,.45,.36),ink,v_tint);
   vec2 uv=(gl_PointCoord-.5)*(u_footprint/u_glyphSize)+.5;
   float inside=step(0.,uv.x)*step(uv.x,1.)*step(0.,uv.y)*step(uv.y,1.);
   float mask=texture2D(u_atlas,vec2((v_glyph+clamp(uv.x,0.,1.))/16.,clamp(uv.y,0.,1.))).a*inside;
-  float opacity=mix(pow(v_energy,.72),pow(v_energy,.48)*.9,v_tint);
-  float halo=exp(-dot(gl_PointCoord-.5,gl_PointCoord-.5)*14.)*pow(v_energy,1.5)*.046;
-  gl_FragColor=vec4(color,min(.94,mask*opacity+halo));
+  float opacity=mix(pow(min(v_energy,1.),.8),.48+.48*sqrt(min(v_energy,1.)),v_tint);
+  float halo=exp(-dot(gl_PointCoord-.5,gl_PointCoord-.5)*12.)*pow(v_energy,2.)*.12*v_tint;
+  gl_FragColor=vec4(color,min(.98,mask*opacity+halo)*v_reveal);
 }`;
 
 function makeWebGL(){
@@ -121,9 +164,9 @@ function makeWebGL(){
   const compile=(type,source)=>{const shader=gl.createShader(type);gl.shaderSource(shader,source);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(shader));return shader;};
   const program=gl.createProgram(),shaders=[compile(gl.VERTEX_SHADER,vertex),compile(gl.FRAGMENT_SHADER,fragment)];
   shaders.forEach(s=>gl.attachShader(program,s));gl.linkProgram(program);
-  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));
-  gl.useProgram(program);shaders.forEach(s=>gl.deleteShader(s));
-  const locations=Object.fromEntries(['resolution','center','pointer','centers[0]','halves[0]','rotations[0]','time','ratio','unit','turn','pointerStrength','aa','footprint','glyphSize','mobile','blue','pink','atlas'].map(name=>[name,gl.getUniformLocation(program,`u_${name}`)]));
+  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));gl.useProgram(program);shaders.forEach(s=>gl.deleteShader(s));
+  const names=['resolution','center','pointer','centers[0]','halves[0]','rotations[0]','kinds[0]','time','reveal','flash','ratio','unit','turn','tilt','pointerStrength','aa','footprint','glyphSize','mobile','base','shadow','highlight','atlas'];
+  const locations=Object.fromEntries(names.map(name=>[name,gl.getUniformLocation(program,'u_'+name)]));
   const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
   const attribute=gl.getAttribLocation(program,'a_cell');gl.enableVertexAttribArray(attribute);gl.vertexAttribPointer(attribute,2,gl.FLOAT,false,0,0);
   const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,makeAtlas());gl.generateMipmap(gl.TEXTURE_2D);
@@ -132,52 +175,65 @@ function makeWebGL(){
   let count=0;
   return {type:'WebGL',resize(){
     const cells=[];let row=0;
-    for(let y=layout.top;y<height*.98;y+=PITCH,row++)for(let x=layout.left+PITCH*(row%2?.75:.25);x<width;x+=PITCH)cells.push(x,y);
-    count=cells.length/2;canvas.dataset.glyphCount=String(count);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(cells),gl.STATIC_DRAW);gl.viewport(0,0,canvas.width,canvas.height);
+    for(let y=layout.top;y<height;y+=PITCH,row++)for(let x=layout.left+PITCH*(row%2?.75:.25);x<width;x+=PITCH)cells.push(x,y);
+    count=cells.length/2;canvas.dataset.glyphCount=String(count);canvas.dataset.glyphPitch=String(PITCH);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(cells),gl.STATIC_DRAW);gl.viewport(0,0,canvas.width,canvas.height);
   },draw(scene){
-    scene.boxes.forEach((box,i)=>{centers.set(box.center,i*3);halves.set(box.half,i*3);rotations.set(box.rotation,i*4);});
-    gl.clearColor(8/255,12/255,24/255,1);gl.clear(gl.COLOR_BUFFER_BIT);
+    scene.boxes.forEach((box,i)=>{centers.set(box.center,i*3);halves.set(box.half,i*3);rotations.set(box.rotation,i*4);kinds[i]=box.kind;});
+    gl.clearColor(4/255,8/255,4/255,1);gl.clear(gl.COLOR_BUFFER_BIT);
     gl.uniform2f(locations.resolution,width,height);gl.uniform2fv(locations.center,layout.center);gl.uniform2f(locations.pointer,pointer.x,pointer.y);
-    gl.uniform3fv(locations['centers[0]'],centers);gl.uniform3fv(locations['halves[0]'],halves);gl.uniform4fv(locations['rotations[0]'],rotations);
-    gl.uniform3fv(locations.blue,parseHex(palette.blue));gl.uniform3fv(locations.pink,parseHex(palette.pink));
-    for(const [key,value] of Object.entries({time,ratio,unit:layout.unit,turn:scene.turn,pointerStrength:pointer.strength,aa:PITCH/layout.unit*.55,footprint:POINT_SIZE,glyphSize:GLYPH_SIZE,mobile:layout.mobile?1:0}))gl.uniform1f(locations[key],value);
+    gl.uniform3fv(locations['centers[0]'],centers);gl.uniform3fv(locations['halves[0]'],halves);gl.uniform4fv(locations['rotations[0]'],rotations);gl.uniform1fv(locations['kinds[0]'],kinds);
+    for(const key of ['base','shadow','highlight'])gl.uniform3fv(locations[key],ramp[key]);
+    const values={time,reveal:bootSkipped?BOOT:time,flash:scene.state.flash,ratio,unit:layout.unit,turn:scene.turn,tilt:scene.tilt,pointerStrength:pointer.strength,aa:PITCH/layout.unit*.45,footprint:POINT_SIZE,glyphSize:GLYPH_SIZE,mobile:layout.mobile?1:0};
+    for(const [key,value] of Object.entries(values))gl.uniform1f(locations[key],value);
     gl.drawArrays(gl.POINTS,0,count);
   }};
 }
-
 function makeFallback(){
   const ctx=canvas.getContext('2d');if(!ctx)return {type:'unavailable',resize(){},draw(){}};
-  let signature='',atlases=[];
+  let signature='',atlases=[],echoAtlas;
   return {type:'Canvas 2D',resize(){},draw(scene){
-    const next=palette.blue+palette.pink;
-    if(signature!==next){signature=next;const a=parseHex(palette.blue),b=parseHex(palette.pink);atlases=Array.from({length:8},(_,i)=>makeAtlas(`rgb(${a.map((v,k)=>Math.round((v+(b[k]-v)*i/7)*255)).join(',')})`));}
-    ctx.setTransform(ratio,0,0,ratio,0,0);ctx.globalAlpha=1;ctx.fillStyle='#080c18';ctx.fillRect(0,0,width,height);ctx.imageSmoothingEnabled=true;
+    if(signature!==color){signature=color;atlases=Array.from({length:12},(_,i)=>{const t=i/11,a=t<.65?ramp.shadow:ramp.base,b=t<.65?ramp.base:ramp.highlight,f=t<.65?t/.65:(t-.65)/.35;return makeAtlas(rgb(a.map((v,k)=>v+(b[k]-v)*f)));});echoAtlas=makeAtlas('#63735c');}
+    ctx.setTransform(ratio,0,0,ratio,0,0);ctx.globalAlpha=1;ctx.fillStyle='#040804';ctx.fillRect(0,0,width,height);
     const pitch=8.8;let row=0;
-    for(let y=layout.top;y<height*.95;y+=pitch,row++)for(let x=layout.left+pitch*(row%2?.75:.25);x<width;x+=pitch){
-      const hit=traceBoxes((x-layout.center[0])/layout.unit,(y-layout.center[1])/layout.unit,scene.boxes,scene.turn);if(!hit)continue;
-      const kind=Math.abs(Math.floor(x/21)*17+Math.floor(y/23)*7)%16;
-      ctx.globalAlpha=Math.pow(Math.min(1,.33+hit.rim*.45),.48)*.86;
-      ctx.drawImage(atlases[Math.round(hit.hue*7)],kind*64,0,64,64,x-GLYPH_SIZE/2,y-GLYPH_SIZE/2,GLYPH_SIZE,GLYPH_SIZE);
+    for(let y=layout.top;y<height;y+=pitch,row++)for(let x=layout.left+pitch*(row%2?.75:.25);x<width;x+=pitch){
+      const local=[(x-layout.center[0])/layout.unit,(y-layout.center[1])/layout.unit];
+      let hit=traceBoxes(...local,scene.boxes,scene.turn,scene.tilt),energy=0,main=!!hit,echo=0;
+      if(hit){const spark=hash(x+23,y+47)>.93?.22*smooth(.4,.75,hit.light):0;energy=highlightFlare(hit.light*(.56+.64*hash(x+7,y+7))+spark,scene.state.flash);}
+      for(const [dx,dy,scale,strength] of ECHOES){
+        const h=traceBoxes((local[0]-dx)/scale,(local[1]-dy)/scale,scene.boxes,scene.turn,scene.tilt);
+        if(h&&h.light*strength>echo){echo=h.light*strength;if(!hit)hit=h;}
+      }
+      if(!hit)continue;main=energy>=echo;energy=Math.max(energy,echo);
+      const envelope=Math.exp(-Math.pow(Math.hypot(local[0]/3.4,local[1]/2.9),4)*.25),edge=(1-smooth(height*.95,height,y))*(layout.mobile?1:smooth(width*.37,width*.48,x));
+      const reveal=revealAt(bootSkipped?BOOT:time,hash(x+17,y+53),hit.rim);
+      ctx.globalAlpha=Math.min(.97,main?.48+.48*Math.sqrt(Math.min(1,energy)):energy**.8)*envelope*edge*reveal;
+      const choice=Math.floor(hash(x+83,y+19)*32),kind=choice<16?choice:choice<21?0:choice<24?6:choice<27?9:choice<29?10:choice<31?13:14,atlas=main?atlases[Math.min(11,Math.round(energy*11))]:echoAtlas;
+      ctx.drawImage(atlas,kind*64,0,64,64,x-GLYPH_SIZE/2,y-GLYPH_SIZE/2,GLYPH_SIZE,GLYPH_SIZE);
     }
   }};
 }
 function sceneAtClock(){
-  if(morph){const progress=Math.max(0,Math.min(1,(time-morph.started)/TRANSITION));
-    if(progress<1){const blend=easeProgress(progress);return {boxes:mixBoxes(morph.boxes,SHAPES[morph.target],progress),state:{from:morph.from,to:morph.target,focus:blend<.5?morph.from:morph.target,transitioning:true}};}
-    morph=null;
+  if(manual){
+    const state=switchState(manual.from,manual.target,time-manual.started);
+    if(state.transitioning)return {state,boxes:SHAPES[state.focus]};
+    if(mode==='auto')sequenceOffset=FORMS.indexOf(manual.target)*STEP-Math.max(0,time-BOOT);
+    manual=null;
   }
-  return boxesAt(time+sequenceOffset,mode);
+  return boxesAt(Math.max(0,time-BOOT)+sequenceOffset,mode);
 }
 function draw(){
-  const scene=sceneAtClock();scene.turn=Math.sin(time*.13)*.045+pointer.turn;renderer.draw(scene);frames++;
-  const name=FORM_LABELS[scene.state.focus];formName.textContent=name;
-  canvas.dataset.form=scene.state.focus;canvas.dataset.time=time.toFixed(3);canvas.dataset.frame=String(frames);canvas.dataset.transitioning=String(scene.state.transitioning);canvas.dataset.turn=scene.turn.toFixed(4);
+  const scene=sceneAtClock();scene.turn=pointer.turn;scene.tilt=pointer.tilt;renderer.draw(scene);frames++;
+  formName.textContent=FORM_LABELS[scene.state.focus];
+  Object.assign(canvas.dataset,{form:scene.state.focus,time:time.toFixed(3),frame:String(frames),transitioning:String(scene.state.transitioning),phase:scene.state.phase,flash:scene.state.flash.toFixed(3),reveal:(bootSkipped?BOOT:Math.min(BOOT,time)).toFixed(3),turn:scene.turn.toFixed(4),tilt:scene.tilt.toFixed(4),echoCount:'3'});
 }
 function tick(now){
   request=0;if(paused||!visible||!inView){previous=0;return;}
-  const delta=previous?Math.min(.1,Math.max(0,(now-previous)/1000)):0;time+=delta;previous=now;
-  const response=1-Math.exp(-delta*5),target=pointer.x>-1000?(pointer.x/width-.5)*.22:0;
-  pointer.strength+=(pointer.x>-1000?1-pointer.strength:-pointer.strength)*response;pointer.turn+=(target-pointer.turn)*response;
+  const delta=previous?Math.min(.06,Math.max(0,(now-previous)/1000)):0;time+=delta;previous=now;
+  const response=1-Math.exp(-delta*7),active=pointer.x>-1000;
+  const turn=active?Math.max(-.3,Math.min(.3,(pointer.x-layout.center[0])/layout.unit*.17)):0;
+  const tilt=active?Math.max(-.16,Math.min(.16,(pointer.y-layout.center[1])/layout.unit*.12)):0;
+  pointer.strength+=((active?1:0)-pointer.strength)*response;pointer.turn+=(turn-pointer.turn)*response;pointer.tilt+=(tilt-pointer.tilt)*response;
   draw();request=requestAnimationFrame(tick);
 }
 function schedule(){if(!request&&!paused&&visible&&inView)request=requestAnimationFrame(tick);}
@@ -185,27 +241,30 @@ function setPaused(value){paused=value;previous=0;if(request)cancelAnimationFram
 function resize(){
   const rect=canvas.getBoundingClientRect();width=rect.width;height=rect.height;ratio=Math.min(2,Math.max(1.5,devicePixelRatio||1));
   const mobile=width<=900;
-  layout={mobile,center:[width*(mobile?.5:.7),height*(mobile?.68:.54)],unit:mobile?Math.min(155,width*.24):Math.min(195,width*.14),left:mobile?0:width*.37,top:height*(mobile?.43:.07)};
+  layout={mobile,center:[width*(mobile?.5:.7),height*(mobile?.68:.52)],unit:mobile?Math.min(155,width*.24):Math.min(195,width*.14),left:mobile?0:width*.37,top:height*(mobile?.43:.07)};
   canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);renderer.resize();draw();schedule();
 }
 function changeForm(requested,targetForm){
-  const source=sceneAtClock(),target=targetForm||(requested==='auto'?source.state.focus:requested);mode=requested;formControl.value=mode;
-  if(paused||(!source.state.transitioning&&source.state.focus===target)){morph=null;if(mode==='auto')sequenceOffset=FORMS.indexOf(target)*STEP-time;}
-  else{morph={boxes:source.boxes,from:source.state.focus,target,started:time};if(mode==='auto')sequenceOffset=FORMS.indexOf(target)*STEP-time-TRANSITION;}
+  const source=sceneAtClock(),target=targetForm||(requested==='auto'?source.state.focus:requested);
+  mode=requested;formControl.value=mode;bootSkipped=true;
+  if(paused||source.state.focus===target){manual=null;if(mode==='auto')sequenceOffset=FORMS.indexOf(target)*STEP-Math.max(0,time-BOOT);}
+  else if(manual){manual.target=target;} // Retarget without starting another flare.
+  else manual={from:source.state.focus,target,started:time};
   draw();schedule();
 }
 function nextForm(){const current=sceneAtClock().state.focus,next=FORMS[(FORMS.indexOf(current)+1)%FORMS.length];changeForm(mode==='auto'?'auto':next,next);canvas.dataset.interaction='next form';}
-function setColor(key,value){
+function setColor(value){
   if(!/^#[0-9a-f]{6}$/i.test(value))return false;
-  palette[key]=value.toLowerCase();document.documentElement.style.setProperty(`--${key}`,value);
-  document.querySelector(`#${key}-color`).value=value;document.querySelector(`#${key}-hex`).value=value.toUpperCase();document.querySelector(`#${key}-hex`).removeAttribute('aria-invalid');
-  canvas.dataset[key]=palette[key];draw();return true;
+  color=value.toLowerCase();ramp=paletteRamp(color);
+  document.documentElement.style.setProperty('--accent',color);document.documentElement.style.setProperty('--highlight',rgb(ramp.highlight));
+  document.querySelector('#base-color').value=color;document.querySelector('#base-hex').value=color.toUpperCase();document.querySelector('#base-hex').removeAttribute('aria-invalid');
+  canvas.dataset.color=color;draw();return true;
 }
 try{if(new URLSearchParams(location.search).get('renderer')!=='canvas')renderer=makeWebGL();}catch(error){console.warn('WebGL unavailable; using Canvas 2D:',error.message);}
 if(!renderer){const replacement=canvas.cloneNode();canvas.replaceWith(replacement);canvas=replacement;renderer=makeFallback();}
-canvas.dataset.renderer=renderer.type;canvas.dataset.blue=palette.blue;canvas.dataset.pink=palette.pink;
-canvas.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const rect=canvas.getBoundingClientRect();pointer.x=event.clientX-rect.left;pointer.y=event.clientY-rect.top;canvas.dataset.interaction='pointer';});
-canvas.addEventListener('pointerleave',()=>{pointer.x=-2000;pointer.y=-2000;});
+canvas.dataset.renderer=renderer.type;canvas.dataset.color=color;
+hero.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const rect=hero.getBoundingClientRect();pointer.x=event.clientX-rect.left;pointer.y=event.clientY-rect.top;canvas.dataset.interaction='pointer';});
+hero.addEventListener('pointerleave',()=>{pointer.x=-2000;pointer.y=-2000;});
 let down;
 canvas.addEventListener('pointerdown',event=>{down={x:event.clientX,y:event.clientY};});
 canvas.addEventListener('pointerup',event=>{if(down&&Math.hypot(event.clientX-down.x,event.clientY-down.y)<8)nextForm();down=null;});
@@ -214,17 +273,15 @@ canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();if(req
 canvas.addEventListener('webglcontextrestored',()=>{renderer=makeWebGL();canvas.dataset.renderer=renderer.type;resize();});
 pauseButton.addEventListener('click',()=>setPaused(!paused));
 formControl.addEventListener('change',()=>changeForm(formControl.value));
-document.querySelector('#reset-motion').addEventListener('click',()=>{time=0;previous=0;sequenceOffset=0;morph=null;mode='auto';formControl.value='auto';pointer.x=-2000;pointer.y=-2000;pointer.strength=0;pointer.turn=0;draw();});
-for(const key of ['blue','pink']){
-  const color=document.querySelector(`#${key}-color`),hex=document.querySelector(`#${key}-hex`);
-  color.addEventListener('input',()=>setColor(key,color.value));
-  hex.addEventListener('input',()=>{if(!setColor(key,hex.value))hex.setAttribute('aria-invalid','true');});
-  hex.addEventListener('blur',()=>{if(hex.getAttribute('aria-invalid')==='true'){hex.value=palette[key].toUpperCase();hex.removeAttribute('aria-invalid');}});
-}
-document.querySelector('#reset-colors').addEventListener('click',()=>{setColor('blue',DEFAULTS.blue);setColor('pink',DEFAULTS.pink);});
+document.querySelector('#reset-motion').addEventListener('click',()=>{time=0;previous=0;sequenceOffset=0;manual=null;mode='auto';bootSkipped=reducedMotion.matches;formControl.value='auto';Object.assign(pointer,{x:-2000,y:-2000,strength:0,turn:0,tilt:0});setPaused(reducedMotion.matches);draw();});
+const colorControl=document.querySelector('#base-color'),hexControl=document.querySelector('#base-hex');
+colorControl.addEventListener('input',()=>setColor(colorControl.value));
+hexControl.addEventListener('input',()=>{if(!setColor(hexControl.value))hexControl.setAttribute('aria-invalid','true');});
+hexControl.addEventListener('blur',()=>{if(hexControl.getAttribute('aria-invalid')==='true'){hexControl.value=color.toUpperCase();hexControl.removeAttribute('aria-invalid');}});
+document.querySelector('#reset-colors').addEventListener('click',()=>setColor(DEFAULT_COLOR));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')setPaused(true);});
 document.addEventListener('visibilitychange',()=>{visible=!document.hidden;previous=0;schedule();});
 new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;previous=0;schedule();}).observe(canvas);
 new ResizeObserver(resize).observe(canvas);
-reducedMotion.addEventListener('change',event=>{if(event.matches)setPaused(true);});
+reducedMotion.addEventListener('change',event=>{if(event.matches){bootSkipped=true;setPaused(true);draw();}});
 resize();setPaused(paused);
