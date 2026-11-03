@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: New math-cohort data-efficiency training grid
+Current stage: Human-reference training with separate 200-question development evaluation
 
-Next: 18/18 arm plans prepared; 10 completed, 1 running, 7 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:37:32.168066+00:00: monitoring its existing GPU call. This is a recorded snapshot, not a live process check.
+Next: 2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -685,3 +685,87 @@ Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed43_skill cal
 ## 2026-11-03T21:35:55.862266+00:00 | completed | Larger final-count and receipt contracts pass24 local checks
 
 Implemented separate dependency-free contracts for1000/full1319 questions and pure validators for source/checkpoint/sample identity, exact shards, legitimate seven-question tail, full-denominator failures and terminal-confirmed prefix recovery. All24 synthetic checks pass; default proposals remain unapproved. Actual loader/worker/controller integration, physical source verification, checkpoint choice, final freeze, access permit and paid execution are still pending. Existing256 executors, active training sources and budgets were unchanged.
+
+## 2026-11-03T21:42:28.782369+00:00 | completed | Study skill seed 43 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is skill; final test remains sealed.
+
+## 2026-11-03T21:42:50.901017+00:00 | in_progress | Study random seed 43 launched
+
+One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T21:42:51.862517+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed43_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T21:48:48.105980+00:00 | completed | Study random seed 43 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is random; final test remains sealed.
+
+## 2026-11-03T21:48:52.742180+00:00 | in_progress | Research improvement cycle
+
+After the current watcher releases and calls reconcile, use the independently reviewed human_study_control.py baseline200 tick with fresh funding. Never bypass its unique dispatch claim with a raw Modal launch.
+
+## 2026-11-03T21:49:04.577372+00:00 | completed | Bounded study watcher stopped
+
+The local watcher stopped: approved grid completed. Existing detached calls are preserved. No watcher was restarted, no endpoint deployed and no extra protocol approved.
+
+## 2026-11-03T21:51:37.159736+00:00 | in_progress | Human-study baseline launched
+
+One independently prepared human-reference development call was claimed and launched with protected5 retained. No existing grid, teacher or official-test job was launched.
+
+## 2026-11-03T21:55:25.532959+00:00 | completed | All twelve approved valuation arms completed
+
+The two-budget/two-seed controlled block is complete. At32768tokens random scored57/55, skill56/54 and gradient56/54; at65536tokens random56/58, skill56/58 and gradient56/56. Neither ranker beat random in any matched seed/budget. Every adapted score remained at or below the matched original58/64. These are adaptive64-question development results;131072plans remain deferred. The project continues into the separately prepared human-reference and reasoning stages.
+
+## 2026-11-03T21:55:25.539974+00:00 | in_progress | Paired teacher-reasoning feasibility collection started
+
+Started the separately reviewed32-question/64-request pilot after the previous watcher exited and fresh official funding observations supported its unique1USD reservation. Four workers preserve exact raw wire receipts, no automatic retries and a0.8177664USD peak bound. This is teacher-data feasibility; no new Granite training result or official-test access is implied.
+
+## 2026-11-03T21:59:40.103361+00:00 | completed | Paired teacher-reasoning pilot completed
+
+Saved all64 original responses for32 unused training questions, with0API failures and no retries.29 question pairs passed full-response/reference-match/context checks. Complete paired targets provide3552 concise versus9643 thinking supervised tokens; the longer traces include7544 reasoning tokens. One thinking response hit its cap, and two concise numeric mismatches were retained. Peak token estimate0.07909044USD, rounded0.08 for accounting; actual wallet cost remains separately reconciled. No new Granite training or accuracy gain is claimed.
+
+## 2026-11-03T21:59:59.366425+00:00 | in_progress | Research improvement cycle
+
+Poll the saved human-study call through human_study_control.py. Keep its separate200 development questions and original outputs isolated from training and the old64-question report.
+
+## 2026-11-03T22:04:21.981361+00:00 | completed | Study baseline seed 42 completed
+
+Saved immutable 0-token development artifacts. Exact selector identity is baseline; final test remains sealed.
+
+## 2026-11-03T22:05:46.876489+00:00 | completed | Human baseline200 calibrated
+
+Completed baseline development outputs and observed generation time were validated. Human pair remains separately reviewed and unfunded until protected phase funding is available.
+
+## 2026-11-03T22:07:49.539133+00:00 | completed | Original Granite baseline200 measured
+
+Untouched pinned Granite completed179/200 numeric matches with8truncated outputs counted as failures on the separate human-reference development set. This is89.5percent development accuracy, not official-test performance.592.23seconds elapsed,398.47seconds amortized generation; no training tokens or optimizer updates. The frozen random/skill64k forecasts1014/1060seconds passed the unchanged1250 planning threshold; separate whole-pair funding and one-GPU checks remain required.
+
+## 2026-11-03T22:08:19.093403+00:00 | in_progress | Human-study random launched
+
+One independently prepared human-reference development call was claimed and launched with protected5 retained. No existing grid, teacher or official-test job was launched.
+
+## 2026-11-03T22:11:49.446686+00:00 | completed | Physical final-seal and loader components pass50 focused checks
+
+Added separate source/checkpoint verification and permit-first loader modules for the proposed1000/full1319 protocol. Fifty synthetic contract/receipt/seal/loader checks pass; old256 source hashes and actual official-test isolation are unchanged. Physical source files, actual64/200 development evidence, structural adapter files, shared access ownership and raw-byte recovery are checked. ScaledGPU/teacher executors and paid controller integration remain unfinished, and no actual final choice, seal, permit or test-data read occurred.
+
+## 2026-11-03T22:17:51.142148+00:00 | resolved | Final-scale loader validates destinations before writing
+
+Independent review found two local path-validation failures. The separate future loader now rejects forbidden destinations and linked state files before writes. All52 combined synthetic contract, receipt, physical-seal and loader checks pass. Existing256 executors and active human-study sources are unchanged; no official-test permit, data access or paid final job occurred. Scaled GPU/teacher/controller integration remains unfinished.
+
+## 2026-11-03T22:18:50.739483+00:00 | completed | Study random seed 42 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is random; final test remains sealed.
+
+## 2026-11-03T22:20:07.222650+00:00 | in_progress | Human-study skill launched
+
+One independently prepared human-reference development call was claimed and launched with protected5 retained. No existing grid, teacher or official-test job was launched.
+
+## 2026-11-03T22:20:30.773792+00:00 | completed | Human-reference random control completed174/200
+
+The separately frozen human200 development evaluation validated174correct answers and2truncations after65536 supervisedtokens and64updates, versus untouched Granite179/200 with8truncations. Fewer truncated answers did not produce an accuracy gain. The matched skill arm has now launched under the same recipe; its comparison remains pending. These200 TRAIN-split questions are separate from old64 monitoring and sealed official test.
+
+## 2026-11-03T22:21:23.039905+00:00 | resolved | Dashboard separates the200-question study from completed primary arms
+
+The dashboard now reads the validated human-study report, displaying completed base/random scores and unavailable pending metrics. The earlier multi-source panel distinguishes12completed primary arms from6deferred near-all-data plans. Paired uncertainty is shown only when matching completed receipts exist. Syntax and DOM fixture checks cover pending and completed rendering, deferred boundaries and duplicate IDs.

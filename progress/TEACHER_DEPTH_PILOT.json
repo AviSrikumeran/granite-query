@@ -1,55 +1,94 @@
 {
   "schema_version": 1,
   "run_id": "teacher_depth32_v1",
-  "stage": "prepared_unpaid",
+  "stage": "completed",
   "requested_questions": 32,
   "requested_original_calls": 64,
-  "completed_original_calls": 0,
-  "eligible_question_pairs": 0,
+  "completed_original_calls": 64,
+  "eligible_question_pairs": 29,
   "conditions": {
     "concise": {
       "requested_output_cap": 1024,
       "thinking_parameter": "disabled",
-      "completed": 0,
-      "individually_eligible": 0,
-      "complete": 0,
-      "numeric_final_match": 0,
-      "full_context_fit": 0,
-      "paired_eligible_supervised_tokens": 0,
+      "completed": 32,
+      "individually_eligible": 30,
+      "complete": 32,
+      "numeric_final_match": 30,
+      "full_context_fit": 32,
+      "paired_eligible_supervised_tokens": 3552,
       "paired_reasoning_tokens": 0,
       "paired_token_distributions": {
-        "supervised_tokens": null,
-        "reasoning_tokens": null,
-        "visible_content_tokens": null,
-        "context_tokens": null
+        "supervised_tokens": {
+          "min": 50,
+          "median": 105,
+          "max": 241
+        },
+        "reasoning_tokens": {
+          "min": 0,
+          "median": 0,
+          "max": 0
+        },
+        "visible_content_tokens": {
+          "min": 47,
+          "median": 102,
+          "max": 238
+        },
+        "context_tokens": {
+          "min": 143,
+          "median": 203,
+          "max": 396
+        }
       },
-      "rejection_counts": {}
+      "rejection_counts": {
+        "unparsed_or_reference_mismatch": 2
+      }
     },
     "thinking": {
       "requested_output_cap": 4096,
       "thinking_parameter": "enabled/high",
-      "completed": 0,
-      "individually_eligible": 0,
-      "complete": 0,
-      "numeric_final_match": 0,
-      "full_context_fit": 0,
-      "paired_eligible_supervised_tokens": 0,
-      "paired_reasoning_tokens": 0,
+      "completed": 32,
+      "individually_eligible": 31,
+      "complete": 31,
+      "numeric_final_match": 31,
+      "full_context_fit": 31,
+      "paired_eligible_supervised_tokens": 9643,
+      "paired_reasoning_tokens": 7544,
       "paired_token_distributions": {
-        "supervised_tokens": null,
-        "reasoning_tokens": null,
-        "visible_content_tokens": null,
-        "context_tokens": null
+        "supervised_tokens": {
+          "min": 94,
+          "median": 171,
+          "max": 1776
+        },
+        "reasoning_tokens": {
+          "min": 53,
+          "median": 102,
+          "max": 1733
+        },
+        "visible_content_tokens": {
+          "min": 35,
+          "median": 61,
+          "max": 133
+        },
+        "context_tokens": {
+          "min": 183,
+          "median": 270,
+          "max": 1854
+        }
       },
-      "rejection_counts": {}
+      "rejection_counts": {
+        "failed_or_nonstop_completion": 1,
+        "missing_visible_answer": 1,
+        "unparsed_or_reference_mismatch": 1,
+        "student_context_over4096": 1
+      }
     }
   },
   "halt_reason": null,
   "otherwise_eligible_pairs_with_returned_model_mismatch": 0,
   "failed_attempts": 0,
   "unknown_usage_attempts": 0,
-  "recorded_peak_token_estimate_usd": 0.0,
-  "cost_note": "Recorded usage estimate excludes unknown failed-attempt charges; not a provider invoice. Frozen original-call bound remains0.8177664USD and requires its own1USD reservation before collection.",
+  "recorded_peak_token_estimate_usd": 0.07909043999999998,
+  "cost_note": "All64 original receipts contain usage. Recorded peak-rate token estimate is0.07909044USD, rounded0.08 for local accounting, not a provider invoice. The separate1USD collection allowance was reserved before dispatch and released only after completed receipts and collector termination were verified.",
   "conservative_max_cost_usd": 0.8177664,
   "funds_reserved_by_preparation": false,
   "new_student_training": false,
@@ -71,6 +110,9 @@
     "design_sha256": "bbb2b537ee01de255861fdff4b2aa224771a7b5390516634397194dfab4cba70"
   },
   "prior_exposure_limit": "Project-disjoint teaching/development questions, not globally unseen text: the historical BM25 corpus included GSM training text. Synthetic ancestry checks are incomplete.",
-  "updated_at_utc": "2026-11-03T21:00:00.929955+00:00",
-  "interpretation": "Feasibility only: paired modes also change output caps. Correct final numbers do not prove correct explanations, and the verified/full-fit intersection can select easier shorter questions. No Granite improvement has been measured by this pilot."
+  "updated_at_utc": "2026-11-03T21:59:40.059586+00:00",
+  "interpretation": "Feasibility only: paired modes also change output caps. Correct final numbers do not prove correct explanations, and the verified/full-fit intersection can select easier shorter questions. No Granite improvement has been measured by this pilot.",
+  "collection_reservation_usd": 1,
+  "collection_reservation_status": "settled_completed",
+  "accounted_upper_estimate_usd": 0.08
 }

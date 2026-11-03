@@ -211,13 +211,13 @@
     },
     {
       "title": "New math-cohort data-efficiency training grid",
-      "status": "running",
-      "detail": "18/18 arm plans prepared; 10 completed, 1 running, 7 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:37:32.168066+00:00: monitoring its existing GPU call. This is a recorded snapshot, not a live process check."
+      "status": "deferred",
+      "detail": "18/18 arm plans prepared; 12 completed, 0 running, 6 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check."
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
-      "status": "queued",
-      "detail": "0/3 validated jobs completed on 200 separate training-split development questions. baseline: queued; random: queued; skill: queued. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: pending_baseline. Pair review: blocked_by_baseline_calibration. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit."
+      "status": "running",
+      "detail": "2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit."
     },
     {
       "title": "Human-reference DeepSeek teaching chunks",
@@ -226,8 +226,8 @@
     },
     {
       "title": "Paired teacher-reasoning feasibility pilot",
-      "status": "queued",
-      "detail": "Last recorded snapshot: 0/64 original responses across 32 separate training questions; 0 complete, reference-matched pairs fit the student context. The separately funded pilot compares concise and thinking outputs under different output caps. It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain."
+      "status": "completed",
+      "detail": "Last recorded snapshot: 64/64 original responses across 32 separate training questions; 29 complete, reference-matched pairs fit the student context. The separately funded pilot compares concise and thinking outputs under different output caps. It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain."
     },
     {
       "title": "Capped Granite API trial",
@@ -244,5 +244,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T21:37:37.969210+00:00"
+  "updated_at_utc": "2026-11-03T22:21:29.394415+00:00"
 }

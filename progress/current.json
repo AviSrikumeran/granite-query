@@ -1,5 +1,6 @@
 {
-  "stage": "Multi-source random, skill and gradient controlled training",
+  "stage": "Human-reference study: ranked64k training and200-question development evaluation; random control completed174/200 versus base179/200",
   "training_completed": true,
-  "held_out_evaluation_completed": false
+  "held_out_evaluation_completed": false,
+  "active_run_id": "human_study64k_dev200_seed42_v2_seed42_skill"
 }

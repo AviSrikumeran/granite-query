@@ -5,13 +5,16 @@
   const number = value => Number.isFinite(value) ? value.toLocaleString() : 'not reported';
   const labels = {random: 'Random', skill: 'Skill and diversity', gradient: 'Model-gradient selection'};
   let loaded = false;
+  const deferred = arm => arm.budget_role === 'near_all_data_reference'
+    && arm.token_budget === 131072 && arm.status === 'prepared';
 
   function counts(arms) {
-    const result = {completed: 0, running: 0, pending: 0, issues: 0};
+    const result = {completed: 0, running: 0, pending: 0, deferred: 0, issues: 0};
     for (const arm of arms) {
       if (arm.status === 'completed' && arm.metrics && integer(arm.metrics.numeric_correct) && arm.metrics.count === 64) result.completed++;
       else if (arm.status === 'running') result.running++;
       else if (['failed', 'invalid_result', 'ambiguous_launch'].includes(arm.status)) result.issues++;
+      else if (deferred(arm)) result.deferred++;
       else result.pending++;
     }
     return result;
@@ -26,7 +29,7 @@
         for (const selector of ['random', 'skill', 'gradient']) {
           const arm = seed.arms?.[selector];
           if (arm) {
-            const record = {...arm, seed: seed.seed, selector, token_budget: budget.token_budget};
+            const record = {...arm, seed: seed.seed, selector, token_budget: budget.token_budget, budget_role: budget.budget_role};
             arms.push(record); records.push(record);
           }
         }
@@ -35,21 +38,30 @@
       budgets.push({budget, records, counts: counts(records)});
     }
     const status = counts(arms), completed = arms.filter(arm => arm.status === 'completed' && arm.metrics?.count === 64 && integer(arm.metrics.numeric_correct));
+    const primary = arms.filter(arm => arm.budget_role !== 'near_all_data_reference'), primaryStatus = counts(primary);
     get('efficiency-panel').hidden = false;
-    get('efficiency-completed').textContent = `${status.completed} / ${data.planned_arms}`;
+    get('efficiency-completed').textContent = `${primaryStatus.completed} / ${primary.length}`;
     get('efficiency-running').textContent = String(status.running);
     get('efficiency-pending').textContent = String(status.pending);
+    get('efficiency-deferred').textContent = String(status.deferred);
+    get('efficiency-scope').textContent = primaryStatus.completed === primary.length
+      ? 'Multi-source study · reviewed primary arms complete' : 'Multi-source study · primary evaluations in progress';
     get('efficiency-issues').hidden = status.issues === 0;
     get('efficiency-issues').textContent = status.issues ? `${status.issues} run(s) need failure or launch reconciliation. They have no assigned accuracy.` : '';
     const pool = data.cohort?.available_supervised_tokens;
-    get('efficiency-summary').textContent = `A new shared multi-source math pool tests random, skill and gradient selection at ${data.budgets.length} training budgets and two seeds.${Number.isFinite(pool) ? ' Available answer tokens: ' + number(pool) + '.' : ''} Each comparison uses the same 64 monitoring questions. This is adaptive development evidence, not final-test accuracy.`;
+    get('efficiency-summary').textContent = `${primaryStatus.completed}/${primary.length} reviewed primary arms are complete; ${data.planned_arms} prepared plans are retained in total. `
+      + `${status.deferred} prepared 131,072-token reference plans are deferred, with limited selection contrast; they are not imminent queued work. `
+      + `Random, skill and gradient use the same multi-source math pool and two seeds.${Number.isFinite(pool) ? ' Available answer tokens: ' + number(pool) + '.' : ''} `
+      + 'Each comparison uses the same 64 monitoring questions, separately from the human study’s 200 questions. This is adaptive development evidence, not final-test accuracy. Prepared plans do not establish funding or launch readiness.';
     const active = arms.filter(arm => arm.status === 'running');
     const describe = arm => `${labels[arm.selector]} · seed ${arm.seed} · ${number(arm.token_budget)} training tokens`;
     get('efficiency-action').textContent = active.length
       ? 'Running now: ' + active.map(describe).join('; ') + '. Scores appear only after a full evaluation is saved.'
+      : primaryStatus.completed === primary.length && status.pending === 0 && status.issues === 0
+        ? `All ${primary.length} reviewed primary training evaluations are complete. ${status.deferred} larger reference plans remain deferred. The independent human-reference study is shown above; final evaluation and serving require separate review.`
       : status.completed === data.planned_arms
         ? 'All planned training evaluations are complete. Final checkpoint evaluation and model serving remain separate stages.'
-        : 'Next queued: ' + (arms.find(arm => ['prepared', 'queued', 'not_prepared'].includes(arm.status)) ? describe(arms.find(arm => ['prepared', 'queued', 'not_prepared'].includes(arm.status))) : 'review the incomplete attempts') + '.';
+        : 'Awaiting review or dispatch: ' + (arms.find(arm => !deferred(arm) && ['prepared', 'queued', 'not_prepared'].includes(arm.status)) ? describe(arms.find(arm => !deferred(arm) && ['prepared', 'queued', 'not_prepared'].includes(arm.status))) : 'review the incomplete attempts') + '. Preparation alone does not establish funding readiness.';
     get('efficiency-interpretation').textContent = pairs.length
       ? `${pairs.length} budget/seed comparison(s) now include a completed selected arm and its random control. Use the paired report to assess corrected answers, regressions and uncertainty; a higher individual score alone does not establish robust improvement.`
       : 'No matched selector comparison is complete yet. A completed random arm alone cannot show that skill or gradient selection adds value.';
@@ -76,7 +88,7 @@
     for (const entry of budgets) {
       const {budget, counts: c} = entry, item = document.createElement('li');
       const role = budget.budget_role === 'near_all_data_reference' ? ' Near-all-data reference: limited selection contrast.' : '';
-      item.textContent = `${number(budget.token_budget)} tokens: ${c.completed}/${budget.planned_arms} complete, ${c.running} running, ${c.pending} pending.${role}`;
+      item.textContent = `${number(budget.token_budget)} tokens: ${c.completed}/${budget.planned_arms} complete, ${c.running} running, ${c.pending} pending, ${c.deferred} deferred.${role}`;
       budgetList.append(item);
     }
     const base = data.batched_base_control;

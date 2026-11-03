@@ -2,23 +2,23 @@
 
 New200 development questions; earlier64-question studies remain separate. Official test data remains sealed.
 
-Status: queued. Validated completed jobs: 0/3.
+Status: running. Validated completed jobs: 2/3.
 
 | Checkpoint | Status | Numeric correct | Truncated | Actual answer tokens | Updates | Planned examples | Planned forwarded tokens |
 |---|---|---:|---:|---:|---:|---:|---:|
-| baseline | queued | unavailable | unavailable | pending | pending | 0 | 0 |
-| random | queued | unavailable | unavailable | pending | pending | 561 | 136319 |
-| skill | queued | unavailable | unavailable | pending | pending | 766 | 150600 |
+| baseline | completed | 179/200 | 8 | 0 | 0 | 0 | 0 |
+| random | completed | 174/200 | 2 | 65536 | 64 | 561 | 136319 |
+| skill | running | unavailable | unavailable | pending | pending | 766 | 150600 |
 
 ## Same200 paired comparisons
 
 - skill_vs_random: unavailable until both complete evaluations validate.
-- random_vs_baseline: unavailable until both complete evaluations validate.
+- random_vs_baseline: -2.50 percentage points; corrected 7, regressed 12; paired question-bootstrap95% [-7.00, +1.50] pp; exploratory McNemar p=0.3593.
 - skill_vs_baseline: unavailable until both complete evaluations validate.
 
 ## Runtime calibration and review
 
-Baseline calibration: pending_baseline. Baseline review: reviewed. Pair review: blocked_by_baseline_calibration.
+Baseline calibration: validated. Baseline review: reviewed. Pair review: reviewed.
 A separately funded pair still requires a calibrated baseline and exact phase review. This report does not inspect funding or authorize work.
 
 ## Limits

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T21:37:44.532598+00:00",
+  "generated_at_utc": "2026-11-03T22:21:36.764980+00:00",
   "title": "Human-reference random versus skill development study",
   "study_id": "human-reference64k-dev200-v2",
   "study_manifest_sha256": "d8e09084029de9cb2d89a6dd0e8fc630592d412e7cb6510f738e34e15e78a270",
-  "status": "queued",
-  "completed_jobs": 0,
+  "status": "running",
+  "completed_jobs": 2,
   "planned_jobs": 3,
   "official_test_used": false,
   "launch_evidence": {
-    "uniquely_observed_calls": 0,
+    "uniquely_observed_calls": 3,
     "ambiguous_jobs": 0,
     "preparation_manifest_is_not_live_launch_status": true
   },
@@ -44,8 +44,8 @@
     "baseline": {
       "selector": "baseline",
       "seed": 42,
-      "status": "queued",
-      "observation": "No unique local dispatch receipt is present.",
+      "status": "completed",
+      "observation": "Unique terminal call and all200 development outcomes validated.",
       "planned_supervised_tokens": 0,
       "planned_optimizer_updates": 0,
       "planned_exposure": {
@@ -55,25 +55,42 @@
         "supervised_tokens": 0,
         "updates": 0
       },
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "actual_exposure": null,
-      "metrics": null,
-      "accuracy_percent": null,
-      "question_wilson_95_interval_percent": null,
-      "worker_elapsed_seconds": null,
+      "actual_supervised_tokens": 0,
+      "actual_optimizer_updates": 0,
+      "actual_exposure": {
+        "examples": 0,
+        "response_windows": 0,
+        "forwarded_input_tokens": 0,
+        "supervised_tokens": 0,
+        "updates": 0
+      },
+      "metrics": {
+        "count": 200,
+        "numeric_correct": 179,
+        "strict_format_correct": 179,
+        "truncated": 8,
+        "latency_seconds_total": 398.4672118070001,
+        "generated_tokens": 31598,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "accuracy_percent": 89.5,
+      "question_wilson_95_interval_percent": [
+        84.48196800887696,
+        93.02925120731899
+      ],
+      "worker_elapsed_seconds": 592.229043134,
       "observed_supervised_tokens": null,
       "observed_optimizer_updates": null,
-      "unique_call_observed": false,
+      "unique_call_observed": true,
       "protocol_hash": "5fb33e087f1fd6c55af06cb8781d64434f9d68d9961221a6efa3b107c9e38c6d",
-      "result_sha256": null,
-      "last_observed_worker_stage": null
+      "result_sha256": "89288ba3b9b08f7f77d51bbb6fc255b5d82324d2ca123f10ebca7c287a1abd78",
+      "last_observed_worker_stage": "evaluation"
     },
     "random": {
       "selector": "random",
       "seed": 42,
-      "status": "queued",
-      "observation": "No unique local dispatch receipt is present.",
+      "status": "completed",
+      "observation": "Unique terminal call and all200 development outcomes validated.",
       "planned_supervised_tokens": 65536,
       "planned_optimizer_updates": 64,
       "planned_exposure": {
@@ -83,25 +100,42 @@
         "supervised_tokens": 65536,
         "updates": 64
       },
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "actual_exposure": null,
-      "metrics": null,
-      "accuracy_percent": null,
-      "question_wilson_95_interval_percent": null,
-      "worker_elapsed_seconds": null,
+      "actual_supervised_tokens": 65536,
+      "actual_optimizer_updates": 64,
+      "actual_exposure": {
+        "examples": 561,
+        "response_windows": 623,
+        "forwarded_input_tokens": 136319,
+        "supervised_tokens": 65536,
+        "updates": 64
+      },
+      "metrics": {
+        "count": 200,
+        "numeric_correct": 174,
+        "strict_format_correct": 174,
+        "truncated": 2,
+        "latency_seconds_total": 366.3578939419998,
+        "generated_tokens": 24619,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "accuracy_percent": 87.0,
+      "question_wilson_95_interval_percent": [
+        81.63364812775158,
+        90.97179772033067
+      ],
+      "worker_elapsed_seconds": 620.290398995,
       "observed_supervised_tokens": null,
       "observed_optimizer_updates": null,
-      "unique_call_observed": false,
+      "unique_call_observed": true,
       "protocol_hash": "55e173a24246bdd4bf60ec6bab0f1bfc53d7925dc1107ac92365ece9f541303e",
-      "result_sha256": null,
-      "last_observed_worker_stage": null
+      "result_sha256": "b5a36bacddad3e33f8384ecdba7084803a2cb36f5ed7de93c9acfbff8937c464",
+      "last_observed_worker_stage": "evaluation"
     },
     "skill": {
       "selector": "skill",
       "seed": 42,
-      "status": "queued",
-      "observation": "No unique local dispatch receipt is present.",
+      "status": "running",
+      "observation": "Unique submitted call; this is last observed local progress, not a live provider check.",
       "planned_supervised_tokens": 65536,
       "planned_optimizer_updates": 64,
       "planned_exposure": {
@@ -120,7 +154,7 @@
       "worker_elapsed_seconds": null,
       "observed_supervised_tokens": null,
       "observed_optimizer_updates": null,
-      "unique_call_observed": false,
+      "unique_call_observed": true,
       "protocol_hash": "a29f814687f28fdd87638293a08dc3710e720ac876f55b978f8c3062d8b2b566",
       "result_sha256": null,
       "last_observed_worker_stage": null
@@ -132,8 +166,21 @@
       "statistics": null
     },
     "random_vs_baseline": {
-      "status": "unavailable",
-      "statistics": null
+      "status": "completed",
+      "statistics": {
+        "count": 200,
+        "corrected": 7,
+        "regressed": 12,
+        "difference_percentage_points": -2.5,
+        "paired_bootstrap_95_interval_pp": [
+          -7.0,
+          1.5
+        ],
+        "mcnemar_exact_two_sided_p": 0.359283447265625,
+        "bootstrap_seed": 20261103,
+        "bootstrap_resamples": 20000,
+        "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+      }
     },
     "skill_vs_baseline": {
       "status": "unavailable",
@@ -142,9 +189,12 @@
   },
   "runtime_and_review": {
     "calibration": {
-      "status": "pending_baseline",
-      "pair_runtime_feasible": null,
-      "forecast_seconds": null,
+      "status": "validated",
+      "pair_runtime_feasible": true,
+      "forecast_seconds": {
+        "random": 1014.305,
+        "skill": 1060.004
+      },
       "planning_forecast_limit_seconds": 1250,
       "planning_completion_guard_seconds": 1550,
       "actual_worker_guards_seconds": {
@@ -154,10 +204,33 @@
       }
     },
     "baseline_review": "reviewed",
-    "pair_review": "blocked_by_baseline_calibration",
+    "pair_review": "reviewed",
     "funding_inspected": false
   },
-  "points": [],
+  "points": [
+    {
+      "selector": "baseline",
+      "supervised_tokens": 0,
+      "numeric_correct": 179,
+      "count": 200,
+      "accuracy_percent": 89.5,
+      "question_wilson_95_interval_percent": [
+        84.48196800887696,
+        93.02925120731899
+      ]
+    },
+    {
+      "selector": "random",
+      "supervised_tokens": 65536,
+      "numeric_correct": 174,
+      "count": 200,
+      "accuracy_percent": 87.0,
+      "question_wilson_95_interval_percent": [
+        81.63364812775158,
+        90.97179772033067
+      ]
+    }
+  ],
   "limitations": [
     "This is an exploratory seed42 source and curriculum transfer study, not a robust causal ranking claim.",
     "The new200 questions are training-split development questions. Earlier64-question results are separate history and are not joined into this improvement curve.",

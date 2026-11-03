@@ -1181,5 +1181,152 @@
     "kind": "completed",
     "title": "Larger final-count and receipt contracts pass24 local checks",
     "detail": "Implemented separate dependency-free contracts for1000/full1319 questions and pure validators for source/checkpoint/sample identity, exact shards, legitimate seven-question tail, full-denominator failures and terminal-confirmed prefix recovery. All24 synthetic checks pass; default proposals remain unapproved. Actual loader/worker/controller integration, physical source verification, checkpoint choice, final freeze, access permit and paid execution are still pending. Existing256 executors, active training sources and budgets were unchanged."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed43_skill-study-terminal",
+    "at_utc": "2026-11-03T21:42:28.782369+00:00",
+    "kind": "completed",
+    "title": "Study skill seed 43 completed",
+    "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is skill; final test remains sealed."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed43_random-study-launched",
+    "at_utc": "2026-11-03T21:42:50.901017+00:00",
+    "kind": "in_progress",
+    "title": "Study random seed 43 launched",
+    "detail": "One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+  },
+  {
+    "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed43_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+    "at_utc": "2026-11-03T21:42:51.862517+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed43_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed43_random-study-terminal",
+    "at_utc": "2026-11-03T21:48:48.105980+00:00",
+    "kind": "completed",
+    "title": "Study random seed 43 completed",
+    "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is random; final test remains sealed."
+  },
+  {
+    "id": "supervisor-next-After the current watcher releases and calls reconcile, use the independently reviewed human_study_control.py baseline200 tick with fresh funding. Never bypass its unique dispatch claim with a raw Modal launch.",
+    "at_utc": "2026-11-03T21:48:52.742180+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "After the current watcher releases and calls reconcile, use the independently reviewed human_study_control.py baseline200 tick with fresh funding. Never bypass its unique dispatch claim with a raw Modal launch."
+  },
+  {
+    "id": "data_efficiency_math_v1-study-watch-stop-7aa7ace8f2be4d83ba9db3801d15c7e7",
+    "at_utc": "2026-11-03T21:49:04.577372+00:00",
+    "kind": "completed",
+    "title": "Bounded study watcher stopped",
+    "detail": "The local watcher stopped: approved grid completed. Existing detached calls are preserved. No watcher was restarted, no endpoint deployed and no extra protocol approved."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2_seed42_baseline-human-launched",
+    "at_utc": "2026-11-03T21:51:37.159736+00:00",
+    "kind": "in_progress",
+    "title": "Human-study baseline launched",
+    "detail": "One independently prepared human-reference development call was claimed and launched with protected5 retained. No existing grid, teacher or official-test job was launched."
+  },
+  {
+    "id": "data_efficiency_math_v1-primary12-analyzed",
+    "at_utc": "2026-11-03T21:55:25.532959+00:00",
+    "kind": "completed",
+    "title": "All twelve approved valuation arms completed",
+    "detail": "The two-budget/two-seed controlled block is complete. At32768tokens random scored57/55, skill56/54 and gradient56/54; at65536tokens random56/58, skill56/58 and gradient56/56. Neither ranker beat random in any matched seed/budget. Every adapted score remained at or below the matched original58/64. These are adaptive64-question development results;131072plans remain deferred. The project continues into the separately prepared human-reference and reasoning stages."
+  },
+  {
+    "id": "teacher_depth32_v1-collector-started",
+    "at_utc": "2026-11-03T21:55:25.539974+00:00",
+    "kind": "in_progress",
+    "title": "Paired teacher-reasoning feasibility collection started",
+    "detail": "Started the separately reviewed32-question/64-request pilot after the previous watcher exited and fresh official funding observations supported its unique1USD reservation. Four workers preserve exact raw wire receipts, no automatic retries and a0.8177664USD peak bound. This is teacher-data feasibility; no new Granite training result or official-test access is implied."
+  },
+  {
+    "id": "teacher_depth32_v1-completed-reviewed",
+    "at_utc": "2026-11-03T21:59:40.103361+00:00",
+    "kind": "completed",
+    "title": "Paired teacher-reasoning pilot completed",
+    "detail": "Saved all64 original responses for32 unused training questions, with0API failures and no retries.29 question pairs passed full-response/reference-match/context checks. Complete paired targets provide3552 concise versus9643 thinking supervised tokens; the longer traces include7544 reasoning tokens. One thinking response hit its cap, and two concise numeric mismatches were retained. Peak token estimate0.07909044USD, rounded0.08 for accounting; actual wallet cost remains separately reconciled. No new Granite training or accuracy gain is claimed."
+  },
+  {
+    "id": "supervisor-next-Poll the saved human-study call through human_study_control.py. Keep its separate200 development questions and original outputs isolated from training and the old64-question report.",
+    "at_utc": "2026-11-03T21:59:59.366425+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved human-study call through human_study_control.py. Keep its separate200 development questions and original outputs isolated from training and the old64-question report."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2_seed42_baseline-study-terminal",
+    "at_utc": "2026-11-03T22:04:21.981361+00:00",
+    "kind": "completed",
+    "title": "Study baseline seed 42 completed",
+    "detail": "Saved immutable 0-token development artifacts. Exact selector identity is baseline; final test remains sealed."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2-baseline-calibrated",
+    "at_utc": "2026-11-03T22:05:46.876489+00:00",
+    "kind": "completed",
+    "title": "Human baseline200 calibrated",
+    "detail": "Completed baseline development outputs and observed generation time were validated. Human pair remains separately reviewed and unfunded until protected phase funding is available."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2-baseline-reviewed",
+    "at_utc": "2026-11-03T22:07:49.539133+00:00",
+    "kind": "completed",
+    "title": "Original Granite baseline200 measured",
+    "detail": "Untouched pinned Granite completed179/200 numeric matches with8truncated outputs counted as failures on the separate human-reference development set. This is89.5percent development accuracy, not official-test performance.592.23seconds elapsed,398.47seconds amortized generation; no training tokens or optimizer updates. The frozen random/skill64k forecasts1014/1060seconds passed the unchanged1250 planning threshold; separate whole-pair funding and one-GPU checks remain required."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2_seed42_random-human-launched",
+    "at_utc": "2026-11-03T22:08:19.093403+00:00",
+    "kind": "in_progress",
+    "title": "Human-study random launched",
+    "detail": "One independently prepared human-reference development call was claimed and launched with protected5 retained. No existing grid, teacher or official-test job was launched."
+  },
+  {
+    "id": "final-scale-physical-loader-components-50",
+    "at_utc": "2026-11-03T22:11:49.446686+00:00",
+    "kind": "completed",
+    "title": "Physical final-seal and loader components pass50 focused checks",
+    "detail": "Added separate source/checkpoint verification and permit-first loader modules for the proposed1000/full1319 protocol. Fifty synthetic contract/receipt/seal/loader checks pass; old256 source hashes and actual official-test isolation are unchanged. Physical source files, actual64/200 development evidence, structural adapter files, shared access ownership and raw-byte recovery are checked. ScaledGPU/teacher executors and paid controller integration remain unfinished, and no actual final choice, seal, permit or test-data read occurred."
+  },
+  {
+    "id": "final-scale-loader-destination-fixes-52",
+    "at_utc": "2026-11-03T22:17:51.142148+00:00",
+    "kind": "resolved",
+    "title": "Final-scale loader validates destinations before writing",
+    "detail": "Independent review found two local path-validation failures. The separate future loader now rejects forbidden destinations and linked state files before writes. All52 combined synthetic contract, receipt, physical-seal and loader checks pass. Existing256 executors and active human-study sources are unchanged; no official-test permit, data access or paid final job occurred. Scaled GPU/teacher/controller integration remains unfinished."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2_seed42_random-study-terminal",
+    "at_utc": "2026-11-03T22:18:50.739483+00:00",
+    "kind": "completed",
+    "title": "Study random seed 42 completed",
+    "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is random; final test remains sealed."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2_seed42_skill-human-launched",
+    "at_utc": "2026-11-03T22:20:07.222650+00:00",
+    "kind": "in_progress",
+    "title": "Human-study skill launched",
+    "detail": "One independently prepared human-reference development call was claimed and launched with protected5 retained. No existing grid, teacher or official-test job was launched."
+  },
+  {
+    "id": "human-study-random200-174-analyzed",
+    "at_utc": "2026-11-03T22:20:30.773792+00:00",
+    "kind": "completed",
+    "title": "Human-reference random control completed174/200",
+    "detail": "The separately frozen human200 development evaluation validated174correct answers and2truncations after65536 supervisedtokens and64updates, versus untouched Granite179/200 with8truncations. Fewer truncated answers did not produce an accuracy gain. The matched skill arm has now launched under the same recipe; its comparison remains pending. These200 TRAIN-split questions are separate from old64 monitoring and sealed official test."
+  },
+  {
+    "id": "dashboard-human200-primary12-deferred6",
+    "at_utc": "2026-11-03T22:21:23.039905+00:00",
+    "kind": "resolved",
+    "title": "Dashboard separates the200-question study from completed primary arms",
+    "detail": "The dashboard now reads the validated human-study report, displaying completed base/random scores and unavailable pending metrics. The earlier multi-source panel distinguishes12completed primary arms from6deferred near-all-data plans. Paired uncertainty is shown only when matching completed receipts exist. Syntax and DOM fixture checks cover pending and completed rendering, deferred boundaries and duplicate IDs."
   }
 ]

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "stage": "partial_implementation_not_execution_ready",
+  "updated_at_utc": "2026-11-03T22:17:51.142148+00:00",
+  "proposed_question_counts": [
+    1000,
+    1319
+  ],
+  "components": {
+    "count_shard_review_contract": "implemented_and_fixture_checked",
+    "raw_batch_recovery_contract": "implemented_and_fixture_checked",
+    "physical_source_checkpoint_seal": "implemented_and_fixture_checked",
+    "permit_first_bounded_loader": "implemented_and_fixture_checked",
+    "scaled_gpu_evaluator": "not_implemented",
+    "scaled_teacher_collector": "not_implemented",
+    "paid_dispatch_and_escrow_controller": "not_implemented"
+  },
+  "focused_synthetic_checks_passed": 52,
+  "existing_final256_sources_unchanged": true,
+  "actual_checkpoint_chosen_by_preparation": false,
+  "actual_final_protocol_sealed_by_preparation": false,
+  "actual_global_access_permit_created": false,
+  "official_test_data_accessed_by_preparation": false,
+  "paid_work_launched_by_preparation": false,
+  "source_sha256": {
+    "final_scale_contract.py": "0e557fe510cdad40e3f46d4d973b9ec3789e8c5864b93cccdf218166df0d7650",
+    "test_final_scale_contract.py": "d5ab34277137307a858bed4090daad5334afc5bb7a66dca8801b0d26c64d990e",
+    "final_scale_receipts.py": "81c6d634bc5eed04b2bf307c5edbed51533705b53a766240289eece6e256b46b",
+    "test_final_scale_receipts.py": "adcbdd269db8407d34a1593c51726430538839902ab4b53724adefce31de4bc6",
+    "final_scale_seal.py": "69efeac1aab2b658400065a803779b771dca35ffad560b95a26dd5428eabcff6",
+    "test_final_scale_seal.py": "426d6da053148e82f52a14fbd74e28db973c5786a067baedbe603bd6d5316394",
+    "final_scale_loader.py": "eb7e1787a1d43e7087770967a9800887fbb5add6af0d80b967ec4808ca26fac5",
+    "test_final_scale_loader.py": "0ed32cf4d52c8d9a22ea35fddcce93e007e9d69a89f294c7b39408f56c6593a2"
+  },
+  "limitations": [
+    "No1000/1319 execution is ready from helpers alone; remaining workers/controller and source/funding review must finish first.",
+    "Safetensors validation covers structure and r8qv pairs, not complete pinned-model tensor/module compatibility.",
+    "Adapter byte hashes are captured after development evaluation and before a future final seal; no earlier contemporaneous hash proof is invented.",
+    "Default inspection and tests use synthetic data; final dataset access still requires one reviewed global owner before any source read."
+  ]
+}
