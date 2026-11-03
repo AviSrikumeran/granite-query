@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T17:34:33.940188+00:00",
+  "generated_at_utc": "2026-11-03T17:35:37.717276+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Ranked versus random: baseline_evaluation",
+  "stage": "Ranked versus random: ranked_training",
   "next_action": "Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.",
   "metrics": {
     "teacher_responses": 16,
@@ -17,8 +17,11 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "baseline_evaluation",
-    "elapsed_seconds": 33.299
+    "stage": "ranked_training",
+    "elapsed_seconds": 106.1,
+    "steps": 2,
+    "total_steps": 32,
+    "supervised_tokens": 212
   },
   "caveat": "Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.",
   "events": [
@@ -181,6 +184,13 @@
       "at_utc": "2026-11-03T17:34:10.225399+00:00",
       "kind": "in_progress",
       "title": "Comparison worker: baseline evaluation",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "ranked_random_32_seed42_v1-ranked_training",
+      "at_utc": "2026-11-03T17:35:21.217646+00:00",
+      "kind": "in_progress",
+      "title": "Comparison worker: ranked training",
       "detail": "Polling the existing detached call; no duplicate job launched."
     }
   ]

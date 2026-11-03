@@ -4,7 +4,7 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Ranked versus random: baseline_evaluation
+Current stage: Ranked versus random: ranked_training
 
 Next: Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.
 
@@ -99,5 +99,9 @@ A single detached A100 worker will evaluate the untouched model and train/evalua
 Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.
 
 ## 2026-11-03T17:34:10.225399+00:00 | in_progress | Comparison worker: baseline evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T17:35:21.217646+00:00 | in_progress | Comparison worker: ranked training
 
 Polling the existing detached call; no duplicate job launched.
