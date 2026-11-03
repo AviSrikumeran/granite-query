@@ -211,8 +211,8 @@
     },
     {
       "title": "New math-cohort data-efficiency training grid",
-      "status": "queued",
-      "detail": "18/18 arm plans prepared; 9 completed, 0 running, 9 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:21:05.797387+00:00: waiting for billing reconciliation and protected phase funding. This is a recorded snapshot, not a live process check."
+      "status": "running",
+      "detail": "18/18 arm plans prepared; 10 completed, 1 running, 7 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:37:32.168066+00:00: monitoring its existing GPU call. This is a recorded snapshot, not a live process check."
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
@@ -244,5 +244,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T21:21:11.508434+00:00"
+  "updated_at_utc": "2026-11-03T21:37:37.969210+00:00"
 }

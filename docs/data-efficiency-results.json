@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T21:21:16.417597+00:00",
+  "generated_at_utc": "2026-11-03T21:37:43.046490+00:00",
   "title": "New-cohort random, skill and gradient data-efficiency study",
   "status": "partial",
   "study_id": "data_efficiency_math_v1",
-  "completed_arms": 9,
+  "completed_arms": 10,
   "planned_arms": 18,
   "official_test_used": false,
   "grid_manifest_sha256": "1fbc41e3c6b0b87a96e1d9238a80746f038a0aaa0e0ffcc90ec7a76c52ebe10c",
@@ -538,7 +538,7 @@
       "token_budget": 65536,
       "budget_role": "selection_contrast",
       "fraction_of_available_supervised_tokens": 0.43924049784521757,
-      "completed_arms": 3,
+      "completed_arms": 4,
       "planned_arms": 6,
       "seeds": [
         {
@@ -791,7 +791,7 @@
               "selector": "skill",
               "seed": 43,
               "token_budget": 65536,
-              "status": "prepared",
+              "status": "running",
               "checkpoint_name": "skill",
               "worker_arm_slot": "valued",
               "detail": "No complete matched result is available; no accuracy is assigned."
@@ -800,14 +800,67 @@
               "selector": "gradient",
               "seed": 43,
               "token_budget": 65536,
-              "status": "prepared",
+              "status": "completed",
               "checkpoint_name": "gradient",
               "worker_arm_slot": "valued",
-              "detail": "No complete matched result is available; no accuracy is assigned."
+              "metrics": {
+                "count": 64,
+                "numeric_correct": 56,
+                "strict_format_correct": 56,
+                "truncated": 1,
+                "latency_seconds_total": 157.75436325099994,
+                "generated_tokens": 9214,
+                "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+              },
+              "accuracy_percent": 87.5,
+              "question_wilson_95_interval_percent": [
+                77.22543817887005,
+                93.52775733666955
+              ],
+              "actual_supervised_tokens": 65536,
+              "actual_optimizer_updates": 64,
+              "exposure": {
+                "examples": 556,
+                "partial_supervised_tails": 1,
+                "input_tokens_once": 121389,
+                "input_tokens_forwarded": 136428,
+                "source_counts": {
+                  "math-ai/TemplateGSM": 213,
+                  "ChilleD/SVAMP": 140,
+                  "nvidia/OpenMathInstruct-2": 203
+                },
+                "reference_origin_counts": {
+                  "procedurally_generated_result": 213,
+                  "human_dataset_answer": 140,
+                  "synthetic_majority_vote_answer": 203
+                },
+                "supervised_tokens_by_source": {
+                  "math-ai/TemplateGSM": 27084,
+                  "ChilleD/SVAMP": 10329,
+                  "nvidia/OpenMathInstruct-2": 28123
+                }
+              },
+              "worker_elapsed_seconds": 395.669045349,
+              "detail": "Completed matched development evaluation; question uncertainty does not measure training-seed uncertainty."
             }
           },
           "comparisons": {},
-          "versus_batched_base": {}
+          "versus_batched_base": {
+            "gradient": {
+              "count": 64,
+              "corrected": 3,
+              "regressed": 5,
+              "difference_percentage_points": -3.125,
+              "paired_bootstrap_95_interval_pp": [
+                -12.5,
+                4.6875
+              ],
+              "mcnemar_exact_two_sided_p": 0.7265625,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            }
+          }
         }
       ],
       "seed_variation": {
@@ -1014,6 +1067,20 @@
     },
     {
       "seed": 42,
+      "selector": "gradient",
+      "token_budget": 65536,
+      "accuracy_percent": 87.5,
+      "question_wilson_95_interval_percent": [
+        77.22543817887005,
+        93.52775733666955
+      ],
+      "actual_supervised_tokens": 65536,
+      "actual_optimizer_updates": 64,
+      "numeric_correct": 56,
+      "count": 64
+    },
+    {
+      "seed": 43,
       "selector": "gradient",
       "token_budget": 65536,
       "accuracy_percent": 87.5,

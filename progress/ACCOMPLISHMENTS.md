@@ -154,7 +154,7 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 - **Model-gradient data selection on the new math cohort — completed**. Separate continuation of the same frozen feature protocol. 3,130 projected features are saved for 1,541 candidates and 24 held-out selection targets. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.
 
-- **New math-cohort data-efficiency training grid — queued**. 18/18 arm plans prepared; 9 completed, 0 running, 9 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:21:05.797387+00:00: waiting for billing reconciliation and protected phase funding. This is a recorded snapshot, not a live process check.
+- **New math-cohort data-efficiency training grid — running**. 18/18 arm plans prepared; 10 completed, 1 running, 7 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:37:32.168066+00:00: monitoring its existing GPU call. This is a recorded snapshot, not a live process check.
 
 - **Human-reference training with separate 200-question development evaluation — queued**. 0/3 validated jobs completed on 200 separate training-split development questions. baseline: queued; random: queued; skill: queued. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: pending_baseline. Pair review: blocked_by_baseline_calibration. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
@@ -173,4 +173,4 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T21:21:11.508434+00:00
+Updated: 2026-11-03T21:37:37.969210+00:00

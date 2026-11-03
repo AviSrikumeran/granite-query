@@ -1,6 +1,6 @@
 # New-cohort data-efficiency results
 
-Completed 9/18 arms. Only completed matched evaluations appear below. Earlier four-arm results remain separate history.
+Completed 10/18 arms. Only completed matched evaluations appear below. Earlier four-arm results remain separate history.
 
 Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 
@@ -16,8 +16,8 @@ Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 | 65,536 | 42 | skill | completed | 56/64 | 1 | 65536 | 64 | 824 | 155567 |
 | 65,536 | 42 | gradient | completed | 56/64 | 1 | 65536 | 64 | 556 | 136410 |
 | 65,536 | 43 | random | prepared | pending | pending | pending | pending | pending | pending |
-| 65,536 | 43 | skill | prepared | pending | pending | pending | pending | pending | pending |
-| 65,536 | 43 | gradient | prepared | pending | pending | pending | pending | pending | pending |
+| 65,536 | 43 | skill | running | pending | pending | pending | pending | pending | pending |
+| 65,536 | 43 | gradient | completed | 56/64 | 1 | 65536 | 64 | 556 | 136428 |
 | 131,072 | 42 | random | prepared | pending | pending | pending | pending | pending | pending |
 | 131,072 | 42 | skill | prepared | pending | pending | pending | pending | pending | pending |
 | 131,072 | 42 | gradient | prepared | pending | pending | pending | pending | pending | pending |

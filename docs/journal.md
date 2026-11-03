@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: New math-cohort data-efficiency training grid
 
-Next: 18/18 arm plans prepared; 9 completed, 0 running, 9 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:21:05.797387+00:00: waiting for billing reconciliation and protected phase funding. This is a recorded snapshot, not a live process check.
+Next: 18/18 arm plans prepared; 10 completed, 1 running, 7 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:37:32.168066+00:00: monitoring its existing GPU call. This is a recorded snapshot, not a live process check.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -645,3 +645,43 @@ Saved immutable 65536-token development artifacts. Exact selector identity is gr
 ## 2026-11-03T21:20:04.778686+00:00 | in_progress | Research improvement cycle
 
 Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed43_gradient only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.
+
+## 2026-11-03T21:27:25.337524+00:00 | in_progress | Study gradient seed 43 launched
+
+One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T21:27:26.308373+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed43_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T21:28:55.064909+00:00 | in_progress | Larger final-evaluation contracts are being implemented offline
+
+Preparing separate count/shard and raw-receipt validation modules for1000 or full1319 questions, with synthetic-only fixtures. Current256 executors and all active training sources remain unchanged. No official test data, checkpoint freeze, access permit, provider request or reservation is involved. The reviewed watcher retains ownership of current paid work and local report regeneration.
+
+## 2026-11-03T21:28:55.071909+00:00 | resolved | Runbook now identifies the trained multi-source cohort
+
+Corrected a stale historical sentence that said only GSM8K had supplied training. The active1541-candidate cohort uses SVAMP, TemplateGSM and OpenMath; the separate40-repository bounded sample audit does not mean40sources were trained. Durable new-cohort results remain authoritative.
+
+## 2026-11-03T21:33:53.312930+00:00 | decision | Modal and DeepSeek spending cover different workloads
+
+Explained the user-observed spending difference: Modal pays for dedicated GPU containers used for ranking gradients, independent LoRA training runs, loading/checkpointing/recovery and evaluation, while DeepSeek requests buy API inference tokens. Current official rates imply about2.94USD/hour for requested A10080GB+4CPU+32GiB, versus V4Pro off-peak0.66USD/million uncached input and1.98USD/million output tokens. Both cost definitions and pipeline overhead must be measured before claiming model inference efficiency. The recorded Modal snapshot is about7.84USD metered; local commitment also includes unspent allowances and a billing buffer.
+
+## 2026-11-03T21:33:53.318931+00:00 | resolved | Dashboard explains the different cost workloads
+
+Added a compact budget explanation and official pricing links alongside the existing observed-use/reservation breakdown. Model quality remains judged by matched accuracy and output quality; platform balances alone do not establish Granite token efficiency or an intrinsic model defect.
+
+## 2026-11-03T21:34:22.187880+00:00 | completed | Study gradient seed 43 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is gradient; final test remains sealed.
+
+## 2026-11-03T21:34:44.920591+00:00 | in_progress | Study skill seed 43 launched
+
+One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T21:34:45.903762+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed43_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T21:35:55.862266+00:00 | completed | Larger final-count and receipt contracts pass24 local checks
+
+Implemented separate dependency-free contracts for1000/full1319 questions and pure validators for source/checkpoint/sample identity, exact shards, legitimate seven-question tail, full-denominator failures and terminal-confirmed prefix recovery. All24 synthetic checks pass; default proposals remain unapproved. Actual loader/worker/controller integration, physical source verification, checkpoint choice, final freeze, access permit and paid execution are still pending. Existing256 executors, active training sources and budgets were unchanged.
