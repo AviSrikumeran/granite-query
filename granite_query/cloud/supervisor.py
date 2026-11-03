@@ -35,14 +35,27 @@ def tick():
         exhausted = any(ledger['estimated_spend'][service] + ledger['reserved'][service] >= limit
                         for service, limit in ledger['limits'].items())
         training_ready = (ROOT / 'modal_train.py').exists()
+        training_folder = ROOT / 'runs/granite42_3b_smoke_seed42_v1'
+        launch_path = training_folder / 'launch.json'
+        remote_path = training_folder / 'remote_status.json'
+        launch = json.loads(launch_path.read_text()) if launch_path.exists() else {}
+        remote_status = json.loads(remote_path.read_text()) if remote_path.exists() else {}
+        training_action = ('Inspect and test training worker before any bounded launch.' if training_ready else
+                           'Implement and locally validate the bounded Granite LoRA training smoke test.')
+        if launch:
+            training_action = 'Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.'
+            if remote_status.get('stage') == 'completed':
+                training_action = 'Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.'
+            elif remote_status.get('stage') == 'failed':
+                training_action = 'Inspect the failed Granite call and saved error; fix and validate before a separately recorded retry.'
         status = {'updated_at_utc': datetime.now(timezone.utc).isoformat(),
             'mode': 'budget_exhausted' if exhausted else 'ready_for_agent',
             'teacher_pilot_complete': summary.get('completed') == 16,
             'teacher_pilot': summary, 'last_recorded_connectivity': connectivity,
             'training_worker_exists': training_ready,
             'next_action': 'Stop paid work and report budget ceiling.' if exhausted else
-                ('Inspect and test training worker before any bounded launch.' if training_ready else
-                 'Implement and locally validate the bounded Granite LoRA training smoke test.'),
+                training_action,
+            'training_progress': {k: v for k, v in remote_status.items() if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
             'paid_work_launched_by_tick': False}
         temp = STATE / 'status.tmp'
         temp.write_text(json.dumps(status, indent=2), encoding='utf-8')

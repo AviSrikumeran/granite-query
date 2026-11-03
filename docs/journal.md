@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Preparing Granite training smoke test
+Current stage: Granite smoke test: loading_model
 
-Next: Implement and locally validate the bounded Granite LoRA training smoke test.
+Next: Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -37,3 +37,19 @@ Implement and locally validate the bounded Granite LoRA training smoke test.
 ## 2026-11-03T17:16:22.031306+00:00 | completed | Public GitHub Pages preview verified
 
 The research dashboard is live. Browser verification confirmed the teacher pilot metrics, the journal links, and failure filtering. Scheduled supervision now includes append-only journal updates and public snapshot synchronization.
+
+## 2026-11-03T17:20:55.067242+00:00 | in_progress | Granite LoRA smoke test prepared
+
+Pinned Granite 4.2 3B; 12 verified teacher training examples and 3 separate training-split development examples. One A100, 900-second limit, 3-dollar reservation. No held-out test data.
+
+## 2026-11-03T17:22:50.709677+00:00 | resolved | Modal launch compatibility issues resolved
+
+Corrected CLI module syntax and Windows console encoding. The workspace image builder was newer than the available SDK supports; a supported builder is selected explicitly. Empty apps were reconciled before retrying. The training image is building; no completed training is claimed.
+
+## 2026-11-03T17:23:26.672265+00:00 | in_progress | Granite training job launched
+
+A detached Modal A100 worker is loading pinned Granite 4.2 3B. The smoke test uses 12 optimizer updates on 12 verified teacher examples, followed by adapter save/reload and three development checks. Execution limit: 900 seconds. Reserved budget: 3 dollars. No held-out test evaluation.
+
+## 2026-11-03T17:23:26.774368+00:00 | in_progress | Granite training smoke test
+
+Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.

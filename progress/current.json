@@ -1,5 +1,5 @@
 {
-  "stage": "Preparing Granite training smoke test",
+  "stage": "Granite smoke test: loading_model",
   "training_completed": false,
   "held_out_evaluation_completed": false
 }

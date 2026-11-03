@@ -55,6 +55,8 @@ def build(status=None):
             'training_completed': bool(current.get('training_completed', False)),
             'held_out_evaluation_completed': bool(current.get('held_out_evaluation_completed', False))},
         'limits': {'modal_usd': 30, 'deepseek_usd': 20},
+        'training_progress': {k: v for k, v in status.get('training_progress', {}).items()
+                              if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
         'caveat': 'Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.',
         'events': events}
     SITE.mkdir(parents=True, exist_ok=True)
