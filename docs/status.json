@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T22:27:47.283693+00:00",
+  "generated_at_utc": "2026-11-03T22:36:20.146132+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Human-reference training with separate 200-question development evaluation",
-  "next_action": "2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.",
+  "stage": "Larger final benchmark implementation and funding review",
+  "next_action": "Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,7 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "human_reference_running"
+    "stage": "human_reference_completed"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -1364,6 +1364,48 @@
       "kind": "resolved",
       "title": "Accomplishments checklist now follows validated training artifacts",
       "detail": "Live website verification caught a stale missing-work statement after all12 primary training evaluations had completed. The accomplishments generator now counts only validated frozen input/result bundles when acknowledging multi-source training; malformed or pending results cannot clear the missing-work claim. Twenty focused checks pass. Completed training is kept separate from unestablished accuracy or selection gains, and6deferred reference plans no longer read as imminent queued work."
+    },
+    {
+      "id": "human_study64k_dev200_seed42_v2_seed42_skill-study-terminal",
+      "at_utc": "2026-11-03T22:30:04.967554+00:00",
+      "kind": "completed",
+      "title": "Study skill seed 42 completed",
+      "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is skill; final test remains sealed."
+    },
+    {
+      "id": "human-study200-completed-negative171-174-179",
+      "at_utc": "2026-11-03T22:32:53.429455+00:00",
+      "kind": "completed",
+      "title": "Human-reference matched study completed without a gain",
+      "detail": "All3 independent200-question development evaluations validated: untouched Granite179/200, random174/200, skill171/200. Both adapters used65536 supervisedtokens/64updates from the same1930-example pool. Skill corrected3 random errors but regressed6: -1.5percentagepoints, paired question-bootstrap95percent interval[-4.5,+1.5]. Both adapters had2truncations versus8forbase. This single-seed adaptive study establishes no selection benefit or improved accuracy; official test remains sealed. Research continues into error analysis and reviewed final-scale implementation/funding, not automatic paid expansion."
+    },
+    {
+      "id": "post-human200-supervisor-next-final-implementation21",
+      "at_utc": "2026-11-03T22:32:53.432488+00:00",
+      "kind": "decision",
+      "title": "Completed research stages no longer point to finished teacher work",
+      "detail": "The supervisor now directs completed human-study analysis toward the unfinished larger final benchmark implementation and whole-bundle funding review. The dashboard lists this prerequisite ahead of the prepared API, while accuracy gains and final-test results remain unavailable. Twenty-one accomplishments checks pass; source changes launch no work."
+    },
+    {
+      "id": "human200-base-random-error-audit33",
+      "at_utc": "2026-11-03T22:32:53.437639+00:00",
+      "kind": "completed",
+      "title": "Retrospective development audit separates cap failures from regressions",
+      "detail": "A private33-case base/random audit preserved all frozen scores and the held-out teaching exclusion. Fourof7corrections replace capped baseline traces with complete answers; noneof12regressions is capped. Strict and heuristic numeric totals match. Qualitative arithmetic/constraint/unit errors and9interpretation-sensitive reference caveats were recorded without relabeling or removal. This assistant review is diagnostic, not independent human reasoning validation; no test or teacher requests occurred."
+    },
+    {
+      "id": "supervisor-next-Analyze the completed human200 comparison and regressions; finish the separately versioned final-scale workers/controller, physical checkpoint compatibility and whole-bundle funding review before choosing/final-freezing a checkpoint. Official test and serving remain unopened; no further paid expansion is implied.",
+      "at_utc": "2026-11-03T22:32:55.199130+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Analyze the completed human200 comparison and regressions; finish the separately versioned final-scale workers/controller, physical checkpoint compatibility and whole-bundle funding review before choosing/final-freezing a checkpoint. Official test and serving remain unopened; no further paid expansion is implied."
+    },
+    {
+      "id": "human200-svg-generated-visual-qa",
+      "at_utc": "2026-11-03T22:36:05.030407+00:00",
+      "kind": "completed",
+      "title": "Completed human200 comparison figure generated and visually checked",
+      "detail": "Published-report data produced a standalone SVG showing179/200untouched,174/200random and171/200skill, with a zero-based accuracy axis, reported Wilson intervals, actual65536-token arm budgets and truncation counts. The skill-minus-random paired interval and single-seed/development-only limits are visible. Four local completed/pending chart checks pass, JavaScript syntax/DOM fixtures pass and raster visual review found no clipped labels. The chart never merges the old64 or official test."
     }
   ],
   "latest_training_pool": {
@@ -1376,11 +1418,11 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 10.06205039,
+    "observed_metered_usd": 10.28518791,
     "collection_lag_buffer_usd": 3.0,
-    "active_reservations_usd": 3,
-    "pending_terminal_liability_usd": 3.0,
-    "budget_remaining_usd": 10.93,
+    "active_reservations_usd": 0,
+    "pending_terminal_liability_usd": 6.0,
+    "budget_remaining_usd": 10.71,
     "deepseek_peak_estimate_usd": 2.81,
     "deepseek_observed_usage_usd": 1.38
   },
