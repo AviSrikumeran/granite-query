@@ -8,7 +8,7 @@ Scope: `docs/playground/` and design evidence only. The current research homepag
 
 The first reconstruction varied lighting over one cube silhouette. It missed the source’s distinct box, separated layers, stairs and small-cube configurations. The revised renderer represents those as actual different geometry at a fixed camera scale and interpolates between them. Sixteen glyph variants replace the first eight. Pointer tilt and local light replace the old radial displacement/pulse; clicking advances the form.
 
-The form selector lets a reviewer pin each configuration and compare it with its captured reference. Automatic playback holds each configuration for 3.2 seconds, then assembles the next over 1.8 seconds. These are reconstruction timings, not recovered source timings.
+The form selector lets a reviewer pin each configuration and compare it with its captured reference. Automatic playback holds each configuration for 2.6 seconds, then assembles the next over 2.4 seconds. These are reconstruction timings, not recovered source timings.
 
 ## Tools checked and used
 
@@ -48,10 +48,10 @@ Arial is adjusted to 46.2 px to approximate the proprietary headline font’s wi
 ## Rendering recipe
 
 1. Define twelve beam boxes for the open cage, three thin plates for the layers, five adjacent solid stair sections, and eight small cubes. Pad each formation to twelve slots for interpolation.
-2. Interpolate part centers and half-extents with small per-part delays. Keep the orthographic camera scale fixed. A slow small turn and pointer-dependent turn add depth without zooming.
-3. At every 7.2 px glyph-lattice position, cast a ray through the scene’s cuboids. Shade the closest visible face and its edge margins. Render smaller dim echoes behind and beside the main form.
-4. Build a local atlas of sixteen disks, rings, stars, crosses, Y marks, triangles, diamonds, squares and other geometric symbols. Cluster symbol choices spatially; apply uneven light and a low-opacity glow pass.
-5. Map pointer movement to bounded tilt and a light response. A click advances to the next form. Ignore touch drags so the page can scroll normally.
+2. Interpolate part centers and half-extents with small per-part delays and a single quintic easing. Avoid applying easing twice, which concentrates movement into a short burst in the middle of the transition. Keep the orthographic camera scale fixed. A slow small turn and pointer-dependent turn add depth without zooming.
+3. At every position of the staggered 5.6 px glyph lattice, cast a ray through the scene’s cuboids. Shade the closest visible face and its edge margins. Render smaller dim echoes behind and beside the main form.
+4. Build a local atlas of sixteen disks, rings, stars, crosses, Y marks, triangles, diamonds, squares and other geometric symbols. Keep symbol identities stable per cell and favor filled marks over hollow outlines. Apply uneven light with lifted midtones and restrained peaks. Draw each glyph and its soft halo in a single pass; use atlas mipmaps, a 1.5–2× backing resolution and softened contour coverage to reduce aliasing.
+5. Map pointer movement to bounded tilt and a light response. A click smoothly advances to the next form. Manual selections and interrupted transitions capture the currently displayed geometry as their start, and keep the illumination clock continuous. Ignore touch drags so the page can scroll normally.
 6. Keep pause, reset, manual selection, iframe messages, reduced-motion initialization and hidden/offscreen scheduling explicit. The fallback samples the same scene using Canvas 2D.
 
 ## Captures and comparison
@@ -62,4 +62,17 @@ Visual differences remain in glyph arrangement, face brightness, geometric propo
 
 ## Validation
 
-Four geometry tests cover distinct bounded formations, a continuous automatic loop, stable manual selection and correct ray intersections through solid layers versus the cage’s openings. Browser verification checks the actual WebGL renderer, all form selections and reference swaps, pause/reset, pointer/click behavior, the phone view and the Canvas 2D fallback. Publication is restricted to playground/design files, with the homepage blob checked unchanged against the latest parent commit.
+Six geometry tests cover distinct bounded formations, a continuous automatic loop, stable manual selection, correct ray intersections, bounded movement per sampled 60 Hz frame, and exact start/end geometry for interrupted morphs. Browser verification checks the actual WebGL renderer, all form selections and reference swaps, pause/reset, pointer/click behavior, the phone view and the Canvas 2D fallback. Publication is restricted to playground/design files, with the homepage blob checked unchanged against the latest parent commit.
+
+
+## Density and smoothness refinement
+
+The earlier renderer sampled a 7.2 px grid (18,480 positions at the reference size). The revised staggered 5.6 px lattice samples 30,510 positions at a 1265 px content width: approximately 65% more positions. These are potential glyph positions, not a claim that every position is visible or that the source uses that exact count.
+
+The earlier field had relatively sparse midtone coverage and prominent bright wire-like rims. The revised field favors filled glyphs, lifts face midtones, softens silhouette coverage and limits peak opacity. Glyph identities no longer change as animated noise crosses a cluster boundary. This reduces block-like patches and flicker. The single draw pass avoids repeating the scene ray tests separately for glow and glyphs.
+
+Automatic transitions now use 2.4 seconds instead of 1.8 seconds within the same 20-second loop. The double-easing bug was removed. Selector changes and clicks also ease from the displayed scene; a new target can interrupt an in-flight transition without a geometry jump or a lighting-time reset. Paused selections remain immediate for comparison.
+
+Browser validation confirmed the WebGL renderer and 30,510-position lattice, all four paused form selections, a frozen clock, reset to time 0, click-initiated morphing, a mid-transition pause, and retargeting before the previous morph finished. The retargeted form settled correctly while time continued forward. The phone preview measured 375 px of content without horizontal overflow; the Canvas 2D atlas fallback rendered successfully. The original reference images and homepage were not modified by this refinement.
+
+Density, brightness and motion were compared visually against the existing captured states. The source’s exact shader, glyph distribution and timing remain unknown; this remains an independent reconstruction, not a pixel-perfect extraction.

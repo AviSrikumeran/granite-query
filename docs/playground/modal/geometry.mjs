@@ -1,8 +1,8 @@
 // Authored geometry reconstructed from observed forms, not extracted shader code.
 export const FORMS = ['box', 'layers', 'stairs', 'cubes'];
 export const FORM_LABELS = {box:'Box', layers:'Layers', stairs:'Stairs', cubes:'Small cubes'};
-export const HOLD = 3.2;
-export const TRANSITION = 1.8;
+export const HOLD = 2.6;
+export const TRANSITION = 2.4;
 export const STEP = HOLD + TRANSITION;
 export const PERIOD = STEP * FORMS.length;
 export const BOX_COUNT = 12;
@@ -34,26 +34,33 @@ function makeCubes() {
 }
 export const SHAPES = Object.fromEntries(Object.entries({box:makeBox(),layers:makeLayers(),stairs:makeStairs(),cubes:makeCubes()}).map(([key,boxes])=>[key,Array.from({length:BOX_COUNT},(_,i)=>boxes[i]||dormant())]));
 
-const smooth = t => t*t*t*(t*(t*6-15)+10);
+export const easeProgress = t => {
+  t=Math.max(0,Math.min(1,t));
+  return t*t*t*(t*(t*6-15)+10);
+};
 export function stateAt(time, mode='auto') {
-  if(FORMS.includes(mode))return {from:mode,to:mode,blend:0,focus:mode,transitioning:false};
+  if(FORMS.includes(mode))return {from:mode,to:mode,progress:0,blend:0,focus:mode,transitioning:false};
   const clock=((time%PERIOD)+PERIOD)%PERIOD;
   const index=Math.floor(clock/STEP), elapsed=clock-index*STEP;
-  const blend=smooth(Math.max(0,Math.min(1,(elapsed-HOLD)/TRANSITION)));
+  const progress=Math.max(0,Math.min(1,(elapsed-HOLD)/TRANSITION));
+  const blend=easeProgress(progress);
   const from=FORMS[index],to=FORMS[(index+1)%FORMS.length];
-  return {from,to,blend,focus:blend<.5?from:to,transitioning:elapsed>HOLD};
+  return {from,to,progress,blend,focus:blend<.5?from:to,transitioning:elapsed>HOLD};
+}
+export function mixBoxes(from,to,progress) {
+  if(progress<=0)return from.map(box=>block([...box.center],[...box.half]));
+  if(progress>=1)return to.map(box=>block([...box.center],[...box.half]));
+  return from.map((source,i)=>{
+    const target=to[i];
+    // Small per-part offsets give an assembly sequence instead of a global scale pulse.
+    const delay=(i%4)*.025;
+    const t=easeProgress((progress-delay)/(1-delay));
+    return block(source.center.map((v,k)=>v+(target.center[k]-v)*t),source.half.map((v,k)=>v+(target.half[k]-v)*t));
+  });
 }
 export function boxesAt(time, mode='auto') {
   const state=stateAt(time,mode);
-  const boxes=SHAPES[state.from].map((source,i)=>{
-    const target=SHAPES[state.to][i];
-    // Small per-part offsets give an assembly sequence instead of a global scale pulse.
-    const delay=(i%4)*.035;
-    const raw=Math.max(0,Math.min(1,(state.blend-delay)/(1-delay)));
-    const t=smooth(raw);
-    return block(source.center.map((v,k)=>v+(target.center[k]-v)*t),source.half.map((v,k)=>v+(target.half[k]-v)*t));
-  });
-  return {state,boxes};
+  return {state,boxes:mixBoxes(SHAPES[state.from],SHAPES[state.to],state.progress)};
 }
 
 // The fallback samples the same orthographic scene as the WebGL renderer.

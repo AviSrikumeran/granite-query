@@ -6,7 +6,7 @@ An isolated comparison of Modal’s captured hero and an independent live recons
 
 ## Review
 
-- **Form:** play the sequence, or pin Box, Layers, Stairs, or Small cubes. Pinning keeps geometry stable while light and pointer motion continue.
+- **Form:** play the sequence, or pin Box, Layers, Stairs, or Small cubes. A running selection eases into the chosen form, then holds geometry while light and pointer motion continue. Changing the selection while paused snaps to the chosen form for inspection.
 - **Side by side:** captured field state on the left and live reconstruction on the right, using the same 1280 × 900 desktop viewport scaled to fit. The left combines one shared captured header with separate static field captures; it is not a video.
 - **Reconstruction / Phone:** inspect the larger view or a 390 px iframe.
 - **Pause / Resume:** freeze or resume simulation. Reduced-motion preference starts paused; Escape also pauses.
@@ -17,9 +17,9 @@ Earlier cube, training diagram and evidence-sidebar studies remain at `component
 
 ## How it works
 
-`modal/geometry.mjs` defines four configurations of cuboids: twelve beams for the open box, three thin plates, a five-step solid, and eight separated cubes. Part positions and dimensions interpolate at a fixed camera scale. Each five-second segment holds for 3.2 seconds and assembles the next form over 1.8 seconds. These timings are authored approximations.
+`modal/geometry.mjs` defines four configurations of cuboids: twelve beams for the open box, three thin plates, a five-step solid, and eight separated cubes. Part positions and dimensions interpolate at a fixed camera scale. Each five-second segment holds for 2.6 seconds and assembles the next form over 2.4 seconds. One quintic easing curve is applied per part; interrupted or click-driven changes start from the displayed geometry without resetting the light clock. These timings are authored approximations.
 
-`modal/field.js` ray-tests those cuboids from a fixed orthographic camera at each glyph position. It shades faces, rims and dim geometric echoes, then draws sixteen locally generated symbol variants with WebGL. The Canvas 2D fallback uses the same scene and ray-box geometry at lower density. Test it at `modal/hero.html?renderer=canvas`.
+`modal/field.js` ray-tests those cuboids from a fixed orthographic camera at each glyph position. It shades faces, rims and dim geometric echoes, then draws sixteen locally generated symbol variants with WebGL. A staggered 5.6 px lattice provides 30,510 sample positions at the reference content width, about 65% more than the earlier 7.2 px lattice. Glyph identities remain fixed per cell; the distribution favors filled marks to avoid hollow, patchy faces. Glyphs and soft halos share one draw pass. Mipmapped atlas filtering, a 1.5–2× backing resolution, softened contour coverage and lifted midtones reduce shimmer and harsh bright rims. The Canvas 2D fallback uses the same scene, glyph atlas and ray-box geometry at lower density. Test it at `modal/hero.html?renderer=canvas`.
 
 The renderer stops scheduling while paused, hidden or offscreen. Pointer tilt replaces the previous displacement/ripple effect. There is no global zoom pulse.
 
