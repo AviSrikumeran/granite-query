@@ -26,7 +26,7 @@ async function refreshResults(){
 refreshResults();setInterval(refreshResults,60000);
 async function refreshResearch(){
   try{const response=await fetch('research.json?t='+Date.now(),{cache:'no-store'});if(!response.ok)return;
-    const data=await response.json();if(['completed','partial'].includes(data.matched64?.stage)){
+    const data=await response.json();if(data.token_matched32768){const t=data.token_matched32768;document.getElementById('controlled-panel').hidden=false;document.getElementById('controlled-image').src='figures/token-matched-accuracy.svg?t='+Date.now();document.getElementById('controlled-summary').textContent=t.completed_arms+' of '+t.planned_arms+' arms complete. '+Object.entries(t.correct).map(([name,count])=>name+': '+count+'/64').join('; ')+'. Matched controls and repeated seeds are needed before claiming a selection advantage.';}if(['completed','partial'].includes(data.matched64?.stage)){
       document.getElementById('larger-image').src='figures/matched64-accuracy.svg?t='+Date.now();
       document.getElementById('larger-figure').hidden=false;
       const counts=data.matched64.correct||{};

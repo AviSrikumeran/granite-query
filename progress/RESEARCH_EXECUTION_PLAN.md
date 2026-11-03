@@ -2,6 +2,20 @@
 
 The user authorized maximizing the existing $30 Modal and $20 DeepSeek credits on November 3, 2026. These are total ceilings, including previous usage. This project is active; the first tied pilot was a pipeline check, not the promised research result.
 
+## Latest expansion:40-source imports and meaningful credit use
+
+The user further requested an effort to import40 distinct Hugging Face datasets and to use the full service credits efficiently. This supersedes treating the initial four32768-token jobs as project completion. A source registry must record real training-split sample imports, pinned revisions, license/provenance, byte/row counts and rejection reasons. Metadata reviews are not imports, and raw imported rows are not automatically verified training examples. Do not count many duplicate GSM8K forks as independent coverage. Keep logic/coding data in separate schemas until a corresponding verifier and evaluation protocol exist.
+
+The first completed new pool contains512 DeepSeek attempts,477 eligible examples and55,738 supervised answer tokens. The first32,768-token random arm has launched. All frozen comparisons retain their current data, token counts, learning rate and seeds; new sources enter a subsequent versioned cohort.
+
+After the first matched pair and repeated seed, use measured runtime, loss, regression patterns and source fit to plan larger data-efficiency budgets such as131,072 and524,288 supervised tokens if an eligible pool and remaining compute support them. These sizes are prospective, not prepared or completed jobs. Compare selected and random arms at each frozen budget; preserve an unchanged original baseline and include replay/coverage where appropriate to reduce regression. A learning curve must use the same monitoring questions, and any changed optimization recipe must be identified.
+
+Use DeepSeek credits for useful teacher work: task-aligned solutions on new training prompts, additional independently checked candidate solutions on difficult/uncertain examples, and rubric-assisted explanation audits checked against reference answers or executable verification. Do not assume the teacher is ground truth, regenerate already verified easy answers indefinitely, or manufacture long responses to spend tokens. Record marginal useful verified examples per dollar and student gains per training token. Continue beyond the first block while useful budgeted stages remain, retaining final evaluation and serving allowance.
+
+The spending target is the available credits, not an excuse to burn the final cents or promise100-percent training efficiency. Exact provider consumption, reservations, billing-delay buffers and remaining credit must be shown separately. Modal's authenticated November3 summary reported$2.31593967 metered usage with$0 billed after credits; the previous$12 local entry was a conservative allowance, not measured usage. Reconcile with the supported billing summary before new expansion. Existing unreported-call liabilities remain reserved until reconciled; never erase them speculatively.
+
+The [Granite/Mistral/Llama reference audit](DISTILLATION_REFERENCES.md) identifies actual public Granite distillation weights and code. The third-party Granite release targets long agentic/tool-use conversations and reports training loss, without a controlled GSM8K gain; do not copy its40K-context30B recipe into our3B numeric task or cite it as proof our checkpoint improved. IBM's much larger post-training recipe also cautions against expecting arbitrary small fine-tunes to outperform an already capable baseline.
+
 ## The claim to test
 
 The [DeepSeek reference review](DEEPSEEK_REFERENCES.md) distinguishes verification, predicted usefulness and measured downstream value. Its cited Math/R1/V3/V4 reports motivate the recipe, not a guarantee that it works for Granite.

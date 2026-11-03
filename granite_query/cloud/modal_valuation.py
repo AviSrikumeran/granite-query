@@ -16,7 +16,7 @@ PREFIX = ('Solve the math problem. Explain only the necessary calculation steps 
           'Finish with #### followed by the numeric final answer.\n\n')
 
 
-@app.function(image=image, gpu='A100-80GB', cpu=4, memory=32768, timeout=1800,
+@app.function(image=image, gpu='A100-80GB', cpu=(4,4), memory=(32768,32768), timeout=1800,
     startup_timeout=120, retries=0, max_containers=1, min_containers=0,
     buffer_containers=0, scaledown_window=2, volumes={'/artifacts':artifacts})
 def execute(data:dict, plan:dict):
@@ -245,6 +245,8 @@ def launch(folder:str):
         if hashlib.sha256(data_bytes).hexdigest() != plan['input_sha256']:
             raise ValueError('Frozen worker input changed')
         ledger = json.loads((runtime/'budget.json').read_text())
+        from .comparison_control import require_fresh_modal_budget
+        require_fresh_modal_budget(ledger)
         job = next((j for j in ledger['jobs'] if j['run_id'] == plan['run_id'] and j.get('service') == 'modal'),None)
         if not job or job['reserved_usd'] < 3 or job.get('status') != 'reserved':
             raise RuntimeError('A separately approved $3 Modal reservation is required before launch')

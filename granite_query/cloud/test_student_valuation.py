@@ -73,6 +73,40 @@ class ValuationTests(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             valuation.select(prepared, self.root / 'selection', 256, tokens_per_update=64)
 
+    def test_incremental_diversity_matches_original_exact_method(self):
+        from collections import Counter
+        import random
+        rng = random.Random(42)
+        rows = [dict(id=f'x:{i:03}',prompt=('Shared words one two '*(i%3))+str(i%5),
+                     skills=['cost_accounting','rates_and_units'][:1+i%2],
+                     weakness_score=rng.choice([0.2,0.5,0.9]),response_tokens=16+i%9)
+                for i in range(40)]
+        rows[0]['prompt'] = ''
+        def reference(budget):
+            remaining = list(rows)
+            selected, decisions, used_skills, used_shingles = [], [], Counter(), []
+            total = 0
+            median = sorted(row['response_tokens'] for row in rows)[len(rows)//2]
+            while total < budget and remaining:
+                scored = []
+                for row in remaining:
+                    shingles = valuation._shingles(row['prompt'])
+                    novelty = 1.0 if not used_shingles else 1-max(len(shingles&prior)/max(1,len(shingles|prior)) for prior in used_shingles)
+                    coverage = sum(1/(1+used_skills[tag]) for tag in row['skills'])/len(row['skills'])
+                    value = (0.65*row['weakness_score']+0.20*novelty+0.15*coverage)/(row['response_tokens']/median)**0.25
+                    scored.append((value,row['id'],row,novelty,coverage))
+                value,_,chosen,novelty,coverage = sorted(scored,key=lambda item:(-item[0],item[1]))[0]
+                selected.append(chosen)
+                decisions.append(dict(id=chosen['id'],score=value,weakness=chosen['weakness_score'],
+                                      novelty=novelty,coverage=coverage,response_tokens=chosen['response_tokens']))
+                total += chosen['response_tokens']
+                used_skills.update(chosen['skills'])
+                used_shingles.append(valuation._shingles(chosen['prompt']))
+                remaining = [row for row in remaining if row['id'] != chosen['id']]
+            return selected,decisions
+        for budget in (1,64,512,sum(row['response_tokens'] for row in rows)):
+            self.assertEqual(reference(budget),valuation._choose_valued(rows,budget))
+
     def test_verification_and_probe_overlap_are_gates_before_usefulness(self):
         rows = self.pool()
         rows[0]['prompt'] = 'Reserved evaluation prompt'

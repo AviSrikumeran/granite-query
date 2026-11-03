@@ -254,14 +254,18 @@ def _shingles(text):
 
 def _choose_valued(rows, budget):
     remaining = list(rows)
-    selected, decisions, used_skills, used_shingles = [], [], Counter(), []
+    selected, decisions, used_skills = [], [], Counter()
+    # Cache exact lexical sets once and update each candidate's maximum
+    # similarity only against the newly selected row. This preserves the same
+    # objective/tie breaks while avoiding repeated all-selected comparisons.
+    shingles_by_id = {row['id']:_shingles(row['prompt']) for row in rows}
+    max_similarity = {row['id']:0.0 for row in rows}
     total = 0
     median = sorted(row['response_tokens'] for row in rows)[len(rows)//2]
     while total < budget and remaining:
         scored = []
         for row in remaining:
-            shingles = _shingles(row['prompt'])
-            novelty = 1.0 if not used_shingles else 1-max(len(shingles&prior)/max(1,len(shingles|prior)) for prior in used_shingles)
+            novelty = 1.0-max_similarity[row['id']]
             coverage = sum(1/(1+used_skills[tag]) for tag in row['skills'])/len(row['skills'])
             length_factor = (row['response_tokens']/median)**0.25
             value = (0.65*row['weakness_score']+0.20*novelty+0.15*coverage)/length_factor
@@ -272,8 +276,12 @@ def _choose_valued(rows, budget):
                           'novelty':novelty,'coverage':coverage,'response_tokens':chosen['response_tokens']})
         total += chosen['response_tokens']
         used_skills.update(chosen['skills'])
-        used_shingles.append(_shingles(chosen['prompt']))
         remaining = [row for row in remaining if row['id'] != chosen['id']]
+        prior = shingles_by_id[chosen['id']]
+        for row in remaining:
+            shingles = shingles_by_id[row['id']]
+            similarity = len(shingles&prior)/max(1,len(shingles|prior))
+            max_similarity[row['id']] = max(max_similarity[row['id']],similarity)
     if total < budget:
         raise ValueError('Shared eligible pool cannot supply requested supervised-token budget without repeats')
     return selected, decisions

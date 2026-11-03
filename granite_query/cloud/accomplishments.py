@@ -186,6 +186,16 @@ def build(workspace=None):
     if (workspace/'granite_query/cloud/student_valuation.py').exists():
         current.append({'title':'Student-aware selector and equal-token experiment', 'status':'queued',
                         'detail':'Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.'})
+    controlled_results=[]
+    for seed in (42,43):
+        for arm in ('random','valued'):
+            arm_folder=runs/f'student_valuation32768_seed{seed}_{arm}_v1'
+            if (arm_folder/'plan.json').exists():
+                arm_state,arm_detail,arm_result=_phase(arm_folder,(arm,))
+                if arm_result:
+                    controlled_results.append((arm,arm_result))
+                current.append({'title':f'Equal-token {arm} training, seed{seed}', 'status':arm_state,
+                                'detail':arm_detail+' Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.'})
     if (workspace/'granite_query/cloud/modal_api.py').exists():
         current.append({'title':'Capped Granite API trial', 'status':'queued',
                         'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})
@@ -198,6 +208,10 @@ def build(workspace=None):
         candidates = [row['numeric_correct'] for name, row in eval_scores.items() if name != 'baseline']
         if full_scores and full_result.get('plan', {}).get('development_ids') == eval_result.get('plan', {}).get('development_ids'):
             candidates.append(full_scores['full120']['numeric_correct'])
+        for arm,arm_result in controlled_results:
+            arm_scores=_comparable_scores(arm_result,(arm,))
+            if arm_scores and arm_result.get('plan',{}).get('development_ids')==eval_result.get('plan',{}).get('development_ids'):
+                candidates.append(arm_scores[arm]['numeric_correct'])
         accuracy_improved = any(value > baseline_count for value in candidates)
 
     training_evidenced = smoke.get('stage') == 'completed' or comparison.get('stage') == 'completed'

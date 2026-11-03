@@ -14,15 +14,29 @@
       "DeepSeek Pro": 63,
       "baseline": 58,
       "ranked32": 52,
-      "random32": 52
+      "random32": 52,
+      "Granite full120": 52
     }
   },
   "training120": {
-    "stage": "full120_evaluation"
+    "stage": "completed",
+    "correct": 52
   },
   "figures": [
     "figures/matched16-accuracy.svg",
     "figures/pilot-learning-history.svg",
-    "figures/matched64-accuracy.svg"
-  ]
+    "figures/matched64-accuracy.svg",
+    "figures/token-matched-accuracy.svg"
+  ],
+  "token_matched32768": {
+    "completed_arms": 1,
+    "planned_arms": 4,
+    "count": 64,
+    "correct": {
+      "random seed42": 55
+    },
+    "supervised_tokens_per_arm": 32768,
+    "optimizer_updates_per_arm": 32,
+    "selection_adaptive_to_development": true
+  }
 }

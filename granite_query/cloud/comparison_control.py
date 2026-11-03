@@ -31,12 +31,29 @@ def reserve(service, amount, job_id):
     ledger = json.loads(path.read_text())
     if any(j['run_id'] == job_id for j in ledger['jobs']):
         return
+    require_fresh_modal_budget(ledger, service, new_reservation=True)
     if ledger['estimated_spend'][service] + ledger['reserved'][service] + amount > ledger['limits'][service]:
         raise RuntimeError('Service budget would be exceeded')
     ledger['reserved'][service] += amount
     ledger['jobs'].append({'run_id': job_id, 'service': service, 'reserved_usd': amount,
         'status': 'reserved', 'created_at_utc': datetime.now(timezone.utc).isoformat()})
     write(path, ledger)
+
+
+def require_fresh_modal_budget(ledger, service='modal', *, new_reservation=False):
+    """Once enabled, provider reconciliation must be fresh before new calls."""
+    if service!='modal' or 'modal_budget_accounting' not in ledger:
+        return
+    account=ledger['modal_budget_accounting']
+    stamp=ledger.get('modal_observation',{}).get('queried_at_utc')
+    if not stamp or account.get('issues') or (new_reservation and not account.get('new_paid_launches_allowed',False)):
+        raise RuntimeError('Refresh provider budget reconciliation before new Modal work')
+    observed=datetime.fromisoformat(stamp.replace('Z','+00:00'))
+    age=(datetime.now(timezone.utc)-observed).total_seconds()
+    if age<0 or age>account.get('collection_lag_minutes',15)*60:
+        raise RuntimeError('Modal billing observation is stale; refresh budget_reconcile.py before launch')
+    if ledger['estimated_spend']['modal']+ledger['reserved']['modal']>ledger['limits']['modal']:
+        raise RuntimeError('Modal budget commitments exceed the ceiling')
 
 def prepare():
     RUN.mkdir(parents=True, exist_ok=True)

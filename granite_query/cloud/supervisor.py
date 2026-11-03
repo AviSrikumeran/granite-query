@@ -87,6 +87,24 @@ def tick():
             else:
                 remote_status={'stage':'matched64_analysis'}
                 training_action='Compare all checkpoints on the shared64 questions, then advance the token-matched student-aware versus random study in progress/RESEARCH_EXECUTION_PLAN.md. Continue regardless of whether more-data training improved; preserve funds for final evaluation and a capped API trial.'
+        valuation_folders=[ROOT/f'runs/student_valuation32768_seed{seed}_{arm}_v1'
+                           for seed,arm in ((42,'random'),(42,'valued'),(43,'valued'),(43,'random'))]
+        if (larger/'result.json').exists() and any((folder/'plan.json').exists() for folder in valuation_folders):
+            pending=next((folder for folder in valuation_folders if not (folder/'result.json').exists()),None)
+            if pending:
+                if (pending/'launch.json').exists():
+                    p=pending/'remote_status.json'
+                    remote_status=json.loads(p.read_text()) if p.exists() else {'stage':'queued'}
+                    training_action='Poll the existing exact-token arm with valuation_control.py poll --folder '+pending.name+'. Preserve its outputs; do not duplicate the call.'
+                else:
+                    remote_status={'stage':'exact_token_arm_prepared'}
+                    training_action='Refresh provider budget reconciliation and confirm the previous GPU stopped, then reserve and launch the prepared '+pending.name+' once.'
+            else:
+                remote_status={'stage':'next_data_efficiency_cohort'}
+                training_action='Analyze both matched seeds, advance the HF import registry and a separately frozen larger token-budget cohort using remaining credits; preserve final evaluation and capped serving allowance. The first four arms are not project completion.'
+        open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
+        allocation_full=exhausted
+        exhausted=allocation_full and not open_calls
         status = {'updated_at_utc': datetime.now(timezone.utc).isoformat(),
             'mode': 'budget_exhausted' if exhausted else ('ready_for_agent' if improving else ('awaiting_review' if (comparison/'review_complete.json').exists() else 'ready_for_agent')),
             'teacher_pilot_complete': summary.get('completed') == 16,
@@ -95,7 +113,12 @@ def tick():
             'next_action': 'Stop paid work and report budget ceiling.' if exhausted else
                 training_action,
             'training_progress': {k: v for k, v in remote_status.items() if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens','completed','total')},
-            'paid_work_launched_by_tick': False}
+            'paid_work_launched_by_tick': False,
+            'budget_allocation_full':allocation_full}
+        account=ledger.get('modal_budget_accounting',{})
+        if account:
+            status['public_budget']={key:account[key] for key in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd') if key in account}
+            status['public_budget']['deepseek_peak_estimate_usd']=ledger['estimated_spend']['deepseek']
         temp = STATE / 'status.tmp'
         temp.write_text(json.dumps(status, indent=2), encoding='utf-8')
         temp.replace(STATE / 'status.json')

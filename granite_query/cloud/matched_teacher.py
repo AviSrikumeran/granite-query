@@ -38,7 +38,16 @@ def _digest(value):
 def _write(path, value):
     temp = path.with_suffix(path.suffix + '.tmp')
     temp.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
-    temp.replace(path)
+    # Windows sync/indexing can briefly hold the destination open. Retry only
+    # this local atomic replacement; never repeat the paid teacher request.
+    for attempt in range(4):
+        try:
+            temp.replace(path)
+            break
+        except PermissionError:
+            if attempt==3:
+                raise
+            time.sleep(.05*(2**attempt))
 
 
 def read_inputs(path):

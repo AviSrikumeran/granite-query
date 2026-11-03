@@ -88,11 +88,19 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 
 - **Resume of unfinished 64-question evaluations — completed**. All required outputs on the 64 monitoring questions are saved. It is a separate attempt and should reuse completed outputs instead of rerunning them.
 
-- **Larger 120-example Granite training round — running**. A Modal function call was submitted; currently evaluating the 120-example adapter. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
+- **Larger 120-example Granite training round — completed**. All required outputs on the 64 monitoring questions are saved. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
 
 - **New verified teacher pool for token-matched controls — completed**. 512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment.
 
 - **Student-aware selector and equal-token experiment — queued**. Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.
+
+- **Equal-token random training, seed42 — completed**. All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+
+- **Equal-token valued training, seed42 — running**. A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+
+- **Equal-token random training, seed43 — queued**. The input and plan are prepared. No Modal function call has been submitted. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+
+- **Equal-token valued training, seed43 — queued**. The input and plan are prepared. No Modal function call has been submitted. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
 - **Capped Granite API trial — queued**. API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.
 
@@ -106,4 +114,4 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T18:27:53.974920+00:00
+Updated: 2026-11-03T18:38:28.181012+00:00

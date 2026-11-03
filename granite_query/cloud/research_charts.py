@@ -104,6 +104,27 @@ def build():
             'Same64 monitoring questions. Lines:95% Wilson intervals. Development, not final-test accuracy.')
         public['matched64']={'stage':'completed' if evalpath.exists() else 'partial','count':64,'correct':{name:m['numeric_correct'] for name,m in items}}
         public['figures'].append('figures/matched64-accuracy.svg')
+        controlled=[]
+        for seed in (42,43):
+            for arm in ('random','valued'):
+                run=ROOT/f'runs/student_valuation32768_seed{seed}_{arm}_v1'
+                if not (run/'metrics.json').exists() or not (run/'result.json').exists():
+                    continue
+                result=json.loads((run/'result.json').read_text())
+                if set(result['plan']['development_ids'])!=expected64:
+                    raise ValueError('Exact-token result question set differs')
+                if result.get('supervised_tokens')!=32768 or result.get('optimizer_updates')!=32:
+                    raise ValueError('Exact-token result exposure differs')
+                score=json.loads((run/'metrics.json').read_text())[arm]
+                controlled.append((arm+'\nseed'+str(seed),score))
+        if controlled:
+            accuracy_chart(controlled,'Token-matched Granite training:32,768 answer tokens per arm','token-matched-accuracy',
+                'Same64 development questions.32 matched updates,LR0.00002. Missing arms are pending, not zero scores.')
+            public['token_matched32768']={'completed_arms':len(controlled),'planned_arms':4,
+                'count':64,'correct':{name.replace('\n',' '):m['numeric_correct'] for name,m in controlled},
+                'supervised_tokens_per_arm':32768,'optimizer_updates_per_arm':32,
+                'selection_adaptive_to_development':True}
+            public['figures'].append('figures/token-matched-accuracy.svg')
     (WORKSPACE/'progress/research_summary.json').write_text(json.dumps(public,indent=2),encoding='utf-8')
     (WORKSPACE/'docs/research.json').write_text(json.dumps(public,indent=2),encoding='utf-8')
     return public

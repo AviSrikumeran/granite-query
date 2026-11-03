@@ -59,6 +59,19 @@ def build(status=None):
                               if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
         'caveat': 'Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.',
         'events': events}
+    pool_path=JOURNAL.parent.parent/'granite_query/cloud/runs/student_valuation_pool512_v1/teacher_summary.json'
+    if pool_path.exists():
+        pool=json.loads(pool_path.read_text(encoding='utf-8'))
+        public['latest_training_pool']={k:pool[k] for k in ('stage','requested','completed','eligible','failed','truncated','supervised_tokens_available')
+                                      if k in pool and isinstance(pool[k],(str,int))}
+    if status.get('public_budget'):
+        public['budget']={k:v for k,v in status['public_budget'].items() if k in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd','deepseek_peak_estimate_usd') and isinstance(v,(float,int))}
+    inventory=JOURNAL.parent/'HF_SOURCE_INVENTORY.json'
+    if inventory.exists():
+        sources=json.loads(inventory.read_text(encoding='utf-8'))
+        public['source_imports']={k:sources[k] for k in ('stage','target_imported_datasets','registered_sources','metadata_reviewed_sources','actually_imported_sources','actually_imported_families','sample_rows_imported','numeric_reference_prompts','training_ready_examples') if k in sources and isinstance(sources[k],(str,int))}
+        SITE.mkdir(parents=True,exist_ok=True)
+        (SITE/'sources.json').write_text(json.dumps(sources,indent=2)+'\n',encoding='utf-8')
     audit_path=WORKSPACE/'docs/project-status.json'
     if audit_path.exists():
         audit=json.loads(audit_path.read_text(encoding='utf-8'))
