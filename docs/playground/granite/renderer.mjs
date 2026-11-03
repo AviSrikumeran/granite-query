@@ -1,5 +1,5 @@
-import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=lighting-20261103-4';
-import {KEY,FILL,TIER_GLYPHS,materialColors,ghostOffsets,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=lighting-20261103-4';
+import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=lighting-20261103-5';
+import {KEY,FILL,TIER_GLYPHS,materialColors,ghostOffsets,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=lighting-20261103-5';
 
 // One scene → luminance tiers → glyphs → camera-projected peripheral views →
 // highlight bloom. Peripheral samples share the finished scene, not a new trace.
@@ -138,7 +138,9 @@ void main(){
 }`;
 
 export function makeGPU(canvas,{get,makeCells,makeAtlas}){
-  const gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'});if(!gl)return null;
+  // Keep the last composed frame available while paused, including captures
+  // after a focus/scroll repaint. All intermediate targets are still reused.
+  const gl=canvas.getContext('webgl',{alpha:false,antialias:false,preserveDrawingBuffer:true,powerPreference:'low-power'});if(!gl)return null;
   function program(v,f,names){
     const p=gl.createProgram();
     for(const [type,source] of [[gl.VERTEX_SHADER,v],[gl.FRAGMENT_SHADER,f]]){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(p,s);gl.deleteShader(s);}

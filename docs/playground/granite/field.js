@@ -1,5 +1,5 @@
-import {FORMS,FORM_LABELS,BOOT,STEP,MORPH_START,MORPH_END,SHAPES,layoutFor,sceneBounds,boxesAt,switchState,mixBoxes,pointerPose,paletteRamp,smooth} from './geometry.mjs?v=lighting-20261103-4';
-import {makeGPU,makeCPU} from './renderer.mjs?v=lighting-20261103-4';
+import {FORMS,FORM_LABELS,BOOT,STEP,MORPH_START,MORPH_END,SHAPES,layoutFor,sceneBounds,boxesAt,switchState,mixBoxes,pointerPose,paletteRamp,smooth} from './geometry.mjs?v=lighting-20261103-5';
+import {makeGPU,makeCPU} from './renderer.mjs?v=lighting-20261103-5';
 
 // Reconstruct the supplied reference's formations, scale and reflected fragments.
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
