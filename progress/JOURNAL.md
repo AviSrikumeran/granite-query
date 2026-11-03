@@ -4,7 +4,7 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Granite smoke test: loading_model
+Current stage: Granite smoke test: training
 
 Next: Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.
 
@@ -53,3 +53,7 @@ A detached Modal A100 worker is loading pinned Granite 4.2 3B. The smoke test us
 ## 2026-11-03T17:23:26.774368+00:00 | in_progress | Granite training smoke test
 
 Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.
+
+## 2026-11-03T17:24:24.945949+00:00 | in_progress | Granite worker: training
+
+The existing detached smoke-test worker reported this stage. Completed optimizer steps: 4. This remains a compatibility check, not a benchmark result.

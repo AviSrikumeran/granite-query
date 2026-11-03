@@ -71,6 +71,11 @@ def poll():
     remote = modal.Dict.from_name('granite-query-training-progress')
     status = remote.get(RUN.name, {'stage': 'queued'})
     write(RUN / 'remote_status.json', status)
+    if status.get('stage') not in ('completed', 'failed'):
+        record('in_progress', 'Granite worker: ' + status['stage'].replace('_', ' '),
+            'The existing detached smoke-test worker reported this stage. Completed optimizer steps: '
+            + str(status.get('steps', 0)) + '. This remains a compatibility check, not a benchmark result.',
+            event_id=RUN.name+'-stage-'+status['stage'])
     call = modal.FunctionCall.from_id(launch['call_id'])
     try:
         result = call.get(timeout=0)

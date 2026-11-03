@@ -75,5 +75,12 @@
     "kind": "in_progress",
     "title": "Granite training smoke test",
     "detail": "Poll the existing Granite call using cloud/train_control.py poll; do not relaunch."
+  },
+  {
+    "id": "granite42_3b_smoke_seed42_v1-stage-training",
+    "at_utc": "2026-11-03T17:24:24.945949+00:00",
+    "kind": "in_progress",
+    "title": "Granite worker: training",
+    "detail": "The existing detached smoke-test worker reported this stage. Completed optimizer steps: 4. This remains a compatibility check, not a benchmark result."
   }
 ]
