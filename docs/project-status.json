@@ -123,7 +123,7 @@
     {
       "title": "Equal-token valued training, seed42",
       "status": "running",
-      "detail": "A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist."
+      "detail": "A Modal function call was submitted; currently loading the model. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist."
     },
     {
       "title": "Equal-token random training, seed43",
@@ -151,5 +151,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T18:38:28.181012+00:00"
+  "updated_at_utc": "2026-11-03T18:40:24.941866+00:00"
 }

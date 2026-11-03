@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Larger 120-example Granite training round
+Current stage: Equal-token valued training, seed42
 
-Next: A Modal function call was submitted; currently evaluating the 120-example adapter. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
+Next: A Modal function call was submitted; currently loading the model. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -229,3 +229,59 @@ A detached four-worker collector is answering512 new GSM8K training questions wi
 ## 2026-11-03T18:27:53.824901+00:00 | completed | Controlled selection and capped API source pass local checks
 
 Implemented immutable verified-pool preparation, student-aware skill/diversity selection, exact supervised-token masking, token-weighted optimizer updates and batched checkpoint evaluation. Local cloud checks pass. API source includes20 permanent atomic admission permits and24-hour expiry, with no deployed endpoint. These are implemented components; improved accuracy, final-checkpoint selection and public serving remain uncompleted.
+
+## 2026-11-03T18:28:34.556178+00:00 | planned | Exact-token random arm prepared
+
+Prepared32768 supervised answer tokens,32 optimizer updates, learning rate0.00002, and batched64-question development evaluation. Each arm starts from the pinned base. Preparation launched no GPU job.
+
+## 2026-11-03T18:28:34.720003+00:00 | planned | Exact-token valued arm prepared
+
+Prepared32768 supervised answer tokens,32 optimizer updates, learning rate0.00002, and batched64-question development evaluation. Each arm starts from the pinned base. Preparation launched no GPU job.
+
+## 2026-11-03T18:29:16.173649+00:00 | planned | Exact-token random arm prepared
+
+Prepared32768 supervised answer tokens,32 optimizer updates, learning rate0.00002, and batched64-question development evaluation. Each arm starts from the pinned base. Preparation launched no GPU job.
+
+## 2026-11-03T18:29:16.320782+00:00 | planned | Exact-token valued arm prepared
+
+Prepared32768 supervised answer tokens,32 optimizer updates, learning rate0.00002, and batched64-question development evaluation. Each arm starts from the pinned base. Preparation launched no GPU job.
+
+## 2026-11-03T18:29:16.350785+00:00 | planned | Two-seed exact-token valuation protocol prepared
+
+Finalized the shared verified512-attempt teacher pool, excluded monitoring/probe overlaps, and prepared valued/random arms for seeds42 and43. Each arm has32768 supervised answer tokens and32 token-weighted optimizer updates, learning rate0.00002, and the same64 development questions. Weakness signals are explicitly development-derived; no official test was accessed. Preparation launched no GPU jobs.
+
+## 2026-11-03T18:30:44.884770+00:00 | completed | Shared64 phase completed: train
+
+All evaluation outputs saved for the frozen64 monitoring questions. Counts: full120 52/64. This is development monitoring, not final-test accuracy.
+
+## 2026-11-03T18:31:50.205902+00:00 | in_progress | First matched-token random arm launched
+
+The seed42 random-control worker is running under a3-dollar reservation and hard4CPU/32GiB caps. It will collect untouched-student responseNLL diagnostics for477 verified candidates, then train exactly32768 answer tokens through32 token-weighted optimizer updates at learning rate0.00002, and evaluate the frozen64 development questions in batches. No second valuation arm has launched.
+
+## 2026-11-03T18:32:48.498062+00:00 | decision | Continue beyond the first control block toward effective full-budget use
+
+The user requests a40-source Hugging Face import effort and useful utilization of the existing20-dollar DeepSeek and30-dollar Modal credits. A separate bounded import registry is starting; metadata, raw imports and verified training-ready examples will be counted separately. Frozen arms stay unchanged. Authenticated Modal usage is about2.32dollars; earlier12-dollar local allowances were not actual spending. Further useful larger data-efficiency rounds will be planned from measured results while preserving final evaluation and serving funds.
+
+## 2026-11-03T18:33:34.320196+00:00 | in_progress | Research improvement cycle
+
+Compare all checkpoints on the shared64 questions, then advance the token-matched student-aware versus random study in progress/RESEARCH_EXECUTION_PLAN.md. Continue regardless of whether more-data training improved; preserve funds for final evaluation and a capped API trial.
+
+## 2026-11-03T18:36:05.365130+00:00 | resolved | Provider-backed Modal budget tracking enabled
+
+The authenticated supported billing summary reported2.48 dollars of metered workspace usage and0 dollars invoiced after credits at its latest observation. Historical3-dollar job reservations are not charges. The ledger now separates provider-observed usage, an explicit3-dollar collection-lag buffer, active job reservations, and temporary liabilities for recently finished jobs. DeepSeek remains a recorded peak-price estimate. No extra compute was launched by billing reconciliation.
+
+## 2026-11-03T18:36:18.785905+00:00 | in_progress | Research improvement cycle
+
+Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed42_random_v1. Preserve its outputs; do not duplicate the call.
+
+## 2026-11-03T18:37:15.557331+00:00 | completed | Equal-token random arm completed
+
+Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use.
+
+## 2026-11-03T18:38:05.601584+00:00 | in_progress | Research improvement cycle
+
+Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed42_valued_v1. Preserve its outputs; do not duplicate the call.
+
+## 2026-11-03T18:38:25.880968+00:00 | in_progress | Matching valuedseed42 arm launched
+
+The randomseed42 equal-token arm completed55/64 numerical matches with no truncation. Its frozen matching valued arm is now running with the same32768 supervised tokens,32 optimizer updates, learning rate0.00002, base checkpoint, seed and64-question batched evaluation. CandidateNLL diagnostics are saved but did not change this preselected skill-based arm. No seed43 job has launched yet.
