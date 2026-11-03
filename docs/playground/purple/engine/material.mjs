@@ -1,6 +1,6 @@
 // Independently authored rendering model, informed by the recording and public
 // renderer architecture. Geometry and layout remain in geometry.mjs unchanged.
-import {cameraRotate,smooth} from './geometry.mjs?v=purple-20261103-1';
+import {cameraRotate,smooth} from './geometry.mjs?v=magenta-20261103-2';
 const clamp=t=>Math.max(0,Math.min(1,t));
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const norm=a=>{const n=Math.hypot(...a);return a.map(v=>v/n);};
@@ -9,15 +9,17 @@ export const KEY=direction(73,-1),FILL=direction(180,-32);
 export const TIER_COLORS=['#151b16','#203023','#213922','#24462a','#28552b','#286633','#317a3a','#378c40','#46a549','#68b650','#86c459','#a0ce60','#b2d366','#c5da6b','#d2e16e','#e0e97b'];
 export const TIER_GLYPHS=[4,2,6,4,2,8,9,8,9,4,2,6,4,2,8,9];
 export const rgbOf=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255);
-const VIOLET=['#101424','#1b2140','#292d65','#3d3b87','#5252ad','#686be0','#8472ed','#9b77f0','#aa7ff3','#b68df8','#bd9afa','#c4a8ff','#d4b1f5','#e0c2ff','#ebd7ff','#f6eeff'];
-const ORCHID=['#151126','#241b42','#392859','#503471','#69428d','#8454ab','#9a60c5','#ae70de','#bf80ec','#cb8cf1','#d49df7','#dfadfb','#e7bdf9','#efceff','#f5dfff','#fcf0ff'];
+const MAGENTA=['#13051c','#2a0a3f','#4a1163','#781b90','#a92cbf','#d63add','#ed4bea','#fa58f3','#ff67f8','#ff7dfc','#ff93fd','#ffabff','#ffc0ff','#ffd6ff','#ffeaff','#fff5ff'];
+const HOT_VIOLET=['#10051e','#21083e','#3a106c','#5a189e','#8227d0','#a43ae9','#bf4df5','#d45cff','#e06cff','#eb80ff','#f092ff','#f5aaff','#f9c0ff','#fcd5ff','#ffebff','#fff5ff'];
+const materialKey=material=>material==='orchid'?'magenta':material==='violet'?'hotviolet':material;
 export function materialColors(material='green'){
-  const colors=material==='violet'?VIOLET:material==='orchid'?ORCHID:TIER_COLORS;
+  const key=materialKey(material),colors=key==='magenta'?MAGENTA:key==='hotviolet'?HOT_VIOLET:TIER_COLORS;
   return colors.map(rgbOf).flatMap(color=>{const boosted=color.map(v=>v*1.6),peak=Math.max(1,...boosted);return boosted.map(v=>v/peak);});
 }
 export function materialProfile(material='green'){
-  return material==='green'?{background:[4/255,8/255,4/255],ghost:[.957,1,.8],energyA:[.04,.055,.025],energyB:[.045,.045,.038],bloomRange:[.39,1.03],bloom:.5}:
-    {background:[5/255,6/255,16/255],ghost:material==='orchid'?[1,.76,.97]:[.77,.73,1],energyA:[.022,.018,.045],energyB:[.03,.025,.04],bloomRange:[.25,.85],bloom:.42};
+  const key=materialKey(material);
+  if(key==='green')return {background:[4/255,8/255,4/255],ghost:[.957,1,.8],energyA:[.04,.055,.025],energyB:[.045,.045,.038],bloomRange:[.39,1.03],bloom:.5,rolloff:.22};
+  return {background:[8/255,3/255,14/255],ghost:key==='magenta'?[1,.55,.95]:[.85,.55,1],energyA:[.06,.008,.085],energyB:[.09,.012,.055],bloomRange:[.16,.72],bloom:.62,rolloff:key==='magenta'?.78:.72};
 }
 // Projection of three adjacent lattice cells, rather than three differently
 // scaled sculptures. The inverse camera keeps the fragments attached on hover.

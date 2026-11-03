@@ -1,13 +1,13 @@
-import {BOOT,smooth,pointerPose} from './engine/geometry.mjs?v=purple-20261103-1';
-import {makeGPU,makeCPU} from './engine/renderer.mjs?v=purple-20261103-1';
-import {makeAtlas} from './engine/atlas.mjs?v=purple-20261103-1';
-import {DIRECTIONS,POSES,STEP,FORMATIONS,formationAt,blendParts,transition,layoutFor} from './forms.mjs?v=purple-20261103-1';
+import {BOOT,smooth,pointerPose} from './engine/geometry.mjs?v=magenta-20261103-2';
+import {makeGPU,makeCPU} from './engine/renderer.mjs?v=magenta-20261103-2';
+import {makeAtlas} from './engine/atlas.mjs?v=magenta-20261103-2';
+import {DIRECTIONS,POSES,STEP,FORMATIONS,formationAt,blendParts,transition,layoutFor} from './forms.mjs?v=magenta-20261103-2';
 
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),review=new URLSearchParams(location.search);
 const pauseButton=document.querySelector('#pause'),poseControl=document.querySelector('#pose'),linkedControl=document.querySelector('#linked'),peripheralControl=document.querySelector('#peripherals'),status=document.querySelector('#motion-status');
 const comparison=document.querySelector('#comparison');
 const spacingControl=document.querySelector('#spacing'),materialControl=document.querySelector('#material');
-let spacing=review.get('spacing')==='reference'?'reference':'clear',violet=review.get('material')==='orchid'?'orchid':'violet';
+let spacing=review.get('spacing')==='reference'?'reference':'clear',activeMaterial=['hotviolet','violet'].includes(review.get('material'))?'hotviolet':'magenta';
 let paused=reduced.matches,time=0,previous=0,lastPaint=0,request=0,dirty=true,mode='auto',offset=0,manual=null,bootSkipped=reduced.matches;
 let visible=!document.hidden,linked=true,ghosts=false;
 const hash=(x,y)=>{const n=Math.sin(x*127.1+y*311.7)*43758.5453;return n-Math.floor(n);};
@@ -35,7 +35,7 @@ class View {
     this.id=id;this.element=document.querySelector(`[data-direction="${id}"]`);this.figure=this.element.querySelector('figure');this.canvas=this.element.querySelector('canvas');this.caption=this.element.querySelector('.pose-name');
     this.width=0;this.height=0;this.ratio=1;this.layout=null;this.inView=true;this.lost=false;
     this.pointer={x:-2000,y:-2000,strength:0,turn:0,tilt:0};this.target={strength:0,turn:0,tilt:0};
-    this.options={get:()=>({width:this.width,height:this.height,ratio:this.ratio,layout:this.layout,pointer:this.pointer,time,bootSkipped,color:'#7fee64',material:this.id==='green'?'green':violet,ghosts}),makeCells:pitch=>cellsFor(this.layout,pitch),makeAtlas,hash};
+    this.options={get:()=>({width:this.width,height:this.height,ratio:this.ratio,layout:this.layout,pointer:this.pointer,time,bootSkipped,color:'#7fee64',material:this.id==='green'?'green':activeMaterial,ghosts}),makeCells:pitch=>cellsFor(this.layout,pitch),makeAtlas,hash};
     this.createRenderer();
     this.figure.addEventListener('pointermove',event=>{
       if(event.pointerType==='touch')return;
@@ -79,7 +79,7 @@ class View {
   draw(scene){
     if(this.lost||!this.layout||!this.inView)return;
     this.renderer.draw({...scene,turn:this.pointer.turn,tilt:this.pointer.tilt});this.caption.textContent=title(scene.state.focus);
-    Object.assign(this.canvas.dataset,{direction:this.id,time:time.toFixed(3),pose:scene.state.focus,blend:scene.state.blend.toFixed(3),flash:scene.state.flash.toFixed(3),turn:this.pointer.turn.toFixed(4),tilt:this.pointer.tilt.toFixed(4),paused:String(paused),ghosts:String(ghosts),spacing,material:this.id==='green'?'green':violet});
+    Object.assign(this.canvas.dataset,{direction:this.id,time:time.toFixed(3),pose:scene.state.focus,blend:scene.state.blend.toFixed(3),flash:scene.state.flash.toFixed(3),turn:this.pointer.turn.toFixed(4),tilt:this.pointer.tilt.toFixed(4),paused:String(paused),ghosts:String(ghosts),spacing,material:this.id==='green'?'green':activeMaterial});
   }
 }
 const views=DIRECTIONS.map(id=>new View(id));
@@ -121,7 +121,8 @@ const reviewTime=Number(review.get('at'));
 if(review.has('at')&&Number.isFinite(reviewTime)){time=Math.max(0,reviewTime);paused=true;bootSkipped=!review.has('intro');}
 if(POSES.includes(review.get('pose'))){mode=review.get('pose');poseControl.value=mode;}
 if(review.get('ghosts')==='1'){ghosts=true;peripheralControl.checked=true;}
-spacingControl.value=spacing;materialControl.value=violet;
+function updateMaterialLabel(){document.querySelector('#purple-title').textContent=activeMaterial==='hotviolet'?'Hot violet':'Electric magenta';}
+spacingControl.value=spacing;materialControl.value=activeMaterial;updateMaterialLabel();
 spacingControl.addEventListener('change',()=>{spacing=spacingControl.value;manual=null;dirty=true;schedule();});
-materialControl.addEventListener('change',()=>{violet=materialControl.value;dirty=true;schedule();});
+materialControl.addEventListener('change',()=>{activeMaterial=materialControl.value;updateMaterialLabel();dirty=true;schedule();});
 for(const view of views)view.resize();updateStatus();schedule();

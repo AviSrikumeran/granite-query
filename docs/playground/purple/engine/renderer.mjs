@@ -1,5 +1,5 @@
-import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=purple-20261103-1';
-import {KEY,FILL,TIER_GLYPHS,materialColors,materialProfile,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=purple-20261103-1';
+import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=magenta-20261103-2';
+import {KEY,FILL,TIER_GLYPHS,materialColors,materialProfile,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=magenta-20261103-2';
 
 // One scene → luminance tiers → glyphs → camera-projected peripheral views →
 // highlight bloom. Peripheral samples share the finished scene, not a new trace.
@@ -102,7 +102,7 @@ uniform sampler2D u_image,u_bloom;
 uniform vec2 u_resolution,u_center,u_offsets[3];
 uniform vec4 u_region;
 uniform vec3 u_background,u_ghostTint,u_energyA,u_energyB;
-uniform float u_bloomStrength;
+uniform float u_bloomStrength,u_rolloff;
 uniform float u_unit,u_time,u_reveal,u_ghostStrength;
 varying vec2 v_uv;
 vec4 sampleScene(vec2 uv){if(min(uv.x,uv.y)<0.||max(uv.x,uv.y)>1.)return vec4(0.);return texture2D(u_image,uv);}
@@ -131,7 +131,7 @@ void main(){
   }
   energy*=smoothstep(.94,1.2,u_reveal);
   color+=energy;
-  float peak=max(color.r,max(color.g,color.b)),knee=.22;
+  float peak=max(color.r,max(color.g,color.b)),knee=u_rolloff;
   float rolled=peak<=knee?peak:knee+(1.-knee)*(1.-exp(-(peak-knee)/(1.-knee)));
   color*=rolled/max(peak,.0001);
   float envelope=1.-smoothstep(3.55,4.1,length(local/vec2(1.05,1.)));
@@ -152,7 +152,7 @@ export function makeGPU(canvas,{get,makeCells,makeAtlas}){
   }
   const main=program(vertex,fragment,['resolution','center','unit','turn','tilt','reveal','flash','hover','ratio','footprint','glyphSize','centers[0]','halves[0]','colors[0]','key','fill','aa','atlas']);
   const blur=program(quadVertex,blurFragment,['image','pixel','extract','range']);
-  const composite=program(quadVertex,compositeFragment,['image','bloom','resolution','center','offsets[0]','unit','time','reveal','region','ghostStrength','background','ghostTint','energyA','energyB','bloomStrength']);
+  const composite=program(quadVertex,compositeFragment,['image','bloom','resolution','center','offsets[0]','unit','time','reveal','region','ghostStrength','background','ghostTint','energyA','energyB','bloomStrength','rolloff']);
   const cellsBuffer=gl.createBuffer(),quadBuffer=gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER,quadBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
   const atlas=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,atlas);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,makeAtlas());gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
@@ -182,7 +182,7 @@ export function makeGPU(canvas,{get,makeCells,makeAtlas}){
     for(let i=0;i<mips.length;i++)blurTo(i?mips[i-1]:target,mips[i],i?0:1);
     gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);for(let i=mips.length-1;i>0;i--)blurTo(mips[i],mips[i-1],0);gl.disable(gl.BLEND);
     screen(null);use(composite,quadBuffer,'a_position',2);bind(target.texture);bind(mips[0].texture,1);
-    const c=composite.u;gl.uniform1i(c.image,0);gl.uniform1i(c.bloom,1);gl.uniform2f(c.resolution,width,height);gl.uniform2fv(c.center,layout.center);gl.uniform2fv(c['offsets[0]'],ghostOffsets(scene.turn,scene.tilt,sideClearance(scene.state)).flat());gl.uniform4f(c.region,layout.left,layout.top,layout.right,layout.bottom);gl.uniform1f(c.unit,layout.unit);gl.uniform1f(c.time,time);gl.uniform1f(c.reveal,reveal);gl.uniform1f(c.ghostStrength,ghosts?1:0);gl.uniform3fv(c.background,profile.background);gl.uniform3fv(c.ghostTint,profile.ghost);gl.uniform3fv(c.energyA,profile.energyA);gl.uniform3fv(c.energyB,profile.energyB);gl.uniform1f(c.bloomStrength,profile.bloom);gl.drawArrays(gl.TRIANGLES,0,6);
+    const c=composite.u;gl.uniform1i(c.image,0);gl.uniform1i(c.bloom,1);gl.uniform2f(c.resolution,width,height);gl.uniform2fv(c.center,layout.center);gl.uniform2fv(c['offsets[0]'],ghostOffsets(scene.turn,scene.tilt,sideClearance(scene.state)).flat());gl.uniform4f(c.region,layout.left,layout.top,layout.right,layout.bottom);gl.uniform1f(c.unit,layout.unit);gl.uniform1f(c.time,time);gl.uniform1f(c.reveal,reveal);gl.uniform1f(c.ghostStrength,ghosts?1:0);gl.uniform3fv(c.background,profile.background);gl.uniform3fv(c.ghostTint,profile.ghost);gl.uniform3fv(c.energyA,profile.energyA);gl.uniform3fv(c.energyB,profile.energyB);gl.uniform1f(c.bloomStrength,profile.bloom);gl.uniform1f(c.rolloff,profile.rolloff);gl.drawArrays(gl.TRIANGLES,0,6);
   }};
 }
 

@@ -1,4 +1,4 @@
-import {BOOT,smooth} from './engine/geometry.mjs?v=purple-20261103-1';
+import {BOOT,smooth} from './engine/geometry.mjs?v=magenta-20261103-2';
 export const PART_COUNT=40,DIRECTIONS=['green','purple'],POSES=['locked','open','offset'];
 export const HOLD=4.5,EVENT=.5,STEP=HOLD+EVENT,PERIOD=STEP*POSES.length;
 const solid=(center,half)=>({center,half,rotation:[0,0,0,1],kind:0});
