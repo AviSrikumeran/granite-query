@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Ranked versus random: completed
+Current stage: matched_eval64_v1: baseline_evaluation
 
-Next: Await user review of the completed pilot; no additional paid jobs are queued.
+Next: Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -137,3 +137,27 @@ Both adapters and evaluation outputs are preserved. The first comparison is comp
 ## 2026-11-03T17:41:13.663789+00:00 | in_progress | Ranked versus random supervision
 
 Await user review of the completed pilot; no additional paid jobs are queued.
+
+## 2026-11-03T17:51:14.710976+00:00 | planned | Shared64 benchmark and full120 training frozen
+
+A new64 development monitoring set is disjoint from the earlier pilot, teacher candidates and old development questions. Evaluate original Granite and saved32-example adapters, then train a fresh adapter on all120 verified teacher examples. Reuse the same64 questions for before/after comparisons. Official test remains untouched. Improvement is measured, not assumed.
+
+## 2026-11-03T17:53:26.208809+00:00 | in_progress | Shared64 worker: baseline evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T17:56:23.698350+00:00 | decision | Full project continues beyond the tied pilot
+
+The user clarified that completion requires matched DeepSeek and Granite baselines, visual evidence, and further measured Granite improvement rounds. The pilot alone is not project completion. Supervision is restored for the queued shared64 benchmark and full120 training cycle.
+
+## 2026-11-03T17:56:23.709459+00:00 | completed | DeepSeek baseline measured on identical16 questions
+
+DeepSeek Pro scored15/16 versus13/16 for original Granite and both32-example adapters on exactly the same questions. All outcomes retained. DeepSeek used thinking with4096 output-token cap; Granite used non-thinking with512. Different timing scopes and inference budgets are disclosed.
+
+## 2026-11-03T17:56:23.719457+00:00 | in_progress | Larger shared64 evaluation started
+
+One detached A100 is evaluating untouched Granite and the saved32-example adapters on a new frozen64 monitoring set. DeepSeek is being evaluated on exactly that set too. A fresh120-example training round is queued after the GPU evaluation; charts will use only measured matched-set results.
+
+## 2026-11-03T17:56:23.838779+00:00 | in_progress | Research improvement cycle
+
+Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.

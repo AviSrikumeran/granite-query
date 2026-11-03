@@ -67,14 +67,33 @@ def tick():
             else:
                 remote_status = {'stage':'teacher_generation'}
                 training_action = 'Inspect the teacher collector lock and process; do not duplicate active generation. Resume only after confirming no collector is running.'
+        improvement=ROOT/'runs/matched_eval64_v1'
+        larger=ROOT/'runs/granite_full120_v1'
+        improving=(improvement/'plan.json').exists()
+        if improving:
+            if not (improvement/'result.json').exists():
+                p=improvement/'remote_status.json'
+                remote_status=json.loads(p.read_text()) if p.exists() else {'stage':'queued'}
+                training_action='Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.'
+            elif not (larger/'result.json').exists():
+                if (larger/'launch.json').exists():
+                    p=larger/'remote_status.json'
+                    remote_status=json.loads(p.read_text()) if p.exists() else {'stage':'queued'}
+                    training_action='Poll improvement_control.py poll --run train; do not duplicate the active job.'
+                else:
+                    remote_status={'stage':'full120_training_queued'}
+                    training_action='After confirming the evaluation GPU call stopped, launch the already-reserved full120 training worker once.'
+            else:
+                remote_status={'stage':'matched64_analysis'}
+                training_action='Build research_charts.py, compare teacher and Granite on the same64 questions, and plan the bounded skill-targeted round if no improvement is measured.'
         status = {'updated_at_utc': datetime.now(timezone.utc).isoformat(),
-            'mode': 'budget_exhausted' if exhausted else ('awaiting_review' if (comparison/'review_complete.json').exists() else 'ready_for_agent'),
+            'mode': 'budget_exhausted' if exhausted else ('ready_for_agent' if improving else ('awaiting_review' if (comparison/'review_complete.json').exists() else 'ready_for_agent')),
             'teacher_pilot_complete': summary.get('completed') == 16,
             'teacher_pilot': summary, 'last_recorded_connectivity': connectivity,
             'training_worker_exists': training_ready,
             'next_action': 'Stop paid work and report budget ceiling.' if exhausted else
                 training_action,
-            'training_progress': {k: v for k, v in remote_status.items() if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
+            'training_progress': {k: v for k, v in remote_status.items() if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens','completed','total')},
             'paid_work_launched_by_tick': False}
         temp = STATE / 'status.tmp'
         temp.write_text(json.dumps(status, indent=2), encoding='utf-8')
@@ -89,7 +108,7 @@ def tick():
         (STATE / 'latest_report.md').write_text(report, encoding='utf-8')
         with (STATE / 'events.jsonl').open('a', encoding='utf-8') as handle:
             handle.write(json.dumps(status) + '\n')
-        record('in_progress', 'Ranked versus random supervision' if (comparison/'plan.json').exists() else 'Granite training smoke test',
+        record('in_progress', 'Research improvement cycle' if improving else ('Ranked versus random supervision' if (comparison/'plan.json').exists() else 'Granite training smoke test'),
                status['next_action'], event_id='supervisor-next-' + status['next_action'])
         build(status)
         print(json.dumps(status))

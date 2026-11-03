@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T17:41:13.681788+00:00",
+  "generated_at_utc": "2026-11-03T17:57:53.868746+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Ranked versus random: completed",
-  "next_action": "Await user review of the completed pilot; no additional paid jobs are queued.",
+  "stage": "matched_eval64_v1: baseline_evaluation",
+  "next_action": "Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,8 +17,8 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "completed",
-    "elapsed_seconds": 395.29
+    "stage": "baseline_evaluation",
+    "elapsed_seconds": 284.399
   },
   "caveat": "Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.",
   "events": [
@@ -245,6 +245,48 @@
       "kind": "in_progress",
       "title": "Ranked versus random supervision",
       "detail": "Await user review of the completed pilot; no additional paid jobs are queued."
+    },
+    {
+      "id": "improvement64-plan",
+      "at_utc": "2026-11-03T17:51:14.710976+00:00",
+      "kind": "planned",
+      "title": "Shared64 benchmark and full120 training frozen",
+      "detail": "A new64 development monitoring set is disjoint from the earlier pilot, teacher candidates and old development questions. Evaluate original Granite and saved32-example adapters, then train a fresh adapter on all120 verified teacher examples. Reuse the same64 questions for before/after comparisons. Official test remains untouched. Improvement is measured, not assumed."
+    },
+    {
+      "id": "matched_eval64_v1-baseline_evaluation",
+      "at_utc": "2026-11-03T17:53:26.208809+00:00",
+      "kind": "in_progress",
+      "title": "Shared64 worker: baseline evaluation",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "full-project-scope-restored",
+      "at_utc": "2026-11-03T17:56:23.698350+00:00",
+      "kind": "decision",
+      "title": "Full project continues beyond the tied pilot",
+      "detail": "The user clarified that completion requires matched DeepSeek and Granite baselines, visual evidence, and further measured Granite improvement rounds. The pilot alone is not project completion. Supervision is restored for the queued shared64 benchmark and full120 training cycle."
+    },
+    {
+      "id": "matched16-teacher-complete",
+      "at_utc": "2026-11-03T17:56:23.709459+00:00",
+      "kind": "completed",
+      "title": "DeepSeek baseline measured on identical16 questions",
+      "detail": "DeepSeek Pro scored15/16 versus13/16 for original Granite and both32-example adapters on exactly the same questions. All outcomes retained. DeepSeek used thinking with4096 output-token cap; Granite used non-thinking with512. Different timing scopes and inference budgets are disclosed."
+    },
+    {
+      "id": "shared64-started",
+      "at_utc": "2026-11-03T17:56:23.719457+00:00",
+      "kind": "in_progress",
+      "title": "Larger shared64 evaluation started",
+      "detail": "One detached A100 is evaluating untouched Granite and the saved32-example adapters on a new frozen64 monitoring set. DeepSeek is being evaluated on exactly that set too. A fresh120-example training round is queued after the GPU evaluation; charts will use only measured matched-set results."
+    },
+    {
+      "id": "supervisor-next-Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.",
+      "at_utc": "2026-11-03T17:56:23.838779+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch."
     }
   ],
   "comparison": {

@@ -24,3 +24,15 @@ async function refreshResults(){
   }catch(error){/* Keep any last successfully rendered results. */}
 }
 refreshResults();setInterval(refreshResults,60000);
+async function refreshResearch(){
+  try{const response=await fetch('research.json?t='+Date.now(),{cache:'no-store'});if(!response.ok)return;
+    const data=await response.json();if(data.matched64?.stage==='completed'){
+      document.getElementById('larger-image').src='figures/matched64-accuracy.svg?t='+Date.now();
+      document.getElementById('larger-figure').hidden=false;
+      document.getElementById('research-phase').textContent=data.training120?.stage==='completed'
+        ? 'The shared 64-question teacher/student evaluation and the 120-example training round are complete. The chart below shows their measured results.'
+        : 'The shared 64-question benchmark is complete. The 120-example training round is queued or running; no improvement is claimed before its evaluation finishes.';
+    }
+  }catch(error){/* Newer figures remain hidden until measured results exist. */}
+}
+refreshResearch();setInterval(refreshResearch,60000);

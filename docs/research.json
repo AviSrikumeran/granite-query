@@ -1,0 +1,20 @@
+{
+  "matched16": {
+    "count": 16,
+    "teacher_correct": 15,
+    "granite_original_correct": 13,
+    "granite_ranked32_correct": 13,
+    "granite_random32_correct": 13,
+    "settings_note": "DeepSeek thinking/4096 output tokens; Granite non-thinking/512. API round-trip and GPU-generation timing differ."
+  },
+  "matched64": {
+    "stage": "in_progress"
+  },
+  "training120": {
+    "stage": "queued"
+  },
+  "figures": [
+    "figures/matched16-accuracy.svg",
+    "figures/pilot-learning-history.svg"
+  ]
+}
