@@ -1,62 +1,72 @@
 # Granite Query light and form study
 
-The current playground uses green temporarily to isolate the lighting and motion decisions. This replaces the blue/pink experiment after review. It is not the final project palette. The homepage and the separate Modal reference study remain outside this change.
+The isolated playground uses green temporarily to review depth, glyph detail and motion. It is not the final project palette. The homepage and the preserved Modal comparison remain outside this change.
 
-## Review decisions
+## Reference recording, November 3, 2026
 
-- Keep the nested-square idea; add legible stepped blocks and separated slabs.
-- Remove the folded loop, weave and double helix. The loop and helix exposed their straight box segments and did not read as convincing curved objects.
-- Improve both the large forms and the small marks. A curved subject must have an actual curved surface; a chain of boxes is not an adequate substitute.
-- Replace the blue/pink material split with one hue and a broad light-to-dark range.
-- Bright areas should flare briefly before the next intact form appears. Dark areas should stay dark. Avoid a visible disassembly or long travelling morph.
-- The main form and its left, upper-right and faint lower-right repetitions should share the pointer-driven perspective.
+The user supplied a 45.4-second screen recording named **modal hero.mov** and confirmed that they moved the mouse without clicking. The recording is the current motion reference. It was reviewed as an overview and in 50 ms sampled clips. The source has variable frame timing, so these timecodes and durations are approximate.
 
-## Observed reference and limits
+| Recording time | Visible behavior |
+| --- | --- |
+| Around 2.50–2.95 s | Sparse, muted marks suggest the outline while the main field remains unlit. |
+| Around 3.00–3.25 s | A bright central ignition spreads through the shape rapidly; it settles afterward. |
+| Around 7.95–8.05 s | Brighter parts of the box flare while the darker field stays muted. |
+| Around 8.10–8.25 s | A few in-between frames reshape the box into separated plates. It is a very fast morph rather than a literal hard cut. |
+| Around 8.30 s onward | The new form holds while highlights continue moving over the surfaces. |
+| Later cycles | Changes recur roughly five seconds apart as the pointer moves, and also while it is nearly still. |
 
-Reference: [Modal homepage](https://modal.com/), inspected November 3, 2026.
+The earlier implementation interpreted the blink as a direct geometry cut. The recording corrects that interpretation: the transition contains a brief reshaping window. Likewise, the earlier randomly filling startup missed the long sparse hold followed by the fast central ignition.
 
-A reload showed sparse marks around an outline before the full dense field appeared. The field includes brighter yellow-green marks, dark surfaces, muted repeated silhouettes and a subtle lower-right repetition. Moving the mouse across the field changes its perspective. These are visual observations.
+Pointer movement changes the perspective gently, including the repeated silhouettes. Moving surface highlights are also visible between geometry changes. The current implementation separates an autonomous shape clock, moving surface illumination and damped pointer pose. The recording does not recover Modal's implementation or prove which internal effects use the cursor.
 
-The highlight-only flare followed by a near-instant shape change is the user's clarified motion target. The implementation below is an independent approximation. The exact source timings, lighting calculations, scene and shader have not been recovered. The earlier extraction did not capture the canvas choreography. A screen recording with timestamps would allow more precise frame comparisons.
+The original recording and extracted images stay local. Only authored code, tests and these findings are published.
 
-## One-hue material
+## Review decisions retained
 
-The default base is **#78E865** on **#040804**. One swatch and one hex field now control the material; it no longer blends between unrelated blue and pink materials according to world position.
+- Keep nested squares, stepped blocks and separated slabs.
+- Remove the folded loop, weave and double helix. Their curved subjects exposed straight box segments.
+- Improve both large forms and tiny marks. Rounded tiers use analytic cylinder surfaces with continuous side normals.
+- Use one hue with dark shadows and pale highlights instead of assigning blue and pink to different material regions.
+- Keep three dim repetitions: left, upper right and a weaker lower right.
+- Pointer motion should gently turn the field. Clicking it must not advance the form. The explicit selector remains a review control.
 
-The renderer derives a dark shadow and a pale, slightly yellow highlight from that base. Surface normals determine face illumination, and directional shadow rays test occlusion from other solids in the GPU renderer. Stable per-cell variation and a smaller set of brighter marks create detail within each face. The darkest faces stay dark instead of being lifted by the flare. The page accents follow the chosen hue. The background remains the dark reference neutral during this study.
+## One-hue material and moving light
 
-The palette ramp is a working material model. Different hues still need visual review before becoming project branding.
+The default base is **#78E865**, with **#040804** as the background. One swatch and hex field derive the shadow and highlight ramp. Page accents follow that hue; the background stays the dark reference neutral during this study.
+
+Surface normals determine face illumination. GPU shadow rays account for occlusion from other solids. A slowly moving directional light and a smooth band travelling through world space change the highlight positions even with a stationary pointer. Stable per-cell variation and a few brighter marks create detail within each face. A flare lifts the already-bright marks while preserving the darkest areas.
+
+This is an authored lighting model, not an extraction of Modal's shader. The resulting material and different candidate hues still need visual review.
 
 ## Large forms and small marks
 
 | Form | Construction |
 | --- | --- |
-| Nested squares | Four square frames staggered in depth; sixteen beams with thicker edges. |
-| Stepped blocks | Five adjacent columns sharing a baseline, oriented to expose both the treads and risers. |
-| Stacked slabs | Three separated flat plates, slightly offset. |
-| Rounded tiers | Three true elliptical cylinders with analytic curved side intersections and continuous surface normals. No box-segment approximation. |
+| Nested squares | Four square frames staggered in depth; sixteen beams. |
+| Stepped blocks | Five adjacent columns sharing a baseline, facing the camera so both treads and risers are visible. |
+| Stacked slabs | Three separated plates, slightly offset. |
+| Rounded tiers | Three analytic elliptical cylinders with smooth side normals. |
 
-Sixteen GPU slots accommodate these scenes. Unused slots have zero dimensions and are skipped. They do not gather in the center or travel between forms.
+Sixteen GPU slots accommodate the forms; unused slots have zero dimensions and are skipped. During the brief reshape, disappearing parts shrink toward nearby active target solids rather than collecting at a common central point. The camera scale stays fixed. The curved tiers retain analytic curved surfaces in their settled state.
 
-The independently drawn sixteen-mark atlas uses disks, rings, arcs, curved strokes, a split disk, lens, rounded crosses, triangles, a three-dot cluster and a droplet. Filled marks receive more samples than outlines. The 6.8 px glyph footprint on a staggered 5.4 px lattice leaves clearer gaps between marks. Identity and brightness variation remain stable at each cell rather than randomly replacing symbols each frame.
+The sixteen-mark atlas contains disks, rings, arcs, curved strokes, split disks, lenses, rounded crosses, triangles, three-dot clusters and droplets. Filled marks receive more samples than outlines. A 6.8 px glyph footprint on a staggered 5.4 px lattice leaves gaps between marks. Cell identity remains stable across frames.
 
-## Startup, switches and interaction
+## Choreography and interaction
 
-Startup fills the existing glyph locations over **1.15 seconds**. It begins with a few sparse edge marks, then reveals faces at slightly different thresholds. There is no camera zoom or particle flight.
+Startup holds sparse, muted outline marks for about **0.96 seconds**. A center-out reveal fills the existing glyph positions over approximately **0.27 seconds**, with the highlight settling by **1.55 seconds**. There is no geometry zoom.
 
-Each form holds for **4.8 seconds**. During a **0.46-second** event, already-bright marks flare; the geometry switches directly at **0.17 seconds**; the highlight settles over the remainder. No intermediate broken or interpolated object is rendered. These are chosen reconstruction settings, not measured Modal timings. Retargeting an active manual change does not restart its flare.
+The autonomous cycle is **five seconds per form**: a **4.5-second hold** and a **0.5-second transition event**. Bright marks flare first; geometry reshapes between **0.20 and 0.40 seconds** into the event, then the light settles. This replaces both the earlier multi-second disassembly and the later hard cut. The values approximate the supplied recording and can be refined further.
 
-Pointer movement controls damped yaw (up to about 17 degrees) and pitch (up to about 9 degrees). The same camera transform is used for the primary form and all three repetitions. A restrained local light response supplements the rotation. The lower-right repetition is weaker than the others and fades toward the edge of the field. Green-black atmosphere replaces the prior navy wash.
+Mouse position across the hero controls up to about **6 degrees of yaw** and **3.7 degrees of pitch**, with damping. The primary object and all repetitions use the same camera transform. Moving the mouse does not reset the automatic sequence or trigger the next form. Clicking the field has no form-changing handler.
 
-Clicking the field advances a form. The selector pins a form or plays the sequence. Pause freezes the animation; a paused selection shows the chosen complete form immediately. Escape pauses. **Restart reveal** resets the pointer and sequence and replays startup; it starts motion unless the system requests reduced motion. Reduced motion starts with a fully visible, paused form. Touch drags scroll rather than advancing the shape. Hidden and offscreen fields stop scheduling frames.
+The selector pins a form or plays the sequence. Selecting while paused displays a complete form immediately. A playing selection uses the short transition; retargeting starts at the displayed geometry without restarting the flare clock. Pause freezes the clock and pointer response; Escape pauses. **Restart reveal** resets pointer influence and replays startup, respecting reduced-motion preference. Reduced motion starts fully visible and paused. Touch drags scroll normally. Hidden and offscreen fields stop scheduling frames.
 
-## Implementation and verification
+## Verification and boundaries
 
-- Rendering remains buildless and dependency-free, scoped to the playground.
-- The GPU path shades oriented cuboids and analytic cylinders, casts directional shadows, and draws the glyph plus halo in one pass.
-- Canvas 2D uses the same scene, ray intersections, palette, reveal and switch timing at a lower sampling density. Its lighting is simpler and does not cast the GPU shadow rays.
-- Eight current geometry/material tests cover distinct finite forms, selective highlight flaring, direct shape commits, sequence closure, monotonic startup reveal, bounded palette ramps, dimension-preserving yaw/pitch, and continuous cylinder normals. The six preserved Modal tests also pass.
-- Browser review covers the actual WebGL output, all forms, startup replay, pointer response, color editing and invalid-input recovery, a 390 px phone viewport without horizontal overflow, and the Canvas fallback.
-- Publication is restricted to the playground renderer, controls, tests and these notes. The homepage blob and all files in the preserved Modal study are compared with the latest parent tree before publishing.
+Ten current tests cover finite distinct formations, selective bright-area flaring, the short reshape interval, cycle closure, startup hold and radial reveal, palette bounds, limited pointer pose, continuous cylinder normals, interruption start/end geometry, and moving illumination with fixed geometry. The six preserved Modal tests also pass.
 
-The nested squares remain the main review form. The rounded tiers provide a concrete test of curved representation. Visual quality and exact motion fidelity remain review questions; passing geometry tests does not establish a match to Modal.
+Browser review checks the actual WebGL output and shader logs, sparse hold and ignition, short in-between geometry, autonomous playback, ignored field clicks, pointer response, mobile layout without horizontal overflow, and the Canvas fallback. The fallback shares geometry, timing and travelling surface light at a lower density, with simpler shading and no GPU shadow rays.
+
+There are no new runtime packages or build steps. Publication is limited to the playground, its tests and documentation. The homepage and all other repository blobs are compared against the latest parent tree.
+
+The recording improves the evidence for this pass. The different geometry, composition, glyph shapes and remaining lighting differences mean this is still an independent study rather than a pixel-perfect reproduction.

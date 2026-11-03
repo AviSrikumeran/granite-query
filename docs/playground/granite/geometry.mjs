@@ -1,7 +1,7 @@
 // Independently authored forms. Fixed GPU slots do not imply moving parts.
 export const FORMS=['frames','steps','slabs','tiers'];
 export const FORM_LABELS={frames:'Nested squares',steps:'Stepped blocks',slabs:'Stacked slabs',tiers:'Rounded tiers'};
-export const BOX_COUNT=16,BOOT=1.15,HOLD=4.8,TRANSITION=.46,SWITCH_AT=.17;
+export const BOX_COUNT=16,BOOT=1.55,HOLD=4.5,TRANSITION=.5,MORPH_START=.2,MORPH_END=.4;
 export const STEP=HOLD+TRANSITION,PERIOD=STEP*FORMS.length;
 const clamp=t=>Math.max(0,Math.min(1,t));
 export const smooth=(a,b,t)=>{t=clamp((t-a)/(b-a));return t*t*(3-2*t);};
@@ -33,26 +33,45 @@ function tiers(){
 }
 export const SHAPES={frames:frames(),steps:steps(),slabs:slabs(),tiers:tiers()};
 
-// No interpolated solids: the old silhouette persists until the commit instant.
+// The recording shows a brief reshaping under the flare, not a hard cut.
 export function switchState(from,to,elapsed){
   const t=Math.max(0,elapsed),transitioning=t<TRANSITION;
-  const flash=t<SWITCH_AT?smooth(0,SWITCH_AT,t):1-smooth(SWITCH_AT,TRANSITION,t);
-  const focus=t<SWITCH_AT?from:to;
-  return {from,to,focus,flash:transitioning?flash:0,transitioning,phase:transitioning?(t<SWITCH_AT?'flare':'settle'):'hold'};
+  const flash=t<.15?smooth(0,.15,t):1-smooth(.15,TRANSITION,t),blend=smooth(MORPH_START,MORPH_END,t);
+  const focus=blend<.5?from:to;
+  return {from,to,focus,blend,flash:transitioning?flash:0,transitioning,phase:transitioning?(t<MORPH_START?'flare':t<MORPH_END?'reshape':'settle'):'hold'};
 }
 export function stateAt(time,mode='auto'){
-  if(FORMS.includes(mode))return {from:mode,to:mode,focus:mode,flash:0,transitioning:false,phase:'hold'};
+  if(FORMS.includes(mode))return {from:mode,to:mode,focus:mode,blend:0,flash:0,transitioning:false,phase:'hold'};
   const clock=((time%PERIOD)+PERIOD)%PERIOD,index=Math.floor(clock/STEP),elapsed=clock-index*STEP,from=FORMS[index];
-  if(elapsed<HOLD)return {from,to:from,focus:from,flash:0,transitioning:false,phase:'hold'};
+  if(elapsed<HOLD)return {from,to:from,focus:from,blend:0,flash:0,transitioning:false,phase:'hold'};
   return switchState(from,FORMS[(index+1)%FORMS.length],elapsed-HOLD);
 }
 export function boxesAt(time,mode='auto'){
-  const state=stateAt(time,mode);return {state,boxes:SHAPES[state.focus]};
+  const state=stateAt(time,mode);return {state,boxes:mixBoxes(SHAPES[state.from],SHAPES[state.to],state.blend)};
 }
-export function revealAt(time,seed,rim=0){
-  const t=clamp(time/BOOT),delay=seed*.55+(1-rim)*.12;
-  const filled=smooth(delay,delay+.3,t);
-  return Math.max(filled,seed>.982?.12*rim:0);
+export function mixBoxes(from,to,t){
+  if(t<=1e-9)return from;if(t>=1-1e-9)return to;
+  const active=boxes=>boxes.filter(b=>b.half.every(v=>v>.001));
+  const start=active(from),end=active(to),nearest=(point,boxes)=>boxes.reduce((best,b)=>Math.hypot(...b.center.map((v,k)=>v-point[k]))<Math.hypot(...best.center.map((v,k)=>v-point[k]))?b:best);
+  return from.map((a,i)=>{
+    const b=to[i],ac=a.half.every(v=>v>.001)?a.center:nearest(b.center,start).center,bc=b.half.every(v=>v>.001)?b.center:nearest(a.center,end).center;
+    return {center:ac.map((v,k)=>v+(bc[k]-v)*t),half:a.half.map((v,k)=>v+(b.half[k]-v)*t),rotation:[0,0,0,1],kind:t<.5?a.kind:b.kind};
+  });
+}
+export function revealAt(time,seed,rim=0,radius=1){
+  const front=smooth(.96,1.23,time)*2.4,delay=radius+seed*.09;
+  const filled=smooth(delay-.1,delay+.16,front)*smooth(.92,1.02,time);
+  return Math.max(filled,seed>.982?.55*rim:0);
+}
+export function startupFlare(time){return smooth(.96,1.12,time)*(1-smooth(1.12,BOOT,time));}
+export function pointerPose(x,y,width,height,active=true){
+  const limit=v=>Math.max(-1,Math.min(1,v));
+  return {turn:active?limit(x/width*2-1)*.105:0,tilt:active?limit(y/height*2-1)*.065:0};
+}
+export function lightDirection(time){return normalize([.3+.45*Math.sin(time*.43),.3+.1*Math.sin(time*.31),.9]);}
+export function surfaceLight(normal,point,rim,time){
+  const diffuse=Math.max(0,dot(normal,lightDirection(time))),band=Math.pow(.5+.5*Math.sin(dot(point,[2.4,2.8,-1.4])-time*1.45),3);
+  return .17+diffuse*.32+rim*.2+band*(.2+diffuse*.25+rim*.18);
 }
 export function highlightFlare(light,flash){return light+flash*.8*smooth(.48,.85,light);}
 export function paletteRamp(hex){
@@ -68,7 +87,7 @@ export function cameraRotate(p,turn=0,tilt=0){
   const x=p[0]*c-p[2]*s,z=p[0]*s+p[2]*c;
   return [x,p[1]*ct-z*st,p[1]*st+z*ct];
 }
-export function traceBoxes(screenX,screenY,boxes,turn=0,tilt=0){
+export function traceBoxes(screenX,screenY,boxes,turn=0,tilt=0,time=0){
   const x=screenX/1.7320508;
   const origin=cameraRotate([x+8,-screenY+8,-x+8],turn,tilt),direction=cameraRotate([-.57735027,-.57735027,-.57735027],turn,tilt);
   let nearest=1000,hit=null;
@@ -86,8 +105,8 @@ export function traceBoxes(screenX,screenY,boxes,turn=0,tilt=0){
         nearest=entry;const p=o.map((v,k)=>v+d[k]*entry),cap=entry===caps[0];
         const localNormal=cap?[0,-Math.sign(d[1]),0]:normalize([p[0]/rx**2,0,p[2]/rz**2]),normal=rotate(box.rotation,localNormal);
         const edge=cap?Math.abs(1-Math.hypot(p[0]/rx,p[2]/rz))*Math.min(rx,rz):h-Math.abs(p[1]);
-        const rim=Math.exp(-Math.pow(edge/.1,2)),diffuse=Math.max(0,dot(normal,normalize([-.45,.8,.45])));
-        hit={rim,normal,light:.16+diffuse*.72+rim*.25,depth:entry};
+        const rim=Math.exp(-Math.pow(edge/.1,2)),world=origin.map((v,k)=>v+direction[k]*entry);
+        hit={rim,normal,world,light:surfaceLight(normal,world,rim,time),depth:entry};
       }
       continue;
     }
@@ -96,9 +115,9 @@ export function traceBoxes(screenX,screenY,boxes,turn=0,tilt=0){
     if(entry<=exit&&exit>0&&entry<nearest){
       nearest=entry;const position=o.map((v,k)=>v+d[k]*entry),margins=position.map((v,k)=>Math.max(0,box.half[k]-Math.abs(v))).sort((a,b)=>a-b);
       const axis=near.indexOf(entry),normal=[0,0,0];normal[axis]=-Math.sign(d[axis]);
-      const worldNormal=rotate(box.rotation,normal),diffuse=Math.max(0,dot(worldNormal,normalize([-.45,.8,.45])));
+      const worldNormal=rotate(box.rotation,normal),world=origin.map((v,k)=>v+direction[k]*entry);
       const rim=Math.exp(-Math.pow(margins[1]/.1,2));
-      hit={rim,normal:worldNormal,light:.16+diffuse*.72+rim*.25,depth:entry};
+      hit={rim,normal:worldNormal,world,light:surfaceLight(worldNormal,world,rim,time),depth:entry};
     }
   }
   return hit;
