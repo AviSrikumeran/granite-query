@@ -1,0 +1,77 @@
+{
+  "evaluation_set": "frozen64 development monitoring questions",
+  "official_test_used": false,
+  "metrics": {
+    "baseline": {
+      "count": 64,
+      "numeric_correct": 58,
+      "strict_format_correct": 58,
+      "truncated": 2,
+      "latency_seconds_total": 445.4156362689999,
+      "generated_tokens": 11465,
+      "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+    },
+    "ranked32": {
+      "count": 64,
+      "numeric_correct": 52,
+      "strict_format_correct": 52,
+      "truncated": 1,
+      "latency_seconds_total": 375.0629880989998,
+      "generated_tokens": 7041,
+      "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+    },
+    "random32": {
+      "count": 64,
+      "numeric_correct": 52,
+      "strict_format_correct": 52,
+      "truncated": 3,
+      "latency_seconds_total": 412.3708057630002,
+      "generated_tokens": 7482,
+      "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+    }
+  },
+  "versus_original": {
+    "ranked32": {
+      "count": 64,
+      "corrected": 2,
+      "regressed": 8,
+      "difference_percentage_points": -9.375,
+      "paired_bootstrap_95_interval_pp": [
+        -18.75,
+        0.0
+      ],
+      "mcnemar_exact_two_sided_p": 0.109375,
+      "bootstrap_seed": 20261103,
+      "bootstrap_resamples": 20000,
+      "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+    },
+    "random32": {
+      "count": 64,
+      "corrected": 2,
+      "regressed": 8,
+      "difference_percentage_points": -9.375,
+      "paired_bootstrap_95_interval_pp": [
+        -18.75,
+        0.0
+      ],
+      "mcnemar_exact_two_sided_p": 0.109375,
+      "bootstrap_seed": 20261103,
+      "bootstrap_resamples": 20000,
+      "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+    }
+  },
+  "ranked_vs_random": {
+    "count": 64,
+    "corrected": 2,
+    "regressed": 2,
+    "difference_percentage_points": 0.0,
+    "paired_bootstrap_95_interval_pp": [
+      -6.25,
+      6.25
+    ],
+    "mcnemar_exact_two_sided_p": 1.0,
+    "bootstrap_seed": 20261103,
+    "bootstrap_resamples": 20000,
+    "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+  }
+}

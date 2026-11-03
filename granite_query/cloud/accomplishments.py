@@ -177,6 +177,16 @@ def build(workspace=None):
     current.append({'title': 'Larger 120-example Granite training round', 'status': full_state,
                     'detail': full_detail + ' Its purpose is to measure whether more verified data helps; improvement is not guaranteed.'})
 
+    pool = _read(runs/'student_valuation_pool512_v1/teacher_summary.json')
+    if pool:
+        pool_stage=pool.get('stage','unknown')
+        current.append({'title':'New verified teacher pool for token-matched controls',
+                        'status':'running' if pool_stage=='collecting' else ('completed' if pool_stage=='completed' else 'stopped'),
+                        'detail':f"{_number(pool.get('completed'))}/{_number(pool.get('requested'))} separate training questions answered; {_number(pool.get('eligible'))} passed eligibility checks, with {_number(pool.get('supervised_tokens_available')):,} available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment."})
+    if (workspace/'granite_query/cloud/student_valuation.py').exists():
+        current.append({'title':'Student-aware selector and equal-token experiment', 'status':'queued',
+                        'detail':'Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.'})
+
     eval_scores = _comparable_scores(eval_result, ('baseline', 'ranked32', 'random32'))
     full_scores = _comparable_scores(full_result, ('full120',))
     accuracy_improved = False
@@ -211,7 +221,7 @@ def build(workspace=None):
             'Robust or final-test Granite accuracy improvement has not been established.',
             'Multiple Hugging Face dataset/repository evaluation and a complete inventory of supplied links.',
             'Multiple training/selection seeds and matched supervised-token controls.',
-            'An implemented and evaluated student-aware skill-ranking method.',
+            'A completed controlled evaluation of the new student-aware selection method.',
             'Independent explanation-quality/depth evaluation.',
             'Official GSM8K test evaluation of a final frozen checkpoint.',
             'Public Granite model-serving API and Vercel deployment.',

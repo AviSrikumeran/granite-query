@@ -29,11 +29,13 @@ async function refreshResearch(){
     const data=await response.json();if(['completed','partial'].includes(data.matched64?.stage)){
       document.getElementById('larger-image').src='figures/matched64-accuracy.svg?t='+Date.now();
       document.getElementById('larger-figure').hidden=false;
+      const counts=data.matched64.correct||{};
+      const measured=['DeepSeek Pro','baseline','ranked32','random32','Granite full120'].filter(name=>Number.isInteger(counts[name])).map(name=>`${({baseline:'Original Granite',ranked32:'BM25-trained Granite',random32:'Random-trained Granite'})[name]||name}: ${counts[name]}/64`).join('; ');
       document.getElementById('research-phase').textContent=data.matched64.stage==='partial'
         ? 'The larger matched baseline is complete: DeepSeek 63/64 and original Granite 58/64 on the same questions. The trained checkpoints are still being recovered and evaluated. This is not an improvement from the earlier 16-question score; it is a different evaluation set.'
         : data.training120?.stage==='completed'
-        ? 'The shared 64-question teacher/student evaluation and the 120-example training round are complete. The chart below shows their measured results.'
-        : 'The shared 64-question benchmark is complete. The 120-example training round is queued or running; no improvement is claimed before its evaluation finishes.';
+        ? measured+'. The 120-example round is complete; these are development results, with final evaluation still pending.'
+        : measured+'. Both32-example adapters regressed from the original model. The120-example round is '+(data.training120?.stage==='queued'?'queued':'running')+'; its accuracy has not been measured yet.';
     }
   }catch(error){/* Newer figures remain hidden until measured results exist. */}
 }
