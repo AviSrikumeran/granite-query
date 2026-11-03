@@ -1,6 +1,6 @@
 # New-cohort data-efficiency results
 
-Completed 2/18 arms. Only completed matched evaluations appear below. Earlier four-arm results remain separate history.
+Completed 4/18 arms. Only completed matched evaluations appear below. Earlier four-arm results remain separate history.
 
 Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 
@@ -8,10 +8,10 @@ Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 |---:|---:|---|---|---:|---:|---:|---:|---:|---:|
 | 32,768 | 42 | random | completed | 57/64 | 0 | 32768 | 32 | 340 | 72309 |
 | 32,768 | 42 | skill | completed | 56/64 | 0 | 32768 | 32 | 467 | 81230 |
-| 32,768 | 42 | gradient | running | pending | pending | pending | pending | pending | pending |
+| 32,768 | 42 | gradient | completed | 56/64 | 0 | 32768 | 32 | 258 | 67658 |
 | 32,768 | 43 | random | prepared | pending | pending | pending | pending | pending | pending |
-| 32,768 | 43 | skill | prepared | pending | pending | pending | pending | pending | pending |
-| 32,768 | 43 | gradient | prepared | pending | pending | pending | pending | pending | pending |
+| 32,768 | 43 | skill | running | pending | pending | pending | pending | pending | pending |
+| 32,768 | 43 | gradient | completed | 54/64 | 0 | 32768 | 32 | 257 | 67502 |
 | 65,536 | 42 | random | prepared | pending | pending | pending | pending | pending | pending |
 | 65,536 | 42 | skill | prepared | pending | pending | pending | pending | pending | pending |
 | 65,536 | 42 | gradient | prepared | pending | pending | pending | pending | pending | pending |
@@ -28,6 +28,8 @@ Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 ## Paired comparisons
 
 - 32,768 tokens, seed 42, skill_vs_random: -1.56 pp; corrected 3, regressed 4; paired bootstrap95% [-9.38, +6.25] pp; exploratory McNemar p=1.0000.
+- 32,768 tokens, seed 42, gradient_vs_random: -1.56 pp; corrected 1, regressed 2; paired bootstrap95% [-7.81, +3.12] pp; exploratory McNemar p=1.0000.
+- 32,768 tokens, seed 42, gradient_vs_skill: +0.00 pp; corrected 3, regressed 3; paired bootstrap95% [-7.81, +7.81] pp; exploratory McNemar p=1.0000.
 
 ## Two-seed sensitivity
 

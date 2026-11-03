@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T20:34:44.907169+00:00",
+  "generated_at_utc": "2026-11-03T20:43:54.556170+00:00",
   "title": "New-cohort random, skill and gradient data-efficiency study",
   "status": "partial",
   "study_id": "data_efficiency_math_v1",
-  "completed_arms": 2,
+  "completed_arms": 4,
   "planned_arms": 18,
   "official_test_used": false,
   "grid_manifest_sha256": "1fbc41e3c6b0b87a96e1d9238a80746f038a0aaa0e0ffcc90ec7a76c52ebe10c",
@@ -28,7 +28,7 @@
       "token_budget": 32768,
       "budget_role": "selection_contrast",
       "fraction_of_available_supervised_tokens": 0.21962024892260879,
-      "completed_arms": 2,
+      "completed_arms": 4,
       "planned_arms": 6,
       "seeds": [
         {
@@ -132,10 +132,48 @@
               "selector": "gradient",
               "seed": 42,
               "token_budget": 32768,
-              "status": "running",
+              "status": "completed",
               "checkpoint_name": "gradient",
               "worker_arm_slot": "valued",
-              "detail": "No complete matched result is available; no accuracy is assigned."
+              "metrics": {
+                "count": 64,
+                "numeric_correct": 56,
+                "strict_format_correct": 56,
+                "truncated": 0,
+                "latency_seconds_total": 85.76421858299997,
+                "generated_tokens": 7005,
+                "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+              },
+              "accuracy_percent": 87.5,
+              "question_wilson_95_interval_percent": [
+                77.22543817887005,
+                93.52775733666955
+              ],
+              "actual_supervised_tokens": 32768,
+              "actual_optimizer_updates": 32,
+              "exposure": {
+                "examples": 258,
+                "partial_supervised_tails": 1,
+                "input_tokens_once": 59385,
+                "input_tokens_forwarded": 67658,
+                "source_counts": {
+                  "ChilleD/SVAMP": 68,
+                  "nvidia/OpenMathInstruct-2": 88,
+                  "math-ai/TemplateGSM": 102
+                },
+                "reference_origin_counts": {
+                  "human_dataset_answer": 68,
+                  "synthetic_majority_vote_answer": 88,
+                  "procedurally_generated_result": 102
+                },
+                "supervised_tokens_by_source": {
+                  "ChilleD/SVAMP": 5245,
+                  "nvidia/OpenMathInstruct-2": 13414,
+                  "math-ai/TemplateGSM": 14109
+                }
+              },
+              "worker_elapsed_seconds": 244.313640982,
+              "detail": "Completed matched development evaluation; question uncertainty does not measure training-seed uncertainty."
             }
           },
           "comparisons": {
@@ -147,6 +185,34 @@
               "paired_bootstrap_95_interval_pp": [
                 -9.375,
                 6.25
+              ],
+              "mcnemar_exact_two_sided_p": 1.0,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            },
+            "gradient_vs_random": {
+              "count": 64,
+              "corrected": 1,
+              "regressed": 2,
+              "difference_percentage_points": -1.5625,
+              "paired_bootstrap_95_interval_pp": [
+                -7.8125,
+                3.125
+              ],
+              "mcnemar_exact_two_sided_p": 1.0,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            },
+            "gradient_vs_skill": {
+              "count": 64,
+              "corrected": 3,
+              "regressed": 3,
+              "difference_percentage_points": 0.0,
+              "paired_bootstrap_95_interval_pp": [
+                -7.8125,
+                7.8125
               ],
               "mcnemar_exact_two_sided_p": 1.0,
               "bootstrap_seed": 20261103,
@@ -182,6 +248,20 @@
               "bootstrap_seed": 20261103,
               "bootstrap_resamples": 20000,
               "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            },
+            "gradient": {
+              "count": 64,
+              "corrected": 4,
+              "regressed": 6,
+              "difference_percentage_points": -3.125,
+              "paired_bootstrap_95_interval_pp": [
+                -12.5,
+                6.25
+              ],
+              "mcnemar_exact_two_sided_p": 0.75390625,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
             }
           }
         },
@@ -201,7 +281,7 @@
               "selector": "skill",
               "seed": 43,
               "token_budget": 32768,
-              "status": "prepared",
+              "status": "running",
               "checkpoint_name": "skill",
               "worker_arm_slot": "valued",
               "detail": "No complete matched result is available; no accuracy is assigned."
@@ -210,18 +290,71 @@
               "selector": "gradient",
               "seed": 43,
               "token_budget": 32768,
-              "status": "prepared",
+              "status": "completed",
               "checkpoint_name": "gradient",
               "worker_arm_slot": "valued",
-              "detail": "No complete matched result is available; no accuracy is assigned."
+              "metrics": {
+                "count": 64,
+                "numeric_correct": 54,
+                "strict_format_correct": 54,
+                "truncated": 0,
+                "latency_seconds_total": 52.907146324000024,
+                "generated_tokens": 7001,
+                "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+              },
+              "accuracy_percent": 84.375,
+              "question_wilson_95_interval_percent": [
+                73.57193822745121,
+                91.2851576617934
+              ],
+              "actual_supervised_tokens": 32768,
+              "actual_optimizer_updates": 32,
+              "exposure": {
+                "examples": 257,
+                "partial_supervised_tails": 1,
+                "input_tokens_once": 59223,
+                "input_tokens_forwarded": 67502,
+                "source_counts": {
+                  "math-ai/TemplateGSM": 102,
+                  "ChilleD/SVAMP": 67,
+                  "nvidia/OpenMathInstruct-2": 88
+                },
+                "reference_origin_counts": {
+                  "procedurally_generated_result": 102,
+                  "human_dataset_answer": 67,
+                  "synthetic_majority_vote_answer": 88
+                },
+                "supervised_tokens_by_source": {
+                  "math-ai/TemplateGSM": 14178,
+                  "ChilleD/SVAMP": 5176,
+                  "nvidia/OpenMathInstruct-2": 13414
+                }
+              },
+              "worker_elapsed_seconds": 159.526062503,
+              "detail": "Completed matched development evaluation; question uncertainty does not measure training-seed uncertainty."
             }
           },
           "comparisons": {},
-          "versus_batched_base": {}
+          "versus_batched_base": {
+            "gradient": {
+              "count": 64,
+              "corrected": 4,
+              "regressed": 8,
+              "difference_percentage_points": -6.25,
+              "paired_bootstrap_95_interval_pp": [
+                -17.1875,
+                4.6875
+              ],
+              "mcnemar_exact_two_sided_p": 0.3876953125,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            }
+          }
         }
       ],
       "seed_variation": {
-        "complete_seed_triples": 0,
+        "complete_seed_triples": 1,
         "planned_seeds": 2,
         "interpretation": "Two seeds support a descriptive sensitivity check, not a precise estimate of training-seed uncertainty."
       }
@@ -418,6 +551,34 @@
       "actual_supervised_tokens": 32768,
       "actual_optimizer_updates": 32,
       "numeric_correct": 56,
+      "count": 64
+    },
+    {
+      "seed": 42,
+      "selector": "gradient",
+      "token_budget": 32768,
+      "accuracy_percent": 87.5,
+      "question_wilson_95_interval_percent": [
+        77.22543817887005,
+        93.52775733666955
+      ],
+      "actual_supervised_tokens": 32768,
+      "actual_optimizer_updates": 32,
+      "numeric_correct": 56,
+      "count": 64
+    },
+    {
+      "seed": 43,
+      "selector": "gradient",
+      "token_budget": 32768,
+      "accuracy_percent": 84.375,
+      "question_wilson_95_interval_percent": [
+        73.57193822745121,
+        91.2851576617934
+      ],
+      "actual_supervised_tokens": 32768,
+      "actual_optimizer_updates": 32,
+      "numeric_correct": 54,
       "count": 64
     }
   ],

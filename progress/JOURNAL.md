@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: New math-cohort data-efficiency training grid
 
-Next: 18/18 arm plans prepared; 2 completed, 1 running, 15 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for gradient, seed 42, 32,768 supervised tokens. No automatic new paid launch is performed by this report.
+Next: 18/18 arm plans prepared; 4 completed, 1 running, 13 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 32,768 supervised tokens. No automatic new paid launch is performed by this report.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -517,3 +517,31 @@ One separately funded 32768-token arm launched from its reviewed frozen plan; pr
 ## 2026-11-03T20:30:52.387177+00:00 | in_progress | Research improvement cycle
 
 Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed42_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T20:36:27.073483+00:00 | completed | Study gradient seed 42 completed
+
+Saved immutable 32768-token development artifacts. Exact selector identity is gradient; final test remains sealed.
+
+## 2026-11-03T20:36:49.432231+00:00 | in_progress | Study gradient seed 43 launched
+
+One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T20:36:49.522568+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T20:39:36.906358+00:00 | completed | Study gradient seed 43 completed
+
+Saved immutable 32768-token development artifacts. Exact selector identity is gradient; final test remains sealed.
+
+## 2026-11-03T20:39:58.753918+00:00 | in_progress | Study skill seed 43 launched
+
+One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T20:39:58.837509+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T20:41:17.936575+00:00 | completed | First multi-source three-selector seed analyzed
+
+At32768 supervised tokens and32matched updates, seed42 scored random57/64, skill56/64 and gradient56/64; the matched untouched base scored58/64. Both selected arms are1question below random. One seed and64adaptive development questions do not establish a general advantage or disadvantage. Second-seed replication has started unchanged; larger budgets remain resource-gated. Gradient setup overhead is retained separately.

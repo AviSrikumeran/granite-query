@@ -445,7 +445,256 @@
     "at_utc": "2026-11-03T18:33:34.320196+00:00",
     "kind": "in_progress",
     "title": "Research improvement cycle",
-    "detail": "Compare all checkpoints on the shared64 questions, then advance the token-matched student-aware versus random study in pr…4840 tokens truncated…"at_utc": "2026-11-03T19:43:10.506322+00:00",
+    "detail": "Compare all checkpoints on the shared64 questions, then advance the token-matched student-aware versus random study in progress/RESEARCH_EXECUTION_PLAN.md. Continue regardless of whether more-data training improved; preserve funds for final evaluation and a capped API trial."
+  },
+  {
+    "id": "provider-budget-reconciled-v1",
+    "at_utc": "2026-11-03T18:36:05.365130+00:00",
+    "kind": "resolved",
+    "title": "Provider-backed Modal budget tracking enabled",
+    "detail": "The authenticated supported billing summary reported2.48 dollars of metered workspace usage and0 dollars invoiced after credits at its latest observation. Historical3-dollar job reservations are not charges. The ledger now separates provider-observed usage, an explicit3-dollar collection-lag buffer, active job reservations, and temporary liabilities for recently finished jobs. DeepSeek remains a recorded peak-price estimate. No extra compute was launched by billing reconciliation."
+  },
+  {
+    "id": "supervisor-next-Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed42_random_v1. Preserve its outputs; do not duplicate the call.",
+    "at_utc": "2026-11-03T18:36:18.785905+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed42_random_v1. Preserve its outputs; do not duplicate the call."
+  },
+  {
+    "id": "student_valuation32768_seed42_random_v1-completed",
+    "at_utc": "2026-11-03T18:37:15.557331+00:00",
+    "kind": "completed",
+    "title": "Equal-token random arm completed",
+    "detail": "Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use."
+  },
+  {
+    "id": "supervisor-next-Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed42_valued_v1. Preserve its outputs; do not duplicate the call.",
+    "at_utc": "2026-11-03T18:38:05.601584+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed42_valued_v1. Preserve its outputs; do not duplicate the call."
+  },
+  {
+    "id": "valuation32768-valued42-launched",
+    "at_utc": "2026-11-03T18:38:25.880968+00:00",
+    "kind": "in_progress",
+    "title": "Matching valuedseed42 arm launched",
+    "detail": "The randomseed42 equal-token arm completed55/64 numerical matches with no truncation. Its frozen matching valued arm is now running with the same32768 supervised tokens,32 optimizer updates, learning rate0.00002, base checkpoint, seed and64-question batched evaluation. CandidateNLL diagnostics are saved but did not change this preselected skill-based arm. No seed43 job has launched yet."
+  },
+  {
+    "id": "2e0d527b2e27bf441e76",
+    "at_utc": "2026-11-03T18:44:46.660473+00:00",
+    "kind": "completed",
+    "title": "Forty Hugging Face sources sampled with verified provenance",
+    "detail": "Completed bounded training-split imports from40 actual repositories across37 declared source families:312 complete raw rows with verified file hashes. These are samples, not entire datasets or40 trained domains.47 scalar-reference prompts were parsed generically; source-specific quality and teacher verification are still required. Original format/API failures and the first registry were preserved. Next expansion prioritizes compatible arithmetic sources instead of mixing unverified code/science into the math scorer."
+  },
+  {
+    "id": "student_valuation32768_seed42_valued_v1-completed",
+    "at_utc": "2026-11-03T18:46:56.660002+00:00",
+    "kind": "completed",
+    "title": "Equal-token valued arm completed",
+    "detail": "Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use."
+  },
+  {
+    "id": "student-valuation32768-seed42-pair-analyzed",
+    "at_utc": "2026-11-03T18:48:29.041709+00:00",
+    "kind": "completed",
+    "title": "First exact-token selection comparison analyzed",
+    "detail": "Seed 42: random scored 55/64 and valued scored 53/64 on the same adaptive development questions. Valued corrected 4 and regressed 6 answers; the paired 95% interval spans -12.5 to +6.25 percentage points. This provides no evidence of a selection advantage. Both arms supervised exactly 32768 tokens through 32 updates; aggregate reports and immutable source hashes are saved."
+  },
+  {
+    "id": "student_valuation32768_seed43_valued_v1-launched",
+    "at_utc": "2026-11-03T18:48:29.041709+00:00",
+    "kind": "in_progress",
+    "title": "Frozen valued seed 43 replication launched",
+    "detail": "Launched the unchanged valued-arm replication only after all earlier GPU apps stopped and fresh provider accounting confirmed headroom. The arm retains the same verified pool, 32768 supervised tokens, 32 updates and learning rate 0.00002. One A100 task, hard 4 CPU/32 GiB limits, 1800-second maximum and a separate 3-dollar reservation. Random seed 43 remains prepared."
+  },
+  {
+    "id": "supervisor-next-Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_valued_v1. Preserve its outputs; do not duplicate the call.",
+    "at_utc": "2026-11-03T18:49:33.699697+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_valued_v1. Preserve its outputs; do not duplicate the call."
+  },
+  {
+    "id": "3e471f731e3ee34d292a",
+    "at_utc": "2026-11-03T18:52:30.147762+00:00",
+    "kind": "planned",
+    "title": "Prepare gradient-based valuation and a larger arithmetic cohort",
+    "detail": "Source-specific preparation is running for up to1800 new arithmetic prompts from SVAMP, TemplateGSM and OpenMath augmentation, with prior-pool exclusions and reference origins retained. This is not yet teacher-verified training data. A separate LESS-inspired projected-gradient design and reference scoring math are prepared; the bounded GPU feature collector remains to implement. Current frozen replication continues unchanged."
+  },
+  {
+    "id": "student_valuation32768_seed43_valued_v1-completed",
+    "at_utc": "2026-11-03T18:52:48.707303+00:00",
+    "kind": "completed",
+    "title": "Equal-token valued arm completed",
+    "detail": "Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use."
+  },
+  {
+    "id": "deepseek-wallet-accounting-v1",
+    "at_utc": "2026-11-03T18:53:32.037365+00:00",
+    "kind": "completed",
+    "title": "DeepSeek funding-based accounting separated from token estimates",
+    "detail": "A supported balance observation and the user-declared original funding conditionally imply 0.36 dollars of project-attributed wallet consumption. The 0.75-dollar recorded peak-price token estimate remains separate; an explicit 0.10-dollar lag buffer is retained. No new credits are assumed and the 20-dollar ceiling is unchanged. Funding changes, grants and stale observations block new reservations. Wallet and account details remain private."
+  },
+  {
+    "id": "student_valuation32768_seed43_random_v1-launched",
+    "at_utc": "2026-11-03T18:54:12.105665+00:00",
+    "kind": "in_progress",
+    "title": "Final frozen random seed 43 arm launched",
+    "detail": "After valued seed 43 completed and all prior GPU apps stopped, launched the unchanged random seed 43 arm to complete the preregistered first two-seed block. Exactly 32768 supervised tokens, 32 updates, the same teacher pool and learning rate 0.00002; one bounded A100 job with a separate 3-dollar reservation. Seed variation remains unavailable until this final arm completes."
+  },
+  {
+    "id": "supervisor-next-Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call.",
+    "at_utc": "2026-11-03T18:55:26.246019+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call."
+  },
+  {
+    "id": "student_valuation32768_seed43_random_v1-completed",
+    "at_utc": "2026-11-03T19:00:20.871561+00:00",
+    "kind": "completed",
+    "title": "Equal-token random arm completed",
+    "detail": "Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use."
+  },
+  {
+    "id": "math_source_teacher1800_v1-started",
+    "at_utc": "2026-11-03T19:02:21.169312+00:00",
+    "kind": "in_progress",
+    "title": "Source-balanced concise math teacher collection started",
+    "detail": "Frozen 1800 requests in 4 sequential chunks from the completed source cohort. Four workers maximum, nonthinking V4,1024 output-token limit, no retries. Human, procedural and synthetic majority-vote references remain labelled. Funds reserved before generation."
+  },
+  {
+    "id": "supervisor-next-Analyze both matched seeds, advance the HF import registry and a separately frozen larger token-budget cohort using remaining credits; preserve final evaluation and capped serving allowance. The first four arms are not project completion.",
+    "at_utc": "2026-11-03T19:04:40.416132+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Analyze both matched seeds, advance the HF import registry and a separately frozen larger token-budget cohort using remaining credits; preserve final evaluation and capped serving allowance. The first four arms are not project completion."
+  },
+  {
+    "id": "math_source_teacher1800_v1-funding-watch-started",
+    "at_utc": "2026-11-03T19:07:14.782481+00:00",
+    "kind": "in_progress",
+    "title": "Bounded teacher funding watcher started",
+    "detail": "A local watcher refreshes only the supported balance observation every five minutes while the existing teacher collector is active. It creates no paid generations or GPU work, preserves the reservation, and stops on collector termination, account ambiguity, provider failure or its two-hour limit."
+  },
+  {
+    "id": "math_source_teacher1800_v1-completed",
+    "at_utc": "2026-11-03T19:15:12.176334+00:00",
+    "kind": "completed",
+    "title": "Concise source-cohort teacher collection completed",
+    "detail": "Saved 1800/1800 original attempts; 1565 passed strict reference-match/completion/token checks, supplying 150750 supervised tokens. Source-origin breakdowns and failed attempts are preserved. No Granite training or official test evaluation was launched."
+  },
+  {
+    "id": "math_source_teacher1800_v1-funding-watch-collector_completed",
+    "at_utc": "2026-11-03T19:15:15.994333+00:00",
+    "kind": "completed",
+    "title": "Teacher funding watcher stopped",
+    "detail": "The bounded local watcher stopped: collector completed. No collector was killed or restarted and no reservation was increased. Inspect durable collector state before any paid resumption."
+  },
+  {
+    "id": "gradient_features_math_v1-reviewed",
+    "at_utc": "2026-11-03T19:17:33.960448+00:00",
+    "kind": "planned",
+    "title": "Bounded gradient valuation protocol reviewed",
+    "detail": "Frozen1541 verified candidates and24 separate human-reference development targets. Checked original-pool isolation, complete-token masks, pinned model/tokenizer and2621440 q/v LoRA parameters. One A100 with1800-second hard bound and calibration refusal; reserved3 dollars. This collects student gradient proxies, not measured accuracy improvement."
+  },
+  {
+    "id": "gradient-image-pre-spawn-failure",
+    "at_utc": "2026-11-03T19:21:36.202962+00:00",
+    "kind": "failed",
+    "title": "Gradient feature image configuration rejected",
+    "detail": "Modal rejected an image build step after its source mount before any function call or GPU task. Both stopped applications were reconciled; original failure is preserved."
+  },
+  {
+    "id": "gradient-image-pre-spawn-fix",
+    "at_utc": "2026-11-03T19:21:36.219747+00:00",
+    "kind": "resolved",
+    "title": "Gradient image definition corrected",
+    "detail": "Reused the shared pinned image and moved thread/determinism flags before GPU library imports. Frozen data, optimizer and CountSketch protocol are unchanged."
+  },
+  {
+    "id": "gradient_features_math_v1-spawned",
+    "at_utc": "2026-11-03T19:21:58.769532+00:00",
+    "kind": "in_progress",
+    "title": "Student gradient feature collection launched",
+    "detail": "One bounded A100 job is collecting two CountSketch gradient checkpoints for1541 candidate records and24 separate selection-development targets. Calibration can refuse an infeasible workload; completed features are not accuracy results. The saved call is monitored without duplicate launches."
+  },
+  {
+    "id": "supervisor-next-Poll the saved gradient_feature_control.py call; preserve checkpointed features and finish source-reference auditing. Never duplicate the call.",
+    "at_utc": "2026-11-03T19:22:29.324887+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved gradient_feature_control.py call; preserve checkpointed features and finish source-reference auditing. Never duplicate the call."
+  },
+  {
+    "id": "source-reference-audit-v1",
+    "at_utc": "2026-11-03T19:25:05.663784+00:00",
+    "kind": "completed",
+    "title": "Reference audit separates label agreement from quality",
+    "detail": "Checked all600 SVAMP source equations: one contradicts its reference and was already excluded. All24 held-out selection targets passed arithmetic, prompt projection, source hash and teacher-match checks. Synthetic reference agreement still does not establish correct reasoning or an unambiguous problem."
+  },
+  {
+    "id": "serving-image-order-correction",
+    "at_utc": "2026-11-03T19:31:26.782659+00:00",
+    "kind": "resolved",
+    "title": "Prepared serving image uses valid build order",
+    "detail": "The feature launch exposed a shared Modal image-order constraint. Corrected the same issue in the prepared CPU/GPU API images by keeping local source and manifest mounts last. No endpoint was deployed or initialized."
+  },
+  {
+    "id": "human_math_teacher2048_v1-chunk0-started",
+    "at_utc": "2026-11-03T19:34:43.558649+00:00",
+    "kind": "in_progress",
+    "title": "Human-reference teacher chunk started",
+    "detail": "Chunk1/4: at most512 immutable requests, four workers, nonthinking V4/1024tokens, no retries. Separate200-question development holdout withheld. Fresh funding and own reservation checked."
+  },
+  {
+    "id": "student_baseline_batched64_v1-prepared",
+    "at_utc": "2026-11-03T19:38:03.421611+00:00",
+    "kind": "planned",
+    "title": "Untouched Granite baseline with matching batching prepared",
+    "detail": "Prepared the identical64 monitoring questions and concise prompt with batch8/nonthinking512 output, matching new training arms. Earlier baseline58/64 used serial generation; this control will check any numerical batching effect. No training, GPU launch or reservation was performed by preparation."
+  },
+  {
+    "id": "human_math_teacher2048_v1-chunk0-awaiting_next_chunk",
+    "at_utc": "2026-11-03T19:38:26.411030+00:00",
+    "kind": "completed",
+    "title": "Human-reference teacher chunk completed",
+    "detail": "Chunk1/4 ended with 512/2048 total receipts and 486 eligible responses. No next chunk launched; a new chunk requires its own fresh funding check and reservation."
+  },
+  {
+    "id": "gradient_features_math_v1-calibration-partial",
+    "at_utc": "2026-11-03T19:39:04.109048+00:00",
+    "kind": "decision",
+    "title": "Gradient calibration saved work and stopped the first call",
+    "detail": "The first warmup checkpoint completed all1565 features; the second saved16 more, for1581/3130. The call stopped after1001seconds when its full-call forecast exceeded the1550-second collection budget. This is a partial result, not complete gradient ranking. Review an identical-protocol continuation using committed snapshots/features rather than recomputing them."
+  },
+  {
+    "id": "human_math_teacher2048_v1-chunk1-started",
+    "at_utc": "2026-11-03T19:39:31.209150+00:00",
+    "kind": "in_progress",
+    "title": "Human-reference teacher chunk started",
+    "detail": "Chunk2/4: at most512 immutable requests, four workers, nonthinking V4/1024tokens, no retries. Separate200-question development holdout withheld. Fresh funding and own reservation checked."
+  },
+  {
+    "id": "supervisor-next-Inspect the terminal feature result and preserved artifacts. Calibration refusal requires a smaller new frozen cohort; other deterministic failures require local fixes before separately recorded recovery. Monitor the existing separately funded human-reference teacher chunk; do not overlap collectors. Each later512-request chunk requires its own fresh funding check and reservation.",
+    "at_utc": "2026-11-03T19:40:09.726363+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Inspect the terminal feature result and preserved artifacts. Calibration refusal requires a smaller new frozen cohort; other deterministic failures require local fixes before separately recorded recovery. Monitor the existing separately funded human-reference teacher chunk; do not overlap collectors. Each later512-request chunk requires its own fresh funding check and reservation."
+  },
+  {
+    "id": "student_baseline_batched64_v1-launched",
+    "at_utc": "2026-11-03T19:41:03.357215+00:00",
+    "kind": "in_progress",
+    "title": "Matching batched original-Granite control launched",
+    "detail": "One A100 is evaluating the untouched pinned model on the same64 monitoring questions with the exact concise prompt, batch8 and nonthinking512 settings used by new adapters. It performs no training or LoRA load. This checks numerical batching differences from the earlier serial58/64 baseline; the official test remains untouched."
+  },
+  {
+    "id": "human_math_teacher2048_v1-chunk1-awaiting_next_chunk",
+    "at_utc": "2026-11-03T19:43:10.506322+00:00",
     "kind": "completed",
     "title": "Human-reference teacher chunk completed",
     "detail": "Chunk2/4 ended with 1024/2048 total receipts and 964 eligible responses. No next chunk launched; a new chunk requires its own fresh funding check and reservation."
@@ -638,5 +887,54 @@
     "kind": "in_progress",
     "title": "Research improvement cycle",
     "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed42_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens32768_seed42_gradient-study-terminal",
+    "at_utc": "2026-11-03T20:36:27.073483+00:00",
+    "kind": "completed",
+    "title": "Study gradient seed 42 completed",
+    "detail": "Saved immutable 32768-token development artifacts. Exact selector identity is gradient; final test remains sealed."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens32768_seed43_gradient-study-launched",
+    "at_utc": "2026-11-03T20:36:49.432231+00:00",
+    "kind": "in_progress",
+    "title": "Study gradient seed 43 launched",
+    "detail": "One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+  },
+  {
+    "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+    "at_utc": "2026-11-03T20:36:49.522568+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens32768_seed43_gradient-study-terminal",
+    "at_utc": "2026-11-03T20:39:36.906358+00:00",
+    "kind": "completed",
+    "title": "Study gradient seed 43 completed",
+    "detail": "Saved immutable 32768-token development artifacts. Exact selector identity is gradient; final test remains sealed."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens32768_seed43_skill-study-launched",
+    "at_utc": "2026-11-03T20:39:58.753918+00:00",
+    "kind": "in_progress",
+    "title": "Study skill seed 43 launched",
+    "detail": "One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+  },
+  {
+    "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+    "at_utc": "2026-11-03T20:39:58.837509+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "data_efficiency_math_v1-seed42-32k-analyzed",
+    "at_utc": "2026-11-03T20:41:17.936575+00:00",
+    "kind": "completed",
+    "title": "First multi-source three-selector seed analyzed",
+    "detail": "At32768 supervised tokens and32matched updates, seed42 scored random57/64, skill56/64 and gradient56/64; the matched untouched base scored58/64. Both selected arms are1question below random. One seed and64adaptive development questions do not establish a general advantage or disadvantage. Second-seed replication has started unchanged; larger budgets remain resource-gated. Gradient setup overhead is retained separately."
   }
 ]

@@ -212,7 +212,7 @@
     {
       "title": "New math-cohort data-efficiency training grid",
       "status": "running",
-      "detail": "18/18 arm plans prepared; 2 completed, 1 running, 15 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for gradient, seed 42, 32,768 supervised tokens. No automatic new paid launch is performed by this report."
+      "detail": "18/18 arm plans prepared; 4 completed, 1 running, 13 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 32,768 supervised tokens. No automatic new paid launch is performed by this report."
     },
     {
       "title": "Human-reference DeepSeek teaching chunks",
@@ -234,5 +234,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T20:34:41.128333+00:00"
+  "updated_at_utc": "2026-11-03T20:43:50.206139+00:00"
 }
