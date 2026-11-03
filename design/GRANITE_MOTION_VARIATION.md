@@ -69,4 +69,6 @@ Browser review checks the actual WebGL output and shader logs, sparse hold and i
 
 There are no new runtime packages or build steps. Publication is limited to the playground, its tests and documentation. The homepage and all other repository blobs are compared against the latest parent tree.
 
+The entry script and its geometry import carry the same recording-version query. Public verification caught the new HTML loading an earlier cached animation, so both module URLs change together for this release.
+
 The recording improves the evidence for this pass. The different geometry, composition, glyph shapes and remaining lighting differences mean this is still an independent study rather than a pixel-perfect reproduction.

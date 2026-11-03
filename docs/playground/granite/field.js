@@ -1,4 +1,4 @@
-import {FORMS,FORM_LABELS,BOX_COUNT,BOOT,STEP,TRANSITION,MORPH_START,MORPH_END,SHAPES,boxesAt,switchState,mixBoxes,traceBoxes,revealAt,startupFlare,pointerPose,lightDirection,highlightFlare,paletteRamp,smooth} from './geometry.mjs';
+import {FORMS,FORM_LABELS,BOX_COUNT,BOOT,STEP,TRANSITION,MORPH_START,MORPH_END,SHAPES,boxesAt,switchState,mixBoxes,traceBoxes,revealAt,startupFlare,pointerPose,lightDirection,highlightFlare,paletteRamp,smooth} from './geometry.mjs?v=recording-20261103-2';
 
 // Independent scene tuned from the supplied mouse-only recording.
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
