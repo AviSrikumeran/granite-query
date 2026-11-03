@@ -1,5 +1,6 @@
 """Focused quota/selection checks; no network, GPU, data, or actual deployment."""
 from concurrent.futures import ThreadPoolExecutor
+import ast
 import copy
 from datetime import datetime, timedelta, timezone
 import json
@@ -8,6 +9,7 @@ import tempfile
 import threading
 import unittest
 import uuid
+from unittest.mock import patch
 
 import serving_control as sc
 
@@ -140,11 +142,54 @@ class ServingTest(unittest.TestCase):
     def test_invalid_input_never_consumes_permit(self):
         gate = sc.Admission(AtomicStore(),self.manifest)
         gate.initialize(now=self.now)
-        for body in (self.body()|{'prompt':'x'*2401},self.body()|{'max_new_tokens':257},
+        for body in (self.body()|{'prompt':'x'*2401},self.body()|{'max_new_tokens':513},
                      self.body()|{'request_id':'bad'},self.body()|{'model':'other-model'}):
             with self.assertRaises(sc.ServingRefused):
                 gate.claim(body,now=self.now)
         self.assertEqual(0,gate.used())
+
+    def test512_output_boundary_default_and_context_fit(self):
+        body=self.body();body.pop('max_new_tokens')
+        self.assertEqual(sc.validate_request(body)['max_new_tokens'],512)
+        for cap in (1,257,512):
+            self.assertEqual(sc.validate_request(self.body()|{'max_new_tokens':cap})['max_new_tokens'],cap)
+        for cap in (0,513,True,512.0):
+            with self.assertRaisesRegex(sc.ServingRefused,'between 1 and 512'):
+                sc.validate_request(self.body()|{'max_new_tokens':cap})
+        self.assertEqual(sc.LIMITS['max_input_tokens']+sc.LIMITS['max_output_tokens'],1280)
+        self.assertLessEqual(1280,sc.LIMITS['context_limit'])
+        with patch.dict(sc.LIMITS,context_limit=1024):
+            with self.assertRaisesRegex(sc.ServingRefused,'Combined input/output'):
+                self.prepare('oversized-context.json')
+        public=sc.public_model(self.manifest)
+        self.assertEqual(public['limits']['max_output_tokens'],512)
+        self.assertIn('nominal512-token',public['note'])
+        self.assertIn('benchmark-equivalent accuracy or latency has not been measured',public['note'])
+
+    def test512_policy_keeps_resource_quota_cost_and_worker_envelope(self):
+        expected={'max_requests':20,'max_input_tokens':768,'context_limit':2048,'gpu':'L4',
+            'max_containers':1,'min_containers':0,'buffer_containers':0,
+            'timeout_seconds':90,'startup_timeout_seconds':60,'scaledown_window_seconds':2,
+            'single_use_containers':True,'cpu_cores':1,'memory_mib':12288,'expiry_hours':24,
+            'slot_reservation_usd':'0.05','total_reservation_usd':'1.00'}
+        self.assertEqual({key:sc.LIMITS[key] for key in expected},expected)
+        self.assertEqual(sc.PRICE_BASIS['allowance_seconds_per_call'],170)
+        self.assertEqual(sc.estimated_slot_compute_usd(),sc.Decimal('0.04449580'))
+        self.assertEqual(sc.estimated_slot_compute_usd()*20,sc.Decimal('0.88991600'))
+        # Inspect the actual worker without importing/deploying a Modal app.
+        module=ast.parse((Path(__file__).parent/'modal_api.py').read_text(encoding='utf-8'))
+        worker=next(node for node in module.body if isinstance(node,ast.FunctionDef) and node.name=='generate_once')
+        decorator=next(node for node in worker.decorator_list if isinstance(node,ast.Call) and getattr(node.func,'attr',None)=='function')
+        names={'gpu','cpu','memory','timeout','startup_timeout','retries','max_containers','min_containers',
+               'buffer_containers','scaledown_window','single_use_containers'}
+        actual={item.arg:ast.literal_eval(item.value) for item in decorator.keywords if item.arg in names}
+        self.assertEqual(actual,{'gpu':'L4','cpu':(1,1),'memory':(12288,12288),'timeout':90,
+            'startup_timeout':60,'retries':0,'max_containers':1,'min_containers':0,'buffer_containers':0,
+            'scaledown_window':2,'single_use_containers':True})
+        old=copy.deepcopy(self.manifest);old['limits']['max_output_tokens']=256
+        old['manifest_sha256']=sc.digest({key:value for key,value in old.items() if key!='manifest_sha256'})
+        with self.assertRaisesRegex(sc.ServingRefused,'policy differs'):
+            sc.validate_manifest(old,now=self.now)
 
 
 if __name__ == '__main__':

@@ -82,14 +82,20 @@ def build(status=None):
         math_teacher=json.loads(math_teacher_path.read_text(encoding='utf-8'))
         public['math_teacher_collection']={k:math_teacher[k] for k in ('stage','requested','completed','eligible','failed','truncated')
                                            if k in math_teacher and isinstance(math_teacher[k],(str,int))}
+    human_teacher_path=JOURNAL.parent/'HUMAN_MATH_TEACHER.json'
+    if human_teacher_path.exists():
+        teacher=json.loads(human_teacher_path.read_text(encoding='utf-8'))
+        public['human_math_teacher_collection']={k:teacher[k] for k in ('stage','requested','completed','eligible','failed','truncated','excluded_development_count')
+                                               if k in teacher and isinstance(teacher[k],(str,int))}
     audit_path=WORKSPACE/'docs/project-status.json'
     if audit_path.exists():
         audit=json.loads(audit_path.read_text(encoding='utf-8'))
         work=audit.get('current_work',[])
-        active=next((r for r in work if r.get('status')=='running'),None) or next((r for r in work if r.get('status')=='queued'),None)
+        running=[r for r in work if r.get('status')=='running']
+        active=next(iter(running),None) or next((r for r in work if r.get('status')=='queued'),None)
         if active:
-            public['stage']=clean(active['title'])
-            public['next_action']=clean(active['detail'])
+            public['stage']=clean(' | '.join(r['title'] for r in running)) if len(running)>1 else clean(active['title'])
+            public['next_action']=clean(' | '.join(r['detail'] for r in running)) if len(running)>1 else clean(active['detail'])
     summary_path=WORKSPACE/'granite_query/cloud/runs/ranked_random_32_seed42_v1/public_summary.json'
     if summary_path.exists():
         summary=json.loads(summary_path.read_text(encoding='utf-8'))

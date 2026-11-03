@@ -35,13 +35,16 @@ control_store = modal.Dict.from_name(DICT_NAME)
 artifacts = modal.Volume.from_name('granite-query-training-artifacts')
 common = (modal.Image.debian_slim(python_version='3.12')
           .env({'TOKENIZERS_PARALLELISM':'false', 'HF_HUB_DISABLE_TELEMETRY':'1',
-                'GRANITE_SERVING_MANIFEST':'/serving/manifest.json'})
-          .add_local_python_source('cloud')
-          .add_local_file(str(manifest_file), '/serving/manifest.json'))
+                'GRANITE_SERVING_MANIFEST':'/serving/manifest.json'}))
+# Keep startup mounts last: Modal rejects build steps after add_local_*.
 cpu_image = (common.pip_install('fastapi[standard]==0.115.12', 'transformers==4.57.1', 'Jinja2==3.1.6')
-             .env({'USE_TORCH':'0'}))
-gpu_image = common.pip_install('torch==2.6.0', 'transformers==4.57.1', 'peft==0.17.1',
+             .env({'USE_TORCH':'0'})
+             .add_local_python_source('cloud')
+             .add_local_file(str(manifest_file), '/serving/manifest.json'))
+gpu_image = (common.pip_install('torch==2.6.0', 'transformers==4.57.1', 'peft==0.17.1',
                                'accelerate==1.10.1', 'safetensors==0.6.2', 'Jinja2==3.1.6')
+             .add_local_python_source('cloud')
+             .add_local_file(str(manifest_file), '/serving/manifest.json'))
 
 
 @app.function(image=gpu_image, gpu='L4', cpu=(1, 1), memory=(12288, 12288),

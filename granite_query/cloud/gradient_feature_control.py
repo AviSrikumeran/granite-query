@@ -158,14 +158,22 @@ def prepare_resume(folder,output):
         raise ValueError('Reconcile the existing call before preparing any resume')
     if terminal.get('stage')=='completed':
         raise ValueError('Completed feature collection must not be resumed')
-    if terminal.get('stage')=='calibration_refused':
-        raise ValueError('Calibration rejected this workload; declare a smaller new cohort instead of retrying blindly')
+    from cloud.gradient_recovery import verify_execution_sources,assess_continuation
+    verify_execution_sources(folder)
+    decision=assess_continuation(folder) if terminal.get('stage')=='calibration_refused' else None
     previous=read(folder/'plan.json'); current=dict(previous,run_id=output.name,resume_from=folder.name,
         stage='prepared_resume',reviewed_for_launch=False,created_at_utc=datetime.now(timezone.utc).isoformat())
     validate_resume(previous,current); validate_input(read(folder/'input.json'),current)
+    current['execution_sources_sha256']=sha((folder/'execution_sources.json').read_bytes())
+    if decision is not None:
+        current['recovery_evidence_manifest_sha256']=sha((folder/'recovery_remote_manifest.json').read_bytes())
     output.mkdir(parents=True)
     for name in ('input.json','cohort_manifest.json','candidates.jsonl','targets.jsonl'):
         shutil.copyfile(folder/name,output/name)
+    shutil.copyfile(folder/'execution_sources.json',output/'execution_sources.json')
+    shutil.copytree(folder/'execution_sources',output/'execution_sources')
+    if decision is not None:
+        write_new(output/'recovery_decision.json',dict(decision,parent_run_id=folder.name,parent_call_id=launch['call_id']))
     write_new(output/'plan.json',current)
     write_new(output/'public_summary.json',dict(stage='prepared_resume',method=current['protocol']['config']['method'],
         projected_features_complete=False,paid_work_launched=False,official_test_used=False))
@@ -178,7 +186,15 @@ def poll(folder):
     if not launch.get('call_id'):
         raise ValueError('Ambiguous launch: reconcile it instead of retrying')
     state=modal.Dict.from_name('granite-query-training-progress')
-    status=state.get(folder.name,{'stage':'queued'})
+    status=state.get(folder.name,None)
+    if status is None:
+        owner=state.get('gradient-owner:'+folder.name,None)
+        if owner and owner.get('call_id')==launch['call_id']:
+            plan=read(folder/'plan.json')
+            status={'stage':'restoring_saved_artifacts' if plan.get('resume_from') else 'initializing',
+                'call_id':launch['call_id'],'ownership_evidence':'durable_gradient_owner'}
+        else:
+            status={'stage':'queued'}
     save(folder/'remote_status.json',status)
     try:
         result=modal.FunctionCall.from_id(launch['call_id']).get(timeout=0)
@@ -232,7 +248,7 @@ def main():
     prep.add_argument('--candidate-limit',type=int,default=1800)
     prep.add_argument('--dimension',type=int,default=1024); prep.add_argument('--exclude-questions',type=Path,action='append',default=[])
     resume=sub.add_parser('prepare-resume'); resume.add_argument('--folder',type=Path,required=True); resume.add_argument('--output',type=Path,required=True)
-    for action in ('poll','download'):
+    for action in ('poll','download','download-recovery-evidence'):
         item=sub.add_parser(action); item.add_argument('--folder',type=Path,required=True)
     args=parser.parse_args()
     if args.action=='prepare':
@@ -241,6 +257,9 @@ def main():
         print(json.dumps(dict(stage=value['stage'],protocol_hash=value['protocol_hash'],paid_work_launched=False)))
     elif args.action=='prepare-resume':
         value=prepare_resume(args.folder,args.output); print(json.dumps(dict(stage=value['stage'],paid_work_launched=False)))
+    elif args.action=='download-recovery-evidence':
+        from cloud.gradient_recovery import download_evidence
+        print(json.dumps(download_evidence(args.folder)))
     else:
         print(json.dumps(poll(args.folder) if args.action=='poll' else download(args.folder)))
 

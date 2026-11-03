@@ -136,6 +136,97 @@ class AccomplishmentTests(unittest.TestCase):
         for value in ('PRIVATE_KEY','PRIVATE_TRACE','PRIVATE_RESULT','C:\\\\Users'):
             self.assertNotIn(value,exported)
 
+    def test_grid_counts_actual_arms_and_names_next_work_before_api(self):
+        prefix='granite_query/cloud/runs/data_efficiency_math_v1/'
+        self.save(prefix+'grid_manifest.json',{'studies':[{'folder':'tokens1024','jobs':2}]})
+        jobs=[{'folder':'arms/'+selector,'selector':selector,'checkpoint_name':selector,'seed':42} for selector in ('random','gradient')]
+        self.save(prefix+'tokens1024/manifest.json',{'token_budget':1024,'jobs':jobs,'common_pool':{'sha256':'a'*64}})
+        ids=[f'dev:{i}' for i in range(64)]
+        for selector in ('random','gradient'):
+            plan={'development_ids':ids,'checkpoint_name':selector,'selector_name':selector,'seed':42,'common_pool_sha256':'a'*64}
+            self.save(prefix+'tokens1024/arms/'+selector+'/plan.json',plan)
+            if selector=='random':
+                self.save(prefix+'tokens1024/arms/'+selector+'/result.json',{'stage':'completed','supervised_tokens':1024,
+                    'optimizer_updates':1,'plan':plan,'evaluations':{selector:[{'id':key,'response':'#### 1','gold_answer':'1',
+                        'elapsed_seconds':.1,'generated_tokens':2,'truncated':False} for key in ids]}})
+        source=self.root/'granite_query/cloud/modal_api.py';source.parent.mkdir(parents=True,exist_ok=True);source.touch()
+        public=accomplishments.build(self.root)
+        row=next(r for r in public['current_work'] if r['title']=='New math-cohort data-efficiency training grid')
+        self.assertEqual(row['status'],'queued')
+        self.assertIn('1 completed',row['detail']);self.assertIn('gradient, seed 42, 1,024',row['detail'])
+        titles=[r['title'] for r in public['current_work']]
+        self.assertLess(titles.index(row['title']),titles.index('Capped Granite API trial'))
+        self.save(prefix+'tokens1024/arms/gradient/launch.json',{'call_id':'fc-fixture'})
+        public=accomplishments.build(self.root)
+        row=next(r for r in public['current_work'] if r['title']=='New math-cohort data-efficiency training grid')
+        self.assertEqual(row['status'],'running');self.assertIn('Poll the existing call',row['detail'])
+
+    def test_missing_grid_study_does_not_shrink_planned_count_into_completion(self):
+        prefix='granite_query/cloud/runs/data_efficiency_math_v1/'
+        self.save(prefix+'grid_manifest.json',{'studies':[{'folder':'missing-study','jobs':6}]})
+        public=accomplishments.build(self.root)
+        row=next(r for r in public['current_work'] if r['title']=='New math-cohort data-efficiency training grid')
+        self.assertEqual(row['status'],'blocked');self.assertIn('0/6 arm plans',row['detail'])
+
+    def test_latest_same_protocol_feature_continuation_replaces_old_terminal_row(self):
+        prefix='granite_query/cloud/runs/'
+        protocol={'candidate_ids':['a','b'],'target_ids':['c'],'config':{'checkpoint_updates':[4,8]}}
+        self.save(prefix+'gradient_features_math_v1/plan.json',{'protocol':protocol,'protocol_hash':'a'*64})
+        self.save(prefix+'gradient_features_math_v1/result.json',{'stage':'calibration_refused'})
+        self.save(prefix+'gradient_features_math_resume1/plan.json',{
+            'protocol':protocol,'protocol_hash':'a'*64,'resume_from':'gradient_features_math_v1'})
+        self.save(prefix+'gradient_features_math_resume1/launch.json',{'call_id':'fc-resume-fixture'})
+        self.save(prefix+'gradient_features_math_resume1/remote_status.json',{'stage':'collecting_candidate','completed_features':3})
+        value=accomplishments.build(self.root)
+        row=next(r for r in value['current_work'] if r['title']=='Model-gradient data selection on the new math cohort')
+        self.assertEqual(row['status'],'running');self.assertIn('Separate continuation',row['detail'])
+        self.assertIn('3/6 features',row['detail'])
+        self.save(prefix+'gradient_features_math_resume1/remote_status.json',{'stage':'restoring_saved_artifacts'})
+        self.save(prefix+'gradient_features_math_resume1/recovery_decision.json',{
+            'protocol_hash':'a'*64,'completed_features':3,'remaining_features':3})
+        value=accomplishments.build(self.root)
+        row=next(r for r in value['current_work'] if r['title']=='Model-gradient data selection on the new math cohort')
+        self.assertIn('3 already verified features',row['detail'])
+        self.assertIn('no new missing-feature completions',row['detail'])
+        self.assertNotIn('0/6 features',row['detail'])
+
+    def test_human_question_preparation_and_partial_teacher_are_not_granite_use(self):
+        self.save('progress/HUMAN_MATH_COHORT.json',{'stage':'prepared_unpaid','actual_teaching_prompts':2048,
+            'actual_development_holdout':200,'actual_valid_capacity':6053,
+            'ancestry_exclusions':{'combined_unique_gsm_exclusions':994},'raw_reference':'PRIVATE_REFERENCE'})
+        self.save('progress/HUMAN_MATH_TEACHER.json',{'stage':'awaiting_next_chunk','requested':2048,'completed':512,
+            'eligible':490,'supervised_tokens_available':45000,'raw_response':'PRIVATE_RESPONSE'})
+        public=accomplishments.build(self.root)
+        prepared=next(row for row in public['completed'] if row['title']=='New human-reference teaching and development split frozen')
+        self.assertIn('2,048',prepared['detail']);self.assertIn('200',prepared['detail'])
+        self.assertIn('semantic correctness',prepared['detail']);self.assertIn('lineage is incomplete',prepared['detail'])
+        teacher=next(row for row in public['current_work'] if row['title']=='Human-reference DeepSeek teaching chunks')
+        self.assertEqual(teacher['status'],'queued');self.assertIn('512/2,048',teacher['detail'])
+        self.assertIn('no later chunk',teacher['detail']);self.assertIn('not evidence that Granite used',teacher['detail'])
+        self.assertFalse(any(row['title']=='Human-reference DeepSeek teaching pool completed' for row in public['completed']))
+        self.assertFalse(public['accuracy_improved'])
+        self.assertNotIn('PRIVATE',json.dumps(public))
+
+    def test_human_collector_lock_pid_is_recorded_not_independently_assumed_alive(self):
+        summary={'stage':'collecting','requested':2048,'completed':17,'eligible':15,'supervised_tokens_available':1000}
+        self.save('progress/HUMAN_MATH_TEACHER.json',summary)
+        def teacher():
+            p=accomplishments.build(self.root)
+            return next(row for row in p['current_work'] if row['title']=='Human-reference DeepSeek teaching chunks')
+        self.assertEqual(teacher()['status'],'blocked')
+        folder=self.runs/'human_math_teacher2048_v1';folder.mkdir(parents=True)
+        (folder/'collector.lock').write_text('12345',encoding='ascii')
+        item=teacher();self.assertEqual(item['status'],'running')
+        self.assertIn('PID 12345',item['detail']);self.assertIn('verify that process',item['detail'])
+        (folder/'collector.lock').write_text('PRIVATE_TOKEN',encoding='ascii')
+        item=teacher();self.assertEqual(item['status'],'blocked')
+        self.assertNotIn('PRIVATE_TOKEN',item['detail'])
+        (folder/'collector.lock').unlink()
+        self.save('progress/HUMAN_MATH_TEACHER.json',dict(summary,stage='completed',completed=512))
+        self.assertEqual(teacher()['status'],'blocked')
+        self.save('progress/HUMAN_MATH_TEACHER.json',dict(summary,stage='completed',completed=2048))
+        self.assertEqual(teacher()['status'],'completed')
+
 
 if __name__ == '__main__':
     unittest.main()

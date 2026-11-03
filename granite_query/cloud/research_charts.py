@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import math
 import os
+import hashlib
 
 ROOT=Path(__file__).resolve().parent
 WORKSPACE=ROOT.parents[1]
@@ -17,7 +18,56 @@ def wilson(correct,total):
     margin=z*math.sqrt(p*(1-p)/total+z*z/(4*total*total))/d
     return 100*(center-margin),100*(center+margin)
 
-def build():
+def token_matched_series(root,expected64):
+    """Four trained arms plus a separately validated, zero-training base control."""
+    root=Path(root)
+    try:
+        from .comparison_metrics import summarize
+        from .data_efficiency_report import baseline_context
+    except ImportError:
+        from comparison_metrics import summarize
+        from data_efficiency_report import baseline_context
+    development=root/'runs/matched_eval64_v1/development.jsonl'
+    rows=[json.loads(line) for line in development.read_text(encoding='utf-8-sig').split('\n') if line.strip()]
+    if len(rows)!=64 or {r['id'] for r in rows}!=expected64 or any(r.get('source_split')!='train' for r in rows):
+        raise ValueError('Token-matched chart requires the exact64 training-split development records')
+    baseline,_=baseline_context(root/'runs/student_baseline_batched64_v1',
+        expected_development_sha256=hashlib.sha256(development.read_bytes()).hexdigest(),expected_ids=expected64,
+        expected_gold={r['id']:r['gold_answer'] for r in rows},expected_prompts={r['id']:r['prompt'] for r in rows},
+        source_root=Path(__file__).resolve().parent)
+    controlled=[]
+    expected_gold={r['id']:str(r['gold_answer']) for r in rows}
+    for seed in (42,43):
+        for arm in ('random','valued'):
+            run=root/f'runs/student_valuation32768_seed{seed}_{arm}_v1'
+            if not (run/'result.json').exists():
+                continue
+            result=json.loads((run/'result.json').read_text())
+            if result.get('stage')!='completed':
+                continue
+            plan=result['plan']
+            if (set(plan['development_ids'])!=expected64 or plan.get('model')!='ibm-granite/granite-4.2-3b'
+                    or plan.get('revision')!='4e9c275e232f10211ec88644d106a1f6a1b60e06'
+                    or plan.get('evaluation_batch_size')!=8 or plan.get('max_new_tokens')!=512
+                    or plan.get('enable_thinking') is not False or plan.get('do_sample') is not False):
+                raise ValueError('Exact-token result questions or inference settings differ')
+            if result.get('supervised_tokens')!=32768 or result.get('optimizer_updates')!=32:
+                raise ValueError('Exact-token result exposure differs')
+            evaluated=result.get('evaluations',{}).get(arm,[])
+            if len(evaluated)!=64 or {r['id'] for r in evaluated}!=expected64:
+                raise ValueError('Exact-token evaluation is incomplete')
+            if any(str(r['gold_answer'])!=expected_gold[r['id']] for r in evaluated):
+                raise ValueError('Exact-token evaluation references differ')
+            controlled.append((arm+'\nseed'+str(seed),summarize(evaluated)))
+    plot_items=([('Untouched base\nbatch8',baseline['metrics'])] if baseline.get('status')=='completed' else [])+controlled
+    public={'completed_arms':len(controlled),'planned_arms':4,'count':64,
+        'correct':{name.replace('\n',' '):m['numeric_correct'] for name,m in controlled},
+        'batched_baseline':baseline,'supervised_tokens_per_arm':32768,'optimizer_updates_per_arm':32,
+        'selection_adaptive_to_development':True}
+    return plot_items,public
+
+
+def build(*,token_matched_only=False):
     folder=WORKSPACE/'docs/figures'
     folder.mkdir(parents=True,exist_ok=True)
     teacher=json.loads((ROOT/'runs/matched_teacher16_v1/summary.json').read_text())
@@ -32,6 +82,8 @@ def build():
         'figure.facecolor':'#101311','axes.facecolor':'#101311','text.color':'#e8ece6',
         'axes.labelcolor':'#e8ece6','xtick.color':'#e8ece6','ytick.color':'#a7b2a4','axes.edgecolor':'#536050'})
     def accuracy_chart(items,title,filename,note):
+        if token_matched_only and filename!='token-matched-accuracy':
+            return
         fig,ax=plt.subplots(figsize=(10,5.6))
         values=[100*m['numeric_correct']/m['count'] for _,m in items]
         errors=[wilson(m['numeric_correct'],m['count']) for _,m in items]
@@ -62,8 +114,9 @@ def build():
     ax.legend(loc='lower right');ax.grid(alpha=.13)
     fig.text(.1,.025,'The new64-question evaluation is a separate series. Do not join scores across different question sets.',fontsize=9,color='#a7b2a4')
     fig.subplots_adjust(bottom=.2,left=.1,right=.97)
-    for ext in ('png','svg'):
-        fig.savefig(folder/('pilot-learning-history.'+ext),dpi=180,facecolor=fig.get_facecolor())
+    if not token_matched_only:
+        for ext in ('png','svg'):
+            fig.savefig(folder/('pilot-learning-history.'+ext),dpi=180,facecolor=fig.get_facecolor())
     plt.close(fig)
     public={'matched16':{'count':16,'teacher_correct':teacher['numeric_correct'],
         'granite_original_correct':original['metrics']['baseline']['numeric_correct'],
@@ -104,30 +157,18 @@ def build():
             'Same64 monitoring questions. Lines:95% Wilson intervals. Development, not final-test accuracy.')
         public['matched64']={'stage':'completed' if evalpath.exists() else 'partial','count':64,'correct':{name:m['numeric_correct'] for name,m in items}}
         public['figures'].append('figures/matched64-accuracy.svg')
-        controlled=[]
-        for seed in (42,43):
-            for arm in ('random','valued'):
-                run=ROOT/f'runs/student_valuation32768_seed{seed}_{arm}_v1'
-                if not (run/'metrics.json').exists() or not (run/'result.json').exists():
-                    continue
-                result=json.loads((run/'result.json').read_text())
-                if set(result['plan']['development_ids'])!=expected64:
-                    raise ValueError('Exact-token result question set differs')
-                if result.get('supervised_tokens')!=32768 or result.get('optimizer_updates')!=32:
-                    raise ValueError('Exact-token result exposure differs')
-                score=json.loads((run/'metrics.json').read_text())[arm]
-                controlled.append((arm+'\nseed'+str(seed),score))
-        if controlled:
-            accuracy_chart(controlled,'Token-matched Granite training:32,768 answer tokens per arm','token-matched-accuracy',
-                'Same64 development questions.32 matched updates,LR0.00002. Missing arms are pending, not zero scores.')
-            public['token_matched32768']={'completed_arms':len(controlled),'planned_arms':4,
-                'count':64,'correct':{name.replace('\n',' '):m['numeric_correct'] for name,m in controlled},
-                'supervised_tokens_per_arm':32768,'optimizer_updates_per_arm':32,
-                'selection_adaptive_to_development':True}
+        plot_items,token_public=token_matched_series(ROOT,expected64)
+        if token_public['completed_arms']:
+            accuracy_chart(plot_items,'Untouched Granite and token-matched training controls','token-matched-accuracy',
+                'Same 64 questions; batch 8; non-thinking, 512 tokens. Base: 0; trained: 32,768 tokens/32 updates; LR 0.00002. 95% Wilson.')
+            public['token_matched32768']=token_public
             public['figures'].append('figures/token-matched-accuracy.svg')
     (WORKSPACE/'progress/research_summary.json').write_text(json.dumps(public,indent=2),encoding='utf-8')
     (WORKSPACE/'docs/research.json').write_text(json.dumps(public,indent=2),encoding='utf-8')
     return public
 
 if __name__=='__main__':
-    print(json.dumps(build()))
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--token-matched-only',action='store_true')
+    args=parser.parse_args()
+    print(json.dumps(build(token_matched_only=args.token_matched_only)))

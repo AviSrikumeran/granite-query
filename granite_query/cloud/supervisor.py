@@ -112,6 +112,9 @@ def tick():
                 remote_status={'stage':'gradient_feature_preparation'}
                 training_action='Advance the separately frozen gradient selector and source-reference audit on the completed multi-source pool. The initial two seed pairs showed no skill-selector advantage.'
         feature_folder=ROOT/'runs/gradient_features_math_v1'
+        feature_attempts=[p for p in (ROOT/'runs').glob('gradient_features_math*') if (p/'plan.json').exists()]
+        if feature_attempts:
+            feature_folder=max(feature_attempts,key=lambda p:json.loads((p/'plan.json').read_text()).get('created_at_utc',''))
         if (feature_folder/'plan.json').exists():
             feature_result=json.loads((feature_folder/'result.json').read_text()) if (feature_folder/'result.json').exists() else {}
             feature_terminal=json.loads((feature_folder/'terminal.json').read_text()) if (feature_folder/'terminal.json').exists() else {}
@@ -123,7 +126,16 @@ def tick():
                 training_action='Download and hash-check the private feature export, audit scores, then freeze the common-pool random/skill/gradient token-budget grid with data_efficiency_control.py. Reserve and launch only one reviewed arm at a time.'
             elif feature_terminal.get('confirmed_terminal'):
                 remote_status={'stage':feature_terminal.get('stage','gradient_features_terminal')}
-                training_action='Inspect the terminal feature result and preserved artifacts. Calibration refusal requires a smaller new frozen cohort; other deterministic failures require local fixes before separately recorded recovery.'
+                training_action='Inspect terminal feature artifacts. A late calibration refusal may continue only after verified complete earlier features, final warmup snapshot, unchanged execution-source hashes and a fresh remaining-work forecast fit the same per-call bounds. Initial infeasible calibration requires a smaller new cohort; never recompute blindly.'
+        batched_baseline=ROOT/'runs/student_baseline_batched64_v1'
+        if (batched_baseline/'launch.json').exists() and not (batched_baseline/'result.json').exists():
+            remote_status=json.loads((batched_baseline/'remote_status.json').read_text()) if (batched_baseline/'remote_status.json').exists() else {'stage':'batched_baseline_queued'}
+            training_action='Poll the existing untouched-Granite batch8 baseline with valuation_control.py. It uses the same64 questions and512-token settings as new adapters; no training or duplicate GPU launch. Reconcile its result before the gradient continuation.'
+        human_teacher=ROOT/'runs/human_math_teacher2048_v1'
+        if (human_teacher/'teacher_summary.json').exists():
+            human_summary=json.loads((human_teacher/'teacher_summary.json').read_text(encoding='utf-8'))
+            if human_summary.get('stage')=='collecting':
+                training_action+=' Monitor the existing separately funded human-reference teacher chunk; do not overlap collectors. Each later512-request chunk requires its own fresh funding check and reservation.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
         allocation_full=exhausted
         exhausted=allocation_full and not open_calls
@@ -140,6 +152,8 @@ def tick():
         account=ledger.get('modal_budget_accounting',{})
         if account:
             status['public_budget']={key:account[key] for key in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd') if key in account}
+            status['public_budget']['active_reservations_usd']=sum(j['reserved_usd'] for j in ledger.get('jobs',[]) if j.get('service','modal')=='modal' and j.get('status') in ('reserved','running','spawned','spawning','queued'))
+            status['public_budget']['budget_remaining_usd']=max(0,round(ledger['limits']['modal']-ledger['estimated_spend']['modal']-ledger['reserved']['modal'],2))
             status['public_budget']['deepseek_peak_estimate_usd']=ledger.get('deepseek_recorded_peak_estimate_usd',ledger['estimated_spend']['deepseek'])
             deepseek_account=ledger.get('deepseek_budget_accounting',{})
             if deepseek_account.get('status')=='conditional_wallet_inference':
@@ -163,6 +177,10 @@ def tick():
         if any((folder/'plan.json').exists() for folder in valuation_folders):
             from valuation_report import build as build_valuation_report
             build_valuation_report()
+        efficiency_grid=ROOT/'runs/data_efficiency_math_v1'
+        if (efficiency_grid/'grid_manifest.json').exists():
+            from data_efficiency_report import build as build_efficiency_report
+            build_efficiency_report(grid=efficiency_grid)
         build(status)
         print(json.dumps(status))
     finally:

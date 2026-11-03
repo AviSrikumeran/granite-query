@@ -31,7 +31,7 @@ DICT_NAME = 'granite-query-serving-control-v1'
 PREFIX = ('Solve the math problem. Explain only the necessary calculation steps concisely. '
           'Finish with #### followed by the numeric final answer.\n\n')
 LIMITS = dict(max_requests=20, max_input_chars=2400, max_input_tokens=768,
-              max_output_tokens=256, max_body_bytes=16384, context_limit=2048,
+              max_output_tokens=512, max_body_bytes=16384, context_limit=2048,
               gpu='L4', max_containers=1, min_containers=0, buffer_containers=0,
               timeout_seconds=90, startup_timeout_seconds=60,
               scaledown_window_seconds=2, single_use_containers=True,
@@ -179,6 +179,8 @@ def validate_manifest(manifest, *, now=None):
     validate_selection(value.get('selection', {}))
     if value.get('limits') != LIMITS or value.get('price_basis') != PRICE_BASIS:
         raise ServingRefused('Bounded serving policy differs from this implementation')
+    if LIMITS['max_input_tokens'] + LIMITS['max_output_tokens'] > LIMITS['context_limit']:
+        raise ServingRefused('Combined input/output limits exceed the evaluated context')
     if value.get('research_phase_closed') is not True:
         raise ServingRefused('Research GPU phase is still active')
     if not safe_name(value.get('quota_namespace')):
@@ -208,7 +210,7 @@ def public_model(manifest):
                 expires_at_utc=manifest['expires_at_utc'],
                 limits={k:LIMITS[k] for k in ('max_requests', 'max_input_chars', 'max_input_tokens',
                                            'max_output_tokens', 'context_limit')},
-                note='Small research trial; cold starts possible. A failed or cancelled request consumes quota. The API caps output at256 tokens; benchmark results in the report may use a512-token cap and do not measure this serving configuration.')
+                note='Small research trial with the benchmark\'s nominal512-token output cap. Cold-start, single-request L4 serving is time bounded; benchmark-equivalent accuracy or latency has not been measured for this serving configuration. A failed or cancelled request consumes quota.')
 
 
 def validate_request(body):
@@ -219,7 +221,7 @@ def validate_request(body):
         raise ServingRefused('Prompt must contain 1 to 2400 characters', 422)
     cap = body.get('max_new_tokens', LIMITS['max_output_tokens'])
     if type(cap) is not int or not 1 <= cap <= LIMITS['max_output_tokens']:
-        raise ServingRefused('max_new_tokens must be between 1 and 256', 422)
+        raise ServingRefused(f"max_new_tokens must be between 1 and {LIMITS['max_output_tokens']}", 422)
     try:
         request_id = str(uuid.UUID(body['request_id']))
     except (KeyError, ValueError, TypeError, AttributeError):

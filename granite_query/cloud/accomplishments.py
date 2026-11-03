@@ -1,6 +1,7 @@
 """Evidence-derived public accomplishments inventory; never exports private runtime data."""
 from datetime import datetime, timezone
 import json
+import hashlib
 from pathlib import Path
 
 try:
@@ -13,6 +14,8 @@ REPORT_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/
 RUNS_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md'
 VALUATION_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md'
 GRADIENT_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/NEXT_VALUATION_METHOD.md'
+HUMAN_COHORT_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_MATH_COHORT.json'
+HUMAN_TEACHER_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_MATH_TEACHER.json'
 MODEL = 'ibm-granite/granite-4.2-3b'
 REVISION = '4e9c275e232f10211ec88644d106a1f6a1b60e06'
 SOURCE = 'https://github.com/openai/grade-school-math'
@@ -21,6 +24,7 @@ APP_URLS = {
     'smoke': 'https://modal.com/apps/avisrikumeran/main/ap-WS6yWYh6OmC0C0Lne7UiMb',
     'comparison': 'https://modal.com/apps/avisrikumeran/main/ap-yOuxoTkxDoBeMso5YZ5xBd',
     'eval64': 'https://modal.com/apps/avisrikumeran/main/ap-KMIiovWHG4Bt4CyMzjrU5b',
+    'batched_baseline':'https://modal.com/apps/avisrikumeran/main/ap-8sDpW3oOzIOpKk8VAOWrhj',
 }
 
 
@@ -96,16 +100,133 @@ def _feature_phase(folder):
         return 'failed','The feature worker failed before a complete datastore was recovered. Partial snapshots/features remain separate from completed work.'+limitation,{}
     if launch.get('call_id'):
         stage={'loading_model':'loading pinned Granite','selector_warmup':'warming up the selection adapter',
+            'restoring_saved_artifacts':'restoring saved adapters, optimizer snapshots and feature files',
             'calibration':'checking projected collection time','collecting_candidate':'collecting candidate gradients',
             'collecting_target':'collecting selection-target gradients','checkpoint_features_completed':'finishing a checkpoint datastore',
             'completed':'recovering the feature result'}.get(status.get('stage'),'waiting for a saved worker update')
         saved=_number(status.get('completed_features'))
+        recovery=_read(folder/'recovery_decision.json')
+        verified=_number(recovery.get('completed_features'))
+        recovery_valid=(plan.get('resume_from') and recovery.get('protocol_hash')==plan.get('protocol_hash')
+            and 0<verified<=expected and recovery.get('remaining_features')==expected-verified)
+        if recovery_valid and saved<=verified:
+            return 'running',(f'A confirmed continuation call is {stage}. {verified:,} already verified features are being restored or rechecked; '
+                'no new missing-feature completions have been reported by this call. '+description+limitation),{}
         return 'running',f'A confirmed Modal call is {stage}; {saved:,}/{expected:,} features reported saved. '+description+limitation,{}
     if launch:
         return 'blocked','Launch record has no confirmed call ID; reconcile it before retrying. '+description+limitation,{}
     if plan:
         return 'queued','Input and feature protocol are frozen; no confirmed Modal function call is recorded. '+description+limitation,{}
     return 'not_started','No feature-stage input or confirmed Modal call is recorded.',{}
+
+
+def _latest_feature_folder(runs):
+    original=runs/'gradient_features_math_v1';initial=_read(original/'plan.json')
+    if not initial:
+        return original
+    known={original.name:(original,0)}
+    remaining={p.name:p for p in runs.glob('gradient_features_math*') if p.is_dir() and p.name!=original.name}
+    changed=True
+    while changed:
+        changed=False
+        for name,folder in list(remaining.items()):
+            plan=_read(folder/'plan.json')
+            if (plan.get('resume_from') in known and plan.get('protocol_hash')==initial.get('protocol_hash')
+                    and plan.get('protocol')==initial.get('protocol')):
+                known[name]=(folder,known[plan['resume_from']][1]+1)
+                del remaining[name];changed=True
+    return max(known.values(),key=lambda item:(item[1],bool(_read(item[0]/'launch.json').get('call_id')),
+        _read(item[0]/'plan.json').get('created_at_utc',''),item[0].name))[0]
+
+
+def _human_teacher_phase(folder, summary, expected):
+    """Describe receipts and lock PID separately from model-training evidence."""
+    received, requested = _number(summary.get('completed')), _number(summary.get('requested'))
+    stage = summary.get('stage')
+    complete = stage == 'completed' and requested == expected and received == expected and expected > 0
+    lock = folder / 'collector.lock'
+    pid = None
+    if lock.exists():
+        try:
+            raw = lock.read_text(encoding='ascii').strip()
+            if raw.isdecimal() and 0 < int(raw) <= 2**32-1:
+                pid = int(raw)
+        except (OSError, UnicodeError, ValueError):
+            pass
+    if complete:
+        state = 'completed'
+    elif stage == 'collecting':
+        state = 'running' if pid else 'blocked'
+    elif stage in ('prepared_unpaid', 'awaiting_next_chunk'):
+        state = 'blocked' if lock.exists() else 'queued'
+    elif stage in ('halted', 'stopped'):
+        state = 'stopped'
+    else:
+        state = 'blocked'
+    detail = (f"{received:,}/{requested:,} human-reference teaching responses saved; "
+        f"{_number(summary.get('eligible')):,} passed complete-response/reference-match/token checks, supplying "
+        f"{_number(summary.get('supervised_tokens_available')):,} answer tokens. "
+        'Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. ')
+    if pid:
+        detail += f'Collector lock records process PID {pid}; the supervisor must verify that process before any resume. '
+    elif lock.exists():
+        detail += 'A collector lock has no valid recorded PID; reconcile it before another launch. '
+    elif stage == 'collecting':
+        detail += 'The last summary says collecting, but no collector lock is present; reconcile process and receipt state before resuming. '
+    if stage == 'awaiting_next_chunk':
+        detail += 'The previous chunk ended; no later chunk is inferred to be running. '
+    elif stage == 'prepared_unpaid':
+        detail += 'Requests are frozen; this summary records no paid collection launch. '
+    detail += 'Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.'
+    return state, detail, complete
+
+
+def _grid_phase(folder):
+    grid=_read(folder/'grid_manifest.json')
+    counts={'completed':0,'running':0,'queued':0,'failed':0,'blocked':0,'not_started':0}
+    prepared=0;next_items=[];planned=0
+    for descriptor in grid.get('studies',[]):
+        study=(folder/descriptor.get('folder','')).resolve()
+        if not study.is_relative_to(folder.resolve()):
+            raise ValueError('Data-efficiency study path escapes its declared grid')
+        manifest=_read(study/'manifest.json')
+        jobs=manifest.get('jobs',[])
+        expected_jobs=_number(descriptor.get('jobs'),6)
+        planned+=expected_jobs
+        counts['blocked']+=abs(expected_jobs-len(jobs))
+        for job in jobs:
+            arm_folder=(study/job.get('folder','')).resolve()
+            if not arm_folder.is_relative_to(study):
+                raise ValueError('Data-efficiency arm path escapes its study')
+            prepared+=int((arm_folder/'plan.json').exists())
+            selector=job.get('checkpoint_name',job.get('selector'))
+            state,_,result=_phase(arm_folder,(selector,))
+            budget=manifest.get('token_budget')
+            actual=result.get('plan',{})
+            if result and (not isinstance(budget,int) or result.get('supervised_tokens')!=budget
+                    or result.get('optimizer_updates')!=budget//1024 or actual.get('checkpoint_name')!=selector
+                    or actual.get('selector_name')!=job.get('selector') or actual.get('seed')!=job.get('seed')
+                    or actual.get('common_pool_sha256')!=manifest.get('common_pool',{}).get('sha256')):
+                state='failed'
+            counts[state if state in counts else 'blocked']+=1
+            if state!='completed':
+                next_items.append((state,job.get('selector','unknown'),job.get('seed'),budget))
+    if not planned:
+        return 'blocked','A grid manifest exists, but its arm plans have not been recovered; no completed training is inferred.'
+    state=('completed' if counts['completed']==planned and not counts['blocked'] else 'running' if counts['running'] else
+           'blocked' if counts['blocked'] else 'failed' if counts['failed'] else 'queued')
+    detail=(f"{prepared}/{planned} arm plans prepared; {counts['completed']} completed, {counts['running']} running, "
+            f"{counts['queued']+counts['not_started']} queued, {counts['failed']} failed and {counts['blocked']} requiring launch reconciliation. "
+            'Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. ')
+    if next_items:
+        priority={'running':0,'blocked':1,'failed':2,'queued':3,'not_started':4}
+        next_state,selector,seed,budget=min(next_items,key=lambda item:priority.get(item[0],5))
+        action=('Poll the existing call for' if next_state=='running' else 'Reconcile the stopped or ambiguous attempt for'
+                if next_state in ('blocked','failed') else 'The next prepared arm is')
+        detail+=f'{action} {selector}, seed {seed}, {budget:,} supervised tokens. No automatic new paid launch is performed by this report.'
+    else:
+        detail+='All arm results are available for the new-cohort report; final-test evaluation and model serving remain separate stages.'
+    return state,detail
 
 
 def _comparable_scores(result, variants):
@@ -215,6 +336,28 @@ def build(workspace=None):
     full_state, full_detail, full_result = _phase(runs / 'granite_full120_v1', ('full120',))
     current.append({'title': 'Larger 120-example Granite training round', 'status': full_state,
                     'detail': full_detail + ' Its purpose is to measure whether more verified data helps; improvement is not guaranteed.'})
+    batch_folder=runs/'student_baseline_batched64_v1'
+    if (batch_folder/'plan.json').exists():
+        try:
+            from .data_efficiency_report import baseline_context
+        except ImportError:
+            from data_efficiency_report import baseline_context
+        development=canonical/'development.jsonl'
+        expected_rows=([json.loads(line) for line in development.read_text(encoding='utf-8-sig').split('\n') if line.strip()]
+                       if development.exists() else [])
+        batch, _=baseline_context(batch_folder,
+            expected_development_sha256=hashlib.sha256(development.read_bytes()).hexdigest() if development.exists() else None,
+            expected_ids=_read(canonical/'plan.json').get('development_ids') or None,
+            expected_gold={r['id']:r['gold_answer'] for r in expected_rows} if expected_rows else None,
+            expected_prompts={r['id']:r['prompt'] for r in expected_rows} if expected_rows else None)
+        batch_state={'prepared':'queued','ambiguous_launch':'blocked','invalid_plan':'failed','invalid_result':'failed'}.get(batch['status'],batch['status'])
+        batch_detail='Evaluation-only plan: untouched pinned Granite, no adapter, the same 64 questions, non-thinking 512-token generation and batch8 evaluation. '
+        if batch_state=='completed':
+            batch_detail+=f"Completed {_number(batch['metrics'].get('numeric_correct'))}/64 numeric answers, with zero actual training tokens and updates. This matched-batch control is separate from the earlier serial58/64 result."
+            add('Untouched Granite batch8 control completed',batch_detail,APP_URLS['batched_baseline'])
+        else:
+            batch_detail+='The complete matched result is not available; no accuracy is assigned. '+batch.get('detail','')
+        current.append({'title':'Untouched Granite control with matched batch8 evaluation','status':batch_state,'detail':batch_detail})
 
     pool = _read(runs/'student_valuation_pool512_v1/teacher_summary.json')
     if pool:
@@ -236,6 +379,20 @@ def build(workspace=None):
         if multi_complete:
             add('New multi-source DeepSeek teaching pool completed',teacher_detail,
                 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json')
+    human_cohort = _read(workspace/'progress/HUMAN_MATH_COHORT.json')
+    human_teacher = _read(workspace/'progress/HUMAN_MATH_TEACHER.json')
+    human_ready = (human_cohort.get('stage') == 'prepared_unpaid'
+                   and _number(human_cohort.get('actual_teaching_prompts')) > 0
+                   and _number(human_cohort.get('actual_development_holdout')) > 0)
+    human_detail = ''
+    if human_ready:
+        human_detail = (f"{_number(human_cohort.get('actual_teaching_prompts')):,} new GSM training questions and "
+            f"{_number(human_cohort.get('actual_development_holdout')):,} separate training-split development questions are frozen. "
+            f"{_number(human_cohort.get('actual_valid_capacity')):,} questions passed exact arithmetic-annotation/final-link checks after "
+            f"{_number(human_cohort.get('ancestry_exclusions',{}).get('combined_unique_gsm_exclusions')):,} prior-question or detectable-ancestry exclusions. "
+            'These checks do not prove semantic correctness; TemplateGSM ancestry uses a conservative proxy and OpenMath lineage is incomplete. No official test questions were used. Data preparation is separate from teacher generation and Granite training.')
+        add('New human-reference teaching and development split frozen', human_detail, HUMAN_COHORT_URL)
+        current.append({'title':'Future human-reference arithmetic cohort preparation','status':'completed','detail':human_detail})
     controlled_results=[]
     controlled=[]
     for seed in (42,43):
@@ -276,12 +433,26 @@ def build(workspace=None):
         block_state=('completed' if first_block_complete else 'running' if any(r['state']=='running' for r in controlled)
                      else 'failed' if any(r['state']=='failed' for r in controlled) else 'queued')
         current.append({'title':'First student-aware equal-token experiment','status':block_state,'detail':block_detail})
-    feature_folder=runs/'gradient_features_math_v1'
+    feature_folder=_latest_feature_folder(runs)
     if (feature_folder/'plan.json').exists() or (feature_folder/'launch.json').exists():
         feature_state,feature_detail,feature_result=_feature_phase(feature_folder)
+        if feature_folder.name!='gradient_features_math_v1':
+            feature_detail='Separate continuation of the same frozen feature protocol. '+feature_detail
         current.append({'title':'Model-gradient data selection on the new math cohort','status':feature_state,'detail':feature_detail})
         if feature_result:
             add('Student-gradient feature collection completed',feature_detail,GRADIENT_URL)
+    grid_folder=runs/'data_efficiency_math_v1'
+    if (grid_folder/'grid_manifest.json').exists():
+        grid_state,grid_detail=_grid_phase(grid_folder)
+        current.append({'title':'New math-cohort data-efficiency training grid','status':grid_state,'detail':grid_detail})
+    human_teacher_complete = False
+    if human_teacher:
+        human_state, human_teacher_detail, human_teacher_complete = _human_teacher_phase(
+            runs/'human_math_teacher2048_v1', human_teacher,
+            _number(human_cohort.get('actual_teaching_prompts'),2048))
+        current.append({'title':'Human-reference DeepSeek teaching chunks','status':human_state,'detail':human_teacher_detail})
+        if human_teacher_complete:
+            add('Human-reference DeepSeek teaching pool completed',human_teacher_detail,HUMAN_TEACHER_URL)
     if (workspace/'granite_query/cloud/modal_api.py').exists():
         current.append({'title':'Capped Granite API trial', 'status':'queued',
                         'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})
@@ -368,6 +539,12 @@ def build(workspace=None):
             'actual_source':'https://github.com/AviSrikumeran/granite-query/blob/main/progress/HF_SOURCE_INVENTORY.json',
             'status':'bounded_samples_imported',
             'used_for':f"{_number(inventory.get('actually_imported_sources'))} repositories sampled, with {_number(inventory.get('sample_rows_imported'))} complete training rows across {_number(inventory.get('actually_imported_families'))} declared families. These samples are not entire datasets or evidence of training across all domains."})
+    if human_ready:
+        public['dataset_coverage'].append({'name':'New human-reference GSM training expansion',
+            'actual_source':SOURCE+'/tree/'+SOURCE_REVISION,
+            'status':'teacher_pool_completed' if human_teacher_complete else 'teaching_and_development_questions_frozen',
+            'used_for':human_detail+(f" Current teacher receipts: {_number(human_teacher.get('completed')):,}/{_number(human_teacher.get('requested')):,}. "
+                'These artifacts do not themselves evidence Granite training or accuracy improvement.' if human_teacher else '')})
     (workspace / 'docs').mkdir(parents=True, exist_ok=True)
     (workspace / 'progress').mkdir(parents=True, exist_ok=True)
     (workspace / 'docs/project-status.json').write_text(json.dumps(public, indent=2) + '\n', encoding='utf-8')
