@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T18:49:34.173178+00:00",
+  "generated_at_utc": "2026-11-03T18:55:26.719537+00:00",
   "title": "Matched-token student-aware valuation development results",
   "status": "partial",
   "completed_pairs": 1,
   "planned_pairs": 2,
-  "completed_arms": 2,
+  "completed_arms": 3,
   "planned_arms": 4,
   "protocol": {
     "mode": "train_evaluate",
@@ -147,8 +147,8 @@
           "run_id": "student_valuation32768_seed43_random_v1",
           "seed": 43,
           "arm": "random",
-          "status": "prepared",
-          "stage": "not_launched",
+          "status": "running",
+          "stage": "queued",
           "exposure": {
             "examples": 280,
             "supervised_tokens": 32768,
@@ -170,8 +170,8 @@
           "run_id": "student_valuation32768_seed43_valued_v1",
           "seed": 43,
           "arm": "valued",
-          "status": "running",
-          "stage": "queued",
+          "status": "completed",
+          "stage": "completed",
           "exposure": {
             "examples": 337,
             "supervised_tokens": 32768,
@@ -186,8 +186,20 @@
             "selector_arm_sha256": "1ab2b2010805663fbb6bf05dcfa50065e279252a38070953e95eb61799467bd0",
             "selection_manifest_sha256": "77863fd3194e5fbfab105464ea99b69ef6c655fa704e9584ac5384bf9757f0be",
             "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec",
-            "protocol_hash": "768f4c1802369ec436b2b240a2db921df1a702bf2aaf4f99f99803a7550f54ff"
-          }
+            "protocol_hash": "768f4c1802369ec436b2b240a2db921df1a702bf2aaf4f99f99803a7550f54ff",
+            "result_sha256": "1720c0740c001bb5d73d6f215c78b269ff60a78203b3071dbe62e432170f0f25"
+          },
+          "metrics": {
+            "count": 64,
+            "numeric_correct": 56,
+            "strict_format_correct": 56,
+            "truncated": 0,
+            "latency_seconds_total": 50.82180708199998,
+            "generated_tokens": 6740,
+            "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+          },
+          "worker_elapsed_seconds": 164.828768712,
+          "latency_measurement": "batched amortized GPU timings, not comparable directly with serial latency"
         }
       }
     }

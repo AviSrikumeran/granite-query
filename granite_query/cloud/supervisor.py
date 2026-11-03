@@ -118,7 +118,7 @@ def tick():
         account=ledger.get('modal_budget_accounting',{})
         if account:
             status['public_budget']={key:account[key] for key in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd') if key in account}
-            status['public_budget']['deepseek_peak_estimate_usd']=ledger['estimated_spend']['deepseek']
+            status['public_budget']['deepseek_peak_estimate_usd']=ledger.get('deepseek_recorded_peak_estimate_usd',ledger['estimated_spend']['deepseek'])
         temp = STATE / 'status.tmp'
         temp.write_text(json.dumps(status, indent=2), encoding='utf-8')
         temp.replace(STATE / 'status.json')

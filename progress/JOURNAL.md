@@ -4,7 +4,7 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Equal-token valued training, seed43
+Current stage: Equal-token random training, seed43
 
 Next: A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
@@ -305,3 +305,23 @@ Launched the unchanged valued-arm replication only after all earlier GPU apps st
 ## 2026-11-03T18:49:33.699697+00:00 | in_progress | Research improvement cycle
 
 Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_valued_v1. Preserve its outputs; do not duplicate the call.
+
+## 2026-11-03T18:52:30.147762+00:00 | planned | Prepare gradient-based valuation and a larger arithmetic cohort
+
+Source-specific preparation is running for up to1800 new arithmetic prompts from SVAMP, TemplateGSM and OpenMath augmentation, with prior-pool exclusions and reference origins retained. This is not yet teacher-verified training data. A separate LESS-inspired projected-gradient design and reference scoring math are prepared; the bounded GPU feature collector remains to implement. Current frozen replication continues unchanged.
+
+## 2026-11-03T18:52:48.707303+00:00 | completed | Equal-token valued arm completed
+
+Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use.
+
+## 2026-11-03T18:53:32.037365+00:00 | completed | DeepSeek funding-based accounting separated from token estimates
+
+A supported balance observation and the user-declared original funding conditionally imply 0.36 dollars of project-attributed wallet consumption. The 0.75-dollar recorded peak-price token estimate remains separate; an explicit 0.10-dollar lag buffer is retained. No new credits are assumed and the 20-dollar ceiling is unchanged. Funding changes, grants and stale observations block new reservations. Wallet and account details remain private.
+
+## 2026-11-03T18:54:12.105665+00:00 | in_progress | Final frozen random seed 43 arm launched
+
+After valued seed 43 completed and all prior GPU apps stopped, launched the unchanged random seed 43 arm to complete the preregistered first two-seed block. Exactly 32768 supervised tokens, 32 updates, the same teacher pool and learning rate 0.00002; one bounded A100 job with a separate 3-dollar reservation. Seed variation remains unavailable until this final arm completes.
+
+## 2026-11-03T18:55:26.246019+00:00 | in_progress | Research improvement cycle
+
+Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call.

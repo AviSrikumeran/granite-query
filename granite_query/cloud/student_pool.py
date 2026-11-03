@@ -58,7 +58,15 @@ def sha(path):
 def write_jsonl(path, rows):
     temporary = Path(path).with_suffix('.tmp')
     temporary.write_text(''.join(_canonical(row) + '\n' for row in rows), encoding='utf-8')
-    temporary.replace(path)
+    for attempt in range(4):
+        try:
+            temporary.replace(path)
+            break
+        except PermissionError:
+            if attempt==3:
+                raise
+            # Retry only a local sync/indexer lock, never the teacher call.
+            time.sleep(.05*(2**attempt))
 
 
 def build_payload(row):
@@ -151,6 +159,8 @@ def prepare(output=RUN, scores_path=SCORES, probes_path=PROBES):
 
 def assert_reserved(plan):
     ledger = json.loads((ROOT / 'runs/supervisor/budget.json').read_text(encoding='utf-8'))
+    from cloud.deepseek_reconcile import require_fresh_deepseek_budget
+    require_fresh_deepseek_budget(ledger)
     matches = [job for job in ledger['jobs'] if job.get('run_id') == JOB_ID and job.get('service') == 'deepseek']
     if len(matches) != 1 or matches[0].get('status') not in {'reserved', 'in_progress'}:
         raise RuntimeError('Bounded teacher job has no active reservation')

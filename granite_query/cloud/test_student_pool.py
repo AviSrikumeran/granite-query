@@ -101,5 +101,24 @@ class StudentPoolTests(unittest.TestCase):
                 self.assertEqual(summary['halt_reason'], 'provider_http_402')
 
 
+    def test_transient_local_sync_lock_retries_only_file_replacement(self):
+        original=Path.replace
+        attempts=[]
+        def briefly_locked(source,destination):
+            attempts.append(source)
+            if len(attempts)==1:
+                raise PermissionError('Local sync lock')
+            return original(source,destination)
+        parent=pool.ROOT/'.test_work'
+        parent.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=parent) as temporary:
+            destination=Path(temporary)/'eligible.jsonl'
+            with patch.object(Path,'replace',briefly_locked), patch.object(pool.time,'sleep') as pause:
+                pool.write_jsonl(destination,[{'id':'saved'}])
+            self.assertEqual(len(attempts),2)
+            pause.assert_called_once_with(.05)
+            self.assertEqual(pool.read_jsonl(destination),[{'id':'saved'}])
+
+
 if __name__ == '__main__':
     unittest.main()

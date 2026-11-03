@@ -98,9 +98,9 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 
 - **Equal-token valued training, seed42 — completed**. All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
-- **Equal-token random training, seed43 — queued**. The input and plan are prepared. No Modal function call has been submitted. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+- **Equal-token random training, seed43 — running**. A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
-- **Equal-token valued training, seed43 — running**. A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+- **Equal-token valued training, seed43 — completed**. All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
 - **Capped Granite API trial — queued**. API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.
 
@@ -114,4 +114,4 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T18:49:33.706560+00:00
+Updated: 2026-11-03T18:55:26.252911+00:00

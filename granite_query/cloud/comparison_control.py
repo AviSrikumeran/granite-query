@@ -32,6 +32,9 @@ def reserve(service, amount, job_id):
     if any(j['run_id'] == job_id for j in ledger['jobs']):
         return
     require_fresh_modal_budget(ledger, service, new_reservation=True)
+    if service=='deepseek':
+        from cloud.deepseek_reconcile import require_fresh_deepseek_budget
+        require_fresh_deepseek_budget(ledger,new_reservation=True)
     if ledger['estimated_spend'][service] + ledger['reserved'][service] + amount > ledger['limits'][service]:
         raise RuntimeError('Service budget would be exceeded')
     ledger['reserved'][service] += amount

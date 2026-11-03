@@ -8,8 +8,8 @@ Each arm starts from the same pinned Granite checkpoint, supervises exactly 3276
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
 | 42 | random | completed | 55/64 | 55 | 0 | 286 | 68970 | 97.021 | 6772 |
 | 42 | valued | completed | 53/64 | 53 | 1 | 337 | 70774 | 117.812 | 6894 |
-| 43 | random | prepared | pending | pending | pending | 280 | 68534 | pending | pending |
-| 43 | valued | running | pending | pending | pending | 337 | 71618 | pending | pending |
+| 43 | random | running | pending | pending | pending | 280 | 68534 | pending | pending |
+| 43 | valued | completed | 56/64 | 56 | 0 | 337 | 71618 | 50.822 | 6740 |
 
 ## Paired selection comparison
 

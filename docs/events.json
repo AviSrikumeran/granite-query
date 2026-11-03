@@ -516,5 +516,40 @@
     "kind": "in_progress",
     "title": "Research improvement cycle",
     "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_valued_v1. Preserve its outputs; do not duplicate the call."
+  },
+  {
+    "id": "3e471f731e3ee34d292a",
+    "at_utc": "2026-11-03T18:52:30.147762+00:00",
+    "kind": "planned",
+    "title": "Prepare gradient-based valuation and a larger arithmetic cohort",
+    "detail": "Source-specific preparation is running for up to1800 new arithmetic prompts from SVAMP, TemplateGSM and OpenMath augmentation, with prior-pool exclusions and reference origins retained. This is not yet teacher-verified training data. A separate LESS-inspired projected-gradient design and reference scoring math are prepared; the bounded GPU feature collector remains to implement. Current frozen replication continues unchanged."
+  },
+  {
+    "id": "student_valuation32768_seed43_valued_v1-completed",
+    "at_utc": "2026-11-03T18:52:48.707303+00:00",
+    "kind": "completed",
+    "title": "Equal-token valued arm completed",
+    "detail": "Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use."
+  },
+  {
+    "id": "deepseek-wallet-accounting-v1",
+    "at_utc": "2026-11-03T18:53:32.037365+00:00",
+    "kind": "completed",
+    "title": "DeepSeek funding-based accounting separated from token estimates",
+    "detail": "A supported balance observation and the user-declared original funding conditionally imply 0.36 dollars of project-attributed wallet consumption. The 0.75-dollar recorded peak-price token estimate remains separate; an explicit 0.10-dollar lag buffer is retained. No new credits are assumed and the 20-dollar ceiling is unchanged. Funding changes, grants and stale observations block new reservations. Wallet and account details remain private."
+  },
+  {
+    "id": "student_valuation32768_seed43_random_v1-launched",
+    "at_utc": "2026-11-03T18:54:12.105665+00:00",
+    "kind": "in_progress",
+    "title": "Final frozen random seed 43 arm launched",
+    "detail": "After valued seed 43 completed and all prior GPU apps stopped, launched the unchanged random seed 43 arm to complete the preregistered first two-seed block. Exactly 32768 supervised tokens, 32 updates, the same teacher pool and learning rate 0.00002; one bounded A100 job with a separate 3-dollar reservation. Seed variation remains unavailable until this final arm completes."
+  },
+  {
+    "id": "supervisor-next-Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call.",
+    "at_utc": "2026-11-03T18:55:26.246019+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call."
   }
 ]

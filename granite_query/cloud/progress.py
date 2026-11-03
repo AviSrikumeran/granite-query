@@ -72,6 +72,11 @@ def build(status=None):
         public['source_imports']={k:sources[k] for k in ('stage','target_imported_datasets','registered_sources','metadata_reviewed_sources','actually_imported_sources','actually_imported_families','sample_rows_imported','numeric_reference_prompts','training_ready_examples') if k in sources and isinstance(sources[k],(str,int))}
         SITE.mkdir(parents=True,exist_ok=True)
         (SITE/'sources.json').write_text(json.dumps(sources,indent=2)+'\n',encoding='utf-8')
+    cohort_path=JOURNAL.parent/'MATH_COHORT.json'
+    if cohort_path.exists():
+        cohort=json.loads(cohort_path.read_text(encoding='utf-8'))
+        public['math_cohort_preparation']={k:cohort[k] for k in ('stage','actual_prompts','max_prompts_total')
+                                          if k in cohort and isinstance(cohort[k],(str,int))}
     audit_path=WORKSPACE/'docs/project-status.json'
     if audit_path.exists():
         audit=json.loads(audit_path.read_text(encoding='utf-8'))
