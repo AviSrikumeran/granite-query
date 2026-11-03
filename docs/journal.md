@@ -33,3 +33,7 @@ Preparing an append-only activity history, generated journal, and public dashboa
 ## 2026-11-03T17:13:50.752906+00:00 | in_progress | Granite training smoke test
 
 Implement and locally validate the bounded Granite LoRA training smoke test.
+
+## 2026-11-03T17:16:22.031306+00:00 | completed | Public GitHub Pages preview verified
+
+The research dashboard is live. Browser verification confirmed the teacher pilot metrics, the journal links, and failure filtering. Scheduled supervision now includes append-only journal updates and public snapshot synchronization.

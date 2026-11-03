@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T17:14:27.233054+00:00",
+  "generated_at_utc": "2026-11-03T17:16:22.040915+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
@@ -59,6 +59,13 @@
       "kind": "in_progress",
       "title": "Granite training smoke test",
       "detail": "Implement and locally validate the bounded Granite LoRA training smoke test."
+    },
+    {
+      "id": "e37ba198cbd6ee251ab5",
+      "at_utc": "2026-11-03T17:16:22.031306+00:00",
+      "kind": "completed",
+      "title": "Public GitHub Pages preview verified",
+      "detail": "The research dashboard is live. Browser verification confirmed the teacher pilot metrics, the journal links, and failure filtering. Scheduled supervision now includes append-only journal updates and public snapshot synchronization."
     }
   ]
 }

@@ -40,5 +40,12 @@
     "kind": "in_progress",
     "title": "Granite training smoke test",
     "detail": "Implement and locally validate the bounded Granite LoRA training smoke test."
+  },
+  {
+    "id": "e37ba198cbd6ee251ab5",
+    "at_utc": "2026-11-03T17:16:22.031306+00:00",
+    "kind": "completed",
+    "title": "Public GitHub Pages preview verified",
+    "detail": "The research dashboard is live. Browser verification confirmed the teacher pilot metrics, the journal links, and failure filtering. Scheduled supervision now includes append-only journal updates and public snapshot synchronization."
   }
 ]
