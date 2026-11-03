@@ -1,34 +1,37 @@
-# Modal hero playground
+# Granite Query color and motion playground
 
 Live: https://avisrikumeran.github.io/granite-query/playground/
 
-An isolated comparison of Modal’s captured hero and an independent live reconstruction. `docs/index.html` is outside this change.
+An original blue-and-pink variation of the dense glyph-field technique, with a folded loop, nested frames, weave and double helix. This isolated playground does not replace the research homepage.
 
-## Review
+## Explore
 
-- **Form:** play the sequence, or pin Box, Layers, Stairs, or Small cubes. A running selection eases into the chosen form, then holds geometry while light and pointer motion continue. Changing the selection while paused snaps to the chosen form for inspection.
-- **Side by side:** captured field state on the left and live reconstruction on the right, using the same 1280 × 900 desktop viewport scaled to fit. The left combines one shared captured header with separate static field captures; it is not a video.
-- **Reconstruction / Phone:** inspect the larger view or a 390 px iframe.
-- **Pause / Resume:** freeze or resume simulation. Reduced-motion preference starts paused; Escape also pauses.
-- **Reset field:** return to automatic playback at its first form, clear pointer state and preserve pause status.
-- Move the pointer to gently tilt and light the form. Click to advance. Touch scrolling remains available.
+- Move the pointer through the field to turn and light the structure; click to advance.
+- Choose **Play sequence** or pin a form. A playing selection eases from the displayed geometry. A paused selection displays the selected form immediately.
+- **Pause / Resume** freezes or resumes simulation. Escape pauses. System reduced-motion preference starts paused.
+- **Restart** returns to the beginning and clears pointer influence. It preserves pause state and selected colors.
+- Use the **Blue** and **Pink** swatches or their hex fields to recolor the field and accents. Invalid hex input does not reach the renderer. **Reset colors** restores #81D9FA and #FF79BD.
 
-Earlier cube, training diagram and evidence-sidebar studies remain at `components.html`, unchanged.
+The default color direction is light blue and a brighter rose pink on deep navy. It is a working variation, not a finished project-wide brand palette.
 
-## How it works
+## Reference studies
 
-`modal/geometry.mjs` defines four configurations of cuboids: twelve beams for the open box, three thin plates, a five-step solid, and eight separated cubes. Part positions and dimensions interpolate at a fixed camera scale. Each five-second segment holds for 2.6 seconds and assembles the next form over 2.4 seconds. One quintic easing curve is applied per part; interrupted or click-driven changes start from the displayed geometry without resetting the light clock. These timings are authored approximations.
+The green Modal reconstruction and captured-state comparison remain at [modal-study.html](https://avisrikumeran.github.io/granite-query/playground/modal-study.html). The earlier cube, training diagram and evidence-sidebar studies remain at `components.html`. Their original rendering and evidence files are unchanged.
 
-`modal/field.js` ray-tests those cuboids from a fixed orthographic camera at each glyph position. It shades faces, rims and dim geometric echoes, then draws sixteen locally generated symbol variants with WebGL. A staggered 5.6 px lattice provides 30,510 sample positions at the reference content width, about 65% more than the earlier 7.2 px lattice. Glyph identities remain fixed per cell; the distribution favors filled marks to avoid hollow, patchy faces. Glyphs and soft halos share one draw pass. Mipmapped atlas filtering, a 1.5–2× backing resolution, softened contour coverage and lifted midtones reduce shimmer and harsh bright rims. The Canvas 2D fallback uses the same scene, glyph atlas and ray-box geometry at lower density. Test it at `modal/hero.html?renderer=canvas`.
+## Implementation
 
-The renderer stops scheduling while paused, hidden or offscreen. Pointer tilt replaces the previous displacement/ripple effect. There is no global zoom pulse.
+- `granite/geometry.mjs`: sixteen oriented solids per form, quaternion interpolation, a continuous 22.4-second sequence, and the fallback ray test.
+- `granite/field.js`: dense stable glyphs, blue/pink material shading, mouse interaction, live palette controls, pause/visibility handling and Canvas fallback.
+- `granite/study.css`: independent page composition, typography and responsive layout.
+- `modal/`: the preserved independent Modal reconstruction.
+- `comparison.js` and `comparison.css`: the preserved Modal comparison shell.
 
-No build, paid API, Lovable credits, external runtime package or npm installation is required to run the deployed playground. It uses ES modules, so serve `docs` over HTTP. All local assets are relative for the GitHub Pages repository subpath.
+The new renderer is isolated so changes to the variation do not alter the reference study. It reuses the authored glyph-atlas and dense sampling approach, while adding oriented geometry, new forms, new material colors and project-specific composition. There is no paid service, runtime package or build step. Serve `docs` over HTTP; relative paths work beneath the GitHub Pages repository subpath. Force the simpler renderer with `/playground/?renderer=canvas`.
 
-## Extraction and provenance
+Run both geometry suites with:
 
-[DesignLang](https://github.com/Manavarya09/design-extract) 13.3.2 was actually run against Modal. Its generated reference DESIGN.md and tokens are retained under `design/extracts/modal-2026-11-03`. The tool measures DOM/CSS and Web Animations; it does not recover this WebGL hero’s geometry or shader. Geometry and timing remain independently reconstructed from observed box/layer/stair/cube states.
+```powershell
+node --test design/granite-geometry.test.mjs design/modal-geometry.test.mjs
+```
 
-Original: https://modal.com/ — captures November 3, 2026. Modal’s name, marks and copy are included only in this labeled reference study. This is independent and not affiliated with Modal; source links lead to Modal itself. Arial replaces proprietary ABC Diatype. Glyph arrangement, illumination, exact geometry and transition choreography differ from the original.
-
-Validation: `node --test design/modal-geometry.test.mjs`; browser comparisons and interaction checks. See `design/MODAL_HERO_RECONSTRUCTION.md`. This artifact is not a proposed Granite Query brand or homepage.
+See `design/GRANITE_MOTION_VARIATION.md` for color choices, construction and validation. The original extraction evidence remains under `design/extracts/modal-2026-11-03`; it describes Modal and is not the new palette’s source of authority.
