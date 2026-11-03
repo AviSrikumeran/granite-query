@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Granite Query · Three directions</title>
+  <meta name="description" content="Compare interlocking blocks, proof branches and nested frames with the same green material, lighting and synchronized motion.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="./study.css?v=directions-20261103-1">
+  <script type="module" src="./study.mjs?v=directions-20261103-1"></script>
+</head>
+<body>
+  <a class="skip" href="#comparison">Skip to the three forms</a>
+  <header class="site-header">
+    <a class="brand" href="../../" aria-label="Granite Query research homepage"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="m18 3 14 8-14 8L4 11Z" fill="none" stroke="#c5f574" stroke-width="1.7"/><path d="M4 11v14l14 8 14-8V11M18 19v14" fill="none" stroke="#7fee64" stroke-width="1.7"/></svg><span>Granite Query</span></a>
+    <nav aria-label="Study navigation"><a href="../">Accepted study ↗</a><a href="../../">Research log</a></nav>
+  </header>
+  <main>
+    <div class="introduction"><p class="eyebrow">Form and motion studies</p><h1>Compare three directions.</h1><p class="description">The same green, light and motion. Three different ways to give the research a visual identity.</p></div>
+    <section class="toolbar" aria-label="Comparison controls">
+      <div class="motion-controls"><button id="pause" aria-pressed="false">Pause</button><button id="replay">Replay reveal</button><label for="pose">Pose</label><select id="pose"><option value="auto">Cycle poses</option><option value="locked">Locked</option><option value="open">Open</option><option value="offset">Offset</option></select></div>
+      <div class="view-controls"><label><input type="checkbox" id="linked" checked>Link mouse views</label><label><input type="checkbox" id="peripherals" checked>Peripheral views</label></div>
+    </section>
+    <p id="interaction-help" class="interaction-help">Move across a view to turn all three. Pause holds the motion; the mouse still works. Arrow keys turn a focused view.</p>
+    <div id="comparison" class="comparison">
+      <article class="direction" data-direction="blocks"><header class="direction-heading"><h2 id="blocks-title">Interlocking blocks</h2><p>Notched modules, joined into one structure.</p></header><figure tabindex="0" aria-labelledby="blocks-title" aria-describedby="interaction-help"><canvas role="img" aria-label="Six notched beams interlock along three axes, with deep green shadows and yellow-green edge highlights."></canvas></figure><div class="direction-caption"><span>Joint / channel / overlap</span><span class="pose-name">Locked</span></div></article>
+      <article class="direction" data-direction="branches"><header class="direction-heading"><h2 id="branches-title">Proof branches</h2><p>A connected structure with room to follow each path.</p></header><figure tabindex="0" aria-labelledby="branches-title" aria-describedby="interaction-help"><canvas role="img" aria-label="A three-dimensional branching structure rises from a root into connected joints and five terminal blocks."></canvas></figure><div class="direction-caption"><span>Root / connection / conclusion</span><span class="pose-name">Locked</span></div></article>
+      <article class="direction" data-direction="frames"><header class="direction-heading"><h2 id="frames-title">Nested frames</h2><p>Three open volumes, held within one another.</p></header><figure tabindex="0" aria-labelledby="frames-title" aria-describedby="interaction-help"><canvas role="img" aria-label="Three nested cubic frames share one center, revealing smaller open structures through the outer cage."></canvas></figure><div class="direction-caption"><span>Boundary / depth / inner core</span><span class="pose-name">Locked</span></div></article>
+    </div>
+    <p id="motion-status" role="status" class="status">Motion is playing. All three views share one clock.</p>
+    <noscript><p>Enable JavaScript to compare the animated forms.</p></noscript>
+  </main>
+  <footer><p>Geometry experiments, not a display of research results.</p><a href="https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/directions" target="_blank" rel="noreferrer">Study source ↗</a></footer>
+</body>
+</html>
