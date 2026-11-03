@@ -154,7 +154,7 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 - **Model-gradient data selection on the new math cohort � completed**. Separate continuation of the same frozen feature protocol. 3,130 projected features are saved for 1,541 candidates and 24 held-out selection targets. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.
 
-- **New math-cohort data-efficiency training grid � running**. 18/18 arm plans prepared; 4 completed, 1 running, 13 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 32,768 supervised tokens. No automatic new paid launch is performed by this report.
+- **New math-cohort data-efficiency training grid � queued**. 18/18 arm plans prepared; 6 completed, 0 running, 12 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 42, 65,536 supervised tokens. No automatic new paid launch is performed by this report.
 
 - **Human-reference DeepSeek teaching chunks � completed**. 2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.
 
@@ -169,4 +169,4 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T20:43:50.206139+00:00
+Updated: 2026-11-03T20:48:56.882394+00:00

@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: New math-cohort data-efficiency training grid
 
-Next: 18/18 arm plans prepared; 4 completed, 1 running, 13 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 32,768 supervised tokens. No automatic new paid launch is performed by this report.
+Next: 18/18 arm plans prepared; 6 completed, 0 running, 12 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 42, 65,536 supervised tokens. No automatic new paid launch is performed by this report.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -545,3 +545,27 @@ Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_skill cal
 ## 2026-11-03T20:41:17.936575+00:00 | completed | First multi-source three-selector seed analyzed
 
 At32768 supervised tokens and32matched updates, seed42 scored random57/64, skill56/64 and gradient56/64; the matched untouched base scored58/64. Both selected arms are1question below random. One seed and64adaptive development questions do not establish a general advantage or disadvantage. Second-seed replication has started unchanged; larger budgets remain resource-gated. Gradient setup overhead is retained separately.
+
+## 2026-11-03T20:44:40.739114+00:00 | completed | Study skill seed 43 completed
+
+Saved immutable 32768-token development artifacts. Exact selector identity is skill; final test remains sealed.
+
+## 2026-11-03T20:44:54.002004+00:00 | completed | Research pipeline passes193 local checks
+
+All193 offline checks passed after adding bounded unattended control, immutable artifact recovery, matched result validation and prepared serving boundaries. No official test data were opened and no paid work was launched by these checks.
+
+## 2026-11-03T20:45:03.010402+00:00 | in_progress | Study random seed 43 launched
+
+One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T20:45:03.101517+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T20:48:47.782246+00:00 | completed | Study random seed 43 completed
+
+Saved immutable 32768-token development artifacts. Exact selector identity is random; final test remains sealed.
+
+## 2026-11-03T20:48:52.735852+00:00 | in_progress | Research improvement cycle
+
+Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed42_random only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.
