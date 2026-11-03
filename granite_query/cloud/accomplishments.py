@@ -181,6 +181,34 @@ def _human_teacher_phase(folder, summary, expected):
     return state, detail, complete
 
 
+def _watch_snapshot_detail(folder):
+    """Publish a narrow recorded-state summary, never infer process liveness."""
+    snapshot = _read(folder/'study_watch_state.json')
+    if not isinstance(snapshot, dict) or not snapshot:
+        return ''
+    try:
+        stamp = datetime.fromisoformat(snapshot['updated_at_utc']).isoformat()
+    except (KeyError, TypeError, ValueError):
+        return ''
+    stage = snapshot.get('stage')
+    if stage == 'stopped':
+        description = 'stopped; saved calls require inspection before resuming'
+    elif stage == 'watching':
+        current = snapshot.get('current', {})
+        result = current.get('result', {}) if isinstance(current, dict) else {}
+        result = result.get('stage') if isinstance(result, dict) else None
+        description = {
+            'waiting_for_protected_phase_funding': 'waiting for billing reconciliation and protected phase funding',
+            'waiting_for_budget_settlement': 'waiting for billing reconciliation',
+            'owned_call_running': 'monitoring its existing GPU call',
+            'spawned': 'launched the next separately funded GPU call',
+            'approved_grid_completed': 'finished its approved study block; later project stages remain',
+        }.get(result, 'checking the bounded study; inspect current artifacts for the next action')
+    else:
+        return ''
+    return f' Unattended controller snapshot at {stamp}: {description}. This is a recorded snapshot, not a live process check.'
+
+
 def _grid_phase(folder):
     grid=_read(folder/'grid_manifest.json')
     counts={'completed':0,'running':0,'queued':0,'failed':0,'blocked':0,'not_started':0}
@@ -223,10 +251,10 @@ def _grid_phase(folder):
         next_state,selector,seed,budget=min(next_items,key=lambda item:priority.get(item[0],5))
         action=('Poll the existing call for' if next_state=='running' else 'Reconcile the stopped or ambiguous attempt for'
                 if next_state in ('blocked','failed') else 'The next prepared arm is')
-        detail+=f'{action} {selector}, seed {seed}, {budget:,} supervised tokens. No automatic new paid launch is performed by this report.'
+        detail+=f'{action} {selector}, seed {seed}, {budget:,} supervised tokens. The separately bounded experiment controller owns paid launches.'
     else:
         detail+='All arm results are available for the new-cohort report; final-test evaluation and model serving remain separate stages.'
-    return state,detail
+    return state,detail+_watch_snapshot_detail(folder)
 
 
 def _grid_development_gain(folder):
@@ -614,14 +642,14 @@ def build(workspace=None):
     lines = ['# What Granite Query has actually accomplished', '', public['summary'], '',
              '## Dataset coverage', '']
     for row in public['dataset_coverage']:
-        lines += [f"- **{row['name']} — {row['status']}**. {row['used_for']} Source: {row['actual_source']}", '']
+        lines += [f"- **{row['name']} � {row['status']}**. {row['used_for']} Source: {row['actual_source']}", '']
     lines += ['## Model actually trained', '', public['model']['name'] + ' at revision ' + public['model']['revision'] + '.', '',
               public['model']['training_method'], '', '## Completed work', '']
     for row in completed:
         lines += [f"### {row['title']}", '', row['detail'], '', f"[Evidence]({row['evidence_url']})", '']
     lines += ['## Current work and failures', '']
     for row in current:
-        lines += [f"- **{row['title']} — {row['status']}**. {row['detail']}", '']
+        lines += [f"- **{row['title']} � {row['status']}**. {row['detail']}", '']
     lines += ['## Not completed', ''] + ['- ' + item for item in public['not_done']]
     lines += ['', 'Updated: ' + public['updated_at_utc'], '']
     (workspace / 'progress/ACCOMPLISHMENTS.md').write_text('\n'.join(lines), encoding='utf-8')

@@ -978,5 +978,89 @@
     "kind": "in_progress",
     "title": "Research improvement cycle",
     "detail": "Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed42_random only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy."
+  },
+  {
+    "id": "supervisor-host-watcher-identity",
+    "at_utc": "2026-11-03T20:50:00.775776+00:00",
+    "kind": "decision",
+    "title": "Supervisor recovery checks use the host process identity",
+    "detail": "Confirmed that the managed sandbox cannot see the active host watcher in its default process inventory. Verified the existing PID and creation time through a read-only host query; no duplicate worker was started. Updated the saved supervisor instructions to use the exact study_tick.lock path and host identity before recovery."
+  },
+  {
+    "id": "data_efficiency_math_v1-six32k-analyzed",
+    "at_utc": "2026-11-03T20:50:28.830421+00:00",
+    "kind": "completed",
+    "title": "All six32k multi-source comparisons completed",
+    "detail": "Both seeded triples are complete: seed42 random57/64, skill56/64 and gradient56/64; seed43 random55/64, skill54/64 and gradient54/64. The matched untouched base remains58/64. Each ranker is one question below random in each seed under this recipe. These are repeated training seeds on the same64 adaptive development questions, not128 independent questions or final-test evidence. The watcher is retaining the preregistered64k expansion and waiting for lagged liabilities to settle before its protected phase-funding gate."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed42_random-study-launched",
+    "at_utc": "2026-11-03T20:55:09.625716+00:00",
+    "kind": "in_progress",
+    "title": "Study random seed 42 launched",
+    "detail": "One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+  },
+  {
+    "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+    "at_utc": "2026-11-03T20:55:09.728875+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "dashboard-controller-state-clarity",
+    "at_utc": "2026-11-03T20:55:26.405305+00:00",
+    "kind": "resolved",
+    "title": "Dashboard explains unattended funding waits",
+    "detail": "The public accomplishments generator now includes a sanitized recorded controller state, distinguishing billing/funding waits, existing-call monitoring and stopped controllers. It publishes no PID, lease, private error or account fields and does not claim a saved snapshot proves process liveness. All16 focused accomplishments checks pass; pinned training sources and current experiment plans are unchanged."
+  },
+  {
+    "id": "teacher_depth32_v1-prepared-reviewed",
+    "at_utc": "2026-11-03T21:00:46.329416+00:00",
+    "kind": "planned",
+    "title": "Paired teacher reasoning pilot prepared without paid calls",
+    "detail": "A separate immutable pilot contains32 project-disjoint GSM training questions and64 paired concise/thinking requests. Raw channels and original wire receipts are retained privately; common-prefix/BPE serialization and recovery passed independent adversarial checks. It has a0.8177664USD peak bound and requires its own1USD reservation after the current watcher releases ownership. Different output caps and the full-fit intersection limit causal interpretation. No new Granite training or teacher requests occurred during preparation."
+  },
+  {
+    "id": "data-efficiency-selector-panels",
+    "at_utc": "2026-11-03T21:00:46.345445+00:00",
+    "kind": "resolved",
+    "title": "Selector curves now remain visually separate",
+    "detail": "The development figure now uses separate random, skill/diversity and gradient panels, with a shared labelled zoomed accuracy scale, original-base reference and completed points only. Both training seeds and question intervals remain visible when selectors tie. Nine report checks pass; original scores, paired uncertainty and training protocols are unchanged."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed42_random-study-terminal",
+    "at_utc": "2026-11-03T21:03:42.523204+00:00",
+    "kind": "completed",
+    "title": "Study random seed 42 completed",
+    "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is random; final test remains sealed."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed42_skill-study-launched",
+    "at_utc": "2026-11-03T21:04:05.622956+00:00",
+    "kind": "in_progress",
+    "title": "Study skill seed 42 launched",
+    "detail": "One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+  },
+  {
+    "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+    "at_utc": "2026-11-03T21:04:05.706414+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "human_study64k_dev200_seed42_v2-prepared-reviewed",
+    "at_utc": "2026-11-03T21:05:05.044698+00:00",
+    "kind": "planned",
+    "title": "Human-reference baseline and matched64k pair are prepared",
+    "detail": "Prepared untouched-Granite baseline200 plus independent random/skill65536-token plans from1930 examples. Each training arm uses64updates, the same fresh base, learning rate and LoRA configuration; all200 development questions are excluded from teaching. Only the baseline is engineering-reviewed for eventual launch after watcher release and fresh funding. The pair still requires actual baseline runtime calibration and a separately bound review. Supersededv1 artifacts are retained without launch."
+  },
+  {
+    "id": "cloud-checks-210",
+    "at_utc": "2026-11-03T21:05:05.056757+00:00",
+    "kind": "completed",
+    "title": "Expanded pipeline passes210 offline checks",
+    "detail": "All210 local checks passed, including immutable preparation, billing gates, unique dispatch recovery, native-channel serialization, preserved wire receipts, output validation and current-study report rendering. These were offline fixtures; no official test access, provider calls, reservations or paid jobs were performed by this verification."
   }
 ]

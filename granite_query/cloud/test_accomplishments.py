@@ -169,6 +169,25 @@ class AccomplishmentTests(unittest.TestCase):
         row=next(r for r in public['current_work'] if r['title']=='New math-cohort data-efficiency training grid')
         self.assertEqual(row['status'],'blocked');self.assertIn('0/6 arm plans',row['detail'])
 
+    def test_watcher_snapshot_names_funding_wait_without_exporting_private_state(self):
+        folder=self.root/'granite_query/cloud/runs/data_efficiency_math_v1'
+        path='granite_query/cloud/runs/data_efficiency_math_v1/study_watch_state.json'
+        value={'stage':'watching','updated_at_utc':'2026-11-03T20:50:00+00:00',
+               'watcher_pid':999,'scope':{'secret':'PRIVATE_KEY'},
+               'current':{'result':{'stage':'waiting_for_protected_phase_funding','error':'PRIVATE_TRACE'}}}
+        self.save(path,value)
+        detail=accomplishments._watch_snapshot_detail(folder)
+        self.assertIn('waiting for billing reconciliation and protected phase funding',detail)
+        self.assertIn('recorded snapshot',detail)
+        self.assertNotIn('PRIVATE',detail);self.assertNotIn('999',detail)
+        value.update(stage='stopped',stop_reason='PRIVATE_ACCOUNT_ERROR')
+        self.save(path,value)
+        detail=accomplishments._watch_snapshot_detail(folder)
+        self.assertIn('stopped',detail);self.assertNotIn('PRIVATE',detail)
+        value['updated_at_utc']='PRIVATE_TRACE'
+        self.save(path,value)
+        self.assertEqual(accomplishments._watch_snapshot_detail(folder),'')
+
     def test_latest_same_protocol_feature_continuation_replaces_old_terminal_row(self):
         prefix='granite_query/cloud/runs/'
         protocol={'candidate_ids':['a','b'],'target_ids':['c'],'config':{'checkpoint_updates':[4,8]}}

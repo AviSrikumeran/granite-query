@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "run_id": "teacher_depth32_v1",
+  "stage": "prepared_unpaid",
+  "requested_questions": 32,
+  "requested_original_calls": 64,
+  "completed_original_calls": 0,
+  "eligible_question_pairs": 0,
+  "conditions": {
+    "concise": {
+      "requested_output_cap": 1024,
+      "thinking_parameter": "disabled",
+      "completed": 0,
+      "individually_eligible": 0,
+      "complete": 0,
+      "numeric_final_match": 0,
+      "full_context_fit": 0,
+      "paired_eligible_supervised_tokens": 0,
+      "paired_reasoning_tokens": 0,
+      "paired_token_distributions": {
+        "supervised_tokens": null,
+        "reasoning_tokens": null,
+        "visible_content_tokens": null,
+        "context_tokens": null
+      },
+      "rejection_counts": {}
+    },
+    "thinking": {
+      "requested_output_cap": 4096,
+      "thinking_parameter": "enabled/high",
+      "completed": 0,
+      "individually_eligible": 0,
+      "complete": 0,
+      "numeric_final_match": 0,
+      "full_context_fit": 0,
+      "paired_eligible_supervised_tokens": 0,
+      "paired_reasoning_tokens": 0,
+      "paired_token_distributions": {
+        "supervised_tokens": null,
+        "reasoning_tokens": null,
+        "visible_content_tokens": null,
+        "context_tokens": null
+      },
+      "rejection_counts": {}
+    }
+  },
+  "halt_reason": null,
+  "otherwise_eligible_pairs_with_returned_model_mismatch": 0,
+  "failed_attempts": 0,
+  "unknown_usage_attempts": 0,
+  "recorded_peak_token_estimate_usd": 0.0,
+  "cost_note": "Recorded usage estimate excludes unknown failed-attempt charges; not a provider invoice. Frozen original-call bound remains0.8177664USD and requires its own1USD reservation before collection.",
+  "conservative_max_cost_usd": 0.8177664,
+  "funds_reserved_by_preparation": false,
+  "new_student_training": false,
+  "official_test_accessed": false,
+  "source_split": "train",
+  "student_context_limit": 4096,
+  "encoder_version": "native-thinking-explicit-boundary-v1",
+  "native_serialization_note": "Both conditions deliberately share the native OPEN thinking generation prefix. The concise derived suffix immediately closes an empty span; it is not byte-identical to full-chat native empty-span rendering. Any future student comparison must freeze identical inference settings for base and both adapters; this pilot trains none.",
+  "teacher_model_alias": "deepseek-v4-pro",
+  "student_model": "ibm-granite/granite-4.2-3b",
+  "student_revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "canonical_training_source_revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+  "exclusion_artifact_count": 102,
+  "prior_canonical_questions_or_detectable_ancestry_excluded": 3242,
+  "artifact_fingerprints": {
+    "candidates_sha256": "8762ef6e6c2cad228e5fd605468858cc1bca353b1b871859843b3f7642c6d5a4",
+    "requests_sha256": "726712fcab0accba4c6dd04e10a22d62514597e975c49db86d92ed33295f533c",
+    "protocol_sha256": "24ec051c2f8a536358e5a3f90a5815878ce6a6de329ad784ccd86c75f6f10d95",
+    "design_sha256": "bbb2b537ee01de255861fdff4b2aa224771a7b5390516634397194dfab4cba70"
+  },
+  "prior_exposure_limit": "Project-disjoint teaching/development questions, not globally unseen text: the historical BM25 corpus included GSM training text. Synthetic ancestry checks are incomplete.",
+  "updated_at_utc": "2026-11-03T21:00:00.929955+00:00",
+  "interpretation": "Feasibility only: paired modes also change output caps. Correct final numbers do not prove correct explanations, and the verified/full-fit intersection can select easier shorter questions. No Granite improvement has been measured by this pilot."
+}

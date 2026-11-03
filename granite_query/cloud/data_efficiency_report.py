@@ -252,11 +252,16 @@ def chart(points,workspace,baseline=None):
     from matplotlib import pyplot as plt
     from matplotlib.ticker import FuncFormatter
     colors={'random':'#5c6f82','skill':'#cf7b2c','gradient':'#167f80'}
-    figure,axis=plt.subplots(figsize=(9.2,5.3),layout='constrained')
-    if baseline and baseline.get('status')=='completed':
-        axis.axhline(baseline['accuracy_percent'],color='#29313b',linestyle=':',linewidth=1.2,
-                     label='Untouched base, batch8 control')
-    for selector in SELECTORS:
+    present=[selector for selector in SELECTORS if any(p['selector']==selector for p in points)]
+    figure,axes=plt.subplots(1,len(present),figsize=(4.3*len(present),4.8),
+                             layout='constrained',sharey=True,squeeze=False)
+    ticks=sorted({p['token_budget'] for p in points})
+    lower=max(0,5*math.floor(min(p['question_wilson_95_interval_percent'][0] for p in points)/5)-5)
+    names={'random':'Random selection','skill':'Skill and diversity','gradient':'Gradient alignment'}
+    for selector,axis in zip(present,axes[0]):
+        if baseline and baseline.get('status')=='completed':
+            axis.axhline(baseline['accuracy_percent'],color='#29313b',linestyle=':',linewidth=1.2,
+                         label='Untouched base: '+str(baseline['metrics']['numeric_correct'])+'/64')
         for seed,marker,style in ((42,'o','-'),(43,'s','--')):
             rows=sorted((p for p in points if p['selector']==selector and p['seed']==seed),key=lambda p:p['token_budget'])
             if not rows:
@@ -266,14 +271,15 @@ def chart(points,workspace,baseline=None):
             high=[p['question_wilson_95_interval_percent'][1] for p in rows]
             axis.errorbar(x,y,yerr=[[v-l for v,l in zip(y,low)],[h-v for h,v in zip(high,y)]],
                 color=colors[selector],marker=marker,linestyle=style,capsize=3,alpha=.9,
+                markerfacecolor=colors[selector] if seed==42 else 'white',
                 label=f'{selector}, seed {seed}')
-    axis.set(title='New math cohort: accuracy versus supervised training tokens',
-             xlabel='Supervised answer tokens',ylabel='Numeric accuracy on 64 development questions (%)',ylim=(0,100))
-    axis.set_xscale('log',base=2)
-    ticks=sorted({p['token_budget'] for p in points});axis.set_xticks(ticks)
-    axis.xaxis.set_major_formatter(FuncFormatter(lambda value,_:f'{value:,.0f}'))
-    axis.grid(axis='y',alpha=.18);axis.legend(loc='best',fontsize=8,ncol=2)
-    figure.suptitle('Completed points only; bars are question-level 95% Wilson intervals, not seed uncertainty',fontsize=9)
+        axis.set(title=names[selector],xlabel='Supervised answer tokens',ylim=(lower,100))
+        axis.set_xscale('log',base=2);axis.set_xticks(ticks)
+        axis.xaxis.set_major_formatter(FuncFormatter(lambda value,_:f'{value:,.0f}'))
+        axis.set_xlim(ticks[0]/1.35,ticks[-1]*1.35)
+        axis.grid(axis='y',alpha=.18);axis.legend(loc='lower left',fontsize=8)
+    axes[0][0].set_ylabel('Numeric accuracy on 64 development questions (%)')
+    figure.suptitle('New math cohort: completed results only\nZoomed accuracy scale; question-level 95% intervals do not measure seed uncertainty',fontsize=11)
     destination=workspace/'docs/figures';destination.mkdir(parents=True,exist_ok=True)
     paths=[]
     for extension in ('svg','png'):
@@ -382,7 +388,7 @@ def build(*,grid=None,workspace=WORKSPACE,paired_fn=paired,render=True):
             lines.append(f"- {budget['token_budget']:,} tokens: both complete seed triples are still required for a two-seed summary.")
         else:
             for selector,value in result['selectors'].items():
-                lines.append(f"- {budget['token_budget']:,} tokens, {selector}: mean {value['mean_accuracy_percent']:.2f}%, sample SD {value['sample_sd_accuracy_percent']:.2f} pp across two seeds; range {value['min_correct']}–{value['max_correct']}/64. Descriptive only.")
+                lines.append(f"- {budget['token_budget']:,} tokens, {selector}: mean {value['mean_accuracy_percent']:.2f}%, sample SD {value['sample_sd_accuracy_percent']:.2f} pp across two seeds; range {value['min_correct']}�{value['max_correct']}/64. Descriptive only.")
     lines+=['','## Selector overhead','',overhead['interpretation'],'',
         f"Planned selector warmup: {overhead['planned_selector_warmup_supervised_tokens']:,} supervised tokens; actual recorded: {overhead['selector_warmup_supervised_tokens'] if overhead['selector_warmup_supervised_tokens'] is not None else 'not reported'}. Feature-worker elapsed seconds: {overhead['feature_worker_elapsed_seconds'] if overhead['feature_worker_elapsed_seconds'] is not None else 'not reported'}. Monetary cost is not estimated here.",'',
         overhead['warmup_accounting'],'',

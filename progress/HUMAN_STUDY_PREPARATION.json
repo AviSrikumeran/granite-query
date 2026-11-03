@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "stage": "prepared_unpaid_receipt",
+  "study_id": "human_study64k_dev200_seed42_v2",
+  "prepared_at_utc": "2026-11-03T21:02:45.923633+00:00",
+  "pool_eligible_examples": 1930,
+  "pool_available_answer_tokens": 223827,
+  "separate_development_questions": 200,
+  "source_split": "train",
+  "official_test_accessed": false,
+  "initial_baseline_reviewed": true,
+  "paired_training_reviewed": false,
+  "baseline_calibration_present_at_preparation": false,
+  "paid_work_launched_by_preparation": false,
+  "proposed_token_budget_per_training_arm": 65536,
+  "seed": 42,
+  "proposed_jobs": [
+    {
+      "selector": "baseline",
+      "token_budget": 0,
+      "forecast": {
+        "evaluation_only": true
+      }
+    },
+    {
+      "selector": "random",
+      "token_budget": 65536,
+      "forecast": {
+        "examples": 561,
+        "response_windows": 623,
+        "forwarded_input_tokens": 136319,
+        "supervised_tokens": 65536,
+        "updates": 64
+      }
+    },
+    {
+      "selector": "skill",
+      "token_budget": 65536,
+      "forecast": {
+        "examples": 766,
+        "response_windows": 829,
+        "forwarded_input_tokens": 150600,
+        "supervised_tokens": 65536,
+        "updates": 64
+      }
+    }
+  ],
+  "recipe": {
+    "model": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "seed": 42,
+    "tokens_per_update": 1024,
+    "learning_rate": 2e-05,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "context_limit": 2048,
+    "max_new_tokens": 512,
+    "enable_thinking": false,
+    "do_sample": false,
+    "evaluation_batch_size": 8,
+    "evaluation_kind": "development",
+    "gpu": "A100-80GB",
+    "timeout_seconds": 1800,
+    "application_training_guard_seconds": 1400,
+    "application_evaluation_guard_seconds": 1600,
+    "hard_cpu_cores": 4,
+    "hard_memory_gib": 32,
+    "reserved_usd": 3,
+    "latency_measurement": "amortized batched GPU wall time; not single-request latency"
+  },
+  "proposed_reservation_usd": {
+    "baseline": 3,
+    "pair_total": 6,
+    "protected_modal_funds": 5
+  },
+  "artifact_sha256": {
+    "study_manifest": "d8e09084029de9cb2d89a6dd0e8fc630592d412e7cb6510f738e34e15e78a270",
+    "controller": "14a57adaaf823f9bcbe9893c8298a3d59ec736543fe8c23963ae3a18125f3233",
+    "baseline_review": "2deaaff313b6b2414053348b2712ba90ee31cc41da62d81a63202e4e155ce7b7"
+  },
+  "limitations": [
+    "Seed42 exploratory source/curriculum transfer, not robust causal attribution.",
+    "New200 is development, not final test; currentLR/r8 and output protocol remain fixed.",
+    "No new gradient, teacher, final-test or serving work is included.",
+    "Existing worker has1400/1600 checks;1550 is a planning target, not a new runtime guard.",
+    "This receipt describes unpaid preparation; launch and terminal receipts establish later execution status.",
+    "The supersededv1 artifacts are retained privately and must not launch."
+  ]
+}

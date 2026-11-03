@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "status": "design_only_deferred_unfunded",
+  "design_date": "2026-11-03",
+  "title": "Can a larger human-reference-qualified teaching cohort improve Granite before optimizing the selector?",
+  "scope": "A new source/curriculum-transfer development study. It is separate from the running three-source grid and does not imply that larger budgets, human references, or skill selection will improve Granite.",
+  "actions_taken": {
+    "local_read_only_audit": true,
+    "in_memory_random_token_feasibility_simulation": true,
+    "simulated_selection_ids_saved": false,
+    "new_provider_calls": 0,
+    "new_gpu_jobs": 0,
+    "new_reservations": 0,
+    "new_cohort_or_training_plan_frozen": false,
+    "pinned_sources_or_running_watcher_modified": false,
+    "official_test_opened": false
+  },
+  "observed_evidence": {
+    "existing_adaptive64_baseline_correct": 58,
+    "existing_three_source32768_seed42": {
+      "random": 57,
+      "skill": 56,
+      "gradient": 56
+    },
+    "existing_three_source32768_seed43_at_audit": {
+      "random": "running",
+      "skill": 54,
+      "gradient": 54
+    },
+    "interpretation": "Current data-selection controls have not beaten the matching base. Overfitting, source mismatch, optimization recipe, capacity, and inference protocol are hypotheses to diagnose, not established explanations.",
+    "human_reference_qualified_pool": {
+      "teacher_requests_completed": 2048,
+      "eligible_examples": 1930,
+      "available_supervised_tokens": 223827,
+      "average_supervised_tokens": 115.97253886010363,
+      "full_input_tokens_min_median_p95_max": [
+        109,
+        206,
+        327,
+        516
+      ],
+      "reference_type": "human_dataset_answer_with_exact_annotation_checks",
+      "training_response_origin": "DeepSeek nonthinking answers checked against human GSM8K references; these are not human-authored training responses",
+      "teacher_thinking_enabled": false,
+      "eligibility_limit": "Exact annotation arithmetic and matching final numbers do not prove all natural-language semantics or explanation steps. Detectable ancestry exclusions are conservative, not complete decontamination."
+    },
+    "new_development_count": 200,
+    "new_development_role": "Separately frozen official-training-split holdout, declared unused at design time. It is development, never the official final test."
+  },
+  "recommended_smallest_study": {
+    "first_phase_jobs": [
+      "Untouched pinned Granite base on the same200 questions, batch8, to calibrate runtime and establish the matching baseline.",
+      "Fresh-base human-pool random selection at65536 supervised tokens, seed42.",
+      "Fresh-base human-pool skill selection at65536 supervised tokens, seed42."
+    ],
+    "prospective_policy": "Declare the selector rules, old weakness-signal source, model/optimizer settings, and continuation/abort criteria before baseline200 is observed. After baseline200 completes, use its runtime/truncation measurements to validate feasibility before freezing and launching the paired64k plans. Do not use its question-level errors to retune the initial pair's selector.",
+    "study_kind": "Seed42 exploratory source/curriculum transfer, not a robust causal selector result or multi-seed finding.",
+    "why64k_first": "Uses29.28 percent of the available teacher tokens, provides selection contrast, and tests more training on a matching human-reference task distribution without buying another teacher pool. A new gradient datastore is unnecessary for the smallest useful comparison.",
+    "not_automatically_included": [
+      "128k arms",
+      "new gradient features",
+      "new teacher generation",
+      "learning-rate sweep",
+      "LoRA architecture changes",
+      "official-test evaluation",
+      "serving deployment"
+    ],
+    "primary_outcomes": [
+      "Paired numeric correctness change of each adapter versus the matching untouched base on200.",
+      "Paired skill-minus-random corrected and regressed counts on those same200.",
+      "Truncation and format failures reported separately from arithmetic/reference mismatch.",
+      "Supervised tokens, updates, examples, forwarded input tokens, response-window count, runtime and end-to-end cost."
+    ],
+    "continuation": "Review the completed64k pair and seed43 evidence from the existing study before choosing another paid intervention. If both human arms regress, prioritize one isolated recipe diagnosis over automatically doubling tokens. A useful candidate must survive error audit and later confirmation; a gain is not guaranteed."
+  },
+  "split_and_source_contract": {
+    "teacher_pool": "granite_query/cloud/runs/human_math_teacher2048_v1/eligible.jsonl",
+    "teacher_summary": "granite_query/cloud/runs/human_math_teacher2048_v1/teacher_summary.json",
+    "development": "granite_query/cloud/runs/human_math_cohort2048_dev200_v1/development.jsonl",
+    "required_checks": [
+      "Freeze and verify hashes of all1930 original eligible responses; do not regenerate, rewrite, relabel, or silently repair them.",
+      "Re-encode with the pinned Granite tokenizer/template and confirm the1930/223827 capacity and full-context feasibility before freezing selection artifacts.",
+      "Exclude all200 development IDs and normalized question hashes from both selection arms and all fitting/scoring inputs.",
+      "Use a previously frozen training-probe or old development weakness signal; disclose its provenance and its domain-transfer limitation. Do not derive the initial skill selector from the new200 outcomes.",
+      "Apply identical hash-shuffle exposure policy, exact answer-token loss weighting,1024 supervised tokens per optimizer update, and fresh-base initialization to both arms.",
+      "Keep the existing official-test seal and all already frozen independent-plan artifacts unchanged."
+    ],
+    "interpretation_limit": "Changing the training pool and evaluation cohort means percentages from the old64 cannot be directly compared with the new200. Evaluate original Granite and both new arms on the same200. Calling these200 final test would be incorrect, especially after any adaptive recipe selection."
+  },
+  "fixed_first_pair_recipe": {
+    "student": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "fresh_base_per_arm": true,
+    "seed": 42,
+    "supervised_tokens_per_arm": 65536,
+    "tokens_per_update": 1024,
+    "optimizer_updates_per_arm": 64,
+    "learning_rate": 2e-05,
+    "optimizer": "Current AdamW defaults, constant learning rate, gradient norm clip1.0",
+    "lora": {
+      "rank": 8,
+      "alpha": 16,
+      "dropout": 0,
+      "target_modules": [
+        "q_proj",
+        "v_proj"
+      ]
+    },
+    "context_limit": 2048,
+    "thinking": false,
+    "evaluation_batch_size": 8,
+    "max_new_tokens": 512,
+    "decoding": "greedy",
+    "reason": "Hold the current recipe and common base fixed so the first human-pool comparison is not simultaneously a learning-rate, adapter-capacity, or inference-mode experiment.",
+    "later_isolated_ablation": "Only after reviewing the first pair, a separately versioned one-factor comparison may change learning rate, for example2e-5 versus1e-5 at the same pool/selection/seed/token budget. Rank, target modules, thinking mode and output cap stay fixed in that ablation. Do not change several axes to force a favorable result."
+  },
+  "token_and_runtime_feasibility": {
+    "forecast_is_not_a_runtime_guarantee": true,
+    "reference_observations": {
+      "observed_completed32k_arm_seconds_min_max": [
+        159.526,
+        271.614
+      ],
+      "observed64_question_evaluation_seconds_min_max": [
+        52.907,
+        110.017
+      ],
+      "observed_non_evaluation_seconds_min_max": [
+        106.619,
+        169.772
+      ],
+      "observed_forwarded_input_tokens32k_min_max": [
+        67502,
+        81893
+      ]
+    },
+    "unfrozen_random_seed42_simulation": [
+      {
+        "token_budget": 65536,
+        "pool_token_fraction": 0.2927975624,
+        "selected_examples": 561,
+        "exposed_examples": 561,
+        "response_windows": 623,
+        "forwarded_input_tokens": 136319
+      },
+      {
+        "token_budget": 131072,
+        "pool_token_fraction": 0.5855951248,
+        "selected_examples": 1127,
+        "exposed_examples": 1126,
+        "response_windows": 1252,
+        "forwarded_input_tokens": 273158
+      }
+    ],
+    "forecast_method": "Scale observed non-evaluation time by exact prepared forwarded-input/window ratios, add the newly measured baseline200 evaluation cost, and retain a substantial cold-start/throughput margin. Answer-token budgets alone do not predict runtime.",
+    "pre_calibration_planning_ranges_seconds": {
+      "64k_random_plus200_evaluation": [
+        700,
+        1100
+      ],
+      "64k_skill_plus200_evaluation": [
+        700,
+        1250
+      ],
+      "128k_plus200_evaluation": [
+        1000,
+        1600
+      ]
+    },
+    "range_limitations": "The skill arm is not selected yet. Larger forwarded-token/window counts can increase its cost. New200 output lengths are unmeasured; if many generations approach512 tokens, evaluation can exceed projections based on the old64. Baseline200 calibration is mandatory before dispatch.",
+    "hard_worker_timeout_seconds": 1800,
+    "desired_application_completion_guard_seconds": 1550,
+    "required_forecast_ceiling_seconds": 1250,
+    "safety_margin_to1550_seconds": 300,
+    "128k_policy": "Defer until measured64k training and baseline200 costs support the same<=1250-second reviewed forecast with300 seconds margin. No automatic128k escalation. At131072 tokens there are128 optimizer updates and approximately double the64k forwarded work.",
+    "current_guard_gap": "The current immutable worker actually checks training at1400 seconds and evaluation at1600; it does not enforce a global1550 guard from a plan field. Keep it unchanged. If a literal1550 application guard is required, create and audit a separate versioned human-study worker/helper rather than claiming a new JSON field changes pinned behavior. Otherwise explicitly retain the current guards and use the stricter prospective feasibility ceiling."
+  },
+  "budget_gates": {
+    "overall_service_ceilings_usd": {
+      "modal": 30,
+      "deepseek": 20
+    },
+    "protected_modal_usd": 5,
+    "ledger_snapshot_at_audit": {
+      "modal_estimated_spend": 9.64,
+      "modal_open_reservations": 12,
+      "deepseek_estimated_spend": 1.44
+    },
+    "modal_unencumbered_after_protected5_at_snapshot": 3.36,
+    "prospective_first_phase_reservations_usd": {
+      "baseline200": 3,
+      "random64k": 3,
+      "skill64k": 3,
+      "total": 9
+    },
+    "funding_policy": "Design only: reserve nothing now. Existing reservations and the running watcher take precedence. Wait for fresh provider reconciliation and a separately reviewed human-study phase whose complete reservation still leaves protected5. Do not cancel, race, retarget or edit the currently authorized watcher.",
+    "new_teacher_cost_required": 0,
+    "new_gradient_feature_cost_required": 0,
+    "cost_note": "Three dollars per future call is a reservation, not a claim that the call will cost three dollars. Current wallet/usage observations and liabilities must be refreshed before any future launch."
+  },
+  "tooling_reuse_and_gaps": {
+    "reusable_unchanged": [
+      "student_valuation.prepare/select and _exposure: human-reference-qualified input verification, pinned tokenization, skill/random selection, common hash shuffle, exact supervised-token exposure and1024-token weighted updates.",
+      "valuation_contract.validate_arm/window_labels/trim_generation: dependency-free exact-label and token-budget checks.",
+      "modal_valuation worker: accepts up to256 development questions and token-budget-derived update counts, supports untouched-base evaluate_saved mode and fresh train_evaluate arms, preserves checkpoints. Its actual guard/rank literals must be represented truthfully.",
+      "Existing budget reconciliation, shared GPU launch lock, ambiguous-call recovery, per-arm source hashing, and aggregate-only journal/reporting patterns."
+    ],
+    "must_not_retarget_or_edit": [
+      "Current running grid, its root review, source hashes, pool, gradient targets/features and prepared plans.",
+      "Official-test seal or final-test loader access policy.",
+      "Current pinned training worker solely to accommodate a new human-study plan."
+    ],
+    "implementation_gaps_before_any_launch": [
+      "A new distinct human-study preparer/controller: valuation_control.prepare is hard-coded to32768 tokens and64 development questions; it cannot currently prepare64k/200 by flags.",
+      "The current data_efficiency_control and StudyRunner require all three selectors and both42/43 seeds plus gradient-source contracts. They cannot dispatch this two-selector seed42 human study unchanged. Build an independent wrapper/manifest/review using the existing safe primitives; do not weaken their pinned validator or fabricate human gradient features.",
+      "A versioned untouched-base200 evaluation plan with the same tokenizer, prompt, greedy512 nonthinking mode and batch8. Save complete per-question outputs and timings; calibrate before approving paired training calls.",
+      "A fresh prepared1930 pool with exact tokenizer hashes and explicit200-question exclusions, and separately frozen old weakness provenance. Validate hashes and answer windows without provider calls.",
+      "Prospective64k random/skill selection artifacts, exact full-input/window forecasts, source/skill distributions, overlap and partial-tail accounting; then a complete-phase funding check retaining protected5.",
+      "An independent reviewed dispatch/watch configuration that cannot launch the existing grid or any final-test/teacher/serving work. Recover ambiguous launches and partial checkpoints without automatic duplicate charges.",
+      "Reports/charts must keep human200 results separate from old64 curves, use paired outcomes and confidence intervals on the matching200, show seed42 exploration and token/input/runtime costs, and record regressions rather than hiding them.",
+      "Tests for200 disjoint evaluation rows, exact65536/131072 masking/update counts, common pool/initial weights/order contract, source hash rejection, protected5 funding, and refusal to claim plan-only guard/LoRA changes alter the worker."
+    ],
+    "recipe_change_warning": "The current worker hard-codes LoRA rank8/alpha16 and q/v targets. Putting rank16 or different modules in a prospective plan would not implement those changes. Any such ablation requires a separate audited worker version. Learning rate is read by the optimizer, but existing preparation/review paths constrain its reviewed value."
+  },
+  "success_and_stop_rules": {
+    "success": "A reproducible candidate with better paired accuracy or a clearly useful accuracy/latency tradeoff against the same200 untouched base, followed by an independent confirmatory evaluation. A null or regressive result is still retained.",
+    "immediate_stop": [
+      "Insufficient phase funding after protected5",
+      "Source/holdout/protocol hash mismatch",
+      "Forecast exceeds reviewed runtime margin",
+      "Ambiguous active call",
+      "Nonfinite training loss or invalid exact-token accounting"
+    ],
+    "do_not_claim": [
+      "That larger token budgets necessarily help",
+      "That negative32k evidence proves overfitting",
+      "That a new-pool/new200 result alone causally isolates source quality",
+      "That seed42 or repeatedly used development200 is robust final-test evidence",
+      "That lower training loss establishes better reasoning"
+    ]
+  },
+  "source_hashes": {
+    "progress/HUMAN_MATH_COHORT.json": "793481391f90de6621182977125656e2141d8cc22bef176015cc84ef08ad800b",
+    "progress/HUMAN_MATH_TEACHER.json": "6b2262527b7c6f4fcd71f484a7b763435228608565050f33de73a92dd9429fe5",
+    "granite_query/cloud/runs/human_math_teacher2048_v1/teacher_summary.json": "a303dcdf0607956813220d95706f2bbd78b39025196c31067522b247bccbde7a",
+    "granite_query/cloud/runs/human_math_teacher2048_v1/eligible.jsonl": "25d53ad9a9d08ab3eecaf8ad5bbb47a0f6ccc062e67e922e206e6cc6f20ccb91",
+    "granite_query/cloud/runs/human_math_cohort2048_dev200_v1/development.jsonl": "cccdce864d728e6b43d9d4de866e719bfd9c706cc735a3a3d429095835c767c7",
+    "granite_query/cloud/student_valuation.py": "650cb76b9ee4da5fd0075b9b53116b0e01f8a54173eb30784684cf5cb740782f",
+    "granite_query/cloud/valuation_contract.py": "86d895cbc2afa4c12d525cbdf1c74e9655e2942c409eafab45b9ddaac16cf324",
+    "granite_query/cloud/valuation_control.py": "976603d5ea8c0319af23d5609255656e527711c1341521ac1a2d1551c69018c3",
+    "granite_query/cloud/data_efficiency_control.py": "12aef512776673b8fb0bbddce9ff852f48831d3bf0a7cb5038dc5bede9130abc",
+    "granite_query/cloud/study_runner.py": "29b5b2eab3d0759095d33326f78e76d3daf054cfb0c20d9c359f7dce0ecb6670",
+    "granite_query/cloud/modal_valuation.py": "1f7c7647531b343f24255f1e56c57b86cabfb83e654e5ab9e70192a88ee95a4e"
+  }
+}
