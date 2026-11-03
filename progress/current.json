@@ -1,5 +1,5 @@
 {
-  "stage": "Granite smoke test: completed",
+  "stage": "Ranked versus random: baseline_evaluation",
   "training_completed": true,
   "held_out_evaluation_completed": false
 }

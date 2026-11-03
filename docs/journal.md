@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Granite smoke test: completed
+Current stage: Ranked versus random: baseline_evaluation
 
-Next: Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.
+Next: Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -69,3 +69,35 @@ Review saved adapter and smoke-test results; reconcile costs before the controll
 ## 2026-11-03T17:27:07.771728+00:00 | decision | Smoke-test results are not benchmark accuracy
 
 All 12 optimizer updates completed and adapter parameters changed. The saved adapter reloaded and all three development answers matched their reference numbers. Baseline responses were limited to 192 tokens and two were visibly truncated, so this tiny comparison cannot establish accuracy improvement. Preserve these outputs and use an adequate shared generation budget in the controlled experiment.
+
+## 2026-11-03T17:29:53.350046+00:00 | in_progress | Ranked versus random comparison frozen
+
+128 new candidate questions, 32 examples per arm, and 16 separate training-split development questions. Both arms start from pinned Granite 4.2 3B with identical LoRA settings. One seed; equal example counts, with actual token counts reported. Reserved 3 dollars DeepSeek and 3 dollars Modal. No official test data.
+
+## 2026-11-03T17:31:10.552613+00:00 | in_progress | Granite training smoke test
+
+Inspect the teacher collector lock and process; do not duplicate active generation. Resume only after confirming no collector is running.
+
+## 2026-11-03T17:32:18.672087+00:00 | in_progress | Teacher collection passed the halfway point
+
+More than 64 of 128 candidate attempts have been saved. Rejected outputs remain preserved and excluded from both training arms. The experiment plan and numerical scoring policy are frozen before student evaluation.
+
+## 2026-11-03T17:33:17.009760+00:00 | completed | Shared teacher pool generated
+
+Received 128 candidate attempts; 120 passed strict final-answer checks. Raw outputs and rejected records retained. The same eligible pool feeds both selectors.
+
+## 2026-11-03T17:33:23.570169+00:00 | completed | Ranked and random subsets selected
+
+Selected 32 examples per arm from 120 identical eligible candidates. Overlap: 9 examples. BM25 uses frozen prompt-only relevance scores; random selection uses seed 42. Training and development IDs are disjoint.
+
+## 2026-11-03T17:34:06.838308+00:00 | in_progress | Ranked versus random GPU worker launched
+
+A single detached A100 worker will evaluate the untouched model and train/evaluate two independent adapters sequentially. Each arm has 32 verified examples, with 9 shared examples. All use the same 16 development questions and 512-token generation cap. Current GPU reservation: 3 dollars.
+
+## 2026-11-03T17:34:06.938277+00:00 | in_progress | Granite training smoke test
+
+Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.
+
+## 2026-11-03T17:34:10.225399+00:00 | in_progress | Comparison worker: baseline evaluation
+
+Polling the existing detached call; no duplicate job launched.

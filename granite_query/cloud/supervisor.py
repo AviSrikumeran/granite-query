@@ -48,6 +48,23 @@ def tick():
                 training_action = 'Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.'
             elif remote_status.get('stage') == 'failed':
                 training_action = 'Inspect the failed Granite call and saved error; fix and validate before a separately recorded retry.'
+        comparison = ROOT / 'runs/ranked_random_32_seed42_v1'
+        if (comparison / 'plan.json').exists():
+            if (comparison / 'launch.json').exists():
+                comparison_status_path = comparison / 'remote_status.json'
+                remote_status = json.loads(comparison_status_path.read_text()) if comparison_status_path.exists() else {'stage':'queued'}
+                training_action = 'Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.'
+                if remote_status.get('stage') == 'completed':
+                    training_action = 'Analyze and publish the completed ranked/random pilot, report uncertainty, and stop further paid expansion until reviewed.'
+            elif (comparison / 'input.json').exists():
+                remote_status = {'stage':'comparison_launch_prepared'}
+                training_action = 'Launch the prepared ranked/random worker once; inspect reservations and existing Modal apps first.'
+            elif (comparison / 'teacher_summary.json').exists():
+                remote_status = {'stage':'selecting_shared_teacher_pool'}
+                training_action = 'Run cloud/comparison_control.py select to freeze ranked/random subsets from the shared verified pool.'
+            else:
+                remote_status = {'stage':'teacher_generation'}
+                training_action = 'Inspect the teacher collector lock and process; do not duplicate active generation. Resume only after confirming no collector is running.'
         status = {'updated_at_utc': datetime.now(timezone.utc).isoformat(),
             'mode': 'budget_exhausted' if exhausted else 'ready_for_agent',
             'teacher_pilot_complete': summary.get('completed') == 16,
