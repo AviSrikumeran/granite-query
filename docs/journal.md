@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Granite smoke test: training
+Current stage: Granite smoke test: completed
 
-Next: Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.
+Next: Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -57,3 +57,15 @@ Poll the existing Granite call using cloud/train_control.py poll; do not relaunc
 ## 2026-11-03T17:24:24.945949+00:00 | in_progress | Granite worker: training
 
 The existing detached smoke-test worker reported this stage. Completed optimizer steps: 4. This remains a compatibility check, not a benchmark result.
+
+## 2026-11-03T17:26:29.823030+00:00 | completed | Granite LoRA smoke test completed
+
+Adapter training, save, reload, and three development generations completed. This is a wiring check, not evidence of generalization improvement.
+
+## 2026-11-03T17:26:36.935773+00:00 | in_progress | Granite training smoke test
+
+Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.
+
+## 2026-11-03T17:27:07.771728+00:00 | decision | Smoke-test results are not benchmark accuracy
+
+All 12 optimizer updates completed and adapter parameters changed. The saved adapter reloaded and all three development answers matched their reference numbers. Baseline responses were limited to 192 tokens and two were visibly truncated, so this tiny comparison cannot establish accuracy improvement. Preserve these outputs and use an adequate shared generation budget in the controlled experiment.
