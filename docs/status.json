@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T17:35:37.717276+00:00",
+  "generated_at_utc": "2026-11-03T17:41:13.681788+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Ranked versus random: ranked_training",
-  "next_action": "Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.",
+  "stage": "Ranked versus random: completed",
+  "next_action": "Await user review of the completed pilot; no additional paid jobs are queued.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,11 +17,8 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "ranked_training",
-    "elapsed_seconds": 106.1,
-    "steps": 2,
-    "total_steps": 32,
-    "supervised_tokens": 212
+    "stage": "completed",
+    "elapsed_seconds": 395.29
   },
   "caveat": "Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.",
   "events": [
@@ -192,6 +189,103 @@
       "kind": "in_progress",
       "title": "Comparison worker: ranked training",
       "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "ranked_random_32_seed42_v1-ranked_evaluation",
+      "at_utc": "2026-11-03T17:36:55.435218+00:00",
+      "kind": "in_progress",
+      "title": "Comparison worker: ranked evaluation",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "ranked_random_32_seed42_v1-random_training",
+      "at_utc": "2026-11-03T17:37:44.963107+00:00",
+      "kind": "in_progress",
+      "title": "Comparison worker: random training",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "94d533121ba0d0cdf202",
+      "at_utc": "2026-11-03T17:38:55.137750+00:00",
+      "kind": "decision",
+      "title": "Interpretation audit identified selection confounds",
+      "detail": "The first comparison matches 32 examples and optimizer updates, but selected solution lengths and training order differ. Ranked examples are trained in BM25 order while random examples are shuffled. Development question text also contributed to the pre-existing reference index statistics, though development answers and outcomes were not ranking inputs. Report these limits, preserve the frozen run, and avoid claiming that ranking alone caused any difference."
+    },
+    {
+      "id": "ranked_random_32_seed42_v1-random_evaluation",
+      "at_utc": "2026-11-03T17:38:58.193791+00:00",
+      "kind": "in_progress",
+      "title": "Comparison worker: random evaluation",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "ranked_random_32_seed42_v1-completed",
+      "at_utc": "2026-11-03T17:40:14.012471+00:00",
+      "kind": "completed",
+      "title": "First ranked versus random run completed",
+      "detail": "Numeric development matches out of 16: baseline 13, ranked 13, random 13. Supervised training tokens: ranked 3260, random 2534. Both adapters and raw evaluations saved. One seed and development data only; no final-test or robust generalization claim."
+    },
+    {
+      "id": "comparison-audit-completed",
+      "at_utc": "2026-11-03T17:41:13.512606+00:00",
+      "kind": "completed",
+      "title": "Comparison results independently audited",
+      "detail": "Original Granite, BM25 selected, and random selected each scored 13 of 16. All 48 outputs have plain numeric final answers and no truncation. Ranked fixes one baseline error but introduces another; random has the same correctness pattern as baseline. Ranked used 3260 supervised tokens versus 2534 for random, about 28.65 percent more. No ranking accuracy or fixed-token efficiency advantage is demonstrated. One ambiguous benchmark item is retained under the frozen scoring policy."
+    },
+    {
+      "id": "comparison-awaiting-review",
+      "at_utc": "2026-11-03T17:41:13.523829+00:00",
+      "kind": "decision",
+      "title": "Further paid expansion stopped pending review",
+      "detail": "Both adapters and evaluation outputs are preserved. The first comparison is complete. A confirmatory run should match token budgets, use the same shuffled order policy, exclude development questions from relevance-index fitting, and repeat across seeds. No additional GPU jobs are queued."
+    },
+    {
+      "id": "supervisor-next-Await user review of the completed pilot; no additional paid jobs are queued.",
+      "at_utc": "2026-11-03T17:41:13.663789+00:00",
+      "kind": "in_progress",
+      "title": "Ranked versus random supervision",
+      "detail": "Await user review of the completed pilot; no additional paid jobs are queued."
     }
-  ]
+  ],
+  "comparison": {
+    "count": 16,
+    "metrics": {
+      "baseline": {
+        "count": 16,
+        "numeric_correct": 13,
+        "strict_format_correct": 13,
+        "truncated": 0,
+        "latency_seconds_total": 43.76987222800002,
+        "generated_tokens": 2352
+      },
+      "ranked": {
+        "count": 16,
+        "numeric_correct": 13,
+        "strict_format_correct": 13,
+        "truncated": 0,
+        "latency_seconds_total": 37.91991474100004,
+        "generated_tokens": 1487,
+        "supervised_tokens": 3260
+      },
+      "random": {
+        "count": 16,
+        "numeric_correct": 13,
+        "strict_format_correct": 13,
+        "truncated": 0,
+        "latency_seconds_total": 37.73963580399993,
+        "generated_tokens": 1498,
+        "supervised_tokens": 2534
+      }
+    },
+    "ranked_minus_random_correct": 0,
+    "limitations": [
+      "One seed and 16 training-split development questions.",
+      "Equal examples and updates, not equal supervised training tokens.",
+      "Selection and training order are entangled.",
+      "Development question text contributed to the fixed BM25 index corpus statistics; development answers and outcomes were not used in ranking.",
+      "Numeric extraction is heuristic and does not grade explanation quality.",
+      "Latency is exploratory: sequential evaluation without repeated randomized timing."
+    ],
+    "official_test_used": false
+  }
 }

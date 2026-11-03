@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Ranked versus random: ranked_training
+Current stage: Ranked versus random: completed
 
-Next: Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.
+Next: Await user review of the completed pilot; no additional paid jobs are queued.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -105,3 +105,35 @@ Polling the existing detached call; no duplicate job launched.
 ## 2026-11-03T17:35:21.217646+00:00 | in_progress | Comparison worker: ranked training
 
 Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T17:36:55.435218+00:00 | in_progress | Comparison worker: ranked evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T17:37:44.963107+00:00 | in_progress | Comparison worker: random training
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T17:38:55.137750+00:00 | decision | Interpretation audit identified selection confounds
+
+The first comparison matches 32 examples and optimizer updates, but selected solution lengths and training order differ. Ranked examples are trained in BM25 order while random examples are shuffled. Development question text also contributed to the pre-existing reference index statistics, though development answers and outcomes were not ranking inputs. Report these limits, preserve the frozen run, and avoid claiming that ranking alone caused any difference.
+
+## 2026-11-03T17:38:58.193791+00:00 | in_progress | Comparison worker: random evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T17:40:14.012471+00:00 | completed | First ranked versus random run completed
+
+Numeric development matches out of 16: baseline 13, ranked 13, random 13. Supervised training tokens: ranked 3260, random 2534. Both adapters and raw evaluations saved. One seed and development data only; no final-test or robust generalization claim.
+
+## 2026-11-03T17:41:13.512606+00:00 | completed | Comparison results independently audited
+
+Original Granite, BM25 selected, and random selected each scored 13 of 16. All 48 outputs have plain numeric final answers and no truncation. Ranked fixes one baseline error but introduces another; random has the same correctness pattern as baseline. Ranked used 3260 supervised tokens versus 2534 for random, about 28.65 percent more. No ranking accuracy or fixed-token efficiency advantage is demonstrated. One ambiguous benchmark item is retained under the frozen scoring policy.
+
+## 2026-11-03T17:41:13.523829+00:00 | decision | Further paid expansion stopped pending review
+
+Both adapters and evaluation outputs are preserved. The first comparison is complete. A confirmatory run should match token budgets, use the same shuffled order policy, exclude development questions from relevance-index fitting, and repeat across seeds. No additional GPU jobs are queued.
+
+## 2026-11-03T17:41:13.663789+00:00 | in_progress | Ranked versus random supervision
+
+Await user review of the completed pilot; no additional paid jobs are queued.

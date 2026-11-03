@@ -56,6 +56,8 @@ def tick():
                 training_action = 'Poll the existing ranked/random call with cloud/comparison_control.py poll, then summarize outcomes and limitations.'
                 if remote_status.get('stage') == 'completed':
                     training_action = 'Analyze and publish the completed ranked/random pilot, report uncertainty, and stop further paid expansion until reviewed.'
+                    if (comparison/'review_complete.json').exists():
+                        training_action = 'Await user review of the completed pilot; no additional paid jobs are queued.'
             elif (comparison / 'input.json').exists():
                 remote_status = {'stage':'comparison_launch_prepared'}
                 training_action = 'Launch the prepared ranked/random worker once; inspect reservations and existing Modal apps first.'
@@ -66,7 +68,7 @@ def tick():
                 remote_status = {'stage':'teacher_generation'}
                 training_action = 'Inspect the teacher collector lock and process; do not duplicate active generation. Resume only after confirming no collector is running.'
         status = {'updated_at_utc': datetime.now(timezone.utc).isoformat(),
-            'mode': 'budget_exhausted' if exhausted else 'ready_for_agent',
+            'mode': 'budget_exhausted' if exhausted else ('awaiting_review' if (comparison/'review_complete.json').exists() else 'ready_for_agent'),
             'teacher_pilot_complete': summary.get('completed') == 16,
             'teacher_pilot': summary, 'last_recorded_connectivity': connectivity,
             'training_worker_exists': training_ready,
@@ -87,7 +89,7 @@ def tick():
         (STATE / 'latest_report.md').write_text(report, encoding='utf-8')
         with (STATE / 'events.jsonl').open('a', encoding='utf-8') as handle:
             handle.write(json.dumps(status) + '\n')
-        record('in_progress', 'Granite training smoke test',
+        record('in_progress', 'Ranked versus random supervision' if (comparison/'plan.json').exists() else 'Granite training smoke test',
                status['next_action'], event_id='supervisor-next-' + status['next_action'])
         build(status)
         print(json.dumps(status))

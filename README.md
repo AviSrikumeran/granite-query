@@ -8,7 +8,7 @@ This project studies verified teacher-data selection for IBM Granite on GSM8K. I
 
 The first DeepSeek API pilot completed 16 seeded training questions. Fifteen passed the strict numeric-answer verifier; one correct numeric answer was rejected because it included a currency symbol. Granite's initial LoRA train/save/reload smoke test then completed. Neither establishes generalization improvement.
 
-The [first ranked versus random development pilot](progress/COMPARISON_PLAN.md) is now running: 32 verified teacher examples per arm from the same 120-example eligible pool, evaluated on 16 separate training-split development questions. It uses one seed and reports training-token differences explicitly. The official test split remains untouched.
+The [first ranked versus random development pilot](progress/COMPARISON_PLAN.md) is complete. Original Granite, BM25 selected training, and random selected training each scored **13/16 (81.25%)**. Ranked used 3,260 supervised training tokens versus 2,534 for random, with 32 examples per arm. This one-seed pilot demonstrates no ranking advantage; it does not establish equivalence or final-test generalization. The official test split remains untouched. See the [results and limitations](progress/RESULTS.md).
 
 ## Live progress
 

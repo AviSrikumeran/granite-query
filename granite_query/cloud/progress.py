@@ -59,6 +59,16 @@ def build(status=None):
                               if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
         'caveat': 'Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.',
         'events': events}
+    summary_path=WORKSPACE/'granite_query/cloud/runs/ranked_random_32_seed42_v1/public_summary.json'
+    if summary_path.exists():
+        summary=json.loads(summary_path.read_text(encoding='utf-8'))
+        fields=('count','numeric_correct','strict_format_correct','truncated','latency_seconds_total','generated_tokens','supervised_tokens')
+        public['comparison']={'count':summary['count'],
+            'metrics':{name:{k:v for k,v in row.items() if k in fields and isinstance(v,(int,float))}
+                       for name,row in summary['metrics'].items() if name in ('baseline','ranked','random')},
+            'ranked_minus_random_correct':summary['ranked_minus_random_correct'],
+            'limitations':[clean(x) for x in summary['limitations']],
+            'official_test_used':False}
     SITE.mkdir(parents=True, exist_ok=True)
     for name, data in [('status.json', public), ('events.json', events)]:
         tmp = SITE / (name + '.tmp')
