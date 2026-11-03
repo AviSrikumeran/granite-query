@@ -1,5 +1,5 @@
-import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=lighting-20261103-5';
-import {KEY,FILL,TIER_GLYPHS,materialColors,ghostOffsets,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=lighting-20261103-5';
+import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=spacing-20261103-6';
+import {KEY,FILL,TIER_GLYPHS,materialColors,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=spacing-20261103-6';
 
 // One scene → luminance tiers → glyphs → camera-projected peripheral views →
 // highlight bloom. Peripheral samples share the finished scene, not a new trace.
@@ -178,7 +178,7 @@ export function makeGPU(canvas,{get,makeCells,makeAtlas}){
     for(let i=0;i<mips.length;i++)blurTo(i?mips[i-1]:target,mips[i],i?0:1);
     gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);for(let i=mips.length-1;i>0;i--)blurTo(mips[i],mips[i-1],0);gl.disable(gl.BLEND);
     screen(null);use(composite,quadBuffer,'a_position',2);bind(target.texture);bind(mips[0].texture,1);
-    const c=composite.u;gl.uniform1i(c.image,0);gl.uniform1i(c.bloom,1);gl.uniform2f(c.resolution,width,height);gl.uniform2fv(c.center,layout.center);gl.uniform2fv(c['offsets[0]'],ghostOffsets(scene.turn,scene.tilt).flat());gl.uniform4f(c.region,layout.left,layout.top,layout.right,layout.bottom);gl.uniform1f(c.unit,layout.unit);gl.uniform1f(c.time,time);gl.uniform1f(c.reveal,reveal);gl.drawArrays(gl.TRIANGLES,0,6);
+    const c=composite.u;gl.uniform1i(c.image,0);gl.uniform1i(c.bloom,1);gl.uniform2f(c.resolution,width,height);gl.uniform2fv(c.center,layout.center);gl.uniform2fv(c['offsets[0]'],ghostOffsets(scene.turn,scene.tilt,sideClearance(scene.state)).flat());gl.uniform4f(c.region,layout.left,layout.top,layout.right,layout.bottom);gl.uniform1f(c.unit,layout.unit);gl.uniform1f(c.time,time);gl.uniform1f(c.reveal,reveal);gl.drawArrays(gl.TRIANGLES,0,6);
   }};
 }
 
@@ -207,7 +207,7 @@ export function makeCPU(canvas,{get,makeCells,makeAtlas,hash}){
       gray.globalAlpha=alpha*colors.slice(tier*3,tier*3+3).reduce((s,v,k)=>s+v*[.2126,.7152,.0722][k],0);gray.drawImage(makeWhite(),kind*64,0,64,64,x-size/2,y-size/2,size,size);
     }
     gray.globalCompositeOperation='source-in';gray.globalAlpha=1;gray.fillStyle='#f4ffcc';gray.fillRect(0,0,width,height);gray.globalCompositeOperation='source-over';
-    haze.globalAlpha=1;for(const offset of ghostOffsets(scene.turn,scene.tilt))haze.drawImage(ghost,offset[0]*layout.unit,offset[1]*layout.unit,width,height);
+    haze.globalAlpha=1;for(const offset of ghostOffsets(scene.turn,scene.tilt,sideClearance(scene.state)))haze.drawImage(ghost,offset[0]*layout.unit,offset[1]*layout.unit,width,height);
     haze.globalCompositeOperation='destination-in';
     const gradient=haze.createRadialGradient(...layout.center,layout.unit*1.8,...layout.center,layout.unit*4.7);gradient.addColorStop(0,'rgba(255,255,255,.51)');gradient.addColorStop(.6,'rgba(255,255,255,.12)');gradient.addColorStop(1,'transparent');haze.fillStyle=gradient;haze.fillRect(0,0,width,height);haze.globalCompositeOperation='source-over';
     ctx.fillStyle='#040804';ctx.fillRect(0,0,width,height);ctx.globalAlpha=1;

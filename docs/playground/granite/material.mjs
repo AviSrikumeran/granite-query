@@ -1,6 +1,6 @@
 // Independently authored rendering model, informed by the recording and public
 // renderer architecture. Geometry and layout remain in geometry.mjs unchanged.
-import {cameraRotate,smooth} from './geometry.mjs?v=lighting-20261103-5';
+import {cameraRotate,smooth} from './geometry.mjs?v=spacing-20261103-6';
 const clamp=t=>Math.max(0,Math.min(1,t));
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const norm=a=>{const n=Math.hypot(...a);return a.map(v=>v/n);};
@@ -18,11 +18,16 @@ export function materialColors(hex='#7fee64'){
 }
 // Projection of three adjacent lattice cells, rather than three differently
 // scaled sculptures. The inverse camera keeps the fragments attached on hover.
-export function ghostOffsets(turn=0,tilt=0){
+export function sideClearance(state){
+  const blend=state.blend??0;
+  return .08*((state.from==='box'?1-blend:0)+(state.to==='box'?blend:0));
+}
+export function ghostOffsets(turn=0,tilt=0,clearance=0){
   const c=Math.cos(turn),s=Math.sin(turn),ct=Math.cos(tilt),st=Math.sin(tilt);
   const inverse=p=>{const y=p[1]*ct+p[2]*st,z=-p[1]*st+p[2]*ct;return [p[0]*c+z*s,y,-p[0]*s+z*c];};
   return [[-2,0,2],[0,2,-2],[2,-2,0]].map(p=>{
-    const q=inverse(p);return [.8660254*(q[0]-q[2]),.5*q[0]-q[1]+.5*q[2]];
+    const q=inverse(p),offset=[.8660254*(q[0]-q[2]),.5*q[0]-q[1]+.5*q[2]];
+    const scale=1+clearance/Math.hypot(...offset);return offset.map(v=>v*scale);
   });
 }
 export function ghostWeight(x,y){return .51*Math.pow(clamp(1-(Math.hypot(x/4.05,y/4.05)-.49)/.68),2.4);}

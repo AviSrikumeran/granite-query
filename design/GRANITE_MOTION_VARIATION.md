@@ -69,3 +69,13 @@ Visual review compares all four forms with recording extracts at corresponding s
 Remaining differences are explicit: accepted geometry proportions and sharp analytic silhouettes differ from Modal's rounded distance-field geometry; atlas marks are independently drawn rather than extracted; energy and bloom are approximated. The comparison is intended to expose these differences, not certify an exact reproduction.
 
 Publishing is limited to the playground entry version, active field/material/renderer, this documentation and the new material tests. Before publishing, every unrelated blob, including docs/index.html and the earlier Modal study, is checked against the latest remote parent. Recording extracts, comparison captures, downloaded scripts and local baselines are not committed.
+
+## Accepted baseline and original direction
+
+The user accepted the rendering after the lighting pass. The remaining cube adjustment adds 0.08 illustration units of radial clearance between the large box and each peripheral view, approximately one glyph pitch on desktop. It moves the surrounding views rather than changing the main cube. Clearance blends with the existing form transition and returns to zero for the other three formations. Both renderers use the same offsets.
+
+The next design work should retain this accepted study as a visual benchmark and develop an original variant separately. The renderer, smooth shading, selective flashes, empty space and gentle mouse response are reusable infrastructure. The formation sequence, glyph vocabulary and interaction should express Granite Query's own research.
+
+A proposed first sequence is **many example blocks → a selected connected group → a compact interlocking cube**. This is a visual metaphor for selecting verified training examples, not a display of measured research results. Compare three distinct silhouettes in the same temporary monochrome treatment: interlocking blocks, connected proof branches and nested open frames. Judge their readability at small size, lighting and transitions before choosing a color direction. Avoid the rejected spiral and ambiguous rounded forms.
+
+Once a silhouette is selected, draw a coherent set of small mathematical and provenance marks, then explore a mouse response that reveals connections or highlights a selected group. Test each change against the accepted study for brightness, quiet space, smoothness, pointer response and mobile clarity. This proposal does not change the active shapes or introduce a new brand palette.
