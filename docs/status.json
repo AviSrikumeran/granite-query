@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T20:43:55.208496+00:00",
+  "generated_at_utc": "2026-11-03T20:49:02.022967+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
   "stage": "New math-cohort data-efficiency training grid",
-  "next_action": "18/18 arm plans prepared; 4 completed, 1 running, 13 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 43, 32,768 supervised tokens. No automatic new paid launch is performed by this report.",
+  "next_action": "18/18 arm plans prepared; 6 completed, 0 running, 12 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 42, 65,536 supervised tokens. No automatic new paid launch is performed by this report.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,8 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "evaluation",
-    "elapsed_seconds": 223.262
+    "stage": "multi_source_arm_prepared"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -959,6 +958,48 @@
       "kind": "completed",
       "title": "First multi-source three-selector seed analyzed",
       "detail": "At32768 supervised tokens and32matched updates, seed42 scored random57/64, skill56/64 and gradient56/64; the matched untouched base scored58/64. Both selected arms are1question below random. One seed and64adaptive development questions do not establish a general advantage or disadvantage. Second-seed replication has started unchanged; larger budgets remain resource-gated. Gradient setup overhead is retained separately."
+    },
+    {
+      "id": "data_efficiency_math_v1_tokens32768_seed43_skill-study-terminal",
+      "at_utc": "2026-11-03T20:44:40.739114+00:00",
+      "kind": "completed",
+      "title": "Study skill seed 43 completed",
+      "detail": "Saved immutable 32768-token development artifacts. Exact selector identity is skill; final test remains sealed."
+    },
+    {
+      "id": "cloud-checks-193",
+      "at_utc": "2026-11-03T20:44:54.002004+00:00",
+      "kind": "completed",
+      "title": "Research pipeline passes193 local checks",
+      "detail": "All193 offline checks passed after adding bounded unattended control, immutable artifact recovery, matched result validation and prepared serving boundaries. No official test data were opened and no paid work was launched by these checks."
+    },
+    {
+      "id": "data_efficiency_math_v1_tokens32768_seed43_random-study-launched",
+      "at_utc": "2026-11-03T20:45:03.010402+00:00",
+      "kind": "in_progress",
+      "title": "Study random seed 43 launched",
+      "detail": "One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+    },
+    {
+      "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+      "at_utc": "2026-11-03T20:45:03.101517+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed43_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+    },
+    {
+      "id": "data_efficiency_math_v1_tokens32768_seed43_random-study-terminal",
+      "at_utc": "2026-11-03T20:48:47.782246+00:00",
+      "kind": "completed",
+      "title": "Study random seed 43 completed",
+      "detail": "Saved immutable 32768-token development artifacts. Exact selector identity is random; final test remains sealed."
+    },
+    {
+      "id": "supervisor-next-Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed42_random only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.",
+      "at_utc": "2026-11-03T20:48:52.735852+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed42_random only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy."
     }
   ],
   "latest_training_pool": {
@@ -971,11 +1012,11 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 6.50643621,
+    "observed_metered_usd": 6.66890276,
     "collection_lag_buffer_usd": 3.0,
-    "active_reservations_usd": 3,
-    "pending_terminal_liability_usd": 6.0,
-    "budget_remaining_usd": 11.41,
+    "active_reservations_usd": 0,
+    "pending_terminal_liability_usd": 12.0,
+    "budget_remaining_usd": 8.33,
     "deepseek_peak_estimate_usd": 2.73,
     "deepseek_observed_usage_usd": 1.34
   },
