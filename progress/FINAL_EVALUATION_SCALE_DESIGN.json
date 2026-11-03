@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-03T21:20:56.374301+00:00",
+  "stage": "design_only_waiting_development_calibration_and_funding",
+  "title": "Scale the one sealed final evaluation to1000 or the full1319 questions",
+  "count_semantics": "The1000 target means independent benchmark questions, not1000 training runs or software checks. Each evaluated checkpoint answers the same questions.",
+  "existing256_protocol_status": "prepared_only_unexecuted; preserve it as history and do not perform a256-question peek before deciding the larger fixed target",
+  "official_test_text_data_or_answers_opened_by_this_audit": false,
+  "official_test_downloaded_by_this_audit": false,
+  "access_permit_created": false,
+  "official_protocol_frozen": false,
+  "paid_calls_or_reservations_made": false,
+  "executor_sources_modified": false,
+  "recommendation": {
+    "preferred_target_if_affordable": 1319,
+    "fallback_before_any_test_access": 1000,
+    "reason": "Full1319 is the standard complete GSM8K benchmark and removes subset-selection ambiguity. It is31.9% more questions than1000; compute differences appear modest relative to engineering and checkpoint-loading overhead.",
+    "conditions": [
+      "Finish training selection using development data only; freeze one chosen adapter and untouched original before any final access.",
+      "Measure base200 and chosen-development generation times first; choose shard size from the larger observed cost with a1.25 margin, then freeze all shards.",
+      "Freshly reconcile all current Modal and DeepSeek liabilities; fund the entire final bundle and a separate serving/recovery allowance within30/20 service ceilings.",
+      "Do not begin1000, inspect results and then expand to1319. Choose1000 or1319 once before opening the split.",
+      "If full does not fit the reconciled budget, choose the seeded1000 subset before access or defer execution. Never tune, resample easier questions or add checkpoints after test access."
+    ]
+  },
+  "budget_snapshot": {
+    "limits_usd": {
+      "modal": 30,
+      "deepseek": 20
+    },
+    "estimated_spend_usd": {
+      "deepseek": 1.44,
+      "modal": 10.81
+    },
+    "reserved_usd": {
+      "deepseek": 0.0,
+      "modal": 6.0
+    },
+    "modal_unencumbered_usd": 13.19,
+    "modal_unencumbered_after_current_protected5_usd": 8.19,
+    "freshness": "Local snapshot only, not a provider refresh or future funding approval.",
+    "protected5_note": "The existing protected5 is earmarked for final evaluation and capped serving, not extra training. It does not cover this proposed full worst-case bundle by itself. Finalization must explicitly allocate funds and retain a separate serving/recovery allowance; this design reallocates nothing."
+  },
+  "evidence_and_assumptions": {
+    "official_population_count_known_without_data_access": 1319,
+    "existing_final_protocol_questions": 256,
+    "base64_development_generation_seconds": 160.874,
+    "base64_development_worker_seconds": 205.924,
+    "observed_completed_adapter64_development_generation_seconds_range": [
+      52.907,
+      150.504
+    ],
+    "human200_baseline_calibration_available": false,
+    "per_shard_load_commit_allowance_seconds": 80,
+    "generation_safety_multiplier": 1.25,
+    "provisional_max_shard_questions": 368,
+    "max368_shard_forecast_seconds": 1236.282,
+    "planning_forecast_target_seconds": 1250,
+    "planning_completion_target_seconds": 1550,
+    "actual_existing_final_worker_guard_seconds": 1600,
+    "actual_existing_worker_hard_seconds": 1800,
+    "additional_cost_allowances_seconds": {
+      "startup": 120,
+      "scaledown": 2
+    },
+    "cost_model": "Standard A10080GB function,4 physical CPU cores,32GiB, no region premium or non-preemptible multiplier. All paired GPU calls run sequentially; teacher collection may run separately with at most4 requests.",
+    "modal_rate_usd_per_second": 0.00081744,
+    "modal_rate_usd_per_hour": 2.942784,
+    "modal_pricing_components_usd_per_second": {
+      "a10080": 0.000694,
+      "per_cpu_core": 1.31e-05,
+      "per_gib": 2.22e-06
+    },
+    "teacher_peak_pricing_usd_per_million_tokens": {
+      "uncached_input": 1.32,
+      "output": 3.96
+    },
+    "teacher_input_bound_tokens": 2000,
+    "teacher_input_bound_scope": "A precommitted API request cap to validate only after the final seal and authorized access; it is not evidence of the observed official-test maximum. Every over-cap question retains a failed outcome in the full fixed denominator, with no filtering or resampling.",
+    "teacher_max_output_tokens": 512,
+    "teacher_thinking_enabled": false,
+    "pricing_sources": [
+      {
+        "url": "https://modal.com/pricing",
+        "checked_date": "2026-11-03"
+      },
+      {
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "checked_date": "2026-11-03"
+      }
+    ],
+    "timing_sources": [
+      "runs/student_baseline_batched64_v1/result.json",
+      "runs/data_efficiency_math_v1/*/arms/*/result.json"
+    ],
+    "forecast_limitations": [
+      "These are development-based extrapolations, not official-test observations or guarantees. Output length, padding, GPU contention, source length and final adapter behavior can change runtime.",
+      "The80-second per-call load allowance and1.25 multiplier are planning assumptions. Replace them using the future base200 and chosen-development observations before sealing.",
+      "Resource allowances exclude unbounded new image builds, exceptional storage/egress and provider price changes. Rounded reservations need fresh pricing/accounting and contingency review.",
+      "The current3-dollar-per-call guard remains in force. Lower protocol-specific reservations would require a separately reviewed executor version; this design does not weaken existing guards."
+    ]
+  },
+  "scenarios": [
+    {
+      "questions_per_checkpoint": 1000,
+      "population_coverage_fraction": 0.75815,
+      "model_answers_original_and_chosen": 2000,
+      "model_answers_including_teacher": 3000,
+      "provisional_questions_per_shard": [
+        368,
+        368,
+        264
+      ],
+      "granite_calls_sequential": 6,
+      "granite_empirical_sequential_minutes_range": [
+        63.67,
+        91.79
+      ],
+      "granite_empirical_resource_usd_range": [
+        3.12,
+        4.5
+      ],
+      "granite_margin_forecast_minutes": 112.74,
+      "granite_margin_forecast_resource_usd": 5.53,
+      "granite_all_call_1800_plus120_plus2_resource_allowance_usd": 9.4267,
+      "suggested_reviewed_whole_bundle_modal_reservation_usd": 10.5,
+      "unchanged_three_dollar_per_call_reservation_total_usd": 18,
+      "teacher_matched_nonthinking512_peak_bound_usd": 4.66752,
+      "suggested_reviewed_teacher_reservation_usd": 5,
+      "teacher_thinking4096_peak_bound_usd_for_comparison_only": 18.86016,
+      "teacher_120s_per_request_four_worker_scheduling_envelope_hours": 8.333333333333334,
+      "teacher_wall_time_note": "The120-second urllib timeout is not an end-to-end process deadline; this scheduling envelope is conditional, not a guaranteed wall-time bound.",
+      "illustrative_independent_question_worst_binomial_95_halfwidth_pp": 3.1
+    },
+    {
+      "questions_per_checkpoint": 1319,
+      "population_coverage_fraction": 1.0,
+      "model_answers_original_and_chosen": 2638,
+      "model_answers_including_teacher": 3957,
+      "provisional_questions_per_shard": [
+        368,
+        368,
+        368,
+        215
+      ],
+      "granite_calls_sequential": 8,
+      "granite_empirical_sequential_minutes_range": [
+        84.1,
+        121.18
+      ],
+      "granite_empirical_resource_usd_range": [
+        4.12,
+        5.94
+      ],
+      "granite_margin_forecast_minutes": 148.81,
+      "granite_margin_forecast_resource_usd": 7.3,
+      "granite_all_call_1800_plus120_plus2_resource_allowance_usd": 12.569,
+      "suggested_reviewed_whole_bundle_modal_reservation_usd": 14.0,
+      "unchanged_three_dollar_per_call_reservation_total_usd": 24,
+      "teacher_matched_nonthinking512_peak_bound_usd": 6.15645888,
+      "suggested_reviewed_teacher_reservation_usd": 7,
+      "teacher_thinking4096_peak_bound_usd_for_comparison_only": 24.87655104,
+      "teacher_120s_per_request_four_worker_scheduling_envelope_hours": 11.0,
+      "teacher_wall_time_note": "The120-second urllib timeout is not an end-to-end process deadline; this scheduling envelope is conditional, not a guaranteed wall-time bound.",
+      "illustrative_independent_question_worst_binomial_95_halfwidth_pp": 2.7
+    }
+  ],
+  "teacher_budget_interpretation": [
+    "At matched nonthinking512 and bounded2000 input tokens, full1319 has a conservative peak token bound of6.15645888USD; no cache or off-peak discounts are assumed.",
+    "Thinking4096 would cost up to18.86016USD for1000 or24.87655104USD for1319 before prior usage. At the current1.44USD prior estimate, neither belongs inside the20USD total ceiling. Do not silently substitute the older thinking4096 collector.",
+    "Every wrong, truncated, input-limit and API-failed outcome remains in the frozen denominator. Preserve response model alias, usage, exact raw receipt and latency provenance. Teacher answer agreement is not proof of correct reasoning.",
+    "Before dispatch, verify actual serialized-message byte bounds or a reviewed conservative token-bound method. A1900-byte rejection rule may create failures; it must be predeclared and never used to replace questions."
+  ],
+  "existing_executor_audit": {
+    "already_present": [
+      "Permit-before-read and one durable dataset owner; pinned source/sample hashes for resume.",
+      "Chosen adapter inventory hashes verified before loading; original/chosen separated; one GPU and zero automatic retries.",
+      "Per-batch raw generation receipts with hashes, contiguous-prefix recovery and unique remote attempt ownership.",
+      "Teacher pretransmission intent and exact raw provider receipts; ambiguous attempts are not blindly retransmitted."
+    ],
+    "required_pre_access_changes": [
+      "Version the final protocol and reviewed capability counts away from hardcoded256; choose full range(1319) or one seeded1000 subset before access.",
+      "Generalize final_eval_control chosen_checkpoint validation from exactly64 development outcomes to the approved chosen study64 or200, with exact source/protocol/result hashes and no test-based selection.",
+      "Create immutable shard manifests under the one dataset permit: global ordered IDs, checkpoint identity, shard offset/count, sample hash and disjoint union equal to the sealed1000/1319 set.",
+      "Update final_test_loader count checks and full_test_evaluation metadata consistently while preserving one source read and the same receipt on recovery.",
+      "Update final_eval_jobs and modal_final_eval bounds,requested counts,loops and result validation to the sealed shard count. Full1319 has a final7-question batch; divide amortized timing by actual batch length and preserve all7 outcomes. Do not pad the benchmark with duplicated questions.",
+      "Change validate_saved/validate_batch to accept the one legitimate final partial batch and verify expected global shard IDs/offsets; retain byte-exact batch hashes and same-protocol terminal-only recovery.",
+      "Keep per-checkpoint/shard unique claims and one active GPU; reconcile ambiguous spawns and confirm terminal before reusing only missing outputs under a new reserved recovery attempt.",
+      "Generalize final_teacher max_attempts and expected count to the sealed1000/1319 protocol; preserve all-outcomes scoring, immutable request manifests, at most4 workers and no retries.",
+      "Add a global collection deadline or reviewed chunk scheduling with fresh accounting between chunks; urllib timeout alone is not a whole-run wallclock bound.",
+      "Predeclare prompt-plus-generation context handling before access. The existing final worker checks prompt<=2048 rather than prompt+512<=2048; over-limit cases must become retained failures under a fixed rule, never replacement questions.",
+      "Introduce separately reviewed protocol-specific resource reservations only if needed; the existing fixed3USD guard cannot simply be bypassed. Fund the whole final exposure and recovery contingency before opening test data.",
+      "Add synthetic-only fixtures for1000/1319 coverage, nonoverlap,7-row tail, budget refusal, ambiguous launch, raw-prefix recovery, wrong/failed outcomes and aggregate-only reporting. No official test content is needed for these checks."
+    ]
+  },
+  "reporting_protocol": {
+    "primary_comparison": "Frozen chosen Granite versus untouched original on the identical sealed question set; DeepSeek is a separate teacher reference under the same user prompt and512 output cap.",
+    "required_outputs": [
+      "Numeric accuracy count and denominator, strict-format accuracy, truncation/failure counts and coverage for every model.",
+      "Paired corrected/regressed counts, difference in percentage points, question bootstrap interval and exploratory exact McNemar comparison.",
+      "Accuracy and paired-delta plots with complete-only points; separate API round-trip and amortized GPU timing views.",
+      "Actual model-answer count, trained-example/token exposure and software-check count as distinct quantities.",
+      "Shard/attempt timing, raw receipt hashes and missing/ambiguous outcomes; no claim that a partial run is full1319."
+    ],
+    "limits": [
+      "A single frozen adapter and one training seed do not establish robust seed-to-seed gains.",
+      "Full1319 gives an exact score on this benchmark, not certainty about all future math questions. Paired question uncertainty does not measure training-seed variability.",
+      "Illustrative3.10pp versus2.70pp worst-case independent-question intervals are not effect-size forecasts; actual paired precision depends on discordant outcomes.",
+      "Keeping official test unopened during project development does not establish absence of model pretraining or third-party-corpus contamination. Any later overlap diagnostic must be predeclared and must not alter the official primary denominator."
+    ]
+  },
+  "source_code_sha256": {
+    "final_eval_control.py": "b3bfe9e8824827ba846f4d839f4ef58b2aa66f5e9d709e6a79527d5684af6c1f",
+    "final_test_loader.py": "b6d81427a6a9842705233923ffcd210fcf215aca776c1cb4e568c3a2c164ae63",
+    "final_eval_jobs.py": "84c8da7dbdefb7cbf1afc78c619e4b263afdde33625b1efa9130587edba9b9d4",
+    "modal_final_eval.py": "813110f373423c4d77c776715c78a26c8b9da3e33ffdf7b93624d40f20708b4e",
+    "final_teacher.py": "ce20c5d1c847da1a12c243b5f70bcc91ab57e94c1721fb04d032c9441d1bfcef",
+    "modal_train.py": "3b9fe22b774ae2eeb00a9accf2dcbc40468bb36b7d5f25090f74f70768a326dc",
+    "comparison_metrics.py": "0139edb8289ebd2261e0120d002fedec2c40ec02139b57d0aa7018c48739ba81",
+    "evaluation_stats.py": "c3f7024abf5ac3ee747ca742f869a4c3422c6fd7f31fd3a1c030e34a954b7187"
+  }
+}

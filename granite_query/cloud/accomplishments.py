@@ -211,6 +211,10 @@ def _watch_snapshot_detail(folder):
 
 def _grid_phase(folder):
     grid=_read(folder/'grid_manifest.json')
+    review=_read(folder/'reviewed_for_launch.json')
+    budgets=review.get('approved_token_budgets')
+    scope=set(budgets) if review.get('reviewed') is True and isinstance(budgets,list) and all(type(b) is int for b in budgets) else None
+    scope_total=scope_completed=0
     counts={'completed':0,'running':0,'queued':0,'failed':0,'blocked':0,'not_started':0}
     prepared=0;next_items=[];planned=0
     for descriptor in grid.get('studies',[]):
@@ -237,16 +241,23 @@ def _grid_phase(folder):
                     or actual.get('common_pool_sha256')!=manifest.get('common_pool',{}).get('sha256')):
                 state='failed'
             counts[state if state in counts else 'blocked']+=1
+            if scope is not None and budget in scope:
+                scope_total+=1;scope_completed+=int(state=='completed')
             if state!='completed':
                 next_items.append((state,job.get('selector','unknown'),job.get('seed'),budget))
     if not planned:
         return 'blocked','A grid manifest exists, but its arm plans have not been recovered; no completed training is inferred.'
     state=('completed' if counts['completed']==planned and not counts['blocked'] else 'running' if counts['running'] else
            'blocked' if counts['blocked'] else 'failed' if counts['failed'] else 'queued')
+    if (scope_total and scope_total==scope_completed and counts['completed']<planned
+            and not any(counts[k] for k in ('running','blocked','failed'))):
+        state='deferred'
     detail=(f"{prepared}/{planned} arm plans prepared; {counts['completed']} completed, {counts['running']} running, "
             f"{counts['queued']+counts['not_started']} queued, {counts['failed']} failed and {counts['blocked']} requiring launch reconciliation. "
             'Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. ')
-    if next_items:
+    if state=='deferred':
+        detail+=f'The {scope_total} reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain.'
+    elif next_items:
         priority={'running':0,'blocked':1,'failed':2,'queued':3,'not_started':4}
         next_state,selector,seed,budget=min(next_items,key=lambda item:priority.get(item[0],5))
         action=('Poll the existing call for' if next_state=='running' else 'Reconcile the stopped or ambiguous attempt for'
@@ -255,6 +266,34 @@ def _grid_phase(folder):
     else:
         detail+='All arm results are available for the new-cohort report; final-test evaluation and model serving remain separate stages.'
     return state,detail+_watch_snapshot_detail(folder)
+
+
+def _human_study_phase(folder, workspace):
+    try:
+        from .human_study_report import build as report
+    except ImportError:
+        from human_study_report import build as report
+    value=report(study=folder,workspace=workspace,write=False)
+    state={'action_required':'blocked','partial':'queued'}.get(value['status'],value['status'])
+    jobs=value['jobs']
+    outcomes=[]
+    for name in ('baseline','random','skill'):
+        job=jobs[name];metrics=job.get('metrics')
+        outcomes.append(name+': '+(f"{metrics['numeric_correct']}/200" if job['status']=='completed' and metrics else job['status']))
+    review=value['runtime_and_review']
+    detail=(f"{value['completed_jobs']}/3 validated jobs completed on 200 separate training-split development questions. "
+            +'; '.join(outcomes)+'. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. '
+            +'Baseline runtime calibration: '+review['calibration']['status']+'. Pair review: '+review['pair_review']+'. '
+            +'These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.')
+    baseline=jobs['baseline'].get('metrics') if jobs['baseline']['status']=='completed' else None
+    improved=[]
+    if baseline:
+        for name in ('random','skill'):
+            job=jobs[name]
+            if (value['comparisons'][name+'_vs_baseline']['status']=='completed' and job['status']=='completed'
+                    and job.get('metrics') and job['metrics']['numeric_correct']>baseline['numeric_correct']):
+                improved.append((name,job['metrics']['numeric_correct'],baseline['numeric_correct']))
+    return state,detail,improved
 
 
 def _grid_development_gain(folder):
@@ -526,6 +565,12 @@ def build(workspace=None):
     if (grid_folder/'grid_manifest.json').exists():
         grid_state,grid_detail=_grid_phase(grid_folder)
         current.append({'title':'New math-cohort data-efficiency training grid','status':grid_state,'detail':grid_detail})
+    human_study=runs/'human_study64k_dev200_seed42_v2'
+    human_gains=[]
+    if (human_study/'study_manifest.json').exists():
+        human_study_state,human_study_detail,human_gains=_human_study_phase(human_study,workspace)
+        current.append({'title':'Human-reference training with separate 200-question development evaluation',
+                        'status':human_study_state,'detail':human_study_detail})
     human_teacher_complete = False
     if human_teacher:
         human_state, human_teacher_detail, human_teacher_complete = _human_teacher_phase(
@@ -534,6 +579,17 @@ def build(workspace=None):
         current.append({'title':'Human-reference DeepSeek teaching chunks','status':human_state,'detail':human_teacher_detail})
         if human_teacher_complete:
             add('Human-reference DeepSeek teaching pool completed',human_teacher_detail,HUMAN_TEACHER_URL)
+    depth=_read(workspace/'progress/TEACHER_DEPTH_PILOT.json')
+    if depth:
+        depth_stage=depth.get('stage');received=_number(depth.get('completed_original_calls'))
+        depth_state=('completed' if depth_stage=='completed' and received==64 else
+                     'running' if depth_stage=='collecting' and (runs/'teacher_depth32_v1/collector.lock').exists() else
+                     'queued' if depth_stage=='prepared_unpaid' else 'blocked')
+        current.append({'title':'Paired teacher-reasoning feasibility pilot','status':depth_state,
+            'detail':f'Last recorded snapshot: {received}/64 original responses across 32 separate training questions; '
+                +f"{_number(depth.get('eligible_question_pairs'))} complete, reference-matched pairs fit the student context. "
+                +'The separately funded pilot compares concise and thinking outputs under different output caps. '
+                +'It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain.'})
     if (workspace/'granite_query/cloud/modal_api.py').exists():
         current.append({'title':'Capped Granite API trial', 'status':'queued',
                         'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})
@@ -561,9 +617,16 @@ def build(workspace=None):
             measurements+f". Matched untouched batch8 Granite scored {grid_gain['baseline_numeric_correct']}/64 on the same frozen questions and inference protocol. "
             'This is an adaptive development gain, not final-test validation or evidence that a selector beats random.',
             'https://github.com/AviSrikumeran/granite-query/blob/main/progress/DATA_EFFICIENCY_RESULTS.md')
+    if human_gains:
+        accuracy_improved=True
+        for selector,correct,base_correct in human_gains:
+            add('Human-reference checkpoint measured a development gain',
+                f'{selector} scored {correct}/200 versus the matched untouched baseline {base_correct}/200. '
+                'This is single-seed development evidence on the separate human study; final-test validation and a robust selection benefit remain pending.',
+                'https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_STUDY_RESULTS.md')
 
     training_evidenced = smoke.get('stage') == 'completed' or comparison.get('stage') == 'completed'
-    summary = ('At least one fine-tuned Granite checkpoint scored higher on the shared 64-question development set. Final-test validation and a robust selection advantage remain unestablished.'
+    summary = ('At least one fine-tuned Granite checkpoint scored higher in a matched training-split development comparison. Final-test validation and a robust selection advantage remain unestablished.'
                if accuracy_improved else
                ('Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.'
                 if training_evidenced else
@@ -642,14 +705,14 @@ def build(workspace=None):
     lines = ['# What Granite Query has actually accomplished', '', public['summary'], '',
              '## Dataset coverage', '']
     for row in public['dataset_coverage']:
-        lines += [f"- **{row['name']} � {row['status']}**. {row['used_for']} Source: {row['actual_source']}", '']
+        lines += [f"- **{row['name']} — {row['status']}**. {row['used_for']} Source: {row['actual_source']}", '']
     lines += ['## Model actually trained', '', public['model']['name'] + ' at revision ' + public['model']['revision'] + '.', '',
               public['model']['training_method'], '', '## Completed work', '']
     for row in completed:
         lines += [f"### {row['title']}", '', row['detail'], '', f"[Evidence]({row['evidence_url']})", '']
     lines += ['## Current work and failures', '']
     for row in current:
-        lines += [f"- **{row['title']} � {row['status']}**. {row['detail']}", '']
+        lines += [f"- **{row['title']} — {row['status']}**. {row['detail']}", '']
     lines += ['## Not completed', ''] + ['- ' + item for item in public['not_done']]
     lines += ['', 'Updated: ' + public['updated_at_utc'], '']
     (workspace / 'progress/ACCOMPLISHMENTS.md').write_text('\n'.join(lines), encoding='utf-8')

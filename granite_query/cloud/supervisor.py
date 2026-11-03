@@ -131,6 +131,7 @@ def tick():
         if (batched_baseline/'launch.json').exists() and not (batched_baseline/'result.json').exists():
             remote_status=json.loads((batched_baseline/'remote_status.json').read_text()) if (batched_baseline/'remote_status.json').exists() else {'stage':'batched_baseline_queued'}
             training_action='Poll the existing untouched-Granite batch8 baseline with valuation_control.py. It uses the same64 questions and512-token settings as new adapters; no training or duplicate GPU launch. Reconcile its result before the gradient continuation.'
+        primary_grid_complete=False
         grid_folder=ROOT/'runs/data_efficiency_math_v1'
         if (grid_folder/'grid_manifest.json').exists():
             grid=json.loads((grid_folder/'grid_manifest.json').read_text(encoding='utf-8'))
@@ -153,8 +154,25 @@ def tick():
                     remote_status={'stage':'multi_source_arm_prepared'}
                     training_action='Advance the next frozen multi-source arm '+job['run_id']+' only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.'
             else:
+                primary_grid_complete=True
                 remote_status={'stage':'multi_source_primary_grid_completed'}
                 training_action='Analyze the complete approved token-budget contrasts, preserve negative results and use remaining funds for the separately versioned human-reference study or a reviewed teacher-depth feasibility phase.131072 is deferred near-all-data reference; final evaluation/API funds stay protected. Do not declare the project complete after this block.'
+        human_study=ROOT/'runs/human_study64k_dev200_seed42_v2'
+        if (human_study/'study_manifest.json').exists():
+            from human_study_report import build as build_human_report
+            human=build_human_report(study=human_study,write=False)
+            if primary_grid_complete or any(job['unique_call_observed'] for job in human['jobs'].values()):
+                remote_status={'stage':'human_reference_'+human['status']}
+                if human['status']=='action_required':
+                    training_action='Reconcile the existing human-study call/claim/terminal evidence with human_study_control.py before further paid work; never duplicate an ambiguous dispatch.'
+                elif human['status']=='running':
+                    training_action='Poll the saved human-study call through human_study_control.py. Keep its separate200 development questions and original outputs isolated from training and the old64-question report.'
+                elif human['status']=='completed':
+                    training_action='Analyze the completed human200 comparison, preserve all outcomes, then advance the reviewed teacher-depth feasibility pilot or other useful separately versioned work while protecting final evaluation/API funds.'
+                elif human['jobs']['baseline']['status']=='completed':
+                    training_action='Calibrate the validated untouched baseline200, check the actual forecasts and bind a separate pair review before funding both frozen human64k arms plus protected5Modal dollars.'
+                else:
+                    training_action='After the current watcher releases and calls reconcile, use the independently reviewed human_study_control.py baseline200 tick with fresh funding. Never bypass its unique dispatch claim with a raw Modal launch.'
         human_teacher=ROOT/'runs/human_math_teacher2048_v1'
         if (human_teacher/'teacher_summary.json').exists():
             human_summary=json.loads((human_teacher/'teacher_summary.json').read_text(encoding='utf-8'))
@@ -205,6 +223,8 @@ def tick():
         if (efficiency_grid/'grid_manifest.json').exists():
             from data_efficiency_report import build as build_efficiency_report
             build_efficiency_report(grid=efficiency_grid)
+        if (human_study/'study_manifest.json').exists():
+            build_human_report(study=human_study,write=True)
         build(status)
         print(json.dumps(status))
     finally:

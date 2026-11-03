@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-03T21:21:17.894971+00:00",
+  "title": "Human-reference random versus skill development study",
+  "study_id": "human-reference64k-dev200-v2",
+  "study_manifest_sha256": "d8e09084029de9cb2d89a6dd0e8fc630592d412e7cb6510f738e34e15e78a270",
+  "status": "queued",
+  "completed_jobs": 0,
+  "planned_jobs": 3,
+  "official_test_used": false,
+  "launch_evidence": {
+    "uniquely_observed_calls": 0,
+    "ambiguous_jobs": 0,
+    "preparation_manifest_is_not_live_launch_status": true
+  },
+  "cohort": {
+    "development_count": 200,
+    "development_source_sha256": "cccdce864d728e6b43d9d4de866e719bfd9c706cc735a3a3d429095835c767c7",
+    "split": "train",
+    "role": "development",
+    "legacy64_included": false,
+    "legacy64_results_merged": false,
+    "candidate_examples": 1930,
+    "available_supervised_tokens": 223827,
+    "teacher_pool_sha256": "25d53ad9a9d08ab3eecaf8ad5bbb47a0f6ccc062e67e922e206e6cc6f20ccb91",
+    "reference_provenance": "DeepSeek responses to human GSM training questions, qualified against independent dataset answers; responses are not human-authored."
+  },
+  "protocol": {
+    "model": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "seed": 42,
+    "tokens_per_update": 1024,
+    "learning_rate": 2e-05,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "context_limit": 2048,
+    "max_new_tokens": 512,
+    "enable_thinking": false,
+    "do_sample": false,
+    "evaluation_batch_size": 8,
+    "latency_measurement": "amortized batched GPU wall time; not single-request latency"
+  },
+  "jobs": {
+    "baseline": {
+      "selector": "baseline",
+      "seed": 42,
+      "status": "queued",
+      "observation": "No unique local dispatch receipt is present.",
+      "planned_supervised_tokens": 0,
+      "planned_optimizer_updates": 0,
+      "planned_exposure": {
+        "examples": 0,
+        "response_windows": 0,
+        "forwarded_input_tokens": 0,
+        "supervised_tokens": 0,
+        "updates": 0
+      },
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "actual_exposure": null,
+      "metrics": null,
+      "accuracy_percent": null,
+      "question_wilson_95_interval_percent": null,
+      "worker_elapsed_seconds": null,
+      "observed_supervised_tokens": null,
+      "observed_optimizer_updates": null,
+      "unique_call_observed": false,
+      "protocol_hash": "5fb33e087f1fd6c55af06cb8781d64434f9d68d9961221a6efa3b107c9e38c6d",
+      "result_sha256": null,
+      "last_observed_worker_stage": null
+    },
+    "random": {
+      "selector": "random",
+      "seed": 42,
+      "status": "queued",
+      "observation": "No unique local dispatch receipt is present.",
+      "planned_supervised_tokens": 65536,
+      "planned_optimizer_updates": 64,
+      "planned_exposure": {
+        "examples": 561,
+        "response_windows": 623,
+        "forwarded_input_tokens": 136319,
+        "supervised_tokens": 65536,
+        "updates": 64
+      },
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "actual_exposure": null,
+      "metrics": null,
+      "accuracy_percent": null,
+      "question_wilson_95_interval_percent": null,
+      "worker_elapsed_seconds": null,
+      "observed_supervised_tokens": null,
+      "observed_optimizer_updates": null,
+      "unique_call_observed": false,
+      "protocol_hash": "55e173a24246bdd4bf60ec6bab0f1bfc53d7925dc1107ac92365ece9f541303e",
+      "result_sha256": null,
+      "last_observed_worker_stage": null
+    },
+    "skill": {
+      "selector": "skill",
+      "seed": 42,
+      "status": "queued",
+      "observation": "No unique local dispatch receipt is present.",
+      "planned_supervised_tokens": 65536,
+      "planned_optimizer_updates": 64,
+      "planned_exposure": {
+        "examples": 766,
+        "response_windows": 829,
+        "forwarded_input_tokens": 150600,
+        "supervised_tokens": 65536,
+        "updates": 64
+      },
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "actual_exposure": null,
+      "metrics": null,
+      "accuracy_percent": null,
+      "question_wilson_95_interval_percent": null,
+      "worker_elapsed_seconds": null,
+      "observed_supervised_tokens": null,
+      "observed_optimizer_updates": null,
+      "unique_call_observed": false,
+      "protocol_hash": "a29f814687f28fdd87638293a08dc3710e720ac876f55b978f8c3062d8b2b566",
+      "result_sha256": null,
+      "last_observed_worker_stage": null
+    }
+  },
+  "comparisons": {
+    "skill_vs_random": {
+      "status": "unavailable",
+      "statistics": null
+    },
+    "random_vs_baseline": {
+      "status": "unavailable",
+      "statistics": null
+    },
+    "skill_vs_baseline": {
+      "status": "unavailable",
+      "statistics": null
+    }
+  },
+  "runtime_and_review": {
+    "calibration": {
+      "status": "pending_baseline",
+      "pair_runtime_feasible": null,
+      "forecast_seconds": null,
+      "planning_forecast_limit_seconds": 1250,
+      "planning_completion_guard_seconds": 1550,
+      "actual_worker_guards_seconds": {
+        "training": 1400,
+        "evaluation": 1600,
+        "hard_timeout": 1800
+      }
+    },
+    "baseline_review": "reviewed",
+    "pair_review": "blocked_by_baseline_calibration",
+    "funding_inspected": false
+  },
+  "points": [],
+  "limitations": [
+    "This is an exploratory seed42 source and curriculum transfer study, not a robust causal ranking claim.",
+    "The new200 questions are training-split development questions. Earlier64-question results are separate history and are not joined into this improvement curve.",
+    "The unchanged skill selector uses an earlier development weakness signal. Choosing this study after earlier negative results is adaptive research; these200 are not a sealed final test.",
+    "Paired bootstrap intervals resample questions, not training seeds. Three comparisons are exploratory and have no multiplicity correction.",
+    "Equal supervised tokens and updates do not equalize examples, forwarded input tokens, runtime or selection overhead.",
+    "Numeric final-answer scoring and reference qualification do not verify every reasoning step or answer depth.",
+    "Latency is amortized batched GPU generation time, not single-request latency. Recorded worker seconds are not a provider bill.",
+    "Local receipts show last observed progress only. This reporter does not refresh providers, infer funding or repair ambiguous calls.",
+    "The baseline runtime forecast is an explicit planning estimate. Actual worker checks remain1400 seconds training,1600 seconds evaluation and1800 seconds hard timeout."
+  ]
+}

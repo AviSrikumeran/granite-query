@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: New math-cohort data-efficiency training grid
 
-Next: 18/18 arm plans prepared; 7 completed, 1 running, 10 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for skill, seed 42, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:06:57.354564+00:00: monitoring its existing GPU call. This is a recorded snapshot, not a live process check.
+Next: 18/18 arm plans prepared; 9 completed, 0 running, 9 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The next prepared arm is random, seed 43, 65,536 supervised tokens. The separately bounded experiment controller owns paid launches. Unattended controller snapshot at 2026-11-03T21:21:05.797387+00:00: waiting for billing reconciliation and protected phase funding. This is a recorded snapshot, not a live process check.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -617,3 +617,31 @@ Prepared untouched-Granite baseline200 plus independent random/skill65536-token 
 ## 2026-11-03T21:05:05.056757+00:00 | completed | Expanded pipeline passes210 offline checks
 
 All210 local checks passed, including immutable preparation, billing gates, unique dispatch recovery, native-channel serialization, preserved wire receipts, output validation and current-study report rendering. These were offline fixtures; no official test access, provider calls, reservations or paid jobs were performed by this verification.
+
+## 2026-11-03T21:11:45.011290+00:00 | completed | Study skill seed 42 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is skill; final test remains sealed.
+
+## 2026-11-03T21:12:08.411093+00:00 | in_progress | Study gradient seed 42 launched
+
+One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T21:12:08.500963+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T21:18:07.481427+00:00 | completed | Separate human200 reporting is connected to supervision
+
+The read-only reporter validates exact job/claim/terminal/source identities and all200 outcomes before assigning accuracy. Queued, running, ambiguous and failed metrics remain unavailable. Supervision now writes its aggregate JSON/Markdown and shows the human baseline/pair and teacher feasibility stages separately; reviewed32k/64k completion no longer promotes unreviewed131k plans as the next active phase. All220 offline checks passed. No new human-study job, teacher request or official test access occurred during this integration.
+
+## 2026-11-03T21:18:07.485287+00:00 | decision | Larger final benchmark is being assessed before test access
+
+The user asked whether roughly1000 tests are needed. Distinguished independent evaluation questions from teaching examples, training runs and software checks. Assessing1000 or full1319 final questions in bounded resumable shards against the remaining30Modal/20DeepSeek ceilings; the existing256-question final executor is not represented as a1000-question run. Checkpoint/protocol freeze and runtime/budget review remain required before any official test access.
+
+## 2026-11-03T21:19:59.062037+00:00 | completed | Study gradient seed 42 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is gradient; final test remains sealed.
+
+## 2026-11-03T21:20:04.778686+00:00 | in_progress | Research improvement cycle
+
+Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed43_gradient only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.

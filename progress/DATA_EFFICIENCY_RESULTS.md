@@ -1,6 +1,6 @@
 # New-cohort data-efficiency results
 
-Completed 7/18 arms. Only completed matched evaluations appear below. Earlier four-arm results remain separate history.
+Completed 9/18 arms. Only completed matched evaluations appear below. Earlier four-arm results remain separate history.
 
 Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 
@@ -13,8 +13,8 @@ Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 | 32,768 | 43 | skill | completed | 54/64 | 0 | 32768 | 32 | 467 | 81893 |
 | 32,768 | 43 | gradient | completed | 54/64 | 0 | 32768 | 32 | 257 | 67502 |
 | 65,536 | 42 | random | completed | 56/64 | 0 | 65536 | 64 | 683 | 146227 |
-| 65,536 | 42 | skill | running | pending | pending | pending | pending | pending | pending |
-| 65,536 | 42 | gradient | prepared | pending | pending | pending | pending | pending | pending |
+| 65,536 | 42 | skill | completed | 56/64 | 1 | 65536 | 64 | 824 | 155567 |
+| 65,536 | 42 | gradient | completed | 56/64 | 1 | 65536 | 64 | 556 | 136410 |
 | 65,536 | 43 | random | prepared | pending | pending | pending | pending | pending | pending |
 | 65,536 | 43 | skill | prepared | pending | pending | pending | pending | pending | pending |
 | 65,536 | 43 | gradient | prepared | pending | pending | pending | pending | pending | pending |
@@ -33,12 +33,15 @@ Untouched-base batch8 control: 58/64, with zero training tokens/updates.
 - 32,768 tokens, seed 43, skill_vs_random: -1.56 pp; corrected 3, regressed 4; paired bootstrap95% [-9.38, +6.25] pp; exploratory McNemar p=1.0000.
 - 32,768 tokens, seed 43, gradient_vs_random: -1.56 pp; corrected 1, regressed 2; paired bootstrap95% [-6.25, +3.12] pp; exploratory McNemar p=1.0000.
 - 32,768 tokens, seed 43, gradient_vs_skill: +0.00 pp; corrected 3, regressed 3; paired bootstrap95% [-7.81, +7.81] pp; exploratory McNemar p=1.0000.
+- 65,536 tokens, seed 42, skill_vs_random: +0.00 pp; corrected 2, regressed 2; paired bootstrap95% [-6.25, +6.25] pp; exploratory McNemar p=1.0000.
+- 65,536 tokens, seed 42, gradient_vs_random: +0.00 pp; corrected 3, regressed 3; paired bootstrap95% [-7.81, +7.81] pp; exploratory McNemar p=1.0000.
+- 65,536 tokens, seed 42, gradient_vs_skill: +0.00 pp; corrected 4, regressed 4; paired bootstrap95% [-7.81, +9.38] pp; exploratory McNemar p=1.0000.
 
 ## Two-seed sensitivity
 
-- 32,768 tokens, random: mean 87.50%, sample SD 2.21 pp across two seeds; range 55�57/64. Descriptive only.
-- 32,768 tokens, skill: mean 85.94%, sample SD 2.21 pp across two seeds; range 54�56/64. Descriptive only.
-- 32,768 tokens, gradient: mean 85.94%, sample SD 2.21 pp across two seeds; range 54�56/64. Descriptive only.
+- 32,768 tokens, random: mean 87.50%, sample SD 2.21 pp across two seeds; range 55–57/64. Descriptive only.
+- 32,768 tokens, skill: mean 85.94%, sample SD 2.21 pp across two seeds; range 54–56/64. Descriptive only.
+- 32,768 tokens, gradient: mean 85.94%, sample SD 2.21 pp across two seeds; range 54–56/64. Descriptive only.
 - 65,536 tokens: both complete seed triples are still required for a two-seed summary.
 - 131,072 tokens: both complete seed triples are still required for a two-seed summary.
 

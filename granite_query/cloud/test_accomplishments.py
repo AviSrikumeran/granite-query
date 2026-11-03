@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import accomplishments
 
@@ -187,6 +188,34 @@ class AccomplishmentTests(unittest.TestCase):
         value['updated_at_utc']='PRIVATE_TRACE'
         self.save(path,value)
         self.assertEqual(accomplishments._watch_snapshot_detail(folder),'')
+
+    def test_human_gain_needs_complete_matched_baseline_comparison(self):
+        report={'status':'partial','completed_jobs':2,'jobs':{
+            'baseline':{'status':'completed','metrics':{'numeric_correct':180}},
+            'random':{'status':'completed','metrics':{'numeric_correct':182}},
+            'skill':{'status':'queued','metrics':None}},
+            'runtime_and_review':{'calibration':{'status':'validated'},'pair_review':'reviewed'},
+            'comparisons':{'random_vs_baseline':{'status':'unavailable'},'skill_vs_baseline':{'status':'unavailable'}}}
+        with patch('cloud.human_study_report.build',return_value=report), patch('human_study_report.build',return_value=report):
+            state,detail,gains=accomplishments._human_study_phase(self.runs,self.root)
+            self.assertEqual(gains,[]);self.assertIn('182/200',detail);self.assertIn('skill: queued',detail)
+            report['comparisons']['random_vs_baseline']['status']='completed'
+            self.assertEqual(accomplishments._human_study_phase(self.runs,self.root)[2],[('random',182,180)])
+            report['jobs']['random']['status']='running'
+            self.assertEqual(accomplishments._human_study_phase(self.runs,self.root)[2],[])
+
+    def test_unapproved_higher_budget_does_not_hide_the_next_project_stage(self):
+        prefix='granite_query/cloud/runs/data_efficiency_math_v1/'
+        self.save(prefix+'grid_manifest.json',{'studies':[{'folder':'one','jobs':1},{'folder':'two','jobs':1}]})
+        self.save(prefix+'reviewed_for_launch.json',{'reviewed':True,'approved_token_budgets':[1024]})
+        for study,budget,name in (('one',1024,'approved'),('two',2048,'deferred')):
+            self.save(prefix+study+'/manifest.json',{'token_budget':budget,'jobs':[
+                {'folder':'arms/'+name,'selector':'random','checkpoint_name':'random','seed':42}]})
+            self.save(prefix+study+'/arms/'+name+'/plan.json',{})
+        with patch.object(accomplishments,'_phase',side_effect=lambda path,*args:('completed' if path.name=='approved' else 'queued','',{})):
+            state,detail=accomplishments._grid_phase(self.runs/'data_efficiency_math_v1')
+        self.assertEqual(state,'deferred');self.assertIn('1 reviewed arms are complete',detail)
+        self.assertIn('higher-budget plans are deferred',detail)
 
     def test_latest_same_protocol_feature_continuation_replaces_old_terminal_row(self):
         prefix='granite_query/cloud/runs/'

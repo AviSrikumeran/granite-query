@@ -1062,5 +1062,54 @@
     "kind": "completed",
     "title": "Expanded pipeline passes210 offline checks",
     "detail": "All210 local checks passed, including immutable preparation, billing gates, unique dispatch recovery, native-channel serialization, preserved wire receipts, output validation and current-study report rendering. These were offline fixtures; no official test access, provider calls, reservations or paid jobs were performed by this verification."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed42_skill-study-terminal",
+    "at_utc": "2026-11-03T21:11:45.011290+00:00",
+    "kind": "completed",
+    "title": "Study skill seed 42 completed",
+    "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is skill; final test remains sealed."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed42_gradient-study-launched",
+    "at_utc": "2026-11-03T21:12:08.411093+00:00",
+    "kind": "in_progress",
+    "title": "Study gradient seed 42 launched",
+    "detail": "One separately funded 65536-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched."
+  },
+  {
+    "id": "supervisor-next-Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.",
+    "at_utc": "2026-11-03T21:12:08.500963+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Poll the saved multi-source data_efficiency_math_v1_tokens65536_seed42_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm."
+  },
+  {
+    "id": "human200-reporting-integrated-220checks",
+    "at_utc": "2026-11-03T21:18:07.481427+00:00",
+    "kind": "completed",
+    "title": "Separate human200 reporting is connected to supervision",
+    "detail": "The read-only reporter validates exact job/claim/terminal/source identities and all200 outcomes before assigning accuracy. Queued, running, ambiguous and failed metrics remain unavailable. Supervision now writes its aggregate JSON/Markdown and shows the human baseline/pair and teacher feasibility stages separately; reviewed32k/64k completion no longer promotes unreviewed131k plans as the next active phase. All220 offline checks passed. No new human-study job, teacher request or official test access occurred during this integration."
+  },
+  {
+    "id": "final-evaluation-scale-assessment",
+    "at_utc": "2026-11-03T21:18:07.485287+00:00",
+    "kind": "decision",
+    "title": "Larger final benchmark is being assessed before test access",
+    "detail": "The user asked whether roughly1000 tests are needed. Distinguished independent evaluation questions from teaching examples, training runs and software checks. Assessing1000 or full1319 final questions in bounded resumable shards against the remaining30Modal/20DeepSeek ceilings; the existing256-question final executor is not represented as a1000-question run. Checkpoint/protocol freeze and runtime/budget review remain required before any official test access."
+  },
+  {
+    "id": "data_efficiency_math_v1_tokens65536_seed42_gradient-study-terminal",
+    "at_utc": "2026-11-03T21:19:59.062037+00:00",
+    "kind": "completed",
+    "title": "Study gradient seed 42 completed",
+    "detail": "Saved immutable 65536-token development artifacts. Exact selector identity is gradient; final test remains sealed."
+  },
+  {
+    "id": "supervisor-next-Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed43_gradient only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.",
+    "at_utc": "2026-11-03T21:20:04.778686+00:00",
+    "kind": "in_progress",
+    "title": "Research improvement cycle",
+    "detail": "Advance the next frozen multi-source arm data_efficiency_math_v1_tokens65536_seed43_gradient only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy."
   }
 ]
