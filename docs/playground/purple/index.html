@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Granite Query · Violet material study</title>
+  <meta name="description" content="Compare the green reference with a luminous violet material on interlocking blocks, using shared lighting, motion and joint spacing.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="./study.css?v=purple-20261103-1">
+  <script type="module" src="./study.mjs?v=purple-20261103-1"></script>
+</head>
+<body>
+  <a class="skip" href="#comparison">Skip to the materials</a>
+  <header class="site-header"><a class="brand" href="../../" aria-label="Granite Query research homepage"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="m18 3 14 8-14 8L4 11Z" fill="none" stroke="#e9dfff" stroke-width="1.7"/><path d="M4 11v14l14 8 14-8V11M18 19v14" fill="none" stroke="#bd9eff" stroke-width="1.7"/></svg><span>Granite Query</span></a><nav aria-label="Study navigation"><a href="../directions/">Green comparison ↗</a><a href="../">Accepted study ↗</a></nav></header>
+  <main>
+    <div class="introduction"><p class="eyebrow">Interlocking blocks / material study</p><h1>A different material.</h1><p class="description">Indigo shadows, brighter violet faces and pale highlights. Compare both materials with the same structure, light and movement.</p></div>
+    <section class="toolbar" aria-label="Material comparison controls"><div class="motion-controls"><button id="pause" aria-pressed="false">Pause</button><button id="replay">Replay reveal</button><label for="pose">Pose</label><select id="pose"><option value="auto">Cycle poses</option><option value="locked">Locked</option><option value="open">Open</option><option value="offset">Offset</option></select></div><div class="view-controls"><label><input type="checkbox" id="linked" checked>Link mouse views</label><label><input type="checkbox" id="peripherals">Peripheral views</label></div></section>
+    <div class="material-controls"><div><label for="spacing">Joints</label><select id="spacing"><option value="clear">More separation</option><option value="reference">Reference spacing</option></select></div><div><label for="material">Purple material</label><select id="material"><option value="violet">Blue violet</option><option value="orchid">Rose violet</option></select></div><p id="interaction-help">Move to turn both views. Pause holds the motion; mouse and arrow-key inspection remain available.</p></div>
+    <div id="comparison" class="comparison">
+      <article class="direction" data-direction="green"><header class="direction-heading"><h2 id="green-title">Green reference</h2><p>The accepted green material on the shared geometry.</p></header><figure tabindex="0" aria-labelledby="green-title" aria-describedby="interaction-help"><canvas role="img" aria-label="Interlocking notched beams with green face shading and yellow-green highlights."></canvas></figure><div class="direction-caption"><span>Green / yellow-green / pale edge</span><span class="pose-name">Locked</span></div></article>
+      <article class="direction" data-direction="purple"><header class="direction-heading"><h2 id="purple-title">Violet study</h2><p>Cool shadows, luminous faces and a restrained pink edge.</p></header><figure tabindex="0" aria-labelledby="purple-title" aria-describedby="interaction-help"><canvas role="img" aria-label="The same interlocking beams in indigo, violet and pale lavender, with brighter highlights that reveal the joints."></canvas></figure><div class="direction-caption"><span>Indigo / violet / lavender light</span><span class="pose-name">Locked</span></div></article>
+    </div>
+    <p id="motion-status" role="status" class="status">Motion is playing. Both materials share one clock.</p>
+    <noscript><p>Enable JavaScript to compare the animated materials.</p></noscript>
+  </main>
+  <footer><p>A material study for Granite Query.</p><a href="https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/purple" target="_blank" rel="noreferrer">Study source ↗</a></footer>
+</body>
+</html>
