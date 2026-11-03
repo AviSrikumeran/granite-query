@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "run_id": "human_math_teacher2048_v1",
+  "stage": "completed",
+  "requested": 2048,
+  "completed": 2048,
+  "eligible": 1930,
+  "failed": 0,
+  "truncated": 0,
+  "chunks": [
+    {
+      "index": 0,
+      "requested": 512,
+      "completed": 512,
+      "budget_job_id": "human_math_teacher2048_v1-chunk000-teacher",
+      "requests_sha256": "27f48c482e16bce7572407aeb24564233c3b0c7a05545c821afde6688aba2ded"
+    },
+    {
+      "index": 1,
+      "requested": 512,
+      "completed": 512,
+      "budget_job_id": "human_math_teacher2048_v1-chunk001-teacher",
+      "requests_sha256": "47adace2683f54547de10d038c6cb3c8f61cfb5ff55a91ff83b3572ac7105e7d"
+    },
+    {
+      "index": 2,
+      "requested": 512,
+      "completed": 512,
+      "budget_job_id": "human_math_teacher2048_v1-chunk002-teacher",
+      "requests_sha256": "1d863933a12e394bc6ef611a4d1c1beed2a8fbbcb5629a286502f4b5b54fee1d"
+    },
+    {
+      "index": 3,
+      "requested": 512,
+      "completed": 512,
+      "budget_job_id": "human_math_teacher2048_v1-chunk003-teacher",
+      "requests_sha256": "93f44ce16ca0c6e0bdcddf8c705bd0477fbfaeb23f54775688f3de3be97016a2"
+    }
+  ],
+  "supervised_tokens_available": 223827,
+  "eligibility_counts": {
+    "verified_final_answer": 1930,
+    "incorrect_teacher_final_answer": 70,
+    "unparsed_teacher_final_answer": 47,
+    "response_too_long": 1
+  },
+  "estimated_peak_cost_usd": 1.0911582,
+  "cost_note": "Recorded peak-rate token estimate, not provider wallet consumption or invoice",
+  "halt_reason": null,
+  "excluded_development_count": 200,
+  "artifact_fingerprints": {
+    "source_plan_sha256": "ad7bff24399125f09ad9b66a5965f11f641b74a86ae0c3b6f0a15f63836cd103",
+    "candidates_sha256": "36a508f957e0d244d9ac6529370c9cc1ce36339e5e7e1e8fa47d2b0ccf9e1c94",
+    "requests_sha256": "7fb1e3121aafc04d672cd75a11e9b436978e80b29f8661a1f45a63f22d41c137",
+    "excluded_development_ids_sha256": "31a74ef8b0f877e7b544d4b9afd274d381233c25e5084af03d98a091f370a2b5"
+  },
+  "official_test_accessed": false,
+  "automatic_retries": 0,
+  "thinking_enabled": false,
+  "updated_at_utc": "2026-11-03T19:57:18.795459+00:00",
+  "interpretation": "Reference-match eligibility does not prove natural-language semantic sufficiency. The200 separately frozen development questions are never teaching requests."
+}

@@ -26,7 +26,19 @@ async function refreshResults(){
 refreshResults();setInterval(refreshResults,60000);
 async function refreshResearch(){
   try{const response=await fetch('research.json?t='+Date.now(),{cache:'no-store'});if(!response.ok)return;
-    const data=await response.json();if(data.token_matched32768){const t=data.token_matched32768;document.getElementById('controlled-panel').hidden=false;document.getElementById('controlled-image').src='figures/token-matched-accuracy.svg?t='+Date.now();document.getElementById('controlled-summary').textContent=t.completed_arms+' of '+t.planned_arms+' arms complete. '+Object.entries(t.correct).map(([name,count])=>name+': '+count+'/64').join('; ')+'. Matched controls and repeated seeds are needed before claiming a selection advantage.';}if(['completed','partial'].includes(data.matched64?.stage)){
+    const data=await response.json();
+    if(data.token_matched32768){
+      const t=data.token_matched32768;
+      document.getElementById('controlled-panel').hidden=false;
+      document.getElementById('controlled-image').src='figures/token-matched-accuracy.svg?t='+Date.now();
+      const measured=Object.entries(t.correct).map(([name,count])=>name.replace('valued','skill selected')+': '+count+'/64').join('; ');
+      const pairs=[42,43].map(seed=>({random:t.correct['random seed'+seed],selected:t.correct['valued seed'+seed]}));
+      const complete=pairs.every(pair=>Number.isInteger(pair.random)&&Number.isInteger(pair.selected));
+      const conclusion=complete?(pairs.every(pair=>pair.selected<=pair.random)?' Skill selection did not outperform random in either seed.':' Inspect the paired differences and uncertainty across seeds.'):' The matched comparison is incomplete.';
+      const baseline=t.batched_baseline?.status==='completed'?' Untouched batch8 Granite: '+t.batched_baseline.metrics.numeric_correct+'/64.':'';
+      document.getElementById('controlled-summary').textContent=t.completed_arms+' of '+t.planned_arms+' training runs complete. '+measured+'.'+conclusion+baseline+' These are adaptive development results; final-test validation remains pending.';
+    }
+    if(['completed','partial'].includes(data.matched64?.stage)){
       document.getElementById('larger-image').src='figures/matched64-accuracy.svg?t='+Date.now();
       document.getElementById('larger-figure').hidden=false;
       const counts=data.matched64.correct||{};

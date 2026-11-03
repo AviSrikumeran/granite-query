@@ -229,6 +229,59 @@ def _grid_phase(folder):
     return state,detail
 
 
+def _grid_development_gain(folder):
+    """Recheck private immutable artifacts, never public report counts or filenames.
+
+    A gain versus the zero-training batch8 control is development evidence for
+    a checkpoint. It does not establish that selection outperforms random.
+    """
+    if not (folder/'grid_manifest.json').exists():
+        return None
+    try:
+        try:
+            from . import data_efficiency_report as report
+        except ImportError:
+            import data_efficiency_report as report
+        report.control.verify(folder)
+        grid=report.read(folder/'grid_manifest.json')
+        studies=[]
+        for descriptor in grid['studies']:
+            study=report.private_child(folder,descriptor['folder'])
+            manifest=report.read(study/'manifest.json')
+            if (manifest['token_budget']!=descriptor['token_budget']
+                    or manifest['common_pool']['sha256']!=grid['common_pool_sha256']
+                    or manifest['sources']!=grid['sources']):
+                raise ValueError('New-grid common cohort differs')
+            studies.append((study,manifest))
+        study,manifest=studies[0]
+        first=report.private_child(study,manifest['jobs'][0]['folder'])
+        plan=report.read(first/'plan.json');data=report.read(first/'input.json')
+        expected={row['id']:row for row in data['development']}
+        base,base_rows=report.baseline_context(folder.parent/'student_baseline_batched64_v1',
+            expected_development_sha256=plan['development_source_sha256'],expected_ids=plan['development_ids'],
+            expected_gold={key:row['gold_answer'] for key,row in expected.items()},
+            expected_prompts={key:row['prompt'] for key,row in expected.items()})
+        if base_rows is None or base.get('status')!='completed':
+            return None
+        baseline=base['metrics']['numeric_correct'];improved=[]
+        for study,manifest in studies:
+            for job in manifest['jobs']:
+                arm_folder=report.private_child(study,job['folder'])
+                arm_plan=report.read(arm_folder/'plan.json');arm_data=report.read(arm_folder/'input.json')
+                arm_expected={row['id']:row for row in arm_data['development']}
+                if (arm_plan['development_source_sha256']!=plan['development_source_sha256']
+                        or arm_plan['development_ids']!=plan['development_ids'] or arm_expected!=expected):
+                    raise ValueError('New-grid development input differs from matched base')
+                public,rows=report.summarize_arm(study,manifest,job)
+                if rows is not None and public['metrics']['numeric_correct']>baseline:
+                    improved.append({'selector':job['selector'],'seed':job['seed'],
+                        'token_budget':manifest['token_budget'],'numeric_correct':public['metrics']['numeric_correct']})
+        return {'baseline_numeric_correct':baseline,'improved':improved}
+    except (KeyError,TypeError,ValueError,OSError,IndexError,StopIteration):
+        # An incomplete/mutated evidence bundle cannot establish an accuracy gain.
+        return None
+
+
 def _comparable_scores(result, variants):
     evaluations = result.get('evaluations', {})
     if not isinstance(evaluations, dict):
@@ -471,8 +524,18 @@ def build(workspace=None):
                 candidates.append(arm_scores[arm]['numeric_correct'])
         accuracy_improved = any(value > baseline_count for value in candidates)
 
+    grid_gain=_grid_development_gain(grid_folder)
+    if grid_gain and grid_gain['improved']:
+        accuracy_improved=True
+        measurements='; '.join(f"{row['selector']}, seed {row['seed']}, {row['token_budget']:,} tokens: {row['numeric_correct']}/64"
+                              for row in grid_gain['improved'])
+        add('New-cohort checkpoint measured a development gain',
+            measurements+f". Matched untouched batch8 Granite scored {grid_gain['baseline_numeric_correct']}/64 on the same frozen questions and inference protocol. "
+            'This is an adaptive development gain, not final-test validation or evidence that a selector beats random.',
+            'https://github.com/AviSrikumeran/granite-query/blob/main/progress/DATA_EFFICIENCY_RESULTS.md')
+
     training_evidenced = smoke.get('stage') == 'completed' or comparison.get('stage') == 'completed'
-    summary = ('At least one fine-tuned Granite checkpoint scored higher on the shared 64-question development set; robust final-test improvement is not established.'
+    summary = ('At least one fine-tuned Granite checkpoint scored higher on the shared 64-question development set. Final-test validation and a robust selection advantage remain unestablished.'
                if accuracy_improved else
                ('Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.'
                 if training_evidenced else

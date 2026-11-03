@@ -71,7 +71,7 @@ Paid work is explicit and guarded by [the supervisor runbook](granite_query/clou
 
 ## Autonomous progress and delivery
 
-The scheduled agent advances bounded stages, preserves partial artifacts and records meaningful starts, completions, failures and fixes. `supervisor.py` itself only writes a local checkpoint; it does not launch paid work. The schedule and local teacher collectors require the computer/app to remain running; detached Modal jobs persist separately.
+A bounded local watcher now advances the approved grid through the reviewed study_runner, preserving call identities and budget gates. It starts new ticks for at most two hours per invocation, waiting45seconds between ticks and stops on actionable failures. The scheduled agent checks every five minutes to publish progress and handle later stages, preserving meaningful starts, completions, failures and fixes. `supervisor.py` itself only writes a local checkpoint; it does not launch paid work. The schedule and local teacher collectors require the computer/app to remain running; detached Modal jobs persist separately.
 
 The public journal is append-only. Sanitized allowlisted snapshots are synchronized through GitHub, with `docs/status.json` last. The dashboard checks published snapshots every minute; publishing adds delay. Raw datasets, model responses, credentials, account details, runtime logs and weights are excluded. Public code and aggregate evidence support inspection of the method; exact stochastic-run replay requires the preserved private artifacts.
 

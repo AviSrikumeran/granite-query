@@ -48,6 +48,12 @@
       "actual_source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/HF_SOURCE_INVENTORY.json",
       "status": "bounded_samples_imported",
       "used_for": "40 repositories sampled, with 312 complete training rows across 37 declared families. These samples are not entire datasets or evidence of training across all domains."
+    },
+    {
+      "name": "New human-reference GSM training expansion",
+      "actual_source": "https://github.com/openai/grade-school-math/tree/3101c7d5072418e28b9008a6636bde82a006892c",
+      "status": "teacher_pool_completed",
+      "used_for": "2,048 new GSM training questions and 200 separate training-split development questions are frozen. 6,053 questions passed exact arithmetic-annotation/final-link checks after 994 prior-question or detectable-ancestry exclusions. These checks do not prove semantic correctness; TemplateGSM ancestry uses a conservative proxy and OpenMath lineage is incomplete. No official test questions were used. Data preparation is separate from teacher generation and Granite training. Current teacher receipts: 2,048/2,048. These artifacts do not themselves evidence Granite training or accuracy improvement."
     }
   ],
   "model": {
@@ -107,14 +113,34 @@
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md"
     },
     {
+      "title": "Untouched Granite batch8 control completed",
+      "detail": "Evaluation-only plan: untouched pinned Granite, no adapter, the same 64 questions, non-thinking 512-token generation and batch8 evaluation. Completed 58/64 numeric answers, with zero actual training tokens and updates. This matched-batch control is separate from the earlier serial58/64 result.",
+      "evidence_url": "https://modal.com/apps/avisrikumeran/main/ap-8sDpW3oOzIOpKk8VAOWrhj"
+    },
+    {
       "title": "New multi-source DeepSeek teaching pool completed",
       "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.",
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json"
     },
     {
+      "title": "New human-reference teaching and development split frozen",
+      "detail": "2,048 new GSM training questions and 200 separate training-split development questions are frozen. 6,053 questions passed exact arithmetic-annotation/final-link checks after 994 prior-question or detectable-ancestry exclusions. These checks do not prove semantic correctness; TemplateGSM ancestry uses a conservative proxy and OpenMath lineage is incomplete. No official test questions were used. Data preparation is separate from teacher generation and Granite training.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_MATH_COHORT.json"
+    },
+    {
       "title": "First equal-token random versus skill experiment completed",
       "detail": "seed 42: random 55/64, skill and diversity 53/64; seed 43: random 57/64, skill and diversity 56/64. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. The skill heuristic did not beat random in either seed. Targeted gradient selection and the new source cohort are separate experiments.",
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md"
+    },
+    {
+      "title": "Student-gradient feature collection completed",
+      "detail": "Separate continuation of the same frozen feature protocol. 3,130 projected features are saved for 1,541 candidates and 24 held-out selection targets. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NEXT_VALUATION_METHOD.md"
+    },
+    {
+      "title": "Human-reference DeepSeek teaching pool completed",
+      "detail": "2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_MATH_TEACHER.json"
     }
   ],
   "current_work": [
@@ -134,6 +160,11 @@
       "detail": "All required outputs on the 64 monitoring questions are saved. Its purpose is to measure whether more verified data helps; improvement is not guaranteed."
     },
     {
+      "title": "Untouched Granite control with matched batch8 evaluation",
+      "status": "completed",
+      "detail": "Evaluation-only plan: untouched pinned Granite, no adapter, the same 64 questions, non-thinking 512-token generation and batch8 evaluation. Completed 58/64 numeric answers, with zero actual training tokens and updates. This matched-batch control is separate from the earlier serial58/64 result."
+    },
+    {
       "title": "New verified teacher pool for token-matched controls",
       "status": "completed",
       "detail": "512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment."
@@ -142,6 +173,11 @@
       "title": "Verify the new multi-source arithmetic teaching pool",
       "status": "completed",
       "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort."
+    },
+    {
+      "title": "Future human-reference arithmetic cohort preparation",
+      "status": "completed",
+      "detail": "2,048 new GSM training questions and 200 separate training-split development questions are frozen. 6,053 questions passed exact arithmetic-annotation/final-link checks after 994 prior-question or detectable-ancestry exclusions. These checks do not prove semantic correctness; TemplateGSM ancestry uses a conservative proxy and OpenMath lineage is incomplete. No official test questions were used. Data preparation is separate from teacher generation and Granite training."
     },
     {
       "title": "Equal-token random training, seed 42",
@@ -170,8 +206,18 @@
     },
     {
       "title": "Model-gradient data selection on the new math cohort",
+      "status": "completed",
+      "detail": "Separate continuation of the same frozen feature protocol. 3,130 projected features are saved for 1,541 candidates and 24 held-out selection targets. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain."
+    },
+    {
+      "title": "New math-cohort data-efficiency training grid",
       "status": "running",
-      "detail": "A confirmed Modal call is collecting candidate gradients; 208/3,130 features reported saved. 1,541 new-cohort candidates and 24 separate selection-development targets; 2 planned warmup checkpoints. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain."
+      "detail": "18/18 arm plans prepared; 2 completed, 1 running, 15 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for gradient, seed 42, 32,768 supervised tokens. No automatic new paid launch is performed by this report."
+    },
+    {
+      "title": "Human-reference DeepSeek teaching chunks",
+      "status": "completed",
+      "detail": "2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved."
     },
     {
       "title": "Capped Granite API trial",
@@ -188,5 +234,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T19:25:05.869506+00:00"
+  "updated_at_utc": "2026-11-03T20:34:41.128333+00:00"
 }

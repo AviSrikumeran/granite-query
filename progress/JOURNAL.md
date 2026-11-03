@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Model-gradient data selection on the new math cohort
+Current stage: New math-cohort data-efficiency training grid
 
-Next: A confirmed Modal call is collecting candidate gradients; 208/3,130 features reported saved. 1,541 new-cohort candidates and 24 separate selection-development targets; 2 planned warmup checkpoints. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.
+Next: 18/18 arm plans prepared; 2 completed, 1 running, 15 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. Poll the existing call for gradient, seed 42, 32,768 supervised tokens. No automatic new paid launch is performed by this report.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -373,3 +373,147 @@ Poll the saved gradient_feature_control.py call; preserve checkpointed features 
 ## 2026-11-03T19:25:05.663784+00:00 | completed | Reference audit separates label agreement from quality
 
 Checked all600 SVAMP source equations: one contradicts its reference and was already excluded. All24 held-out selection targets passed arithmetic, prompt projection, source hash and teacher-match checks. Synthetic reference agreement still does not establish correct reasoning or an unambiguous problem.
+
+## 2026-11-03T19:31:26.782659+00:00 | resolved | Prepared serving image uses valid build order
+
+The feature launch exposed a shared Modal image-order constraint. Corrected the same issue in the prepared CPU/GPU API images by keeping local source and manifest mounts last. No endpoint was deployed or initialized.
+
+## 2026-11-03T19:34:43.558649+00:00 | in_progress | Human-reference teacher chunk started
+
+Chunk1/4: at most512 immutable requests, four workers, nonthinking V4/1024tokens, no retries. Separate200-question development holdout withheld. Fresh funding and own reservation checked.
+
+## 2026-11-03T19:38:03.421611+00:00 | planned | Untouched Granite baseline with matching batching prepared
+
+Prepared the identical64 monitoring questions and concise prompt with batch8/nonthinking512 output, matching new training arms. Earlier baseline58/64 used serial generation; this control will check any numerical batching effect. No training, GPU launch or reservation was performed by preparation.
+
+## 2026-11-03T19:38:26.411030+00:00 | completed | Human-reference teacher chunk completed
+
+Chunk1/4 ended with 512/2048 total receipts and 486 eligible responses. No next chunk launched; a new chunk requires its own fresh funding check and reservation.
+
+## 2026-11-03T19:39:04.109048+00:00 | decision | Gradient calibration saved work and stopped the first call
+
+The first warmup checkpoint completed all1565 features; the second saved16 more, for1581/3130. The call stopped after1001seconds when its full-call forecast exceeded the1550-second collection budget. This is a partial result, not complete gradient ranking. Review an identical-protocol continuation using committed snapshots/features rather than recomputing them.
+
+## 2026-11-03T19:39:31.209150+00:00 | in_progress | Human-reference teacher chunk started
+
+Chunk2/4: at most512 immutable requests, four workers, nonthinking V4/1024tokens, no retries. Separate200-question development holdout withheld. Fresh funding and own reservation checked.
+
+## 2026-11-03T19:40:09.726363+00:00 | in_progress | Research improvement cycle
+
+Inspect the terminal feature result and preserved artifacts. Calibration refusal requires a smaller new frozen cohort; other deterministic failures require local fixes before separately recorded recovery. Monitor the existing separately funded human-reference teacher chunk; do not overlap collectors. Each later512-request chunk requires its own fresh funding check and reservation.
+
+## 2026-11-03T19:41:03.357215+00:00 | in_progress | Matching batched original-Granite control launched
+
+One A100 is evaluating the untouched pinned model on the same64 monitoring questions with the exact concise prompt, batch8 and nonthinking512 settings used by new adapters. It performs no training or LoRA load. This checks numerical batching differences from the earlier serial58/64 baseline; the official test remains untouched.
+
+## 2026-11-03T19:43:10.506322+00:00 | completed | Human-reference teacher chunk completed
+
+Chunk2/4 ended with 1024/2048 total receipts and 964 eligible responses. No next chunk launched; a new chunk requires its own fresh funding check and reservation.
+
+## 2026-11-03T19:43:22.792126+00:00 | completed | Equal-token evaluation_only arm completed
+
+Completed 0 supervised tokens and 0 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use.
+
+## 2026-11-03T19:45:31.238759+00:00 | completed | Matched batched original-Granite control measured
+
+Untouched pinned Granite also scored58/64 with batch8, the same concise prompt and nonthinking512 settings as new adapters. There were2truncated outputs and0training tokens/updates. The observed accuracy matches its earlier serial score; batched timing remains a separate measurement.
+
+## 2026-11-03T19:45:31.240038+00:00 | decision | Verified partial gradient work may continue without recomputation
+
+Audited all1581 saved features and both adapter/optimizer snapshots. The exact1549 remaining features forecast886.55seconds with startup/I/O margins, within1550seconds. A new call will retain the same cohort, protocol, masks and compute-source hashes; initial infeasible16-sample calibration is still not blindly retried.
+
+## 2026-11-03T19:45:35.942637+00:00 | in_progress | Human-reference teacher chunk started
+
+Chunk3/4: at most512 immutable requests, four workers, nonthinking V4/1024tokens, no retries. Separate200-question development holdout withheld. Fresh funding and own reservation checked.
+
+## 2026-11-03T19:47:03.287822+00:00 | in_progress | Remaining gradient features resumed from verified snapshots
+
+The new bounded call restores the final warmup checkpoint and1581 saved features, then computes only1549 missing features. The cohort, two checkpoints, CountSketch map, teacher responses and compute-source hashes are unchanged. A separate3-dollar allowance and global GPU clearance were checked; teacher expansion runs separately.
+
+## 2026-11-03T19:47:03.437977+00:00 | in_progress | Research improvement cycle
+
+Poll the saved gradient_feature_control.py call; preserve checkpointed features and finish source-reference auditing. Never duplicate the call. Monitor the existing separately funded human-reference teacher chunk; do not overlap collectors. Each later512-request chunk requires its own fresh funding check and reservation.
+
+## 2026-11-03T19:49:15.735708+00:00 | completed | Human-reference teacher chunk completed
+
+Chunk3/4 ended with 1536/2048 total receipts and 1453 eligible responses. No next chunk launched; a new chunk requires its own fresh funding check and reservation.
+
+## 2026-11-03T19:53:38.259381+00:00 | in_progress | Human-reference teacher chunk started
+
+Chunk4/4: at most512 immutable requests, four workers, nonthinking V4/1024tokens, no retries. Separate200-question development holdout withheld. Fresh funding and own reservation checked.
+
+## 2026-11-03T19:56:34.450434+00:00 | in_progress | Gradient continuation advanced past restoration
+
+The saved checkpoint and feature trees were restored without recomputing the1581 verified features. The worker has reported1661/3130 total features, including80 newly completed records. Restoration takes material GPU time and is counted in selector overhead; a future read-only lineage cache is being implemented separately, without changing this active worker.
+
+## 2026-11-03T19:56:34.457436+00:00 | completed | Research pipeline local checks pass
+
+All166 offline checks passed, including source attribution, reference arithmetic, immutable controls, late-calibration recovery, baseline matching, aggregate reports and sealed final-evaluation executors. These checks used fixtures and did not open official test data or launch paid work. The public API remains undeployed.
+
+## 2026-11-03T19:57:18.872393+00:00 | completed | Human-reference teacher chunk completed
+
+Chunk4/4 ended with 2048/2048 total receipts and 1930 eligible responses. No next chunk launched; a new chunk requires its own fresh funding check and reservation.
+
+## 2026-11-03T20:01:20.133168+00:00 | decision | Expanded research supervision now checks every five minutes
+
+Updated the existing active heartbeat with the current paid-call IDs, completed controls, human-reference expansion, verified continuation rules and next three-selector grid. Five-minute checks reduce gaps between bounded jobs; unchanged checks stay quiet, with milestone/failure and approximately hourly active reports. The project does not stop after its first control block.
+
+## 2026-11-03T20:04:52.394556+00:00 | completed | Larger human-reference teacher pool finalized
+
+All 2048 original attempts are saved:1930 passed reference-match/completion checks, supplying223827 answer tokens, with0API failures and0truncations. The separate200 development questions were never teaching payloads. This pool enters a later versioned study; current1541 gradient candidates remain unchanged.
+
+## 2026-11-03T20:04:52.404061+00:00 | resolved | Prepared API nominal output cap matches evaluation
+
+Raised the undeployed API output cap/default to512tokens while preserving20request permits,24hour expiry,90second execution,60second startup,one L4 and the same1dollar allowance. Context and rejection boundaries were checked. Cold single-request/time-bounded serving still requires its own measurement; no endpoint was deployed.
+
+## 2026-11-03T20:04:52.412061+00:00 | completed | Expanded research source checks pass
+
+All174 offline checks passed after adding the immutable artifact-cache prototype and API512 boundary/resource checks. Cache integration and public serving remain pending; the active gradient worker was not changed and official test data were not accessed.
+
+## 2026-11-03T20:14:47.070434+00:00 | completed | All projected gradient features completed and scored
+
+Verified the complete63.6MB private export:1541 candidates and24 held-out selection-development targets at two checkpoints,3130 total features. Scored deterministic CountSketch alignment with audited source hashes. Both attempts and restoration time are retained as selector overhead; no accuracy gain is implied by these features.
+
+## 2026-11-03T20:14:47.079430+00:00 | decision | Three-selector learning curve frozen before outcomes
+
+Prepared18 immutable arms across32768,65536 and131072 answer tokens, seeds42/43, random/skill/gradient, using the same1541 candidates and64 monitoring questions. First32k six-arm block reviewed; higher phases need fresh funding and5dollars remain protected.131072 is a deferred near-all-data reference, not evidence of strong selection contrast.
+
+## 2026-11-03T20:15:45.866137+00:00 | in_progress | Research improvement cycle
+
+Download and hash-check the private feature export, audit scores, then freeze the common-pool random/skill/gradient token-budget grid with data_efficiency_control.py. Reserve and launch only one reviewed arm at a time.
+
+## 2026-11-03T20:17:04.096983+00:00 | in_progress | Multi-source controlled Granite training started
+
+The first32k random-control arm is running on one A100 from the untouched pinned base. It uses the new1541-candidate source pool, exact32768 answer tokens/32updates and the same64 monitoring questions as the queued skill/gradient arms. The six-arm first block and larger prospective levels were frozen before outcomes; one job at a time and5Modal dollars remain protected.
+
+## 2026-11-03T20:17:04.231724+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed42_random call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T20:19:58.151804+00:00 | completed | Study random seed 42 completed
+
+Saved immutable 32768-token development artifacts. Exact selector identity is random; final test remains sealed.
+
+## 2026-11-03T20:20:20.519260+00:00 | in_progress | Study skill seed 42 launched
+
+One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T20:20:20.681303+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed42_skill call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.
+
+## 2026-11-03T20:30:27.078649+00:00 | in_progress | Bounded reviewed study watcher started
+
+A local bounded watcher advances only the approved grid through the reviewed one-tick runner. Paid gates and global GPU/budget locks remain in that runner. Local reports regenerate on meaningful changes; public synchronization remains scheduled separately.
+
+## 2026-11-03T20:30:28.132587+00:00 | completed | Study skill seed 42 completed
+
+Saved immutable 32768-token development artifacts. Exact selector identity is skill; final test remains sealed.
+
+## 2026-11-03T20:30:52.283047+00:00 | in_progress | Study gradient seed 42 launched
+
+One separately funded 32768-token arm launched from its reviewed frozen plan; protected funds retained. No test, teacher or serving work was launched.
+
+## 2026-11-03T20:30:52.387177+00:00 | in_progress | Research improvement cycle
+
+Poll the saved multi-source data_efficiency_math_v1_tokens32768_seed42_gradient call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.

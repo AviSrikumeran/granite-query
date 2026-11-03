@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "run_id": "human_math_cohort2048_dev200_v1",
+  "source_rows": 7473,
+  "actual_valid_capacity": 6053,
+  "required_capacity": 2248,
+  "eligibility_counts": {
+    "prior_question_or_detectable_ancestry": 994,
+    "exact_annotations_and_final": 6053,
+    "no_arithmetic_annotations": 87,
+    "final_not_last_annotation": 337,
+    "unsupported_annotation_arithmetic": 2
+  },
+  "rounding_diagnostics": {},
+  "ancestry_exclusions": {
+    "direct_gsm_ids": 864,
+    "exact_normalized_gsm_questions": 873,
+    "conservative_template_id_ancestry": 120,
+    "explicit_gsm_parent_ids": 0,
+    "numeric_masked_lexical_near_ancestry": 875,
+    "combined_unique_gsm_exclusions": 994,
+    "openmath_records_without_explicit_parent_id": 606,
+    "lineage_limitations": "Template ID is a conservative numeric proxy, not independently proven source-row mapping. OpenMath parent IDs are absent; exact/near lexical checks detect only some ancestry. No complete decontamination claim."
+  },
+  "stage": "prepared_unpaid",
+  "actual_teaching_prompts": 2048,
+  "actual_development_holdout": 200,
+  "new_teacher_calls": 0,
+  "new_gpu_jobs": 0,
+  "new_reservations": 0,
+  "official_test_accessed": false,
+  "updated_at_utc": "2026-11-03T19:29:35.674008+00:00",
+  "chunks": [
+    {
+      "index": 0,
+      "request_count": 512,
+      "conservative_peak_bound_usd": 3.42786048,
+      "future_reservation_required_usd": 4,
+      "reserved_now": false
+    },
+    {
+      "index": 1,
+      "request_count": 512,
+      "conservative_peak_bound_usd": 3.42786048,
+      "future_reservation_required_usd": 4,
+      "reserved_now": false
+    },
+    {
+      "index": 2,
+      "request_count": 512,
+      "conservative_peak_bound_usd": 3.42786048,
+      "future_reservation_required_usd": 4,
+      "reserved_now": false
+    },
+    {
+      "index": 3,
+      "request_count": 512,
+      "conservative_peak_bound_usd": 3.42786048,
+      "future_reservation_required_usd": 4,
+      "reserved_now": false
+    }
+  ],
+  "verification_scope": "Every annotation is exact under bounded Fraction arithmetic and the last annotation equals final reference. This does not prove semantic sufficiency or every natural-language statement.",
+  "holdout_policy": "Training-split development only, frozen separately before any teaching; never pass these200 records to a training selector without a separately declared protocol change",
+  "interpretation": "A future human-reference teaching cohort and separate training-split development holdout, not newly trained Granite results. Current gradient inputs and frozen pools remain unchanged."
+}

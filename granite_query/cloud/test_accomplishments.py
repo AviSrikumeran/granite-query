@@ -1,3 +1,4 @@
+import copy
 import json
 from pathlib import Path
 import tempfile
@@ -226,6 +227,95 @@ class AccomplishmentTests(unittest.TestCase):
         self.assertEqual(teacher()['status'],'blocked')
         self.save('progress/HUMAN_MATH_TEACHER.json',dict(summary,stage='completed',completed=2048))
         self.assertEqual(teacher()['status'],'completed')
+
+
+class NewGridGainTests(unittest.TestCase):
+    """Synthetic private plans/results exercise the real grid and base validators."""
+    tearDown=AccomplishmentTests.tearDown
+
+    def setUp(self):
+        AccomplishmentTests.setUp(self)
+        import data_efficiency_control as control
+        import data_efficiency_report as report
+        from test_data_efficiency_control import fixture,write
+        self.control,self.report,self.write=control,report,write
+        self.runs.mkdir(parents=True)
+        self.grid=self.runs/'data_efficiency_math_v1'
+        control.prepare_grid(*fixture(self.runs),self.grid,token_budgets=(1024,))
+        descriptor=control.load(self.grid/'grid_manifest.json')['studies'][0]
+        self.study=self.grid/descriptor['folder']
+        self.manifest=control.load(self.study/'manifest.json')
+        first=self.study/self.manifest['jobs'][0]['folder']
+        first_plan=control.load(first/'plan.json')
+        data={'development':control.load(first/'input.json')['development']}
+        base=self.runs/'student_baseline_batched64_v1';base.mkdir()
+        write(base/'input.json',data)
+        plan=dict(mode='evaluate_saved',model=control.skill.MODEL,revision=control.skill.REVISION,
+            seed=42,checkpoint_name='baseline',context_limit=2048,max_new_tokens=512,enable_thinking=False,
+            do_sample=False,evaluation_batch_size=8,evaluation_kind='development',training_performed=False,adapter_from=None,
+            development_ids=first_plan['development_ids'],development_source_sha256=first_plan['development_source_sha256'],
+            input_sha256=report.file_hash(base/'input.json'),source_code_sha256={
+                name:report.file_hash(report.ROOT/name) for name in ('modal_valuation.py','valuation_contract.py')})
+        plan=dict(plan,protocol_hash=control.digest(plan),run_id=base.name)
+        write(base/'plan.json',plan)
+        self.base_result=dict(stage='completed',arm='evaluation_only',plan=plan,
+            supervised_tokens=0,optimizer_updates=0,held_out_test_used=False,
+            evaluations={'baseline':self.rows(data['development'],58)})
+        self.base=base;write(base/'result.json',self.base_result)
+
+    @staticmethod
+    def rows(development,correct):
+        return [dict(id=row['id'],response='#### '+('7' if i<correct else '8'),gold_answer='7',
+            elapsed_seconds=.1,generated_tokens=2,truncated=False) for i,row in enumerate(development)]
+
+    def complete(self,selector='random',correct=59):
+        job=next(j for j in self.manifest['jobs'] if j['seed']==42 and j['selector']==selector)
+        folder=self.study/job['folder'];plan=self.control.load(folder/'plan.json')
+        data=self.control.load(folder/'input.json')
+        result=dict(stage='completed',arm=self.control.SLOT[selector],plan=plan,
+            supervised_tokens=1024,optimizer_updates=1,held_out_test_used=False,
+            evaluations={selector:self.rows(data['development'],correct)})
+        self.write(folder/'result.json',result)
+        return folder,result
+
+    def test_new_grid_gain_is_measured_against_validated_matched_base(self):
+        for correct in (57,58,59):
+            self.complete(correct=correct)
+            public=accomplishments.build(self.root)
+            self.assertEqual(public['accuracy_improved'],correct>58)
+            if correct>58:
+                item=next(r for r in public['completed'] if r['title']=='New-cohort checkpoint measured a development gain')
+                self.assertIn('random, seed 42, 1,024 tokens: 59/64',item['detail'])
+                self.assertIn('not final-test validation or evidence that a selector beats random',item['detail'])
+                self.assertIn('Robust or final-test evidence that the new selection method outperforms random.',public['not_done'])
+
+    def test_pending_wrong_tokens_questions_or_checkpoint_cannot_claim_gain(self):
+        self.assertFalse(accomplishments.build(self.root)['accuracy_improved'])
+        folder,valid=self.complete(selector='gradient')
+        for change in ('pending','tokens','questions','checkpoint','actual_plan'):
+            result=copy.deepcopy(valid)
+            if change=='pending':result['stage']='running'
+            elif change=='tokens':result['supervised_tokens']=1023
+            elif change=='questions':result['evaluations']['gradient'][0]['id']='other-question'
+            elif change=='checkpoint':result['evaluations']={'valued':result['evaluations']['gradient']}
+            else:result['plan']['max_new_tokens']=4096
+            self.write(folder/'result.json',result)
+            with self.subTest(change=change):
+                self.assertFalse(accomplishments.build(self.root)['accuracy_improved'])
+
+    def test_invalid_base_or_mutated_frozen_input_cannot_claim_gain(self):
+        folder,_=self.complete()
+        for change in ('training','source','questions'):
+            result=copy.deepcopy(self.base_result)
+            if change=='training':result['optimizer_updates']=1
+            elif change=='source':result['plan']['source_code_sha256']['modal_valuation.py']='0'*64
+            else:result['evaluations']['baseline'][0]['id']='other-question'
+            self.write(self.base/'result.json',result)
+            with self.subTest(change=change):
+                self.assertFalse(accomplishments.build(self.root)['accuracy_improved'])
+        self.write(self.base/'result.json',self.base_result)
+        (folder/'input.json').write_text((folder/'input.json').read_text()+' ')
+        self.assertFalse(accomplishments.build(self.root)['accuracy_improved'])
 
 
 if __name__ == '__main__':

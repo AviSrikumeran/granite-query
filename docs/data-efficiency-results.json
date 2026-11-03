@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-03T20:34:44.907169+00:00",
+  "title": "New-cohort random, skill and gradient data-efficiency study",
+  "status": "partial",
+  "study_id": "data_efficiency_math_v1",
+  "completed_arms": 2,
+  "planned_arms": 18,
+  "official_test_used": false,
+  "grid_manifest_sha256": "1fbc41e3c6b0b87a96e1d9238a80746f038a0aaa0e0ffcc90ec7a76c52ebe10c",
+  "cohort": {
+    "common_pool_sha256": "1a84ce5f0befea1be461594d95a73100f1019e469405daa923d3eda34c88ae64",
+    "available_supervised_tokens": 149203,
+    "development_source_sha256": "a190292a79ebc7a4ce23fb54d698871adc76c7680af4ecb2c2de602d2bafb1af",
+    "development_count": 64,
+    "selectors": [
+      "random",
+      "skill",
+      "gradient"
+    ],
+    "seeds": [
+      42,
+      43
+    ]
+  },
+  "budgets": [
+    {
+      "token_budget": 32768,
+      "budget_role": "selection_contrast",
+      "fraction_of_available_supervised_tokens": 0.21962024892260879,
+      "completed_arms": 2,
+      "planned_arms": 6,
+      "seeds": [
+        {
+          "seed": 42,
+          "arms": {
+            "random": {
+              "selector": "random",
+              "seed": 42,
+              "token_budget": 32768,
+              "status": "completed",
+              "checkpoint_name": "random",
+              "worker_arm_slot": "random",
+              "metrics": {
+                "count": 64,
+                "numeric_correct": 57,
+                "strict_format_correct": 57,
+                "truncated": 0,
+                "latency_seconds_total": 110.017251773,
+                "generated_tokens": 7006,
+                "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+              },
+              "accuracy_percent": 89.0625,
+              "question_wilson_95_interval_percent": [
+                79.10135867310387,
+                94.5998866555832
+              ],
+              "actual_supervised_tokens": 32768,
+              "actual_optimizer_updates": 32,
+              "exposure": {
+                "examples": 340,
+                "partial_supervised_tails": 1,
+                "input_tokens_once": 65879,
+                "input_tokens_forwarded": 72309,
+                "source_counts": {
+                  "nvidia/OpenMathInstruct-2": 113,
+                  "math-ai/TemplateGSM": 117,
+                  "ChilleD/SVAMP": 110
+                },
+                "reference_origin_counts": {
+                  "synthetic_majority_vote_answer": 113,
+                  "procedurally_generated_result": 117,
+                  "human_dataset_answer": 110
+                },
+                "supervised_tokens_by_source": {
+                  "nvidia/OpenMathInstruct-2": 12851,
+                  "math-ai/TemplateGSM": 12789,
+                  "ChilleD/SVAMP": 7128
+                }
+              },
+              "worker_elapsed_seconds": 262.636884117,
+              "detail": "Completed matched development evaluation; question uncertainty does not measure training-seed uncertainty."
+            },
+            "skill": {
+              "selector": "skill",
+              "seed": 42,
+              "token_budget": 32768,
+              "status": "completed",
+              "checkpoint_name": "skill",
+              "worker_arm_slot": "valued",
+              "metrics": {
+                "count": 64,
+                "numeric_correct": 56,
+                "strict_format_correct": 56,
+                "truncated": 0,
+                "latency_seconds_total": 104.81534819499998,
+                "generated_tokens": 6584,
+                "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+              },
+              "accuracy_percent": 87.5,
+              "question_wilson_95_interval_percent": [
+                77.22543817887005,
+                93.52775733666955
+              ],
+              "actual_supervised_tokens": 32768,
+              "actual_optimizer_updates": 32,
+              "exposure": {
+                "examples": 467,
+                "partial_supervised_tails": 1,
+                "input_tokens_once": 75711,
+                "input_tokens_forwarded": 81230,
+                "source_counts": {
+                  "ChilleD/SVAMP": 175,
+                  "nvidia/OpenMathInstruct-2": 205,
+                  "math-ai/TemplateGSM": 87
+                },
+                "reference_origin_counts": {
+                  "human_dataset_answer": 175,
+                  "synthetic_majority_vote_answer": 205,
+                  "procedurally_generated_result": 87
+                },
+                "supervised_tokens_by_source": {
+                  "ChilleD/SVAMP": 7999,
+                  "nvidia/OpenMathInstruct-2": 17325,
+                  "math-ai/TemplateGSM": 7444
+                }
+              },
+              "worker_elapsed_seconds": 271.61385917200005,
+              "detail": "Completed matched development evaluation; question uncertainty does not measure training-seed uncertainty."
+            },
+            "gradient": {
+              "selector": "gradient",
+              "seed": 42,
+              "token_budget": 32768,
+              "status": "running",
+              "checkpoint_name": "gradient",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            }
+          },
+          "comparisons": {
+            "skill_vs_random": {
+              "count": 64,
+              "corrected": 3,
+              "regressed": 4,
+              "difference_percentage_points": -1.5625,
+              "paired_bootstrap_95_interval_pp": [
+                -9.375,
+                6.25
+              ],
+              "mcnemar_exact_two_sided_p": 1.0,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            }
+          },
+          "versus_batched_base": {
+            "random": {
+              "count": 64,
+              "corrected": 4,
+              "regressed": 5,
+              "difference_percentage_points": -1.5625,
+              "paired_bootstrap_95_interval_pp": [
+                -10.9375,
+                7.8125
+              ],
+              "mcnemar_exact_two_sided_p": 1.0,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            },
+            "skill": {
+              "count": 64,
+              "corrected": 5,
+              "regressed": 7,
+              "difference_percentage_points": -3.125,
+              "paired_bootstrap_95_interval_pp": [
+                -14.0625,
+                7.8125
+              ],
+              "mcnemar_exact_two_sided_p": 0.7744140625,
+              "bootstrap_seed": 20261103,
+              "bootstrap_resamples": 20000,
+              "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "arms": {
+            "random": {
+              "selector": "random",
+              "seed": 43,
+              "token_budget": 32768,
+              "status": "prepared",
+              "checkpoint_name": "random",
+              "worker_arm_slot": "random",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "skill": {
+              "selector": "skill",
+              "seed": 43,
+              "token_budget": 32768,
+              "status": "prepared",
+              "checkpoint_name": "skill",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "gradient": {
+              "selector": "gradient",
+              "seed": 43,
+              "token_budget": 32768,
+              "status": "prepared",
+              "checkpoint_name": "gradient",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            }
+          },
+          "comparisons": {},
+          "versus_batched_base": {}
+        }
+      ],
+      "seed_variation": {
+        "complete_seed_triples": 0,
+        "planned_seeds": 2,
+        "interpretation": "Two seeds support a descriptive sensitivity check, not a precise estimate of training-seed uncertainty."
+      }
+    },
+    {
+      "token_budget": 65536,
+      "budget_role": "selection_contrast",
+      "fraction_of_available_supervised_tokens": 0.43924049784521757,
+      "completed_arms": 0,
+      "planned_arms": 6,
+      "seeds": [
+        {
+          "seed": 42,
+          "arms": {
+            "random": {
+              "selector": "random",
+              "seed": 42,
+              "token_budget": 65536,
+              "status": "prepared",
+              "checkpoint_name": "random",
+              "worker_arm_slot": "random",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "skill": {
+              "selector": "skill",
+              "seed": 42,
+              "token_budget": 65536,
+              "status": "prepared",
+              "checkpoint_name": "skill",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "gradient": {
+              "selector": "gradient",
+              "seed": 42,
+              "token_budget": 65536,
+              "status": "prepared",
+              "checkpoint_name": "gradient",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            }
+          },
+          "comparisons": {},
+          "versus_batched_base": {}
+        },
+        {
+          "seed": 43,
+          "arms": {
+            "random": {
+              "selector": "random",
+              "seed": 43,
+              "token_budget": 65536,
+              "status": "prepared",
+              "checkpoint_name": "random",
+              "worker_arm_slot": "random",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "skill": {
+              "selector": "skill",
+              "seed": 43,
+              "token_budget": 65536,
+              "status": "prepared",
+              "checkpoint_name": "skill",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "gradient": {
+              "selector": "gradient",
+              "seed": 43,
+              "token_budget": 65536,
+              "status": "prepared",
+              "checkpoint_name": "gradient",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            }
+          },
+          "comparisons": {},
+          "versus_batched_base": {}
+        }
+      ],
+      "seed_variation": {
+        "complete_seed_triples": 0,
+        "planned_seeds": 2,
+        "interpretation": "Two seeds support a descriptive sensitivity check, not a precise estimate of training-seed uncertainty."
+      }
+    },
+    {
+      "token_budget": 131072,
+      "budget_role": "near_all_data_reference",
+      "fraction_of_available_supervised_tokens": 0.8784809956904351,
+      "completed_arms": 0,
+      "planned_arms": 6,
+      "seeds": [
+        {
+          "seed": 42,
+          "arms": {
+            "random": {
+              "selector": "random",
+              "seed": 42,
+              "token_budget": 131072,
+              "status": "prepared",
+              "checkpoint_name": "random",
+              "worker_arm_slot": "random",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "skill": {
+              "selector": "skill",
+              "seed": 42,
+              "token_budget": 131072,
+              "status": "prepared",
+              "checkpoint_name": "skill",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "gradient": {
+              "selector": "gradient",
+              "seed": 42,
+              "token_budget": 131072,
+              "status": "prepared",
+              "checkpoint_name": "gradient",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            }
+          },
+          "comparisons": {},
+          "versus_batched_base": {}
+        },
+        {
+          "seed": 43,
+          "arms": {
+            "random": {
+              "selector": "random",
+              "seed": 43,
+              "token_budget": 131072,
+              "status": "prepared",
+              "checkpoint_name": "random",
+              "worker_arm_slot": "random",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "skill": {
+              "selector": "skill",
+              "seed": 43,
+              "token_budget": 131072,
+              "status": "prepared",
+              "checkpoint_name": "skill",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            },
+            "gradient": {
+              "selector": "gradient",
+              "seed": 43,
+              "token_budget": 131072,
+              "status": "prepared",
+              "checkpoint_name": "gradient",
+              "worker_arm_slot": "valued",
+              "detail": "No complete matched result is available; no accuracy is assigned."
+            }
+          },
+          "comparisons": {},
+          "versus_batched_base": {}
+        }
+      ],
+      "seed_variation": {
+        "complete_seed_triples": 0,
+        "planned_seeds": 2,
+        "interpretation": "Two seeds support a descriptive sensitivity check, not a precise estimate of training-seed uncertainty."
+      }
+    }
+  ],
+  "points": [
+    {
+      "seed": 42,
+      "selector": "random",
+      "token_budget": 32768,
+      "accuracy_percent": 89.0625,
+      "question_wilson_95_interval_percent": [
+        79.10135867310387,
+        94.5998866555832
+      ],
+      "actual_supervised_tokens": 32768,
+      "actual_optimizer_updates": 32,
+      "numeric_correct": 57,
+      "count": 64
+    },
+    {
+      "seed": 42,
+      "selector": "skill",
+      "token_budget": 32768,
+      "accuracy_percent": 87.5,
+      "question_wilson_95_interval_percent": [
+        77.22543817887005,
+        93.52775733666955
+      ],
+      "actual_supervised_tokens": 32768,
+      "actual_optimizer_updates": 32,
+      "numeric_correct": 56,
+      "count": 64
+    }
+  ],
+  "selector_overhead": {
+    "method": "less-inspired-countsketch-v1",
+    "feature_stage": "completed",
+    "attempts": [
+      {
+        "run_id": "gradient_features_math_v1",
+        "stage": "calibration_refused",
+        "elapsed_seconds": 1001.047,
+        "timing_basis": "Observed worker duration; excludes container startup and may be a lower bound for failed/partial attempts.",
+        "confirmed_terminal": true
+      },
+      {
+        "run_id": "gradient_features_math_resume1",
+        "stage": "completed",
+        "elapsed_seconds": 1435.461,
+        "timing_basis": "Observed worker duration; excludes container startup and may be a lower bound for failed/partial attempts.",
+        "confirmed_terminal": true
+      }
+    ],
+    "attempt_count": 2,
+    "prior_incomplete_attempts": [
+      {
+        "run_id": "gradient_features_math_v1",
+        "stage": "calibration_refused",
+        "elapsed_seconds": 1001.047,
+        "timing_basis": "Observed worker duration; excludes container startup and may be a lower bound for failed/partial attempts.",
+        "confirmed_terminal": true
+      }
+    ],
+    "feature_worker_elapsed_seconds": 2436.508,
+    "timing_coverage": {
+      "attempts_with_observed_duration": 2,
+      "total_attempts": 2
+    },
+    "selector_warmup_supervised_tokens": 8192,
+    "planned_selector_warmup_supervised_tokens": 8192,
+    "warmup_accounting": "Unique committed warmup progress counted once across restored checkpoints; uncommitted repeated work is not measured as extra tokens.",
+    "monetary_cost": "Not inferred from elapsed time or reservations in this report. Incomplete/failed attempt durations remain itemized.",
+    "interpretation": "All observed feature-attempt durations, including incomplete predecessors, are additional gradient-selector overhead shared across budgets/seeds. Arm token matching does not equalize end-to-end compute.",
+    "completed_projected_features": 3130
+  },
+  "batched_base_control": {
+    "status": "completed",
+    "training_performed": false,
+    "note": "The earlier serial58/64 result is separate history and is not substituted for this batch8 control.",
+    "protocol": {
+      "mode": "evaluate_saved",
+      "model": "ibm-granite/granite-4.2-3b",
+      "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+      "evaluation_batch_size": 8,
+      "max_new_tokens": 512,
+      "context_limit": 2048,
+      "enable_thinking": false,
+      "do_sample": false,
+      "evaluation_kind": "development",
+      "checkpoint_name": "baseline",
+      "training_performed": false
+    },
+    "worker_source_sha256": "1f7c7647531b343f24255f1e56c57b86cabfb83e654e5ab9e70192a88ee95a4e",
+    "development_source_sha256": "a190292a79ebc7a4ce23fb54d698871adc76c7680af4ecb2c2de602d2bafb1af",
+    "metrics": {
+      "count": 64,
+      "numeric_correct": 58,
+      "strict_format_correct": 58,
+      "truncated": 2,
+      "latency_seconds_total": 160.873747954,
+      "generated_tokens": 11462,
+      "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+    },
+    "accuracy_percent": 90.625,
+    "actual_supervised_tokens": 0,
+    "actual_optimizer_updates": 0
+  },
+  "historical_four_arms_included": false,
+  "figures": [
+    "figures/data-efficiency-development.svg",
+    "figures/data-efficiency-development.png"
+  ],
+  "limitations": [
+    "Only complete matched evaluations enter plots; pending or failed arms are not zero scores.",
+    "This new multi-source cohort is separate from the earlier four32768-token GSM8K arms.",
+    "Shared supervised-token budgets and update counts do not match examples, forwarded input tokens, source mixture, runtime or selector overhead.",
+    "Paired bootstrap intervals resample questions, not training seeds; p-values are exploratory and have no multiplicity correction.",
+    "Two-seed summaries are descriptive; no128-independent-question or precise seed-uncertainty claim is made.",
+    "Targets and skill information are development signals; results on these64 monitoring questions are adaptive, not final-test accuracy.",
+    "Reference matching and numeric final-answer accuracy do not prove every explanation step correct.",
+    "Near-all-data budget levels provide limited selection contrast because selected token exposures substantially overlap."
+  ]
+}

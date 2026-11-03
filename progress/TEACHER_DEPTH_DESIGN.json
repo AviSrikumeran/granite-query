@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "status": "design_only_unfunded",
+  "evidence_checked_date": "2026-11-03",
+  "title": "Does richer teacher supervision help Granite under the same training token budget?",
+  "interpretation": "A prospective distillation-recipe comparison, separate from the ongoing data-valuation controls. It does not establish that short supervision transfers only style, that longer explanations are better, or that Granite will improve.",
+  "actions_taken": {
+    "primary_documentation_reviewed": true,
+    "pinned_local_tokenizer_checked": true,
+    "existing_private_teacher_traces_profiled_without_reuse_for_training": true,
+    "remaining_training_capacity_audited_without_sampling": true,
+    "new_cohort_frozen": false,
+    "new_provider_calls": 0,
+    "new_gpu_jobs": 0,
+    "new_reservations": 0,
+    "official_test_accessed": false
+  },
+  "primary_sources": [
+    {
+      "url": "https://api-docs.deepseek.com/guides/thinking_mode/",
+      "supports": "Thinking is explicit, reasoning_content is separate from content, and several sampling controls are ignored in thinking mode."
+    },
+    {
+      "url": "https://api-docs.deepseek.com/api/create-chat-completion/",
+      "supports": "max_tokens limits generated completion tokens; usage can expose reasoning_tokens; stop/length and response model/fingerprint must be retained."
+    },
+    {
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "supports": "Reviewed peak cache-miss input1.32 and output3.96 USD per million tokens for deepseek-v4-pro; provider alias currently maps to DeepSeek-V4-Pro-0813."
+    },
+    {
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-3b#thinking-modes",
+      "supports": "Native full, disabled and low-effort thinking modes. IBM's sampled inference settings differ from this project's existing greedy non-thinking512 monitoring protocol."
+    },
+    {
+      "url": "https://huggingface.co/blog/ibm-granite/granite-4-2#sft-data-preparation--quality-control",
+      "supports": "IBM normalizes chat data, filters quality, deduplicates, shuffles and uses its tokenizer/template in large-scale SFT followed by RL. It does not establish this small LoRA comparison or its expected gain."
+    },
+    {
+      "url": "https://modal.com/pricing",
+      "supports": "Reviewed standard Function A10080GB, physical-core and GiB-second resource rates used in the prospective resource envelope."
+    }
+  ],
+  "student_serialization": {
+    "model": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "chat_template_sha256": "f0ba43f79b3cabca5e5a7584c77aec92f49feae45cdf7779c87d9fc54cd90258",
+    "thinking_generation_suffix": "<|im_start|>assistant\n<think>\n",
+    "nonthinking_generation_suffix": "<|im_start|>assistant\n<think></think>",
+    "eos_token": "<|im_end|>",
+    "eos_token_id": 100257,
+    "correct_low_effort_arguments": ["low_effort=True", "reasoning_effort=low"],
+    "ignored_argument_found": "thinking_effort has no template effect; do not use it",
+    "native_reasoning_message_supported": true,
+    "empty_reasoning_warning": "An empty reasoning_content renders a closed think span and does not begin with the thinking generation prefix. Full-string BPE tokenization can also merge a newline across a string-exact prefix boundary.",
+    "prospective_common_prefix_contract": "Use the exact same separately encoded native thinking-prefix IDs for both arms. Concise target suffix closes the empty span, then preserves original content; rich target suffix preserves original reasoning_content, closes the span, then preserves original content. Append one EOS. Freeze this derived serialization, compare decoded text, mask prefix/padding and count the actual concatenated IDs. Do not slice fully rendered token IDs by the length of separately tokenized prefix IDs.",
+    "new_worker_required": true,
+    "existing_nonthinking_worker_compatible_without_change": false,
+    "context_limit_proposed": 4096,
+    "full_trace_fit_rule": "Actual common prefix IDs plus complete preserved target suffix IDs plus EOS must fit4096. DeepSeek4096 output tokens do not imply Granite4096 context fit. Reject and preserve overlength records; never summarize, truncate or strip reasoning to manufacture eligibility."
+  },
+  "unpaid_empirical_checks": {
+    "current_human_teacher_pool": {
+      "attempted": 2048,
+      "eligible": 1930,
+      "supervised_tokens_available": 223827,
+      "thinking_enabled": false,
+      "student_response_cap": 768,
+      "student_context_cap": 2048,
+      "average_eligible_supervised_tokens": 115.97253886010363
+    },
+    "historical_thinking_monitoring_profile": {
+      "questions": 64,
+      "reasoning_content_present": 64,
+      "complete": 63,
+      "complete_and_canonical_full_render_fits4096": 63,
+      "reasoning_tokens_min_median_max": [39, 112.5, 4193],
+      "visible_answer_tokens_min_median_max": [0, 63.5, 178],
+      "canonical_full_context_tokens_min_median_max": [159, 289, 4380],
+      "canonical_supervised_tokens_min_median_max": [83, 187.5, 4196],
+      "private_results_sha256": "da2f25e10503b378251b69fa414fab9fd06c7d2f349075dae228e463e99b9d8e",
+      "limitations": "Previously used development questions, not a new random training pilot. Counts use canonical full-template tokenization including its trailing newline; future eligibility must use the frozen explicit-boundary encoder. The one4096-output-cap failure is incomplete. A4096 cap did not make most answers long. These64 questions remain excluded from future training."
+    },
+    "unfrozen_remaining_canonical_human_training_capacity": {
+      "source_rows": 7473,
+      "existing_exclusion_artifacts_audited": 102,
+      "canonical_questions_excluded": 3242,
+      "remaining_exact_annotation_eligible": 3805,
+      "new512_questions_feasible_at_this_snapshot": true,
+      "holdout200_excluded": true,
+      "source_split": "train",
+      "limitations": "Includes direct IDs, normalized questions and detectable TemplateGSM/OpenMath ancestry. Exact arithmetic annotations do not prove natural-language semantics. Complete ancestry cannot be guaranteed because some synthetic sources lack parent IDs. Reaudit exclusions before any future freeze."
+    }
+  },
+  "prospective_teacher_protocol": {
+    "maximum_new_question_ids": 512,
+    "paired_calls_per_question": 2,
+    "teacher_model_alias_both_conditions": "deepseek-v4-pro",
+    "prompt_policy": "Identical current user prefix and question in both calls; no local reference sent. A concise user instruction may also constrain thinking length, so report observed depth rather than infer it from caps.",
+    "concise": {"thinking": "disabled", "max_tokens": 1024},
+    "richer": {"thinking": "enabled", "reasoning_effort": "high", "max_tokens": 4096},
+    "controls": "Predeclare randomized within-pair call order, save timestamps/model/system_fingerprint and every original JSON response. The API alias is not an immutable weights revision. Do not claim a teacher seed controls ignored thinking-mode sampling parameters.",
+    "request_guards": "At most4 concurrent requests, zero automatic retries, exclusive per-attempt receipts and ambiguity locks. Use separately frozen request chunks and fresh guarded funding before each. Preserve reasoning_content and content as separate original fields.",
+    "input_bound": "Budget below assumes a conservative2000 provider-input-token allowance per single-user request, with no tools/history/system text. Enforce a message-byte bound no larger than the existing1006-byte human cohort, or count with a verified provider tokenizer before freezing. Preserve receipt prompt_tokens and halt if the bound is exceeded; this is an engineering allowance, not a measured count for yet-unselected questions.",
+    "eligibility": "Use exactly the same question intersection where BOTH final answers match the independently arithmetic-checked human reference, BOTH finish normally with nonempty final content, richer reasoning is present, and BOTH complete serialized targets fit4096. Retain every rejected pair and report condition-specific failure/length rates. Final-number agreement does not verify intermediate reasoning. Never condition evaluation on teacher success."
+  },
+  "prospective_student_comparison": {
+    "question": "Which supervision recipe produces better development accuracy at32768 supervised-token positions?",
+    "arms": ["concise_teacher_recipe", "native_thinking_trace_recipe"],
+    "shared_controls": "Pinned initial Granite base, fresh adapters, common eligible question pool, common seeded question ordering and selection rule, seed, LoRA modules/rank, LR/optimizer/scheduler and1024-supervised-token effective updates. Serialize a common native thinking prefix. Record actual chosen question overlap, examples, context tokens, supervised tokens, runtime and memory separately.",
+    "training_budget_per_arm": 32768,
+    "optimizer_updates_per_arm_if1024_tokens_per_update": 32,
+    "capacity_gate": "Each verified arm must actually supply32768 unique feasible target-token positions before a training launch. Do not repeat examples or silently cut off raw traces to claim capacity. A256-question concise pool may fall short at the current116-token average.",
+    "loss_boundary_policy_required": "Predeclare exact token weighting or boundary loss masking used to hit32768 while retaining complete input traces. Report it. More complete examples at a slightly smaller common budget is an alternative new protocol, not a silent change.",
+    "causal_limit": "Equal tokens typically gives the rich arm fewer examples. Teacher answer quality, breadth, reasoning mode and length all change. This tests token-budgeted supervision recipes, not pure explanation depth or faithful reasoning transfer.",
+    "cleaner_follow_on_ablation": "If mechanism is the priority, derive answer-only versus reasoning-plus-the-same-answer from ONE saved thinking completion, preserving originals and labeling derived targets. A same-question/equal-example study then has unequal tokens; an equal-token study still has a coverage tradeoff. Do not label either a pure isolated depth effect.",
+    "evaluation": "Freeze both adapters before inspecting the separately held-out200 training-split questions. Primary comparison uses identical nonthinking512 inference for untouched base and both adapters, with paired exact-match uncertainty, generated tokens and measured runtime. Any native-thinking4096 secondary result requires the same mode/cap for a freshly evaluated untouched base and both adapters and a predeclared subset or full200 with separate runtime funding. Do not compare against the existing nonthinking512 base as though inference were matched. Official test remains sealed.",
+    "ibm_recipe_scope": "IBM's official inference examples use sampling1.0/top_p0.95 and8192 thinking or2048 nonthinking limits; our fixed greedy512/optional4096 protocols are deliberately bounded local controls. IBM's much larger SFT/RL recipe supports format/quality discipline, not an expected gain from32k LoRA tokens."
+  },
+  "conservative_funding_design": {
+    "deepseek_rate_basis": "Peak input cache miss1.32 and output3.96 USD per million tokens; no cache/off-peak discount assumed. max_tokens is treated as the total generated-completion allowance including reported reasoning. Check provider receipts before continuing.",
+    "formula": "requests * (2000 *1.32 + output_cap *3.96) /1000000",
+    "per32_pairs": {"concise_usd": 0.21424128, "thinking_usd": 0.60352512, "paired_usd": 0.8177664, "prospective_reservation_usd": 1},
+    "per256_pairs": {"concise_usd": 1.71393024, "thinking_usd": 4.82820096, "paired_usd": 6.5421312, "prospective_reservation_usd": 7},
+    "all512_pairs": {"concise_usd": 3.42786048, "thinking_usd": 9.65640192, "paired_usd": 13.0842624, "two_separate_chunk_reservations_usd": 14},
+    "modal_resource_basis": {"gpu": "one A10080GB", "physical_cpu_cores": 4, "memory_gib": 32, "default_function_resource_usd_per_second": 0.00081744, "1800_seconds_resource_only_usd": 1.471392, "1922_seconds_resource_only_usd": 1.57111968},
+    "modal_prospective_reservations": "At least two separately guarded3-dollar arms (6USD). Prefer a separately bounded context/throughput calibration allowance up to3USD if no comparable4k trace training measurement exists, making9USD available for this phase before larger teacher generation. Existing final-evaluation and capped-serving protection must remain funded. Resource estimates exclude extra image/build/storage/egress or region premiums;3-dollar reservations are allowances, not invoices or proof that the work finishes within1800seconds.",
+    "fresh_budget_check_required": true,
+    "funding_currently_verified_for_this_design": false,
+    "cross_service_gate": "Do not collect all512 pairs merely because DeepSeek credit remains. First reconcile both providers, all active/pending liabilities and protected final/API funds, and show that the new two-arm student comparison can fit under the existing20USD DeepSeek and30USD Modal ceilings. One GPU job at a time."
+  },
+  "recommendation": {
+    "next_step": "Finish the current valuation controls and use the already collected1930 human-reference answers where appropriate before expanding paid teacher breadth. If a separate supervision-recipe comparison remains fundable, first predeclare a32-pair new-training feasibility pilot, count complete native traces and concise capacity, then decide whether the predeclared extension to512 is useful.",
+    "why_not_immediate512": "The existing thinking trace profile is mostly short, teacher-only spend cannot establish student improvement, and the longer-context student encoder/runtime/funding are not yet validated. The512-pair worst-case teacher bound is13.0842624USD rather than the likely realized charge.",
+    "not_project_completion": true,
+    "no_improvement_promised": true
+  }
+}

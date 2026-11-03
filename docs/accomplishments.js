@@ -16,7 +16,9 @@ async function refreshAccomplishments(){
         list.append(li);
       }
     };
-    render('audit-completed',data.completed,true);render('audit-current',data.current_work);render('audit-datasets',data.dataset_coverage,true);
+    const completedStages=data.current_work.filter(item=>item.status==='completed');
+    const currentStages=data.current_work.filter(item=>item.status!=='completed');
+    render('audit-completed',[...data.completed,...completedStages],true);render('audit-current',currentStages);render('audit-datasets',data.dataset_coverage,true);
     const missing=get('audit-missing');missing.replaceChildren();for(const text of data.not_done){const li=document.createElement('li');li.textContent=text;missing.append(li)}
     get('audit-updated').textContent='Evidence checked: '+new Date(data.updated_at_utc).toLocaleString();
     const active=data.current_work.find(x=>x.status==='running')||data.current_work.find(x=>x.status==='queued');

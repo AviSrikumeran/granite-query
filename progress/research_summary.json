@@ -38,6 +38,38 @@
       "random seed43": 57,
       "valued seed43": 56
     },
+    "batched_baseline": {
+      "status": "completed",
+      "training_performed": false,
+      "note": "The earlier serial58/64 result is separate history and is not substituted for this batch8 control.",
+      "protocol": {
+        "mode": "evaluate_saved",
+        "model": "ibm-granite/granite-4.2-3b",
+        "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+        "evaluation_batch_size": 8,
+        "max_new_tokens": 512,
+        "context_limit": 2048,
+        "enable_thinking": false,
+        "do_sample": false,
+        "evaluation_kind": "development",
+        "checkpoint_name": "baseline",
+        "training_performed": false
+      },
+      "worker_source_sha256": "1f7c7647531b343f24255f1e56c57b86cabfb83e654e5ab9e70192a88ee95a4e",
+      "development_source_sha256": "a190292a79ebc7a4ce23fb54d698871adc76c7680af4ecb2c2de602d2bafb1af",
+      "metrics": {
+        "count": 64,
+        "numeric_correct": 58,
+        "strict_format_correct": 58,
+        "truncated": 2,
+        "latency_seconds_total": 160.873747954,
+        "generated_tokens": 11462,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "accuracy_percent": 90.625,
+      "actual_supervised_tokens": 0,
+      "actual_optimizer_updates": 0
+    },
     "supervised_tokens_per_arm": 32768,
     "optimizer_updates_per_arm": 32,
     "selection_adaptive_to_development": true

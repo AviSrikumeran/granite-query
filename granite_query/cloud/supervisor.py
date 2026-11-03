@@ -131,6 +131,30 @@ def tick():
         if (batched_baseline/'launch.json').exists() and not (batched_baseline/'result.json').exists():
             remote_status=json.loads((batched_baseline/'remote_status.json').read_text()) if (batched_baseline/'remote_status.json').exists() else {'stage':'batched_baseline_queued'}
             training_action='Poll the existing untouched-Granite batch8 baseline with valuation_control.py. It uses the same64 questions and512-token settings as new adapters; no training or duplicate GPU launch. Reconcile its result before the gradient continuation.'
+        grid_folder=ROOT/'runs/data_efficiency_math_v1'
+        if (grid_folder/'grid_manifest.json').exists():
+            grid=json.loads((grid_folder/'grid_manifest.json').read_text(encoding='utf-8'))
+            jobs=[]
+            for study in grid['studies']:
+                manifest=json.loads((grid_folder/study['folder']/'manifest.json').read_text(encoding='utf-8'))
+                jobs.extend((grid_folder/study['folder']/job['folder'],job,study['token_budget']) for job in manifest['jobs'])
+            order_path=grid_folder/'execution_order.json'
+            order=json.loads(order_path.read_text(encoding='utf-8'))['run_ids'] if order_path.exists() else [job['run_id'] for _,job,_ in jobs]
+            priority={run_id:index for index,run_id in enumerate(order)}
+            jobs.sort(key=lambda item:priority.get(item[1]['run_id'],len(priority)))
+            approved=[item for item in jobs if item[2] in (32768,65536)]
+            pending=next((item for item in approved if not (item[0]/'result.json').exists()),None)
+            if pending:
+                folder,job,_=pending
+                if (folder/'launch.json').exists():
+                    remote_status=json.loads((folder/'remote_status.json').read_text()) if (folder/'remote_status.json').exists() else {'stage':'multi_source_arm_queued'}
+                    training_action='Poll the saved multi-source '+job['run_id']+' call; never duplicate it. Use the reviewed study_runner.py tick when its root marker matches, otherwise inspect the saved call directly. Preserve results and reconcile costs before the next frozen arm.'
+                else:
+                    remote_status={'stage':'multi_source_arm_prepared'}
+                    training_action='Advance the next frozen multi-source arm '+job['run_id']+' only after current calls stop, source hashes verify, fresh accounting and a separate reservation fit while protecting5Modal dollars. Use the reviewed one-tick study_runner when ready; optional phases are gated by resources, not accuracy.'
+            else:
+                remote_status={'stage':'multi_source_primary_grid_completed'}
+                training_action='Analyze the complete approved token-budget contrasts, preserve negative results and use remaining funds for the separately versioned human-reference study or a reviewed teacher-depth feasibility phase.131072 is deferred near-all-data reference; final evaluation/API funds stay protected. Do not declare the project complete after this block.'
         human_teacher=ROOT/'runs/human_math_teacher2048_v1'
         if (human_teacher/'teacher_summary.json').exists():
             human_summary=json.loads((human_teacher/'teacher_summary.json').read_text(encoding='utf-8'))
