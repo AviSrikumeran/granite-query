@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T17:24:39.253794+00:00",
+  "generated_at_utc": "2026-11-03T17:27:07.875623+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Granite smoke test: training",
-  "next_action": "Poll the existing Granite call using cloud/train_control.py poll; do not relaunch.",
+  "stage": "Granite smoke test: completed",
+  "next_action": "Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
-    "training_completed": false,
+    "training_completed": true,
     "held_out_evaluation_completed": false
   },
   "limits": {
@@ -17,11 +17,10 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "training",
-    "elapsed_seconds": 79.609,
-    "steps": 4,
-    "total_steps": 12,
-    "supervised_tokens": 331
+    "stage": "completed",
+    "elapsed_seconds": 120.169,
+    "steps": 12,
+    "supervised_tokens": 1217
   },
   "caveat": "Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.",
   "events": [
@@ -108,6 +107,27 @@
       "kind": "in_progress",
       "title": "Granite worker: training",
       "detail": "The existing detached smoke-test worker reported this stage. Completed optimizer steps: 4. This remains a compatibility check, not a benchmark result."
+    },
+    {
+      "id": "granite42_3b_smoke_seed42_v1-completed",
+      "at_utc": "2026-11-03T17:26:29.823030+00:00",
+      "kind": "completed",
+      "title": "Granite LoRA smoke test completed",
+      "detail": "Adapter training, save, reload, and three development generations completed. This is a wiring check, not evidence of generalization improvement."
+    },
+    {
+      "id": "supervisor-next-Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.",
+      "at_utc": "2026-11-03T17:26:36.935773+00:00",
+      "kind": "in_progress",
+      "title": "Granite training smoke test",
+      "detail": "Review saved adapter and smoke-test results; reconcile costs before the controlled comparison."
+    },
+    {
+      "id": "smoke-review-v1",
+      "at_utc": "2026-11-03T17:27:07.771728+00:00",
+      "kind": "decision",
+      "title": "Smoke-test results are not benchmark accuracy",
+      "detail": "All 12 optimizer updates completed and adapter parameters changed. The saved adapter reloaded and all three development answers matched their reference numbers. Baseline responses were limited to 192 tokens and two were visibly truncated, so this tiny comparison cannot establish accuracy improvement. Preserve these outputs and use an adequate shared generation budget in the controlled experiment."
     }
   ]
 }
