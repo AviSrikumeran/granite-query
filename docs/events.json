@@ -1,0 +1,44 @@
+[
+  {
+    "id": "teacher-pilot-16",
+    "at_utc": "2026-11-03T17:13:50.632907+00:00",
+    "kind": "completed",
+    "title": "Teacher API pilot completed",
+    "detail": "All 16 seeded GSM8K training questions received DeepSeek responses. Fifteen passed the strict verifier. No test questions or Granite training were used."
+  },
+  {
+    "id": "currency-format-rejection",
+    "at_utc": "2026-11-03T17:13:50.633437+00:00",
+    "kind": "failed",
+    "title": "Correct answer rejected for currency formatting",
+    "detail": "One solution ended with a dollar sign before 13. The strict numeric parser rejected it; this is a formatting rejection, not evidence of incorrect arithmetic. Original output retained."
+  },
+  {
+    "id": "network-recovery",
+    "at_utc": "2026-11-03T17:13:50.633437+00:00",
+    "kind": "resolved",
+    "title": "Sandbox network failure resolved",
+    "detail": "The first connectivity attempt failed to resolve the provider hostname. The authorized network-enabled retry verified both services and completed the pilot."
+  },
+  {
+    "id": "supervision-enabled",
+    "at_utc": "2026-11-03T17:13:50.652926+00:00",
+    "kind": "completed",
+    "title": "Scheduled supervision enabled",
+    "detail": "A recurring check is configured every 15 minutes, with durable local state and approximately hourly active progress reports. Local checks require the computer and app to remain running."
+  },
+  {
+    "id": "journal-setup",
+    "at_utc": "2026-11-03T17:13:50.658925+00:00",
+    "kind": "in_progress",
+    "title": "Public research journal and Pages preview",
+    "detail": "Preparing an append-only activity history, generated journal, and public dashboard. Publication will be verified before being reported as live."
+  },
+  {
+    "id": "supervisor-next-Implement and locally validate the bounded Granite LoRA training smoke test.",
+    "at_utc": "2026-11-03T17:13:50.752906+00:00",
+    "kind": "in_progress",
+    "title": "Granite training smoke test",
+    "detail": "Implement and locally validate the bounded Granite LoRA training smoke test."
+  }
+]

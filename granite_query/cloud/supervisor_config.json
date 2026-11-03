@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "budget_usd": {"modal": 30, "deepseek": 20},
+  "check_interval_minutes": 15,
+  "progress_report_interval_minutes": 60,
+  "first_milestone": "bounded Granite LoRA training and evaluation smoke test",
+  "max_active_gpu_jobs": 1,
+  "max_transient_retries_per_stage": 2,
+  "max_first_gpu_job_seconds": 900,
+  "reserve_before_paid_launch": true,
+  "halt_on_unknown_cost": true,
+  "public_deployment_enabled": false
+}
