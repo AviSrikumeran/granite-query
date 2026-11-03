@@ -1,7 +1,7 @@
-import {BOOT,smooth,pointerPose} from './engine/geometry.mjs?v=directions-20261103-1';
-import {makeGPU,makeCPU} from './engine/renderer.mjs?v=directions-20261103-1';
-import {makeAtlas} from './engine/atlas.mjs?v=directions-20261103-1';
-import {DIRECTIONS,POSES,STEP,FORMATIONS,formationAt,blendParts,transition,layoutFor} from './forms.mjs?v=directions-20261103-1';
+import {BOOT,smooth,pointerPose} from './engine/geometry.mjs?v=directions-20261103-2';
+import {makeGPU,makeCPU} from './engine/renderer.mjs?v=directions-20261103-2';
+import {makeAtlas} from './engine/atlas.mjs?v=directions-20261103-2';
+import {DIRECTIONS,POSES,STEP,FORMATIONS,formationAt,blendParts,transition,layoutFor} from './forms.mjs?v=directions-20261103-2';
 
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),review=new URLSearchParams(location.search);
 const pauseButton=document.querySelector('#pause'),poseControl=document.querySelector('#pose'),linkedControl=document.querySelector('#linked'),peripheralControl=document.querySelector('#peripherals'),status=document.querySelector('#motion-status');

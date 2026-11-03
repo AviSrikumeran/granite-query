@@ -13,6 +13,13 @@ test('all nine formations fit the fixed renderer capacity with finite geometry',
   }
   const count=id=>FORMATIONS[id].locked.filter(b=>b.half.every(v=>v>.001)).length;
   assert.equal(count('blocks'),18);assert.equal(count('frames'),36);assert.ok(count('branches')>25);
+  for(const pose of POSES){
+    const cages=Array.from({length:3},(_,i)=>{
+      const parts=FORMATIONS.frames[pose].slice(i*12,i*12+12),lo=[0,1,2].map(k=>Math.min(...parts.map(p=>p.center[k]-p.half[k]))),hi=[0,1,2].map(k=>Math.max(...parts.map(p=>p.center[k]+p.half[k])));
+      return {center:lo.map((v,k)=>(v+hi[k])/2),half:lo.map((v,k)=>(hi[k]-v)/2),thickness:Math.min(...parts[0].half)};
+    });
+    for(let i=1;i<3;i++)for(let k=0;k<3;k++)assert.ok(Math.abs(cages[i].center[k]-cages[i-1].center[k])+cages[i].half[k]<cages[i-1].half[k]-2*cages[i-1].thickness,`${pose}: frame ${i} touches its parent`);
+  }
 });
 
 test('proof paths form one rooted tree with five separated conclusions',()=>{

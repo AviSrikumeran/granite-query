@@ -1,5 +1,5 @@
-import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=directions-20261103-1';
-import {KEY,FILL,TIER_GLYPHS,materialColors,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=directions-20261103-1';
+import {BOOT,traceBoxes,smooth} from './geometry.mjs?v=directions-20261103-2';
+import {KEY,FILL,TIER_GLYPHS,materialColors,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=directions-20261103-2';
 
 // One scene → luminance tiers → glyphs → camera-projected peripheral views →
 // highlight bloom. Peripheral samples share the finished scene, not a new trace.

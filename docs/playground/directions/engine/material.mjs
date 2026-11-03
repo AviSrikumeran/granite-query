@@ -1,6 +1,6 @@
 // Independently authored rendering model, informed by the recording and public
 // renderer architecture. Geometry and layout remain in geometry.mjs unchanged.
-import {cameraRotate,smooth} from './geometry.mjs?v=directions-20261103-1';
+import {cameraRotate,smooth} from './geometry.mjs?v=directions-20261103-2';
 const clamp=t=>Math.max(0,Math.min(1,t));
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const norm=a=>{const n=Math.hypot(...a);return a.map(v=>v/n);};

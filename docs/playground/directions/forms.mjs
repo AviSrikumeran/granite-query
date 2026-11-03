@@ -1,4 +1,4 @@
-import {BOOT,smooth} from './engine/geometry.mjs?v=directions-20261103-1';
+import {BOOT,smooth} from './engine/geometry.mjs?v=directions-20261103-2';
 
 export const PART_COUNT=40;
 export const DIRECTIONS=['blocks','branches','frames'];
@@ -67,7 +67,7 @@ function frame(size,thickness,offset){
   return parts;
 }
 function frames(pose){
-  const centers=pose==='open'?[[0,0,0],[.12,.14,-.12],[-.1,-.12,.1]]:pose==='offset'?[[0,0,0],[-.1,.08,.1],[.14,-.1,-.14]]:[[0,0,0],[0,0,0],[0,0,0]];
+  const centers=pose==='open'?[[0,0,0],[.12,.14,-.12],[.02,.04,-.02]]:pose==='offset'?[[0,0,0],[-.1,.08,.1],[.04,-.04,-.04]]:[[0,0,0],[0,0,0],[0,0,0]];
   return pad([...[1.06,.69,.32].flatMap((size,i)=>frame(size,[.095,.075,.055][i],centers[i]))]);
 }
 export const FORMATIONS=Object.fromEntries(DIRECTIONS.map(id=>[id,Object.fromEntries(POSES.map(pose=>[pose,({blocks,branches,frames}[id])(pose)]))]));
