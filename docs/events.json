@@ -82,5 +82,26 @@
     "kind": "in_progress",
     "title": "Granite worker: training",
     "detail": "The existing detached smoke-test worker reported this stage. Completed optimizer steps: 4. This remains a compatibility check, not a benchmark result."
+  },
+  {
+    "id": "granite42_3b_smoke_seed42_v1-completed",
+    "at_utc": "2026-11-03T17:26:29.823030+00:00",
+    "kind": "completed",
+    "title": "Granite LoRA smoke test completed",
+    "detail": "Adapter training, save, reload, and three development generations completed. This is a wiring check, not evidence of generalization improvement."
+  },
+  {
+    "id": "supervisor-next-Review saved adapter and smoke-test results; reconcile costs before the controlled comparison.",
+    "at_utc": "2026-11-03T17:26:36.935773+00:00",
+    "kind": "in_progress",
+    "title": "Granite training smoke test",
+    "detail": "Review saved adapter and smoke-test results; reconcile costs before the controlled comparison."
+  },
+  {
+    "id": "smoke-review-v1",
+    "at_utc": "2026-11-03T17:27:07.771728+00:00",
+    "kind": "decision",
+    "title": "Smoke-test results are not benchmark accuracy",
+    "detail": "All 12 optimizer updates completed and adapter parameters changed. The saved adapter reloaded and all three development answers matched their reference numbers. Baseline responses were limited to 192 tokens and two were visibly truncated, so this tiny comparison cannot establish accuracy improvement. Preserve these outputs and use an adequate shared generation budget in the controlled experiment."
   }
 ]
