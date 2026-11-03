@@ -8,7 +8,7 @@ Granite has been fine-tuned on Modal, but no accuracy improvement has been demon
 
 - **Alpaca — not_used**. Mentioned in an older direction, then explicitly superseded by the GSM8K scope. Source: Earlier project discussion; no ingestion artifact for this study
 
-- **open-r1/OpenR1-Math-220k — researched_not_imported**. Recommended next valuation pool: existing DeepSeek-R1 math traces with completion/correctness flags. Start with a small, pinned sample of short numeric-answer word problems; long and difficult traces may not fit Granite's context. Teacher differs from the current V4-Pro API and must be labelled. Source: https://huggingface.co/datasets/open-r1/OpenR1-Math-220k
+- **open-r1/OpenR1-Math-220k — inspected_no_eligible_data**. Bounded seeded scan of256 training records found zero complete verified numeric word-problem traces meeting the768-response-token limit; cached artifacts retained. Not used for Granite training. This sample does not establish that the full dataset has no suitable records. Source: https://huggingface.co/datasets/open-r1/OpenR1-Math-220k
 
 - **nvidia/OpenMathInstruct-2 — researched_not_imported**. Supporting GSM8K-style prompt pool. Filter augmented_gsm8k and numeric expected answers; its supplied solutions come from Llama, so regenerate with DeepSeek if teacher consistency is required. Do not assume augmented answers are independently verified gold. Source: https://huggingface.co/datasets/nvidia/OpenMathInstruct-2
 
@@ -88,16 +88,22 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 
 - **Resume of unfinished 64-question evaluations — completed**. All required outputs on the 64 monitoring questions are saved. It is a separate attempt and should reuse completed outputs instead of rerunning them.
 
-- **Larger 120-example Granite training round — running**. A Modal function call was submitted; currently waiting for the next saved worker update. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
+- **Larger 120-example Granite training round — running**. A Modal function call was submitted; currently evaluating the 120-example adapter. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
+
+- **New verified teacher pool for token-matched controls — completed**. 512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment.
+
+- **Student-aware selector and equal-token experiment — queued**. Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.
+
+- **Capped Granite API trial — queued**. API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.
 
 ## Not completed
 
 - Robust or final-test Granite accuracy improvement has not been established.
 - Training/evaluation on additional math datasets; candidate sources are researched but not imported.
 - Multiple training/selection seeds and matched supervised-token controls.
-- An implemented and evaluated student-aware skill-ranking method.
+- A completed controlled evaluation of the new student-aware selection method.
 - Independent explanation-quality/depth evaluation.
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T18:22:04.790349+00:00
+Updated: 2026-11-03T18:27:53.974920+00:00

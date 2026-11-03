@@ -18,7 +18,7 @@
     }
   },
   "training120": {
-    "stage": "queued"
+    "stage": "full120_evaluation"
   },
   "figures": [
     "figures/matched16-accuracy.svg",

@@ -186,6 +186,9 @@ def build(workspace=None):
     if (workspace/'granite_query/cloud/student_valuation.py').exists():
         current.append({'title':'Student-aware selector and equal-token experiment', 'status':'queued',
                         'detail':'Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.'})
+    if (workspace/'granite_query/cloud/modal_api.py').exists():
+        current.append({'title':'Capped Granite API trial', 'status':'queued',
+                        'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})
 
     eval_scores = _comparable_scores(eval_result, ('baseline', 'ranked32', 'random32'))
     full_scores = _comparable_scores(full_result, ('full120',))

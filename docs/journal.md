@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Resume of unfinished 64-question evaluations
+Current stage: Larger 120-example Granite training round
 
-Next: A Modal function call was submitted; currently evaluating the saved BM25 adapter. It is a separate attempt and should reuse completed outputs instead of rerunning them.
+Next: A Modal function call was submitted; currently evaluating the 120-example adapter. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -181,3 +181,51 @@ Only GSM8K has been used for training; its data came from the canonical author G
 ## 2026-11-03T18:13:42.997596+00:00 | resolved | Larger evaluation resumed without repeating completed work
 
 The original64-question GPU comparison reached its application deadline. Preserved outputs include64 baseline and27 ranked generations. A separately reserved resume is evaluating only101 missing generations. The recovered original Granite baseline is58/64 versus DeepSeek63/64 on identical questions; trained-checkpoint comparisons remain pending.
+
+## 2026-11-03T18:16:17.760766+00:00 | in_progress | Shared64 worker: random32 evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T18:17:07.127027+00:00 | completed | Ranked64 monitoring outputs recovered
+
+All64 ranked-adapter development generations are saved:52 numeric matches and1 truncated output, versus58 matches and2 truncations for untouched Granite on the identical questions. Random-adapter evaluation is still running. This is development monitoring, not the final test; no complete three-checkpoint comparison is claimed.
+
+## 2026-11-03T18:18:32.505601+00:00 | decision | Expand from pilot to a controlled specialization study
+
+The user authorized maximizing the existing 30-dollar Modal ceiling for useful results. The project continues through token-matched student-aware and random controls, repeated seeds as feasible, a frozen final comparison and a capped API trial. Math remains the first task; a trained adapter or more data alone is not evidence that valuation helped. Existing jobs and reservations remain in force.
+
+## 2026-11-03T18:20:06.308783+00:00 | decision | Ground the next training recipe in DeepSeek technical reports
+
+Reviewed primary DeepSeekMath, R1, V3 and V4 reports. Distinguish example validity, predicted student usefulness and downstream value measured under matched training tokens. Use verified sequence-level distillation with random controls; the current API workflow does not reproduce V4 full-vocabulary on-policy distillation. Reports motivate the experiment but do not guarantee Granite gains.
+
+## 2026-11-03T18:20:50.191320+00:00 | decision | Freeze a larger controlled training budget and bounded runtime
+
+Before new valuation results, plan 32768 supervised tokens per arm in 32 updates, with shared learning rate 0.00002. New valuation workers may run up to1800 seconds under a3-dollar reservation at checked resource prices; existing900-second jobs are unchanged. Equal token-weighted updates and batched evaluation replace the earlier unequal-token serial pilot. Four arms across two seeds fit a12-dollar envelope, subject to the durable ledger.
+
+## 2026-11-03T18:20:58.441457+00:00 | completed | Shared64 phase completed: eval
+
+All evaluation outputs saved for the frozen64 monitoring questions. Counts: baseline 58/64, ranked32 52/64, random32 52/64. This is development monitoring, not final-test accuracy.
+
+## 2026-11-03T18:21:37.209620+00:00 | in_progress | Full120 Granite training launched
+
+The shared64 benchmark is complete: untouched Granite58/64, BM25-ranked32 adapter52/64, random32 adapter52/64. A fresh pinned Granite adapter is now training on all120 verified examples under the existing3-dollar Modal reservation, with evaluation on the identical64 monitoring questions. Improvement is measured, not assumed.
+
+## 2026-11-03T18:22:04.741044+00:00 | in_progress | Research improvement cycle
+
+Poll improvement_control.py poll --run train; do not duplicate the active job.
+
+## 2026-11-03T18:22:22.828557+00:00 | decision | Measured dataset fit rejects the initial OpenR1 pool
+
+A bounded seeded scan of256 OpenR1 training records found zero full verified numeric word-problem traces within the768-response-token and2048-context limits. The shortest of154 inspected verified scalar traces had1217 tokens. Cached artifacts and rejection counts are retained; a server rate limit stopped further scanning. This does not rule out suitable examples elsewhere. Switch the next pool to concise DeepSeek solutions for separate GSM8K training questions; no silent trace truncation.
+
+## 2026-11-03T18:23:32.538866+00:00 | in_progress | Shared64 worker: full120 evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T18:25:43.068029+00:00 | in_progress | New task-aligned teacher pool is generating
+
+A detached four-worker collector is answering512 new GSM8K training questions with concise DeepSeekV4-Pro non-thinking responses. The frozen pool excludes352 previously used or probe IDs; gold answers are checked locally, not sent to the teacher. Complete raw outputs and every rejection are retained. A4-dollar DeepSeek reservation bounds the collector; current supervised-token capacity will determine whether the planned32768-token arms can run.
+
+## 2026-11-03T18:27:53.824901+00:00 | completed | Controlled selection and capped API source pass local checks
+
+Implemented immutable verified-pool preparation, student-aware skill/diversity selection, exact supervised-token masking, token-weighted optimizer updates and batched checkpoint evaluation. Local cloud checks pass. API source includes20 permanent atomic admission permits and24-hour expiry, with no deployed endpoint. These are implemented components; improved accuracy, final-checkpoint selection and public serving remain uncompleted.
