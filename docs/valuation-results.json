@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-03T18:49:34.173178+00:00",
+  "title": "Matched-token student-aware valuation development results",
+  "status": "partial",
+  "completed_pairs": 1,
+  "planned_pairs": 2,
+  "completed_arms": 2,
+  "planned_arms": 4,
+  "protocol": {
+    "mode": "train_evaluate",
+    "model": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "token_budget": 32768,
+    "tokens_per_update": 1024,
+    "learning_rate": 2e-05,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "context_limit": 2048,
+    "max_new_tokens": 512,
+    "enable_thinking": false,
+    "do_sample": false,
+    "evaluation_batch_size": 8,
+    "evaluation_kind": "development",
+    "optimizer_updates": 32,
+    "development_count": 64,
+    "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec"
+  },
+  "teacher_pool": {
+    "shared_pool_count": 477,
+    "eligible_sha256": "c3c6ffca9720769d9e3e4bf604ef5185fc1dba2a4ddf52b93d9c35258d57aaa9",
+    "prepared_manifest_sha256": "6664a90488062e0eb2bd6b5f430a6e6f80c6e18cef4d52a2a6bcacd455c943ea",
+    "teacher_model": "deepseek-v4-pro",
+    "reported_revision_aliases": [
+      "deepseek-v4-pro"
+    ],
+    "thinking_mode": "disabled",
+    "max_output_tokens": 1024,
+    "teacher_identity_note": "API aliases are mutable; this pool is separate from earlier thinking-mode teacher traces and public R1 datasets.",
+    "weakness_source_kind": "development_predictions",
+    "adaptive_development": true
+  },
+  "pairs": {
+    "42": {
+      "seed": 42,
+      "status": "completed",
+      "arms": {
+        "random": {
+          "run_id": "student_valuation32768_seed42_random_v1",
+          "seed": 42,
+          "arm": "random",
+          "status": "completed",
+          "stage": "completed",
+          "exposure": {
+            "examples": 286,
+            "supervised_tokens": 32768,
+            "optimizer_updates": 32,
+            "partial_supervised_tails": 1,
+            "input_tokens_once": 61150,
+            "input_tokens_forwarded": 68970
+          },
+          "sources": {
+            "plan_sha256": "1936360a185b30863af7ea165e084ed43072915c33f82483230daa4d379705b2",
+            "input_sha256": "a9dee9b493a77355d364c4e1608752fcd5698fcf1cfd0c479d457285f9911cf7",
+            "selector_arm_sha256": "1d53c35cf866f8070b71e7515b20bb9f10fddfba3817469db6b6bf6c2afdaafe",
+            "selection_manifest_sha256": "af16fff579ad1840ffea2b413776ab102fccc597adfbc5e7468ce03bbc4c51d1",
+            "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec",
+            "protocol_hash": "aa49fe4a51dd97bfbc8af5fd3a6f3a4dfa61907abdbaf7c8d753e6123f485e13",
+            "result_sha256": "eabb68e0bf0abf4e08e1832b286aabaa9958badbfc2e17e68b0eba8d208fe933"
+          },
+          "metrics": {
+            "count": 64,
+            "numeric_correct": 55,
+            "strict_format_correct": 55,
+            "truncated": 0,
+            "latency_seconds_total": 97.02076829300006,
+            "generated_tokens": 6772,
+            "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+          },
+          "worker_elapsed_seconds": 321.670264234,
+          "latency_measurement": "batched amortized GPU timings, not comparable directly with serial latency",
+          "student_probe": {
+            "complete": true,
+            "completed": 477,
+            "requested": 477,
+            "used_to_change_this_selector": false,
+            "interpretation": "Untouched-student response NLL diagnostic; not causal data value."
+          }
+        },
+        "valued": {
+          "run_id": "student_valuation32768_seed42_valued_v1",
+          "seed": 42,
+          "arm": "valued",
+          "status": "completed",
+          "stage": "completed",
+          "exposure": {
+            "examples": 337,
+            "supervised_tokens": 32768,
+            "optimizer_updates": 32,
+            "partial_supervised_tails": 1,
+            "input_tokens_once": 65007,
+            "input_tokens_forwarded": 70774
+          },
+          "sources": {
+            "plan_sha256": "561ff624ee10e589a038e51115a370fc7fd2c89ab47787fe987aa1d0cdd04ede",
+            "input_sha256": "816d9c5e7ad1351a45406809b3fc22170aa6a36425982feaa347ecb83eeac304",
+            "selector_arm_sha256": "3b2954b0580903344b40c9dd09cd4f05d07ae911bf1b882c8b3e8ee3483e2793",
+            "selection_manifest_sha256": "af16fff579ad1840ffea2b413776ab102fccc597adfbc5e7468ce03bbc4c51d1",
+            "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec",
+            "protocol_hash": "37742076f8fab5b2832befe47d4c325b73ba1c3d6119cc53ff999242fd644701",
+            "result_sha256": "005faee2fdd88567e860889f6180891347f2e8d1bed790d30c64e15c8b15f13f"
+          },
+          "metrics": {
+            "count": 64,
+            "numeric_correct": 53,
+            "strict_format_correct": 53,
+            "truncated": 1,
+            "latency_seconds_total": 117.81210033200003,
+            "generated_tokens": 6894,
+            "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+          },
+          "worker_elapsed_seconds": 269.34943361,
+          "latency_measurement": "batched amortized GPU timings, not comparable directly with serial latency"
+        }
+      },
+      "paired_valued_vs_random": {
+        "count": 64,
+        "corrected": 4,
+        "regressed": 6,
+        "difference_percentage_points": -3.125,
+        "paired_bootstrap_95_interval_pp": [
+          -12.5,
+          6.25
+        ],
+        "mcnemar_exact_two_sided_p": 0.75390625,
+        "bootstrap_seed": 20261103,
+        "bootstrap_resamples": 20000,
+        "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+      },
+      "difference_correct": -2
+    },
+    "43": {
+      "seed": 43,
+      "status": "partial",
+      "arms": {
+        "random": {
+          "run_id": "student_valuation32768_seed43_random_v1",
+          "seed": 43,
+          "arm": "random",
+          "status": "prepared",
+          "stage": "not_launched",
+          "exposure": {
+            "examples": 280,
+            "supervised_tokens": 32768,
+            "optimizer_updates": 32,
+            "partial_supervised_tails": 1,
+            "input_tokens_once": 60917,
+            "input_tokens_forwarded": 68534
+          },
+          "sources": {
+            "plan_sha256": "764ee161e2b9f5f6cc26408fa6e496388904d6c7ebbdd302e3857af22fe662dd",
+            "input_sha256": "c5a862f329c177ac0acc738a2b94d3e96d499fd04157a6d551c165c6a563fabf",
+            "selector_arm_sha256": "28fd8a9ce6aec49f9b5a9bf62cf039babe914bce9e8304791420e33c377bbedf",
+            "selection_manifest_sha256": "77863fd3194e5fbfab105464ea99b69ef6c655fa704e9584ac5384bf9757f0be",
+            "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec",
+            "protocol_hash": "e77937f64f6b98dc2fb03102721f17aa6caaef148727255129667a85f9e473b7"
+          }
+        },
+        "valued": {
+          "run_id": "student_valuation32768_seed43_valued_v1",
+          "seed": 43,
+          "arm": "valued",
+          "status": "running",
+          "stage": "queued",
+          "exposure": {
+            "examples": 337,
+            "supervised_tokens": 32768,
+            "optimizer_updates": 32,
+            "partial_supervised_tails": 1,
+            "input_tokens_once": 65007,
+            "input_tokens_forwarded": 71618
+          },
+          "sources": {
+            "plan_sha256": "78cf3d21b6df9f63bc95b950536752f30a4f1ff79a6016d3f8e1277047217a74",
+            "input_sha256": "6b863f4b6215970f69fff13ec2d76c758867c60842399576cc09a87e4b8dbfff",
+            "selector_arm_sha256": "1ab2b2010805663fbb6bf05dcfa50065e279252a38070953e95eb61799467bd0",
+            "selection_manifest_sha256": "77863fd3194e5fbfab105464ea99b69ef6c655fa704e9584ac5384bf9757f0be",
+            "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec",
+            "protocol_hash": "768f4c1802369ec436b2b240a2db921df1a702bf2aaf4f99f99803a7550f54ff"
+          }
+        }
+      }
+    }
+  },
+  "seed_variation": {
+    "available": false,
+    "reason": "Both matched seed 42 and seed 43 pairs must finish before seed variation is reported."
+  },
+  "historical_checkpoints_separate": [
+    {
+      "checkpoint": "baseline",
+      "metrics": {
+        "count": 64,
+        "numeric_correct": 58,
+        "strict_format_correct": 58,
+        "truncated": 2,
+        "latency_seconds_total": 445.4156362689999,
+        "generated_tokens": 11465,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "result_sha256": "13d7bbef3357589e3f015193579a22741f531c5038f0f46febce32105debbcfe",
+      "latency_measurement": "Earlier serial generation; not directly comparable with amortized batch 8 timing.",
+      "interpretation": "Descriptive history. Earlier arms differ in data, learning rate, token budget, updates and inference batching."
+    },
+    {
+      "checkpoint": "ranked32",
+      "metrics": {
+        "count": 64,
+        "numeric_correct": 52,
+        "strict_format_correct": 52,
+        "truncated": 1,
+        "latency_seconds_total": 375.0629880989998,
+        "generated_tokens": 7041,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "result_sha256": "13d7bbef3357589e3f015193579a22741f531c5038f0f46febce32105debbcfe",
+      "latency_measurement": "Earlier serial generation; not directly comparable with amortized batch 8 timing.",
+      "interpretation": "Descriptive history. Earlier arms differ in data, learning rate, token budget, updates and inference batching."
+    },
+    {
+      "checkpoint": "random32",
+      "metrics": {
+        "count": 64,
+        "numeric_correct": 52,
+        "strict_format_correct": 52,
+        "truncated": 3,
+        "latency_seconds_total": 412.3708057630002,
+        "generated_tokens": 7482,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "result_sha256": "13d7bbef3357589e3f015193579a22741f531c5038f0f46febce32105debbcfe",
+      "latency_measurement": "Earlier serial generation; not directly comparable with amortized batch 8 timing.",
+      "interpretation": "Descriptive history. Earlier arms differ in data, learning rate, token budget, updates and inference batching."
+    },
+    {
+      "checkpoint": "full120",
+      "metrics": {
+        "count": 64,
+        "numeric_correct": 52,
+        "strict_format_correct": 52,
+        "truncated": 1,
+        "latency_seconds_total": 410.0153115019998,
+        "generated_tokens": 7201,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "result_sha256": "8ffcdfbb1e4802324d73a222df49910a864f8188461b4f7a3b5e7b932384c56a",
+      "latency_measurement": "Earlier serial generation; not directly comparable with amortized batch 8 timing.",
+      "interpretation": "Descriptive history. Earlier arms differ in data, learning rate, token budget, updates and inference batching."
+    }
+  ],
+  "official_test_used": false,
+  "limitations": [
+    "Weakness signals were derived from these development outcomes; this is adaptive development monitoring, not independent final-test evidence.",
+    "Equal supervised-token counts and optimizer updates do not imply equal examples, input computation, or wall-clock cost.",
+    "The last supervised trace may have a masked answer tail; the full trace remains in the causal input unchanged.",
+    "Candidate NLL was diagnostic only and did not change the frozen skill-based selector in these arms.",
+    "The first random arm also ran the candidate-NLL diagnostic; whole-worker elapsed time therefore is not a matched training-cost comparison.",
+    "Paired bootstrap intervals quantify question resampling, not training-seed uncertainty; p-values are exploratory without multiplicity correction.",
+    "Seed changes can affect initialization, presentation order and random selection together; these runs do not isolate each source of variation.",
+    "Batched timings are amortized generation wall time and cannot be advertised as single-request speedups over earlier serial runs.",
+    "Numerical final-answer scoring does not establish reasoning-step or explanation quality."
+  ]
+}

@@ -29,11 +29,12 @@
     "figures/token-matched-accuracy.svg"
   ],
   "token_matched32768": {
-    "completed_arms": 1,
+    "completed_arms": 2,
     "planned_arms": 4,
     "count": 64,
     "correct": {
-      "random seed42": 55
+      "random seed42": 55,
+      "valued seed42": 53
     },
     "supervised_tokens_per_arm": 32768,
     "optimizer_updates_per_arm": 32,

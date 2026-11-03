@@ -7,6 +7,16 @@ import import_hf_sources as source
 
 
 class SourceImportTests(unittest.TestCase):
+    def test_partial_viewer_coverage_is_not_cell_truncation(self):
+        self.assertTrue(source.check_rows_coverage({'partial': True, 'num_rows_total': 1000}))
+        self.assertFalse(source.check_rows_coverage({'partial': False, 'num_rows_total': 1000}))
+        with self.assertRaises(RuntimeError):
+            source.check_rows_coverage({'partial': True, 'num_rows_total': 1000}, expected_partial=False)
+        with self.assertRaises(RuntimeError):
+            source.check_rows_coverage({'partial': True, 'num_rows_total': 1001}, expected_total=1000)
+        with self.assertRaises(RuntimeError):
+            source.check_rows_coverage({'num_rows_total': 1000})
+
     def test_no_evaluation_split_selection_or_implicit_test_fallback(self):
         payload = {'splits': [{'config': 'default', 'split': 'test'},
                               {'config': 'main', 'split': 'train'}]}

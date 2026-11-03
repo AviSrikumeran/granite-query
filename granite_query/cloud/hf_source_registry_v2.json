@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "purpose": "Second bounded coverage queue; inherits immutable first-run imports, preserves failures, retries only five explicitly documented format/split corrections, then tries distinct new sources",
+  "sources": [
+    {
+      "repo": "openai/gsm8k",
+      "family": "gsm8k-original",
+      "domain": "numeric_math",
+      "config": "main",
+      "provenance": "Original GSM8K training questions; canonical project source remains the pinned GitHub copy"
+    },
+    {
+      "repo": "EleutherAI/hendrycks_math",
+      "family": "math-competition-original",
+      "domain": "symbolic_math",
+      "config": "algebra",
+      "provenance": "Competition MATH training split; other configurations are not separate datasets"
+    },
+    {
+      "repo": "deepmind/aqua_rat",
+      "family": "aqua-original",
+      "domain": "numeric_math",
+      "config": "raw",
+      "provenance": "AQuA quantitative multiple-choice reasoning training split"
+    },
+    {
+      "repo": "allenai/math_qa",
+      "family": "mathqa-original",
+      "domain": "numeric_math",
+      "provenance": "MathQA annotated arithmetic reasoning training split"
+    },
+    {
+      "repo": "ChilleD/SVAMP",
+      "family": "svamp-original",
+      "domain": "numeric_math",
+      "provenance": "SVAMP arithmetic variations; use only provided training split; exclude project benchmark overlaps"
+    },
+    {
+      "repo": "MU-NLPC/Calc-ape210k",
+      "family": "ape210k-original",
+      "domain": "multilingual_math",
+      "provenance": "Chinese arithmetic word problems; separate language/task adaptation from English GSM8K"
+    },
+    {
+      "repo": "microsoft/orca-math-word-problems-200k",
+      "family": "orca-math-generated",
+      "domain": "numeric_math",
+      "provenance": "Microsoft synthetic mathematical word-problem teaching collection; not a DeepSeek teacher"
+    },
+    {
+      "repo": "meta-math/MetaMathQA",
+      "family": "gsm8k-math-augmentation",
+      "domain": "numeric_math",
+      "provenance": "Synthetic GSM8K/MATH-derived augmentation; underlying-source independence is not claimed"
+    },
+    {
+      "repo": "TIGER-Lab/MathInstruct",
+      "family": "mathinstruct-mixture",
+      "domain": "symbolic_math",
+      "provenance": "Mixture of mathematical reasoning and tool-use sources; source components overlap other registry entries"
+    },
+    {
+      "repo": "MathGenie/MathGenieData",
+      "family": "mathgenie-augmentation",
+      "domain": "symbolic_math",
+      "provenance": "GSM8K/MATH augmentation with code-integrated solutions; not plain numeric-answer targets by default"
+    },
+    {
+      "repo": "MathGenie/MathCode-Pile",
+      "family": "mathgenie-code-pile",
+      "domain": "math_code",
+      "provenance": "Code-integrated mathematics; segregated from the numeric scorer",
+      "recovery_reason": "HF /rows partial:true denotes limited large-dataset coverage, not truncated returned records; preserve explicit partial-coverage flag"
+    },
+    {
+      "repo": "AI-MO/NuminaMath-CoT",
+      "family": "numina-math",
+      "domain": "symbolic_math",
+      "provenance": "Curated multi-source Numina collection; can overlap OpenR1 and other derived pools"
+    },
+    {
+      "repo": "AI-MO/NuminaMath-1.5",
+      "family": "numina-math",
+      "domain": "symbolic_math",
+      "provenance": "Updated Numina problem collection; same family as NuminaMath-CoT, not independent evidence"
+    },
+    {
+      "repo": "open-r1/OpenR1-Math-220k",
+      "family": "numina-r1-traces",
+      "domain": "symbolic_math",
+      "config": "default",
+      "provenance": "DeepSeek-R1 traces on NuminaMath1.5; short full traces previously failed the 3B context/length screen"
+    },
+    {
+      "repo": "nvidia/OpenMathInstruct-1",
+      "family": "nvidia-openmath-instruct",
+      "domain": "numeric_math",
+      "provenance": "NVIDIA GSM8K/MATH-derived synthetic mathematical instruction collection",
+      "recovery_reason": "HF /rows partial:true denotes limited large-dataset coverage, not truncated returned records; preserve explicit partial-coverage flag"
+    },
+    {
+      "repo": "nvidia/OpenMathInstruct-2",
+      "family": "nvidia-openmath-instruct",
+      "domain": "numeric_math",
+      "preferred_splits": [
+        "train_1M",
+        "train"
+      ],
+      "provenance": "Llama-generated GSM8K/MATH training augmentations; augmented references can be majority-vote answers"
+    },
+    {
+      "repo": "nvidia/OpenMathReasoning",
+      "family": "nvidia-openmath-reasoning",
+      "domain": "symbolic_math",
+      "preferred_splits": [
+        "cot"
+      ],
+      "provenance": "Training reasoning traces; explicit cot training split permitted, never benchmark evaluation splits"
+    },
+    {
+      "repo": "nvidia/Nemotron-Math-v2",
+      "family": "nvidia-nemotron-math",
+      "domain": "symbolic_math",
+      "provenance": "NVIDIA mathematical training collection; provenance and sources must remain attached",
+      "preferred_splits": [
+        "low"
+      ],
+      "recovery_reason": "Pinned source card explicitly declares low/high/medium reasoning training splits; low is not an evaluation split"
+    },
+    {
+      "repo": "nvidia/Nemotron-SFT-Math-v4",
+      "family": "nvidia-nemotron-sft-math",
+      "domain": "symbolic_math",
+      "provenance": "NVIDIA mathematical SFT collection; teacher identity is not inferred from repository owner"
+    },
+    {
+      "repo": "zwhe99/DeepMath-103K",
+      "family": "deepmath-curation",
+      "domain": "symbolic_math",
+      "provenance": "Curated difficult mathematical reasoning collection; difficulty mismatch with GSM8K must be measured"
+    },
+    {
+      "repo": "agentica-org/DeepScaleR-Preview-Dataset",
+      "family": "deepscaler-curation",
+      "domain": "symbolic_math",
+      "provenance": "RL mathematical prompt collection; references do not imply existing teacher traces are valid short targets"
+    },
+    {
+      "repo": "SynthLabsAI/Big-Math-RL-Verified",
+      "family": "big-math-mixture",
+      "domain": "symbolic_math",
+      "provenance": "Multi-source verifiable RL prompts; check per-record source before any training use"
+    },
+    {
+      "repo": "Skywork/Skywork-OR1-RL-Data",
+      "family": "skywork-or1-curation",
+      "domain": "math_code",
+      "provenance": "Mathematics and coding RL prompts; retain domain separation and source metadata",
+      "preferred_splits": [
+        "math"
+      ],
+      "recovery_reason": "Pinned source card identifies math/code as released RL training splits; only math is requested"
+    },
+    {
+      "repo": "openbmb/UltraInteract_sft",
+      "family": "ultrainteract",
+      "domain": "math_code_logic",
+      "provenance": "Reasoning SFT across mathematics, code and logical tasks; source/task labels required"
+    },
+    {
+      "repo": "openbmb/UltraData-Math",
+      "family": "ultradata-math-web",
+      "domain": "symbolic_math",
+      "provenance": "Large mathematical collection; bounded samples only, no assertion all web answers are verified"
+    },
+    {
+      "repo": "math-ai/StackMathQA",
+      "family": "stackexchange-math",
+      "domain": "symbolic_math",
+      "provenance": "Mathematics StackExchange question/answer collection; not independent numeric verification"
+    },
+    {
+      "repo": "math-ai/TemplateGSM",
+      "family": "templategsm-generated",
+      "domain": "numeric_math",
+      "provenance": "Template-generated arithmetic questions; template diversity differs from problem count"
+    },
+    {
+      "repo": "akjindal53244/Arithmo-Data",
+      "family": "arithmo-mixture",
+      "domain": "numeric_math",
+      "provenance": "Mathematical instruction mixture; retain source attribution and overlap cautions"
+    },
+    {
+      "repo": "gretelai/synthetic-gsm8k-reflection-405b",
+      "family": "gretel-gsm-generated",
+      "domain": "numeric_math",
+      "provenance": "Synthetic GSM-style teaching examples; provided teacher is not DeepSeek"
+    },
+    {
+      "repo": "open-thoughts/OpenThoughts-114k",
+      "family": "open-thoughts",
+      "domain": "math_code_logic",
+      "config": "metadata",
+      "provenance": "DeepSeek-R1 multi-domain traces with metadata; long trace/domain feasibility must be screened"
+    },
+    {
+      "repo": "open-thoughts/OpenThoughts2-1M",
+      "family": "open-thoughts",
+      "domain": "math_code_logic",
+      "provenance": "Later OpenThoughts collection; same producer family, not independent benchmark evidence",
+      "recovery_reason": "HF /rows partial:true denotes limited large-dataset coverage, not truncated returned records; preserve explicit partial-coverage flag"
+    },
+    {
+      "repo": "bespokelabs/Bespoke-Stratos-17k",
+      "family": "bespoke-stratos",
+      "domain": "math_code_logic",
+      "provenance": "Curated reasoning traces across domains; preserve the card and teacher fields"
+    },
+    {
+      "repo": "NovaSky-AI/Sky-T1_data_17k",
+      "family": "sky-t1",
+      "domain": "math_code_logic",
+      "provenance": "Reasoning teaching data; preserve original generator attribution, do not relabel as DeepSeek"
+    },
+    {
+      "repo": "yale-nlp/FOLIO",
+      "family": "folio-logic-original",
+      "domain": "formal_logic",
+      "provenance": "First-order logical reasoning training examples; separate scorer required"
+    },
+    {
+      "repo": "tasksource/ruletaker",
+      "family": "ruletaker-original",
+      "domain": "formal_logic",
+      "provenance": "Rule-based deduction training examples; loader availability may differ from card availability"
+    },
+    {
+      "repo": "tasksource/logic-nli",
+      "family": "logic-nli-original",
+      "domain": "formal_logic",
+      "provenance": "Logical natural-language inference training examples; separate scorer required"
+    },
+    {
+      "repo": "allenai/proofwriter",
+      "family": "proofwriter-original",
+      "domain": "formal_logic",
+      "provenance": "ProofWriter deduction/proof supervision; actual accessibility must be verified"
+    },
+    {
+      "repo": "allenai/ai2_arc",
+      "family": "arc-science-original",
+      "domain": "science_reasoning",
+      "config": "ARC-Challenge",
+      "provenance": "Original science reasoning training split; multiple-choice labels are not numeric answers"
+    },
+    {
+      "repo": "allenai/openbookqa",
+      "family": "openbookqa-original",
+      "domain": "science_reasoning",
+      "config": "main",
+      "provenance": "Open-book science reasoning training split; separate multiple-choice evaluation"
+    },
+    {
+      "repo": "allenai/sciq",
+      "family": "sciq-original",
+      "domain": "science_reasoning",
+      "provenance": "Science question reasoning training split; separate multiple-choice evaluation"
+    },
+    {
+      "repo": "tasksource/LogiQA2",
+      "family": "logiqa-original",
+      "domain": "formal_logic",
+      "provenance": "Logical reasoning training examples; separate multiple-choice evaluation"
+    },
+    {
+      "repo": "lucasmccabe/logiqa",
+      "family": "logiqa-original",
+      "domain": "formal_logic",
+      "provenance": "Alternative LogiQA corpus version; same family, not independent data value evidence"
+    },
+    {
+      "repo": "deepmind/math_dataset",
+      "family": "deepmind-generated-math",
+      "domain": "symbolic_math",
+      "config": "algebra__linear_1d",
+      "provenance": "Procedurally generated mathematical training tasks; use train only"
+    },
+    {
+      "repo": "openbmb/UltraInteract_pair",
+      "family": "ultrainteract",
+      "domain": "math_code_logic",
+      "provenance": "Preference annotation of UltraInteract, same family as its SFT collection; raw preference schema only"
+    },
+    {
+      "repo": "PrimeIntellect/INTELLECT-2-RL-Dataset",
+      "family": "intellect-rl-curation",
+      "domain": "math_code_logic",
+      "provenance": "Verifiable reasoning RL curation; actual repository/split availability must be verified"
+    },
+    {
+      "repo": "hkust-nlp/dart-math-hard",
+      "family": "dart-math-generated",
+      "domain": "symbolic_math",
+      "provenance": "Difficulty-aware rejection-tuning mathematical training data; one DART collection, not separate uniform/hard counts"
+    },
+    {
+      "repo": "tasksource/num-glue",
+      "family": "numglue-original",
+      "domain": "numeric_math",
+      "provenance": "Normalized NumGLUE preserving original train/validation/test split distinctions; only original train requested",
+      "config": "all"
+    },
+    {
+      "repo": "K-and-K/knights-and-knaves",
+      "family": "knights-knaves-original",
+      "domain": "formal_logic",
+      "provenance": "Author logical-deduction puzzle generation and explicitly separated train files; separate scorer required"
+    },
+    {
+      "repo": "google-research-datasets/mbpp",
+      "family": "mbpp-original",
+      "domain": "code_reasoning",
+      "provenance": "Original MBPP training split only; code/tests remain raw and are not numeric-answer labels",
+      "config": "full"
+    },
+    {
+      "repo": "deepmind/code_contests",
+      "family": "code-contests-original",
+      "domain": "code_reasoning",
+      "provenance": "Original coding reasoning training split; program test cases belong to training tasks, never benchmark test split"
+    },
+    {
+      "repo": "allenai/qasc",
+      "family": "qasc-original",
+      "domain": "science_reasoning",
+      "provenance": "Original compositional science reasoning training split; separate multiple-choice scorer"
+    },
+    {
+      "repo": "TIGER-Lab/MAmmoTH2-Plus",
+      "family": "mammoth2-web-mixture",
+      "domain": "math_code_logic",
+      "provenance": "Web-mined instruction reasoning collection; mixed domains and teacher provenance retained, not automatically math training-ready"
+    },
+    {
+      "repo": "open-r1/codeforces",
+      "family": "codeforces-reasoning",
+      "domain": "code_reasoning",
+      "provenance": "OpenR1 competitive-programming training collection; only explicit train split allowed"
+    },
+    {
+      "repo": "ise-uiuc/Magicoder-OSS-Instruct-75K",
+      "family": "magicoder-oss-generated",
+      "domain": "code_reasoning",
+      "provenance": "Code-derived synthetic instruction reasoning; source/generator attribution must remain attached"
+    },
+    {
+      "repo": "codeparrot/apps",
+      "family": "apps-original",
+      "domain": "code_reasoning",
+      "provenance": "Original APPS training split only; loader availability is checked without executing remote scripts"
+    }
+  ]
+}

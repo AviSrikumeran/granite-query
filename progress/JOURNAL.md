@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Equal-token valued training, seed42
+Current stage: Equal-token valued training, seed43
 
-Next: A Modal function call was submitted; currently loading the model. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+Next: A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -285,3 +285,23 @@ Poll the existing exact-token arm with valuation_control.py poll --folder studen
 ## 2026-11-03T18:38:25.880968+00:00 | in_progress | Matching valuedseed42 arm launched
 
 The randomseed42 equal-token arm completed55/64 numerical matches with no truncation. Its frozen matching valued arm is now running with the same32768 supervised tokens,32 optimizer updates, learning rate0.00002, base checkpoint, seed and64-question batched evaluation. CandidateNLL diagnostics are saved but did not change this preselected skill-based arm. No seed43 job has launched yet.
+
+## 2026-11-03T18:44:46.660473+00:00 | completed | Forty Hugging Face sources sampled with verified provenance
+
+Completed bounded training-split imports from40 actual repositories across37 declared source families:312 complete raw rows with verified file hashes. These are samples, not entire datasets or40 trained domains.47 scalar-reference prompts were parsed generically; source-specific quality and teacher verification are still required. Original format/API failures and the first registry were preserved. Next expansion prioritizes compatible arithmetic sources instead of mixing unverified code/science into the math scorer.
+
+## 2026-11-03T18:46:56.660002+00:00 | completed | Equal-token valued arm completed
+
+Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use.
+
+## 2026-11-03T18:48:29.041709+00:00 | completed | First exact-token selection comparison analyzed
+
+Seed 42: random scored 55/64 and valued scored 53/64 on the same adaptive development questions. Valued corrected 4 and regressed 6 answers; the paired 95% interval spans -12.5 to +6.25 percentage points. This provides no evidence of a selection advantage. Both arms supervised exactly 32768 tokens through 32 updates; aggregate reports and immutable source hashes are saved.
+
+## 2026-11-03T18:48:29.041709+00:00 | in_progress | Frozen valued seed 43 replication launched
+
+Launched the unchanged valued-arm replication only after all earlier GPU apps stopped and fresh provider accounting confirmed headroom. The arm retains the same verified pool, 32768 supervised tokens, 32 updates and learning rate 0.00002. One A100 task, hard 4 CPU/32 GiB limits, 1800-second maximum and a separate 3-dollar reservation. Random seed 43 remains prepared.
+
+## 2026-11-03T18:49:33.699697+00:00 | in_progress | Research improvement cycle
+
+Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_valued_v1. Preserve its outputs; do not duplicate the call.

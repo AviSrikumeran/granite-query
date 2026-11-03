@@ -135,6 +135,9 @@ def tick():
         record('in_progress', 'Research improvement cycle' if improving else ('Ranked versus random supervision' if (comparison/'plan.json').exists() else 'Granite training smoke test'),
                status['next_action'], event_id='supervisor-next-' + status['next_action'])
         build_accomplishments()
+        if any((folder/'plan.json').exists() for folder in valuation_folders):
+            from valuation_report import build as build_valuation_report
+            build_valuation_report()
         build(status)
         print(json.dumps(status))
     finally:

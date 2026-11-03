@@ -16,6 +16,7 @@ import os
 from pathlib import Path
 import random
 import re
+import shutil
 import time
 from urllib.parse import urlencode, quote
 import urllib.error
@@ -34,6 +35,7 @@ PUBLIC_FIELDS = (
     'config', 'split', 'sample_rows', 'untruncated_rows', 'raw_bytes', 'raw_sha256',
     'numeric_reference_prompts', 'duplicate_prompts', 'provenance_note',
     'metadata_reviewed', 'card_saved', 'error_type', 'http_status', 'limitation',
+    'viewer_partial_coverage', 'sampling_note', 'license_metadata_status',
 )
 
 
@@ -72,11 +74,12 @@ class RevisionMismatch(RuntimeError):
 
 class SourceHTTP:
     """At most two 429 retries with bounded backoff; no paid endpoints allowed."""
-    def __init__(self, folder, max_bytes=MAX_TOTAL_BYTES, *, offline=False):
+    def __init__(self, folder, max_bytes=MAX_TOTAL_BYTES, *, offline=False, deadline=None):
         self.folder, self.max_bytes, self.offline = folder, max_bytes, offline
         self.source_bytes = 0
         self.network_bytes = 0
         self.last_request = {}
+        self.deadline = deadline
         self.accounted_paths = set()
         for metadata in (folder / 'sources').rglob('*.metadata.json'):
             saved = json.loads(metadata.read_text(encoding='utf-8'))
@@ -101,14 +104,19 @@ class SourceHTTP:
                 raise RuntimeError('Requested source artifact is not cached; offline mode made no request')
             host = url.split('/')[2]
             for attempt in range(3):
+                if self.deadline is not None and time.monotonic() >= self.deadline:
+                    raise DownloadLimit('Bounded importer wall-time allowance exhausted')
                 delay = max(0, 3.0 - (time.monotonic() - self.last_request.get(host, 0)))
+                if self.deadline is not None and time.monotonic() + delay >= self.deadline:
+                    raise DownloadLimit('Bounded importer wall-time allowance exhausted')
                 if delay:
                     time.sleep(delay)
                 self.last_request[host] = time.monotonic()
                 try:
                     request = urllib.request.Request(url, headers={'User-Agent': 'GraniteQuery-bounded-source-audit/1.0',
                                                                   'Accept-Encoding': 'identity'})
-                    with urllib.request.urlopen(request, timeout=35) as response:
+                    timeout = min(35, max(1, self.deadline - time.monotonic())) if self.deadline else 35
+                    with urllib.request.urlopen(request, timeout=timeout) as response:
                         headers = {key.casefold(): value for key, value in response.headers.items()}
                         if revision and headers.get('x-revision') != revision:
                             raise RevisionMismatch('Dataset-server snapshot differs from pinned repository revision')
@@ -129,6 +137,8 @@ class SourceHTTP:
                         raise
                     raw_delay = error.headers.get('Retry-After', '') if error.headers else ''
                     backoff = min(60, max(15 * 2**attempt, int(raw_delay) if raw_delay.isdigit() else 0))
+                    if self.deadline is not None and time.monotonic() + backoff >= self.deadline:
+                        raise DownloadLimit('Wall-time allowance cannot accommodate required backoff')
                     append_event(self.folder, {'event': 'rate_limit_backoff', 'url': url, 'seconds': backoff, 'attempt': attempt + 1})
                     time.sleep(backoff)
         unaccounted = 0 if cache.resolve() in self.accounted_paths else len(data)
@@ -152,6 +162,18 @@ def choose_train_split(source, payload):
         return None
     return sorted(splits, key=lambda split: (permitted.index(split['split']),
                     0 if split['config'] == 'default' else 1, split['config']))[0]
+
+
+def check_rows_coverage(payload, *, expected_total=None, expected_partial=None):
+    # https://huggingface.co/docs/dataset-viewer/rows explains that partial
+    # refers to limited dataset coverage. It does not truncate returned cells.
+    if not isinstance(payload.get('partial'), bool) or not isinstance(payload.get('num_rows_total'), int):
+        raise RuntimeError('Missing source coverage metadata')
+    if expected_total is not None and payload['num_rows_total'] != expected_total:
+        raise RuntimeError('Source row coverage changed between blocks')
+    if expected_partial is not None and payload['partial'] != expected_partial:
+        raise RuntimeError('Source partial-coverage status changed between blocks')
+    return payload['partial']
 
 
 def prompt_and_reference(row):
@@ -229,6 +251,8 @@ def import_one(source, folder, http, dedup, sample_rows):
             raise ValueError('Repository returned no immutable revision')
         result.update(metadata_reviewed=True, revision=revision,
                       license_listed=(info.get('cardData') or {}).get('license', 'not specified in metadata'))
+        result['license_metadata_status'] = ('unspecified' if result['license_listed'] == 'not specified in metadata'
+                                              else 'listed; terms not interpreted')
         write(out / 'source_identity.json', {'repo': repo, 'revision': revision, 'repository_sha256': meta['sha256']})
         try:
             http.get(f'https://huggingface.co/datasets/{repo}/resolve/{revision}/README.md', out / 'README.md', max_bytes=256 * 1024)
@@ -248,8 +272,10 @@ def import_one(source, folder, http, dedup, sample_rows):
         first_url = 'https://datasets-server.huggingface.co/rows?' + urlencode({'dataset': repo, 'config': selected['config'], 'split': selected['split'], 'offset': 0, 'length': min(4, sample_rows)})
         body, blockmeta = http.get(first_url, out / 'rows_000000.json', revision=revision)
         first = json.loads(body)
-        if first.get('partial') is not False:
-            raise RuntimeError('Partial source layout is not accepted')
+        # HF documents partial:true as limited DATASET coverage for large
+        # collections, not truncation of returned /rows records. Keep that
+        # limitation explicit; individual truncated_cells are still rejected.
+        result['viewer_partial_coverage'] = check_rows_coverage(first)
         total = first['num_rows_total']
         wrappers = list(first['rows'])
         raw_blocks = [blockmeta]
@@ -262,8 +288,7 @@ def import_one(source, folder, http, dedup, sample_rows):
             try:
                 body, blockmeta = http.get(url, out / f'rows_{offset:06d}.json', revision=revision)
                 second = json.loads(body)
-                if second.get('partial') is not False or second['num_rows_total'] != total:
-                    raise RuntimeError('Source layout changed between blocks')
+                check_rows_coverage(second, expected_total=total, expected_partial=first['partial'])
                 wrappers.extend(second['rows'])
                 raw_blocks.append(blockmeta)
             except (urllib.error.HTTPError, DownloadLimit) as error:
@@ -321,16 +346,20 @@ def import_one(source, folder, http, dedup, sample_rows):
     return result
 
 
-def run(output=RUN, public=PUBLIC, *, target=40, sample_rows=8, max_seconds=1500, offline=False):
+def run(output=RUN, public=PUBLIC, *, target=40, sample_rows=8, max_seconds=1500,
+        offline=False, registry=REGISTRY, inherit_from=None):
     output, public = Path(output).resolve(), Path(public).resolve()
     if not output.is_relative_to((ROOT / 'runs').resolve()) or public != PUBLIC.resolve():
         raise ValueError('Only ignored run artifacts and the explicit sanitized inventory path are permitted')
     if not 1 <= target <= 40 or not 1 <= sample_rows <= 8 or not 1 <= max_seconds <= 1800:
         raise ValueError('Use <=40 imports, <=8 rows/source and <=1800 seconds')
-    registry_raw = REGISTRY.read_bytes()
+    registry = Path(registry).resolve()
+    if not registry.is_relative_to(ROOT) or registry.suffix != '.json':
+        raise ValueError('Registry must be a local cloud JSON artifact')
+    registry_raw = registry.read_bytes()
     sources = json.loads(registry_raw)['sources']
-    if len(sources) > 48 or len({source['repo'] for source in sources}) != len(sources):
-        raise ValueError('Registry needs <=48 distinct repository identities')
+    if len(sources) > 64 or len({source['repo'] for source in sources}) != len(sources):
+        raise ValueError('Registry needs <=64 distinct repository identities')
     if any(not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', source['repo']) for source in sources):
         raise ValueError('Invalid registry repository identity')
     output.mkdir(parents=True, exist_ok=True)
@@ -345,16 +374,48 @@ def run(output=RUN, public=PUBLIC, *, target=40, sample_rows=8, max_seconds=1500
                     'sample_rows_per_source': sample_rows, 'seed': SEED, 'max_total_source_bytes': MAX_TOTAL_BYTES,
                     'max_response_bytes': MAX_RESPONSE_BYTES, 'no_evaluation_splits': True,
                     'new_teacher_calls': 0, 'gpu_jobs': 0}
+        inherited = None
+        if inherit_from:
+            inherit_from = Path(inherit_from).resolve()
+            if not inherit_from.is_relative_to((ROOT / 'runs').resolve()) or inherit_from == output:
+                raise ValueError('Inherited artifacts must be a different local ignored run')
+            if (inherit_from / 'importer.lock').exists():
+                raise RuntimeError('Do not inherit a still-active import run')
+            inherited_raw = (inherit_from / 'manifest.json').read_bytes()
+            inherited = json.loads(inherited_raw)
+            settings.update(inherited_run=str(inherit_from), inherited_manifest_sha256=digest(inherited_raw))
         if (output / 'plan.json').exists():
             if json.loads((output / 'plan.json').read_text()) != settings:
                 raise RuntimeError('Frozen registry/import settings differ')
         else:
             write(output / 'plan.json', settings)
         path = output / 'manifest.json'
+        fresh = not path.exists()
         manifest = json.loads(path.read_text()) if path.exists() else {
             'schema_version': SCHEMA_VERSION, 'run_id': output.name, 'stage': 'importing',
             'created_at_utc': now(), 'target_imported_datasets': target,
             'sources': [{key: source[key] for key in ('repo', 'family', 'domain')} | {'status': 'queued'} for source in sources]}
+        if fresh and inherited:
+            old_sources = {row['repo']: row for row in inherited['sources']}
+            for index, source in enumerate(sources):
+                previous = old_sources.get(source['repo'])
+                if previous is None:
+                    continue
+                old_folder = inherit_from / 'sources' / source['repo'].replace('/', '__')
+                new_folder = output / 'sources' / source['repo'].replace('/', '__')
+                if old_folder.exists():
+                    shutil.copytree(old_folder, new_folder, dirs_exist_ok=True)
+                manifest['sources'][index] = dict(previous)
+                if previous['status'] != 'sample_imported' and source.get('recovery_reason'):
+                    # Requeue only a concrete documented format fix, never
+                    # gated/auth failures or unchanged network-error attempts.
+                    manifest['sources'][index] = {key: source[key] for key in ('repo', 'family', 'domain')} | {
+                        'status': 'queued', 'prior_status': previous['status'],
+                        'recovery_reason': source['recovery_reason']}
+            manifest.update(inherited_run=inherit_from.name,
+                            inherited_manifest_sha256=settings['inherited_manifest_sha256'])
+            append_event(output, {'event': 'inherited_immutable_run', 'source_run': inherit_from.name,
+                                  'source_manifest_sha256': settings['inherited_manifest_sha256']})
         try:
             from .prepare_verified_math import load_exclusions, EXCLUSION_PATHS, Deduplicator
         except ImportError:
@@ -370,8 +431,8 @@ def run(output=RUN, public=PUBLIC, *, target=40, sample_rows=8, max_seconds=1500
                 for line in adapted_path.read_text(encoding='utf-8').split('\n'):
                     if line:
                         dedup.add(json.loads(line))
-        http = SourceHTTP(output, offline=offline)
         started = time.monotonic()
+        http = SourceHTTP(output, offline=offline, deadline=started + max_seconds)
 
         def checkpoint():
             manifest.update(updated_at_utc=now(), current_invocation_network_bytes=http.network_bytes,
@@ -426,9 +487,12 @@ def main():
     parser.add_argument('--sample-rows', type=int, default=8)
     parser.add_argument('--max-seconds', type=int, default=1500)
     parser.add_argument('--offline', action='store_true')
+    parser.add_argument('--registry', type=Path, default=REGISTRY)
+    parser.add_argument('--inherit-from', type=Path)
     args = parser.parse_args()
     snapshot = run(args.output, target=args.target, sample_rows=args.sample_rows,
-                   max_seconds=args.max_seconds, offline=args.offline)
+                   max_seconds=args.max_seconds, offline=args.offline,
+                   registry=args.registry, inherit_from=args.inherit_from)
     print(json.dumps({key: snapshot[key] for key in ('stage', 'actually_imported_sources',
                             'sample_rows_imported', 'numeric_reference_prompts')}), flush=True)
 

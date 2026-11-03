@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "run_id": "math_source_cohort1800_v1",
+  "stage": "preparing",
+  "updated_at_utc": "2026-11-03T18:49:25.492857+00:00",
+  "max_prompts_per_source": 600,
+  "max_prompts_total": 1800,
+  "actual_prompts": 770,
+  "sources": [
+    {
+      "repo": "ChilleD/SVAMP",
+      "family": "svamp-original",
+      "revision": "5e0bf1e5e7c0e9c4bc39180d224f41f3f801b7ef",
+      "config": "default",
+      "split": "train",
+      "reference_type": "human_dataset_answer",
+      "reference_limitation": "Provided SVAMP answer, parsed locally; not independently re-solved in this unpaid stage",
+      "status": "quota_reached",
+      "examined_rows": 600,
+      "accepted_prompts": 600,
+      "bytes_cached": 305767,
+      "rejections": {},
+      "observed_problem_sources": {},
+      "unique_templates": 0,
+      "template_cap": null,
+      "license_listed": "mit",
+      "license_metadata_status": "listed; terms not interpreted",
+      "viewer_partial_coverage": false
+    },
+    {
+      "repo": "math-ai/TemplateGSM",
+      "family": "templategsm-generated",
+      "revision": "0c8ed6b60fea0a84f25ddb1b8b761db695df2e19",
+      "config": "templategsm-1000-1k",
+      "split": "train",
+      "reference_type": "procedurally_generated_result",
+      "reference_limitation": "Upstream claims programmatic verification; no downloaded solution code is executed here",
+      "status": "scanning",
+      "examined_rows": 1900,
+      "accepted_prompts": 170,
+      "bytes_cached": 2265515,
+      "rejections": {
+        "template_id_matches_excluded_gsm8k_id": 150,
+        "template_quota": 1580
+      },
+      "observed_problem_sources": {},
+      "unique_templates": 34,
+      "template_cap": 5,
+      "license_listed": "cc-by-4.0",
+      "license_metadata_status": "listed; terms not interpreted",
+      "viewer_partial_coverage": false
+    }
+  ],
+  "training_ready_examples": 0,
+  "new_teacher_calls": 0,
+  "new_gpu_jobs": 0,
+  "official_evaluation_splits_accessed": false,
+  "purpose": "Prospective shared pool for a future controlled 131072-supervised-token comparison; feasibility and funds must be checked after teacher verification",
+  "next_stage": "Separately reserved concise DeepSeek-V4 targets, strict numeric/completion/context checks, then matched selectors from the same frozen eligible pool",
+  "limitations": [
+    "Forty-source coverage samples are not blindly mixed into numeric training.",
+    "Source references have different origins and uncertainty; majority-vote references are not independent gold.",
+    "No provided teacher traces are copied or truncated into targets.",
+    "Template-ID exclusion is a conservative lineage guard, not proof of full semantic decontamination.",
+    "Source and template quotas must remain controlled when comparing selection policies.",
+    "The existing four frozen arms and their prepared pool remain unchanged."
+  ]
+}
