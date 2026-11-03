@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An isolated Granite Query component playground: interactive cubes, an explanatory training diagram, and a published evidence sidebar.">
+  <meta name="robots" content="noindex">
+  <title>Component playground · Granite Query</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 37 12v18L20 40 3 30V12Z' fill='%23232323'/%3E%3Cpath d='m3 12 17 10 17-10M20 22v18' fill='none' stroke='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./playground.css">
+  <script type="module" src="./playground.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to components</a>
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="Granite Query research homepage"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="m16 2 14 8v16l-14 8-14-8V10Z M2 10l14 8 14-8 M16 18v16"/></svg><span>GRANITE QUERY<span class="brand-divider">/</span><span class="brand-sub">Playground</span></span></a>
+    <nav aria-label="Page navigation"><a href="#geometry">01 Geometry</a><a href="#training">02 Training</a><a href="#evidence">03 Evidence</a></nav>
+    <a class="repo-link" href="https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground">View source <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <div class="page-intro">
+      <div><p class="eyebrow">DESIGN STUDY <span>/</span> 001</p><h1>Research, made visible.</h1><p class="intro-copy">Explore the movement. Inspect the process. Read the evidence.<br>Three working components, separate from the research homepage.</p></div>
+      <div class="motion-controls"><span class="study-label">Monochrome interaction study</span><div class="control-row"><button id="motion-toggle" type="button" aria-pressed="false" disabled>Pause motion <span aria-hidden="true">Ⅱ</span></button><label class="static-label"><input id="static-mode" type="checkbox" disabled> Static preview</label></div><p id="motion-status" class="helper">Motion controls load with JavaScript.</p></div>
+    </div>
+    <noscript><p class="notice">Interactive controls and published data need JavaScript. The training process below remains readable. <a href="../">Open the research homepage</a> or <a href="../status.json">read the public snapshot</a>.</p></noscript>
+    <div class="workspace">
+      <div class="specimens">
+        <section class="component" id="geometry" aria-labelledby="geometry-title">
+          <div class="component-heading"><div><p class="eyebrow">01 <span>/</span> GEOMETRY</p><h2 id="geometry-title">A system of small parts.</h2></div><span class="pill">Illustration</span></div>
+          <div class="cube-stage" id="cube-stage">
+            <div class="stage-topline"><span>FIG. 01 — MODULAR FIELD</span><span id="cube-layout-label">ASSEMBLED / 25 UNITS</span></div>
+            <svg class="cube-art" id="cube-art" viewBox="0 0 760 420" role="img" aria-labelledby="cube-title cube-description">
+              <title id="cube-title">An isometric field of twenty-five cubes</title><desc id="cube-description">An illustrative modular field that gently floats and responds to pointer movement. Use the layout buttons and inspection control below with a keyboard or touchscreen.</desc>
+              <defs><pattern id="stage-grid" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M46 0H0V46" fill="none" stroke="#ffffff" stroke-opacity=".055"/></pattern><radialGradient id="stage-light"><stop stop-color="#ffffff" stop-opacity=".07"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
+              <rect width="760" height="420" fill="url(#stage-grid)"/><ellipse cx="380" cy="225" rx="330" ry="200" fill="url(#stage-light)"/>
+              <g class="ground-lines" aria-hidden="true"><path d="m120 225 260-135 260 135-260 135Z M165 225l215-110 215 110-215 110Z M210 225l170-86 170 86-170 86Z"/></g>
+              <g id="cube-field"><g transform="translate(380 180)" class="cube"><path class="face-top" d="M0-24 24-11 0 2-24-11Z"/><path class="face-left" d="m-24-11 24 13v29l-24-13Z"/><path class="face-right" d="m0 2 24-13v29L0 31Z"/></g></g>
+            </svg>
+            <div class="stage-bottomline"><span><span class="small-cross" aria-hidden="true">+</span> Move over the field to explore</span><span id="cube-inspection">UNIT 13 / CENTER</span></div>
+          </div>
+          <div class="component-toolbar"><div class="segmented" role="group" aria-label="Cube layout"><button type="button" data-layout="assembled" aria-pressed="true" disabled>Assemble</button><button type="button" data-layout="expanded" aria-pressed="false" disabled>Expand</button></div><button type="button" id="inspect-cube" class="text-button" disabled>Inspect next cube <span aria-hidden="true">→</span></button></div>
+          <p class="component-note">A slow wave runs through the field. Move your mouse to lift nearby cubes, or use “Inspect next cube” to select a unit. These shapes represent no measured training data.</p>
+        </section>
+        <section class="component" id="training" aria-labelledby="training-title">
+          <div class="component-heading"><div><p class="eyebrow">02 <span>/</span> TRAINING DIAGRAM</p><h2 id="training-title">From teacher to evidence.</h2></div><span class="pill">Illustration</span></div>
+          <p class="section-copy">Follow the process, or select a stage to inspect it. The animation explains the method; it does not report a running job.</p>
+          <div class="training-surface">
+            <div class="method-choice" role="group" aria-label="Selection method"><button type="button" data-method="ranked" aria-pressed="true" disabled>BM25 ranked</button><button type="button" data-method="random" aria-pressed="false" disabled>Random control</button></div>
+            <div class="pipeline-route" id="pipeline-route">
+              <div class="pipeline-track" aria-hidden="true"><div id="pipeline-fill"></div><span class="flow-packet"></span></div>
+              <button class="pipeline-node" type="button" data-stage="0" aria-pressed="true" aria-controls="stage-detail" disabled><span class="node-number">01</span><span class="node-icon">T</span><span class="node-label">Teacher</span></button>
+              <button class="pipeline-node" type="button" data-stage="1" aria-pressed="false" aria-controls="stage-detail" disabled><span class="node-number">02</span><span class="node-icon">✓</span><span class="node-label">Verify</span></button>
+              <button class="pipeline-node" type="button" data-stage="2" aria-pressed="false" aria-controls="stage-detail" disabled><span class="node-number">03</span><span class="node-icon">≋</span><span class="node-label">Select</span></button>
+              <button class="pipeline-node" type="button" data-stage="3" aria-pressed="false" aria-controls="stage-detail" disabled><span class="node-number">04</span><span class="node-icon">G</span><span class="node-label">Fine-tune</span></button>
+              <button class="pipeline-node" type="button" data-stage="4" aria-pressed="false" aria-controls="stage-detail" disabled><span class="node-number">05</span><span class="node-icon">↗</span><span class="node-label">Evaluate</span></button>
+            </div>
+            <div class="pipeline-branches"><span>↳ Verification rejects are excluded</span><span>Ranked ↔ random comparison</span></div>
+            <div id="stage-detail" class="stage-detail"><div class="detail-index" id="stage-index">01 / 05</div><div><h3 id="stage-name">Generate teacher examples</h3><p id="stage-copy">DeepSeek produces candidate mathematical solutions from the eligible training pool. Teacher output is an input to the experiment, not evidence of student improvement.</p></div></div>
+            <div class="sequence-toolbar"><span id="sequence-status" class="helper">Automatic walkthrough</span><div><button id="sequence-toggle" type="button" class="text-button" disabled>Pause sequence</button><button id="sequence-replay" type="button" class="text-button" disabled>Replay <span aria-hidden="true">↺</span></button></div></div>
+          </div>
+          <details class="method-details"><summary>Read the full process without animation</summary><ol><li>DeepSeek generates candidate teacher examples from training questions.</li><li>Verification checks final answers and format; rejected examples remain excluded.</li><li>Random or BM25 selection chooses from the same eligible pool.</li><li>Granite is fine-tuned under recorded training budgets.</li><li>Separate development questions compare outcomes. The final test split remains separate. Inspect published results for what has actually been measured.</li></ol></details>
+        </section>
+      </div>
+      <aside class="evidence component" id="evidence" aria-labelledby="evidence-title">
+        <div class="component-heading"><div><p class="eyebrow">03 <span>/</span> EVIDENCE SIDEBAR</p><h2 id="evidence-title">Research record.</h2></div><span class="source-dot" aria-hidden="true"></span></div>
+        <div class="evidence-source"><span id="source-label">Published snapshot</span><button type="button" id="refresh-evidence" class="text-button" disabled>Refresh <span aria-hidden="true">↻</span></button></div>
+        <p id="fetch-status" class="fetch-status" role="status">Waiting for the public snapshot…</p>
+        <div class="snapshot-summary" id="snapshot-summary"><p class="eyebrow">CURRENT STAGE</p><h3 id="research-stage">Status not loaded</h3><p id="research-next" class="helper">Reads the existing public status file.</p><dl class="evidence-metrics"><div><dt>Teacher responses</dt><dd id="teacher-count">—</dd></div><div><dt>Strict answer checks</dt><dd id="verification-count">—</dd></div></dl><p id="research-caveat" class="evidence-caveat">Teacher verification and held-out student accuracy are separate outcomes.</p><p class="snapshot-time" id="snapshot-time">Snapshot time unavailable</p></div>
+        <div class="events-heading"><h3>Recent activity</h3><span id="event-count" class="helper">—</span></div>
+        <div class="event-filters" role="group" aria-label="Filter research events"><button type="button" data-filter="all" aria-pressed="true" disabled>All</button><button type="button" data-filter="completed" aria-pressed="false" disabled>Completed</button><button type="button" data-filter="issues" aria-pressed="false" disabled>Issues & fixes</button></div>
+        <div id="event-list" class="event-list"><p class="empty-state">Events appear after the snapshot loads.</p></div>
+        <div id="event-detail" class="event-detail" hidden><p id="event-detail-kind" class="eyebrow"></p><h3 id="event-detail-title"></h3><p id="event-detail-copy"></p><time id="event-detail-time"></time></div>
+        <div class="evidence-links"><a href="../journal.md">Full research journal <span aria-hidden="true">↗</span></a><a href="../results.md">Published pilot results <span aria-hidden="true">↗</span></a><a href="../status.json">Public snapshot <span aria-hidden="true">↗</span></a></div>
+        <details class="state-review"><summary>Try sidebar states</summary><label for="evidence-mode">Display mode</label><select id="evidence-mode" disabled><option value="published">Published data</option><option value="loading">Sample: loading</option><option value="empty">Sample: no events</option><option value="error">Sample: refresh failed</option><option value="stale">Sample: stale snapshot</option></select><p class="helper">Samples test presentation only. They do not change the research record.</p></details>
+      </aside>
+    </div>
+    <footer><span>Granite Query <span class="footer-slash">/</span> Component playground</span><span>Original SVG + browser-native motion · Visual direction under review</span><a href="../">Return to research homepage <span aria-hidden="true">↗</span></a></footer>
+  </main>
+</body>
+</html>
