@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T18:49:34.196254+00:00",
+  "generated_at_utc": "2026-11-03T18:55:26.736778+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Equal-token valued training, seed43",
+  "stage": "Equal-token random training, seed43",
   "next_action": "A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.",
   "metrics": {
     "teacher_responses": 16,
@@ -538,6 +538,41 @@
       "kind": "in_progress",
       "title": "Research improvement cycle",
       "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_valued_v1. Preserve its outputs; do not duplicate the call."
+    },
+    {
+      "id": "3e471f731e3ee34d292a",
+      "at_utc": "2026-11-03T18:52:30.147762+00:00",
+      "kind": "planned",
+      "title": "Prepare gradient-based valuation and a larger arithmetic cohort",
+      "detail": "Source-specific preparation is running for up to1800 new arithmetic prompts from SVAMP, TemplateGSM and OpenMath augmentation, with prior-pool exclusions and reference origins retained. This is not yet teacher-verified training data. A separate LESS-inspired projected-gradient design and reference scoring math are prepared; the bounded GPU feature collector remains to implement. Current frozen replication continues unchanged."
+    },
+    {
+      "id": "student_valuation32768_seed43_valued_v1-completed",
+      "at_utc": "2026-11-03T18:52:48.707303+00:00",
+      "kind": "completed",
+      "title": "Equal-token valued arm completed",
+      "detail": "Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use."
+    },
+    {
+      "id": "deepseek-wallet-accounting-v1",
+      "at_utc": "2026-11-03T18:53:32.037365+00:00",
+      "kind": "completed",
+      "title": "DeepSeek funding-based accounting separated from token estimates",
+      "detail": "A supported balance observation and the user-declared original funding conditionally imply 0.36 dollars of project-attributed wallet consumption. The 0.75-dollar recorded peak-price token estimate remains separate; an explicit 0.10-dollar lag buffer is retained. No new credits are assumed and the 20-dollar ceiling is unchanged. Funding changes, grants and stale observations block new reservations. Wallet and account details remain private."
+    },
+    {
+      "id": "student_valuation32768_seed43_random_v1-launched",
+      "at_utc": "2026-11-03T18:54:12.105665+00:00",
+      "kind": "in_progress",
+      "title": "Final frozen random seed 43 arm launched",
+      "detail": "After valued seed 43 completed and all prior GPU apps stopped, launched the unchanged random seed 43 arm to complete the preregistered first two-seed block. Exactly 32768 supervised tokens, 32 updates, the same teacher pool and learning rate 0.00002; one bounded A100 job with a separate 3-dollar reservation. Seed variation remains unavailable until this final arm completes."
+    },
+    {
+      "id": "supervisor-next-Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call.",
+      "at_utc": "2026-11-03T18:55:26.246019+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call."
     }
   ],
   "latest_training_pool": {
@@ -550,11 +585,11 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 2.82885212,
+    "observed_metered_usd": 2.97929497,
     "collection_lag_buffer_usd": 3.0,
     "active_reservations_usd": 3.0,
     "pending_terminal_liability_usd": 6.0,
-    "budget_remaining_usd": 15.07,
+    "budget_remaining_usd": 15.02,
     "deepseek_peak_estimate_usd": 0.75
   },
   "source_imports": {
@@ -567,6 +602,11 @@
     "sample_rows_imported": 312,
     "numeric_reference_prompts": 47,
     "training_ready_examples": 0
+  },
+  "math_cohort_preparation": {
+    "stage": "preparing",
+    "actual_prompts": 1229,
+    "max_prompts_total": 1800
   },
   "comparison": {
     "count": 16,
