@@ -40,6 +40,20 @@ class AccomplishmentTests(unittest.TestCase):
         self.assertTrue(all(row['status'] == 'queued' for row in public['current_work']))
         self.assertFalse(any('64-question Granite benchmark fully recovered' == row['title'] for row in public['completed']))
 
+    def test_partial_final_implementation_precedes_api_without_claiming_execution(self):
+        self.save('progress/FINAL_SCALE_IMPLEMENTATION.json',
+            {'stage':'partial_implementation_not_execution_ready'})
+        api=self.root/'granite_query/cloud/modal_api.py'
+        api.parent.mkdir(parents=True,exist_ok=True);api.write_text('# prepared fixture')
+        public=accomplishments.build(self.root)
+        rows=public['current_work'];titles=[row['title'] for row in rows]
+        final=next(row for row in rows if row['title']=='Larger final benchmark implementation and funding review')
+        self.assertEqual(final['status'],'queued')
+        self.assertLess(titles.index(final['title']),titles.index('Capped Granite API trial'))
+        self.assertIn('remain incomplete',final['detail'])
+        self.assertIn('no new paid call',final['detail'])
+        self.assertFalse(public['accuracy_improved'])
+
     def test_failed_original_and_running_resume_are_separate_and_redacted(self):
         self.save('granite_query/cloud/runs/matched_eval64_v1/remote_status.json', {
             'stage': 'failed', 'error_type': 'TimeoutError',

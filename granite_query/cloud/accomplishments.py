@@ -596,6 +596,10 @@ def build(workspace=None):
                 +f"{_number(depth.get('eligible_question_pairs'))} complete, reference-matched pairs fit the student context. "
                 +'The separately funded pilot compares concise and thinking outputs under different output caps. '
                 +'It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain.'})
+    final_scale=_read(workspace/'progress/FINAL_SCALE_IMPLEMENTATION.json')
+    if final_scale.get('stage')=='partial_implementation_not_execution_ready':
+        current.append({'title':'Larger final benchmark implementation and funding review','status':'queued',
+            'detail':'Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.'})
     if (workspace/'granite_query/cloud/modal_api.py').exists():
         current.append({'title':'Capped Granite API trial', 'status':'queued',
                         'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})

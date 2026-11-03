@@ -156,11 +156,13 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 - **New math-cohort data-efficiency training grid — deferred**. 18/18 arm plans prepared; 12 completed, 0 running, 6 deferred reference plans, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check.
 
-- **Human-reference training with separate 200-question development evaluation — running**. 2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
+- **Human-reference training with separate 200-question development evaluation — completed**. 3/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: 171/200. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
 - **Human-reference DeepSeek teaching chunks — completed**. 2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.
 
 - **Paired teacher-reasoning feasibility pilot — completed**. Last recorded snapshot: 64/64 original responses across 32 separate training questions; 29 complete, reference-matched pairs fit the student context. The separately funded pilot compares concise and thinking outputs under different output caps. It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain.
+
+- **Larger final benchmark implementation and funding review — queued**. Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.
 
 - **Capped Granite API trial — queued**. API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.
 
@@ -172,4 +174,4 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T22:27:39.792169+00:00
+Updated: 2026-11-03T22:36:12.324634+00:00

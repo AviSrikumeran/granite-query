@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Human-reference training with separate 200-question development evaluation
+Current stage: Larger final benchmark implementation and funding review
 
-Next: 2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
+Next: Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -777,3 +777,27 @@ A separate pure helper matches the pinned model configuration and recorded runti
 ## 2026-11-03T22:27:33.269121+00:00 | resolved | Accomplishments checklist now follows validated training artifacts
 
 Live website verification caught a stale missing-work statement after all12 primary training evaluations had completed. The accomplishments generator now counts only validated frozen input/result bundles when acknowledging multi-source training; malformed or pending results cannot clear the missing-work claim. Twenty focused checks pass. Completed training is kept separate from unestablished accuracy or selection gains, and6deferred reference plans no longer read as imminent queued work.
+
+## 2026-11-03T22:30:04.967554+00:00 | completed | Study skill seed 42 completed
+
+Saved immutable 65536-token development artifacts. Exact selector identity is skill; final test remains sealed.
+
+## 2026-11-03T22:32:53.429455+00:00 | completed | Human-reference matched study completed without a gain
+
+All3 independent200-question development evaluations validated: untouched Granite179/200, random174/200, skill171/200. Both adapters used65536 supervisedtokens/64updates from the same1930-example pool. Skill corrected3 random errors but regressed6: -1.5percentagepoints, paired question-bootstrap95percent interval[-4.5,+1.5]. Both adapters had2truncations versus8forbase. This single-seed adaptive study establishes no selection benefit or improved accuracy; official test remains sealed. Research continues into error analysis and reviewed final-scale implementation/funding, not automatic paid expansion.
+
+## 2026-11-03T22:32:53.432488+00:00 | decision | Completed research stages no longer point to finished teacher work
+
+The supervisor now directs completed human-study analysis toward the unfinished larger final benchmark implementation and whole-bundle funding review. The dashboard lists this prerequisite ahead of the prepared API, while accuracy gains and final-test results remain unavailable. Twenty-one accomplishments checks pass; source changes launch no work.
+
+## 2026-11-03T22:32:53.437639+00:00 | completed | Retrospective development audit separates cap failures from regressions
+
+A private33-case base/random audit preserved all frozen scores and the held-out teaching exclusion. Fourof7corrections replace capped baseline traces with complete answers; noneof12regressions is capped. Strict and heuristic numeric totals match. Qualitative arithmetic/constraint/unit errors and9interpretation-sensitive reference caveats were recorded without relabeling or removal. This assistant review is diagnostic, not independent human reasoning validation; no test or teacher requests occurred.
+
+## 2026-11-03T22:32:55.199130+00:00 | in_progress | Research improvement cycle
+
+Analyze the completed human200 comparison and regressions; finish the separately versioned final-scale workers/controller, physical checkpoint compatibility and whole-bundle funding review before choosing/final-freezing a checkpoint. Official test and serving remain unopened; no further paid expansion is implied.
+
+## 2026-11-03T22:36:05.030407+00:00 | completed | Completed human200 comparison figure generated and visually checked
+
+Published-report data produced a standalone SVG showing179/200untouched,174/200random and171/200skill, with a zero-based accuracy axis, reported Wilson intervals, actual65536-token arm budgets and truncation counts. The skill-minus-random paired interval and single-seed/development-only limits are visible. Four local completed/pending chart checks pass, JavaScript syntax/DOM fixtures pass and raster visual review found no clipped labels. The chart never merges the old64 or official test.

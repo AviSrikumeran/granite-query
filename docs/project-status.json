@@ -216,8 +216,8 @@
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
-      "status": "running",
-      "detail": "2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit."
+      "status": "completed",
+      "detail": "3/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: 171/200. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit."
     },
     {
       "title": "Human-reference DeepSeek teaching chunks",
@@ -228,6 +228,11 @@
       "title": "Paired teacher-reasoning feasibility pilot",
       "status": "completed",
       "detail": "Last recorded snapshot: 64/64 original responses across 32 separate training questions; 29 complete, reference-matched pairs fit the student context. The separately funded pilot compares concise and thinking outputs under different output caps. It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain."
+    },
+    {
+      "title": "Larger final benchmark implementation and funding review",
+      "status": "queued",
+      "detail": "Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status."
     },
     {
       "title": "Capped Granite API trial",
@@ -243,5 +248,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T22:27:39.792169+00:00"
+  "updated_at_utc": "2026-11-03T22:36:12.324634+00:00"
 }

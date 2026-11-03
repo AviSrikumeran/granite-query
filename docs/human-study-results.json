@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T22:27:47.268850+00:00",
+  "generated_at_utc": "2026-11-03T22:36:20.141131+00:00",
   "title": "Human-reference random versus skill development study",
   "study_id": "human-reference64k-dev200-v2",
   "study_manifest_sha256": "d8e09084029de9cb2d89a6dd0e8fc630592d412e7cb6510f738e34e15e78a270",
-  "status": "running",
-  "completed_jobs": 2,
+  "status": "completed",
+  "completed_jobs": 3,
   "planned_jobs": 3,
   "official_test_used": false,
   "launch_evidence": {
@@ -134,8 +134,8 @@
     "skill": {
       "selector": "skill",
       "seed": 42,
-      "status": "running",
-      "observation": "Unique submitted call; this is last observed local progress, not a live provider check.",
+      "status": "completed",
+      "observation": "Unique terminal call and all200 development outcomes validated.",
       "planned_supervised_tokens": 65536,
       "planned_optimizer_updates": 64,
       "planned_exposure": {
@@ -145,25 +145,55 @@
         "supervised_tokens": 65536,
         "updates": 64
       },
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "actual_exposure": null,
-      "metrics": null,
-      "accuracy_percent": null,
-      "question_wilson_95_interval_percent": null,
-      "worker_elapsed_seconds": null,
+      "actual_supervised_tokens": 65536,
+      "actual_optimizer_updates": 64,
+      "actual_exposure": {
+        "examples": 766,
+        "response_windows": 829,
+        "forwarded_input_tokens": 150600,
+        "supervised_tokens": 65536,
+        "updates": 64
+      },
+      "metrics": {
+        "count": 200,
+        "numeric_correct": 171,
+        "strict_format_correct": 171,
+        "truncated": 2,
+        "latency_seconds_total": 280.06737409100015,
+        "generated_tokens": 23934,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "accuracy_percent": 85.5,
+      "question_wilson_95_interval_percent": [
+        79.95133246921847,
+        89.71064935799559
+      ],
+      "worker_elapsed_seconds": 511.47526730799996,
       "observed_supervised_tokens": null,
       "observed_optimizer_updates": null,
       "unique_call_observed": true,
       "protocol_hash": "a29f814687f28fdd87638293a08dc3710e720ac876f55b978f8c3062d8b2b566",
-      "result_sha256": null,
+      "result_sha256": "adef4ef0f1b8c077485928bd8f1fa1ebd528e0607c4629dfd3e09a5ef4c0232a",
       "last_observed_worker_stage": "evaluation"
     }
   },
   "comparisons": {
     "skill_vs_random": {
-      "status": "unavailable",
-      "statistics": null
+      "status": "completed",
+      "statistics": {
+        "count": 200,
+        "corrected": 3,
+        "regressed": 6,
+        "difference_percentage_points": -1.5,
+        "paired_bootstrap_95_interval_pp": [
+          -4.5,
+          1.5
+        ],
+        "mcnemar_exact_two_sided_p": 0.5078125,
+        "bootstrap_seed": 20261103,
+        "bootstrap_resamples": 20000,
+        "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+      }
     },
     "random_vs_baseline": {
       "status": "completed",
@@ -183,8 +213,21 @@
       }
     },
     "skill_vs_baseline": {
-      "status": "unavailable",
-      "statistics": null
+      "status": "completed",
+      "statistics": {
+        "count": 200,
+        "corrected": 3,
+        "regressed": 11,
+        "difference_percentage_points": -4.0,
+        "paired_bootstrap_95_interval_pp": [
+          -7.5,
+          -0.5
+        ],
+        "mcnemar_exact_two_sided_p": 0.057373046875,
+        "bootstrap_seed": 20261103,
+        "bootstrap_resamples": 20000,
+        "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+      }
     }
   },
   "runtime_and_review": {
@@ -228,6 +271,17 @@
       "question_wilson_95_interval_percent": [
         81.63364812775158,
         90.97179772033067
+      ]
+    },
+    {
+      "selector": "skill",
+      "supervised_tokens": 65536,
+      "numeric_correct": 171,
+      "count": 200,
+      "accuracy_percent": 85.5,
+      "question_wilson_95_interval_percent": [
+        79.95133246921847,
+        89.71064935799559
       ]
     }
   ],

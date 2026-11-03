@@ -43,6 +43,14 @@
     }
     const keys = ['baseline', 'random', 'skill'];
     const completed = keys.filter(key => complete(data.jobs[key])).length;
+    const showFigure = completed === 3;
+    get('human-figure').hidden = !showFigure;
+    if (showFigure) {
+      get('human-image').src = 'figures/human-study-development.svg?t=' + Date.now();
+      get('human-image').alt = 'Separate 200-question development set: ' + keys.map(key =>
+        names[key] + ' ' + data.jobs[key].metrics.numeric_correct + '/200').join('; ')
+        + '. One training seed; official final test not evaluated.';
+    } else get('human-image').removeAttribute('src');
     get('human-summary').textContent = `${completed}/3 evaluations complete on the same 200 development questions. `
       + `${number(data.cohort.candidate_examples)} eligible DeepSeek solutions form this separate human-reference training pool. `
       + 'Status reflects validated local receipts in the published snapshot, not a live provider or funding check.';
@@ -89,7 +97,8 @@
     get('human-updated').textContent = 'Human-study evidence: ' + (Number.isFinite(stamp) ? new Date(stamp).toLocaleString() : 'timestamp not reported')
       + '. Refreshes from the published snapshot every 60 seconds.';
     get('human-fetch').textContent = ''; loaded = true;
-    return {completed, displayedRows: keys.length, pairedComparisons: list.children.length, selectionComparisonAvailable: Boolean(selection)};
+    return {completed, displayedRows: keys.length, pairedComparisons: list.children.length,
+      selectionComparisonAvailable: Boolean(selection), figureShown: showFigure};
   }
 
   async function refresh() {

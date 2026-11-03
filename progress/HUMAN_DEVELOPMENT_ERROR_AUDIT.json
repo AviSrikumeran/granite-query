@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "stage": "retrospective_development_diagnostic",
+  "updated_at_utc": "2026-11-03T22:32:53.432488+00:00",
+  "question_set": "human_reference_train_development200",
+  "official_test_used": false,
+  "training_eligible": false,
+  "qualitative_reviewer": "autonomous_assistant; not independent human adjudication",
+  "private_audit_sha256": "7d695f81014ddf1a01688539e816220196cacdfcbe9c64e7b0d994a034e6cef0",
+  "unique_cases_inspected": 33,
+  "baseline_failures": 21,
+  "random_corrected": 7,
+  "random_regressed": 12,
+  "shared_failures": 14,
+  "corrections_from_capped_base_to_complete_random": 4,
+  "regressions_with_capped_random_output": 0,
+  "baseline_truncated": 8,
+  "random_truncated": 2,
+  "strict_and_heuristic_numeric_totals_identical": true,
+  "scores_changed": false,
+  "reference_interpretation_caveats": 9,
+  "observations": [
+    "The12 random regressions were not output-cap failures; increasing the cap alone is not an established remedy for these regressions.",
+    "Observed cases include arithmetic, omitted constraints and units/cohort confusion. A numeric mismatch is not by itself proof of a mathematical error.",
+    "Interpretation-sensitive references and wording caveats remain in the original fixed denominator; none was relabeled or removed."
+  ],
+  "limitations": [
+    "Retrospective qualitative review of development cases, not blinded reasoning-step verification or a new benchmark.",
+    "This audit compares baseline versus random only; it does not diagnose the ranked arm.",
+    "All200 questions remain excluded from teaching. Raw questions, solutions and reasoning stay private."
+  ]
+}

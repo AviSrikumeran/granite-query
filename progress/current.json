@@ -1,6 +1,6 @@
 {
-  "stage": "Human-reference study: ranked64k training and200-question development evaluation; random control completed174/200 versus base179/200",
+  "stage": "Human200 study complete: base179, random174, ranked171; larger final benchmark implementation and funding review remain",
   "training_completed": true,
   "held_out_evaluation_completed": false,
-  "active_run_id": "human_study64k_dev200_seed42_v2_seed42_skill"
+  "active_run_id": null
 }

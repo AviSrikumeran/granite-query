@@ -168,7 +168,11 @@ def tick():
                 elif human['status']=='running':
                     training_action='Poll the saved human-study call through human_study_control.py. Keep its separate200 development questions and original outputs isolated from training and the old64-question report.'
                 elif human['status']=='completed':
-                    training_action='Analyze the completed human200 comparison, preserve all outcomes, then advance the reviewed teacher-depth feasibility pilot or other useful separately versioned work while protecting final evaluation/API funds.'
+                    depth_path=ROOT.parent.parent/'progress/TEACHER_DEPTH_PILOT.json'
+                    depth=json.loads(depth_path.read_text(encoding='utf-8')) if depth_path.exists() else {}
+                    training_action=('Analyze the completed human200 comparison and regressions; finish the separately versioned final-scale workers/controller, physical checkpoint compatibility and whole-bundle funding review before choosing/final-freezing a checkpoint. Official test and serving remain unopened; no further paid expansion is implied.'
+                        if depth.get('stage')=='completed' else
+                        'Analyze the completed human200 comparison, preserve all outcomes, then advance the reviewed teacher-depth feasibility pilot or other useful separately versioned work while protecting final evaluation/API funds.')
                 elif human['jobs']['baseline']['status']=='completed':
                     training_action='Calibrate the validated untouched baseline200, check the actual forecasts and bind a separate pair review before funding both frozen human64k arms plus protected5Modal dollars.'
                 else:

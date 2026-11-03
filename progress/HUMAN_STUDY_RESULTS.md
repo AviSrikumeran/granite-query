@@ -2,19 +2,19 @@
 
 New200 development questions; earlier64-question studies remain separate. Official test data remains sealed.
 
-Status: running. Validated completed jobs: 2/3.
+Status: completed. Validated completed jobs: 3/3.
 
 | Checkpoint | Status | Numeric correct | Truncated | Actual answer tokens | Updates | Planned examples | Planned forwarded tokens |
 |---|---|---:|---:|---:|---:|---:|---:|
 | baseline | completed | 179/200 | 8 | 0 | 0 | 0 | 0 |
 | random | completed | 174/200 | 2 | 65536 | 64 | 561 | 136319 |
-| skill | running | unavailable | unavailable | pending | pending | 766 | 150600 |
+| skill | completed | 171/200 | 2 | 65536 | 64 | 766 | 150600 |
 
 ## Same200 paired comparisons
 
-- skill_vs_random: unavailable until both complete evaluations validate.
+- skill_vs_random: -1.50 percentage points; corrected 3, regressed 6; paired question-bootstrap95% [-4.50, +1.50] pp; exploratory McNemar p=0.5078.
 - random_vs_baseline: -2.50 percentage points; corrected 7, regressed 12; paired question-bootstrap95% [-7.00, +1.50] pp; exploratory McNemar p=0.3593.
-- skill_vs_baseline: unavailable until both complete evaluations validate.
+- skill_vs_baseline: -4.00 percentage points; corrected 3, regressed 11; paired question-bootstrap95% [-7.50, -0.50] pp; exploratory McNemar p=0.0574.
 
 ## Runtime calibration and review
 
