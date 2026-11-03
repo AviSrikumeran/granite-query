@@ -2,30 +2,33 @@
 
 Live: https://avisrikumeran.github.io/granite-query/playground/
 
-This isolated reference study compares Modal’s captured homepage hero with an independently implemented live reconstruction. The research homepage at `docs/index.html` is outside this change.
+An isolated comparison of Modal’s captured hero and an independent live reconstruction. `docs/index.html` is outside this change.
 
-## Review controls
+## Review
 
-- **Side by side:** captured reference on the left, live reconstruction on the right, matched to a 1280 × 900 desktop viewport and scaled to fit.
-- **Reconstruction:** a larger live view that responds to available width.
-- **Phone:** a 390 px iframe viewport (375 px content width with its desktop scrollbar) to inspect responsive behavior.
-- **Pause / Resume:** stop or resume motion. System reduced-motion preference starts paused. Escape also pauses the field.
-- **Reset field:** restart the animation and clear pointer/pulse state.
-- Move the pointer through the live field to displace/light symbols; click for an expanding pulse. Touch scrolling remains available.
-- Open **Full size** for the standalone study.
+- **Form:** play the sequence, or pin Box, Layers, Stairs, or Small cubes. Pinning keeps geometry stable while light and pointer motion continue.
+- **Side by side:** captured field state on the left and live reconstruction on the right, using the same 1280 × 900 desktop viewport scaled to fit. The left combines one shared captured header with separate static field captures; it is not a video.
+- **Reconstruction / Phone:** inspect the larger view or a 390 px iframe.
+- **Pause / Resume:** freeze or resume simulation. Reduced-motion preference starts paused; Escape also pauses.
+- **Reset field:** return to automatic playback at its first form, clear pointer state and preserve pause status.
+- Move the pointer to gently tilt and light the form. Click to advance. Touch scrolling remains available.
 
-The earlier cube, training diagram and evidence sidebar remain at `components.html`. Their CSS, JavaScript and evidence source are unchanged.
+Earlier cube, training diagram and evidence-sidebar studies remain at `components.html`, unchanged.
 
-## Implementation
+## How it works
 
-No build, paid API, Lovable credits, npm install or external JavaScript dependency is required. `comparison.js` manages review modes and same-origin iframe messages. `modal/field.js` renders a vector-drawn glyph atlas using WebGL points over projected geometry. It uses Canvas 2D when WebGL is unavailable. To check that fallback directly, open `modal/hero.html?renderer=canvas`.
+`modal/geometry.mjs` defines four configurations of cuboids: twelve beams for the open box, three thin plates, a five-step solid, and eight separated cubes. Part positions and dimensions interpolate at a fixed camera scale. Each five-second segment holds for 3.2 seconds and assembles the next form over 1.8 seconds. These timings are authored approximations.
 
-Serve the `docs` directory over HTTP and visit `/playground/` (or mount it at the repository’s `/granite-query/` Pages path). All local assets use relative URLs.
+`modal/field.js` ray-tests those cuboids from a fixed orthographic camera at each glyph position. It shades faces, rims and dim geometric echoes, then draws sixteen locally generated symbol variants with WebGL. The Canvas 2D fallback uses the same scene and ray-box geometry at lower density. Test it at `modal/hero.html?renderer=canvas`.
 
-## Reference and limitations
+The renderer stops scheduling while paused, hidden or offscreen. Pointer tilt replaces the previous displacement/ripple effect. There is no global zoom pulse.
 
-Original: https://modal.com/ — captured November 3, 2026. Modal’s mark, wordmark, headline and copy are used only in this clearly labeled reference study. This is independent and not affiliated with Modal. Source links go to Modal’s actual site.
+No build, paid API, Lovable credits, external runtime package or npm installation is required to run the deployed playground. It uses ES modules, so serve `docs` over HTTP. All local assets are relative for the GitHub Pages repository subpath.
 
-The original uses ABC Diatype and a Three.js-rendered field. The reconstruction uses Arial and a new renderer. Composition and measured spacing follow the reference; typography, individual glyph arrangements, lighting and motion are approximations. The left pane is a static capture, not a live video.
+## Extraction and provenance
 
-See `design/MODAL_HERO_RECONSTRUCTION.md` for measurements, derivation and validation. This playground is a comparison artifact, not the proposed Granite Query brand or homepage.
+[DesignLang](https://github.com/Manavarya09/design-extract) 13.3.2 was actually run against Modal. Its generated reference DESIGN.md and tokens are retained under `design/extracts/modal-2026-11-03`. The tool measures DOM/CSS and Web Animations; it does not recover this WebGL hero’s geometry or shader. Geometry and timing remain independently reconstructed from observed box/layer/stair/cube states.
+
+Original: https://modal.com/ — captures November 3, 2026. Modal’s name, marks and copy are included only in this labeled reference study. This is independent and not affiliated with Modal; source links lead to Modal itself. Arial replaces proprietary ABC Diatype. Glyph arrangement, illumination, exact geometry and transition choreography differ from the original.
+
+Validation: `node --test design/modal-geometry.test.mjs`; browser comparisons and interaction checks. See `design/MODAL_HERO_RECONSTRUCTION.md`. This artifact is not a proposed Granite Query brand or homepage.

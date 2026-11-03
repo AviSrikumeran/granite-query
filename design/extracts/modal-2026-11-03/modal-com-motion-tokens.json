@@ -1,0 +1,491 @@
+{
+  "$description": "Motion tokens extracted by designlang",
+  "duration": {
+    "instant": {
+      "$value": "1ms",
+      "$type": "duration",
+      "ms": 1
+    },
+    "xs": {
+      "$value": "82ms",
+      "$type": "duration",
+      "ms": 82
+    },
+    "sm": {
+      "$value": "250ms",
+      "$type": "duration",
+      "ms": 250,
+      "$extensions": {
+        "designlang.observed": true
+      }
+    },
+    "md": {
+      "$value": "291ms",
+      "$type": "duration",
+      "ms": 291
+    },
+    "lg": {
+      "$value": "420ms",
+      "$type": "duration",
+      "ms": 420
+    },
+    "xl": {
+      "$value": "1s",
+      "$type": "duration",
+      "ms": 1000,
+      "$extensions": {
+        "designlang.observed": true
+      }
+    },
+    "xxl": {
+      "$value": "120s",
+      "$type": "duration",
+      "ms": 120000,
+      "$extensions": {
+        "designlang.observed": true
+      }
+    }
+  },
+  "easing": {
+    "ease-out-212": {
+      "$value": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "$type": "cubicBezier",
+      "family": "ease-out"
+    },
+    "ease-out-802": {
+      "$value": "cubic-bezier(0, 0, 0.2, 1)",
+      "$type": "cubicBezier",
+      "family": "ease-out"
+    },
+    "custom-900": {
+      "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "$type": "cubicBezier",
+      "family": "custom"
+    },
+    "ease-out-0": {
+      "$value": "cubic-bezier(0.2, 0.7, 0.3, 1)",
+      "$type": "cubicBezier",
+      "family": "ease-out"
+    },
+    "ease-in-out": {
+      "$value": "ease",
+      "$type": "cubicBezier",
+      "family": "ease-in-out"
+    },
+    "linear": {
+      "$value": "linear",
+      "$type": "cubicBezier",
+      "family": "linear"
+    }
+  },
+  "spring": {},
+  "$meta": {
+    "feel": "mixed",
+    "scrollLinked": true,
+    "runtime": {
+      "triggers": [
+        "load",
+        "scroll"
+      ],
+      "observed": 92
+    }
+  },
+  "choreography": {},
+  "scroll": {
+    "reveal-1": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "backdrop-filter"
+      ],
+      "durationMs": 200,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "selector": "nav > ul > li:nth-of-type(1) > a"
+    },
+    "reveal-2": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "color"
+      ],
+      "durationMs": 200,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "selector": "ul > li:nth-of-type(1) > a > svg"
+    },
+    "reveal-3": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "backdrop-filter"
+      ],
+      "durationMs": 200,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "selector": "nav > ul > li:nth-of-type(3) > a"
+    },
+    "reveal-4": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "color"
+      ],
+      "durationMs": 200,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "selector": "ul > li:nth-of-type(3) > a > svg"
+    },
+    "reveal-5": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "opacity",
+        "webkit-mask-position-x",
+        "webkit-mask-position-y"
+      ],
+      "durationMs": 950,
+      "easing": "linear",
+      "selector": "nav > div:nth-of-type(1) > a > span:nth-of-type(3)"
+    },
+    "reveal-6": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "translate"
+      ],
+      "durationMs": 120000,
+      "easing": "linear",
+      "selector": "div > div > div > div:nth-of-type(1)"
+    },
+    "reveal-7": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "translate"
+      ],
+      "durationMs": 120000,
+      "easing": "linear",
+      "selector": "div > div > div > div:nth-of-type(2)"
+    },
+    "reveal-8": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "opacity"
+      ],
+      "durationMs": 3200,
+      "easing": "linear",
+      "selector": "div > div > span:nth-of-type(1) > span:nth-of-type(1)"
+    },
+    "reveal-9": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "opacity"
+      ],
+      "durationMs": 1000,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(3) > span:nth-of-type(3) > span:nth-of-type(2)"
+    },
+    "reveal-10": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "opacity"
+      ],
+      "durationMs": 3200,
+      "easing": "linear",
+      "selector": "div:nth-of-type(1) > div > span:nth-of-type(1) > span:nth-of-type(1)"
+    },
+    "reveal-11": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "scale"
+      ],
+      "durationMs": 5000,
+      "easing": "linear",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2) > span"
+    },
+    "reveal-12": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1)"
+    },
+    "reveal-13": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(3) > span:nth-of-type(1)"
+    },
+    "reveal-14": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > img"
+    },
+    "reveal-15": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2)"
+    },
+    "reveal-16": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(3) > span:nth-of-type(2)"
+    },
+    "reveal-17": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1)"
+    },
+    "reveal-18": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(4) > span:nth-of-type(1)"
+    },
+    "reveal-19": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > img"
+    },
+    "reveal-20": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2)"
+    },
+    "reveal-21": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(4) > span:nth-of-type(2)"
+    },
+    "reveal-22": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(1)"
+    },
+    "reveal-23": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(5) > span:nth-of-type(1)"
+    },
+    "reveal-24": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(2) > img"
+    },
+    "reveal-25": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(2)"
+    },
+    "reveal-26": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(5) > span:nth-of-type(2)"
+    },
+    "reveal-27": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1)"
+    },
+    "reveal-28": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(6) > span:nth-of-type(1)"
+    },
+    "reveal-29": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(2) > img"
+    },
+    "reveal-30": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(2)"
+    },
+    "reveal-31": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 900,
+      "easing": "linear",
+      "selector": "div > div:nth-of-type(1) > div:nth-of-type(6) > span:nth-of-type(2)"
+    },
+    "reveal-32": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-x"
+      ],
+      "durationMs": 2400,
+      "easing": "linear",
+      "selector": "clippath#s5-area > rect"
+    },
+    "reveal-33": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity"
+      ],
+      "durationMs": 2400,
+      "easing": "linear",
+      "selector": "g:nth-of-type(3) > g > g:nth-of-type(1) > path"
+    },
+    "reveal-34": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity",
+        "stroke-dashoffset"
+      ],
+      "durationMs": 2400,
+      "easing": "linear",
+      "selector": "g:nth-of-type(3) > g > g:nth-of-type(2) > path"
+    },
+    "reveal-35": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity",
+        "stroke-dashoffset"
+      ],
+      "durationMs": 2400,
+      "easing": "linear",
+      "selector": "g:nth-of-type(3) > g > g:nth-of-type(3) > path"
+    },
+    "reveal-36": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "--reveal-opacity",
+        "stroke-dashoffset"
+      ],
+      "durationMs": 2400,
+      "easing": "linear",
+      "selector": "svg > g > g > path"
+    },
+    "reveal-37": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "background-color"
+      ],
+      "durationMs": 250,
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(1) > header > div:nth-of-type(1)"
+    },
+    "reveal-38": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "color"
+      ],
+      "durationMs": 250,
+      "easing": "ease",
+      "selector": "div > nav > div:nth-of-type(1) > a"
+    },
+    "reveal-39": {
+      "$type": "designlang.scrollRecipe",
+      "kind": "reveal",
+      "properties": [
+        "background-color"
+      ],
+      "durationMs": 250,
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "selector": "div#v2-nav-menu"
+    }
+  }
+}
