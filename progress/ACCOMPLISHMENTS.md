@@ -1,6 +1,6 @@
 # What Granite Query has actually accomplished
 
-Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. Only GSM8K has been processed for this training study.
+Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.
 
 ## Dataset coverage
 
@@ -10,9 +10,15 @@ Granite has been fine-tuned on Modal, but no accuracy improvement has been demon
 
 - **open-r1/OpenR1-Math-220k — inspected_no_eligible_data**. Bounded seeded scan of256 training records found zero complete verified numeric word-problem traces meeting the768-response-token limit; cached artifacts retained. Not used for Granite training. This sample does not establish that the full dataset has no suitable records. Source: https://huggingface.co/datasets/open-r1/OpenR1-Math-220k
 
-- **nvidia/OpenMathInstruct-2 — researched_not_imported**. Supporting GSM8K-style prompt pool. Filter augmented_gsm8k and numeric expected answers; its supplied solutions come from Llama, so regenerate with DeepSeek if teacher consistency is required. Do not assume augmented answers are independently verified gold. Source: https://huggingface.co/datasets/nvidia/OpenMathInstruct-2
+- **nvidia/OpenMathInstruct-2 — teacher_pool_completed**. 600 source training prompts imported; 523 teacher responses passed the verifier. Reference type: synthetic majority-vote references. New-cohort Granite training/evaluation remains separate from teacher-data collection. Source: https://huggingface.co/datasets/nvidia/OpenMathInstruct-2/tree/469216e3f46f4dacf476b382e192485ea51a143e
 
 - **open-thoughts/OpenThoughts-114k — researched_not_imported**. Later skill-diversity source: use math-only records from its DeepSeek-R1 reasoning data. Mixed domains and long traces require filtering; not yet imported. Source: https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k
+
+- **ChilleD/SVAMP — teacher_pool_completed**. 600 source training prompts imported; 571 teacher responses passed the verifier. Reference type: human dataset answers. New-cohort Granite training/evaluation remains separate from teacher-data collection. Source: https://huggingface.co/datasets/ChilleD/SVAMP/tree/5e0bf1e5e7c0e9c4bc39180d224f41f3f801b7ef
+
+- **math-ai/TemplateGSM — teacher_pool_completed**. 600 source training prompts imported; 471 teacher responses passed the verifier. Reference type: procedural references. New-cohort Granite training/evaluation remains separate from teacher-data collection. Source: https://huggingface.co/datasets/math-ai/TemplateGSM/tree/0c8ed6b60fea0a84f25ddb1b8b761db695df2e19
+
+- **Broader Hugging Face source audit — bounded_samples_imported**. 40 repositories sampled, with 312 complete training rows across 37 declared families. These samples are not entire datasets or evidence of training across all domains. Source: https://github.com/AviSrikumeran/granite-query/blob/main/progress/HF_SOURCE_INVENTORY.json
 
 ## Model actually trained
 
@@ -82,6 +88,18 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 
 [Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md)
 
+### New multi-source DeepSeek teaching pool completed
+
+1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.
+
+[Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json)
+
+### First equal-token random versus skill experiment completed
+
+seed 42: random 55/64, skill and diversity 53/64; seed 43: random 57/64, skill and diversity 56/64. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. The skill heuristic did not beat random in either seed. Targeted gradient selection and the new source cohort are separate experiments.
+
+[Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md)
+
 ## Current work and failures
 
 - **Original 64-question Granite attempt — failed**. The original attempt reached its application deadline before completing all checkpoints. Completed phase outputs were preserved; this is not a completed comparison across all checkpoints.
@@ -92,26 +110,29 @@ All three Granite checkpoint evaluations on the same 64 monitoring questions are
 
 - **New verified teacher pool for token-matched controls — completed**. 512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment.
 
-- **Student-aware selector and equal-token experiment — queued**. Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.
+- **Verify the new multi-source arithmetic teaching pool — completed**. 1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.
 
-- **Equal-token random training, seed42 — completed**. All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+- **Equal-token random training, seed 42 — completed**. Measured 55/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result.
 
-- **Equal-token valued training, seed42 — completed**. All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+- **Equal-token skill and diversity training, seed 42 — completed**. Measured 53/64 numeric answers, with 1 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result.
 
-- **Equal-token random training, seed43 — running**. A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+- **Equal-token random training, seed 43 — completed**. Measured 57/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result.
 
-- **Equal-token valued training, seed43 — completed**. All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+- **Equal-token skill and diversity training, seed 43 — completed**. Measured 56/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result.
+
+- **First student-aware equal-token experiment — completed**. seed 42: random 55/64, skill and diversity 53/64; seed 43: random 57/64, skill and diversity 56/64. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. The skill heuristic did not beat random in either seed. Targeted gradient selection and the new source cohort are separate experiments.
+
+- **Model-gradient data selection on the new math cohort — running**. A confirmed Modal call is collecting candidate gradients; 208/3,130 features reported saved. 1,541 new-cohort candidates and 24 separate selection-development targets; 2 planned warmup checkpoints. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.
 
 - **Capped Granite API trial — queued**. API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.
 
 ## Not completed
 
 - Robust or final-test Granite accuracy improvement has not been established.
-- Training/evaluation on additional math datasets; candidate sources are researched but not imported.
-- Multiple training/selection seeds and matched supervised-token controls.
-- A completed controlled evaluation of the new student-aware selection method.
+- Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.
+- Robust or final-test evidence that the new selection method outperforms random.
 - Independent explanation-quality/depth evaluation.
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T18:55:26.252911+00:00
+Updated: 2026-11-03T19:25:05.869506+00:00

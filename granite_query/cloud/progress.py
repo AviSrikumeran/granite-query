@@ -56,8 +56,8 @@ def build(status=None):
             'held_out_evaluation_completed': bool(current.get('held_out_evaluation_completed', False))},
         'limits': {'modal_usd': 30, 'deepseek_usd': 20},
         'training_progress': {k: v for k, v in status.get('training_progress', {}).items()
-                              if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
-        'caveat': 'Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.',
+                              if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens','completed_features','total_features')},
+        'caveat': 'Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.',
         'events': events}
     pool_path=JOURNAL.parent.parent/'granite_query/cloud/runs/student_valuation_pool512_v1/teacher_summary.json'
     if pool_path.exists():
@@ -65,7 +65,7 @@ def build(status=None):
         public['latest_training_pool']={k:pool[k] for k in ('stage','requested','completed','eligible','failed','truncated','supervised_tokens_available')
                                       if k in pool and isinstance(pool[k],(str,int))}
     if status.get('public_budget'):
-        public['budget']={k:v for k,v in status['public_budget'].items() if k in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd','deepseek_peak_estimate_usd') and isinstance(v,(float,int))}
+        public['budget']={k:v for k,v in status['public_budget'].items() if k in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd','deepseek_peak_estimate_usd','deepseek_observed_usage_usd') and isinstance(v,(float,int))}
     inventory=JOURNAL.parent/'HF_SOURCE_INVENTORY.json'
     if inventory.exists():
         sources=json.loads(inventory.read_text(encoding='utf-8'))
@@ -77,6 +77,11 @@ def build(status=None):
         cohort=json.loads(cohort_path.read_text(encoding='utf-8'))
         public['math_cohort_preparation']={k:cohort[k] for k in ('stage','actual_prompts','max_prompts_total')
                                           if k in cohort and isinstance(cohort[k],(str,int))}
+    math_teacher_path=JOURNAL.parent/'MATH_TEACHER.json'
+    if math_teacher_path.exists():
+        math_teacher=json.loads(math_teacher_path.read_text(encoding='utf-8'))
+        public['math_teacher_collection']={k:math_teacher[k] for k in ('stage','requested','completed','eligible','failed','truncated')
+                                           if k in math_teacher and isinstance(math_teacher[k],(str,int))}
     audit_path=WORKSPACE/'docs/project-status.json'
     if audit_path.exists():
         audit=json.loads(audit_path.read_text(encoding='utf-8'))

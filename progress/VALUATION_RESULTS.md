@@ -8,17 +8,17 @@ Each arm starts from the same pinned Granite checkpoint, supervises exactly 3276
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
 | 42 | random | completed | 55/64 | 55 | 0 | 286 | 68970 | 97.021 | 6772 |
 | 42 | valued | completed | 53/64 | 53 | 1 | 337 | 70774 | 117.812 | 6894 |
-| 43 | random | running | pending | pending | pending | 280 | 68534 | pending | pending |
+| 43 | random | completed | 57/64 | 57 | 0 | 280 | 68534 | 130.234 | 6681 |
 | 43 | valued | completed | 56/64 | 56 | 0 | 337 | 71618 | 50.822 | 6740 |
 
 ## Paired selection comparison
 
 - Seed 42: valued minus random -2/64 (-3.12 percentage points); corrected 4, regressed 6; paired bootstrap 95% interval [-12.50, +6.25] pp; exact McNemar p=0.7539.
-- Seed 43: pair incomplete; no valued-versus-random result is reported.
+- Seed 43: valued minus random -1/64 (-1.56 percentage points); corrected 1, regressed 2; paired bootstrap 95% interval [-7.81, +3.12] pp; exact McNemar p=1.0000.
 
 ## Seed variation
 
-{"available": false, "reason": "Both matched seed 42 and seed 43 pairs must finish before seed variation is reported."}
+{"available": true, "seeds": [42, 43], "n_seeds": 2, "same_development_questions": true, "limitation": "Two seeds give descriptive variation, not a robust estimate of training-seed uncertainty. The same 64 questions are not 128 independent test questions.", "random": {"mean_accuracy_pct": 87.5, "accuracy_range_pct": [85.9375, 89.0625], "sample_sd_accuracy_pct": 2.209708691207961}, "valued": {"mean_accuracy_pct": 85.15625, "accuracy_range_pct": [82.8125, 87.5], "sample_sd_accuracy_pct": 3.3145630368119416}, "valued_minus_random": {"mean_difference_pp": -2.34375, "range_pp": [-3.125, -1.5625]}}
 
 ## Earlier results are separate history
 

@@ -4,11 +4,11 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Equal-token random training, seed43
+Current stage: Model-gradient data selection on the new math cohort
 
-Next: A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.
+Next: A confirmed Modal call is collecting candidate gradients; 208/3,130 features reported saved. 1,541 new-cohort candidates and 24 separate selection-development targets; 2 planned warmup checkpoints. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.
 
-> Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
+> Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
 ## 2026-11-03T17:13:50.632907+00:00 | completed | Teacher API pilot completed
 
@@ -325,3 +325,51 @@ After valued seed 43 completed and all prior GPU apps stopped, launched the unch
 ## 2026-11-03T18:55:26.246019+00:00 | in_progress | Research improvement cycle
 
 Poll the existing exact-token arm with valuation_control.py poll --folder student_valuation32768_seed43_random_v1. Preserve its outputs; do not duplicate the call.
+
+## 2026-11-03T19:00:20.871561+00:00 | completed | Equal-token random arm completed
+
+Completed 32768 supervised tokens and 32 optimizer updates. Batched development results are saved; compare only the frozen matched arms and disclose adaptive development use.
+
+## 2026-11-03T19:02:21.169312+00:00 | in_progress | Source-balanced concise math teacher collection started
+
+Frozen 1800 requests in 4 sequential chunks from the completed source cohort. Four workers maximum, nonthinking V4,1024 output-token limit, no retries. Human, procedural and synthetic majority-vote references remain labelled. Funds reserved before generation.
+
+## 2026-11-03T19:04:40.416132+00:00 | in_progress | Research improvement cycle
+
+Analyze both matched seeds, advance the HF import registry and a separately frozen larger token-budget cohort using remaining credits; preserve final evaluation and capped serving allowance. The first four arms are not project completion.
+
+## 2026-11-03T19:07:14.782481+00:00 | in_progress | Bounded teacher funding watcher started
+
+A local watcher refreshes only the supported balance observation every five minutes while the existing teacher collector is active. It creates no paid generations or GPU work, preserves the reservation, and stops on collector termination, account ambiguity, provider failure or its two-hour limit.
+
+## 2026-11-03T19:15:12.176334+00:00 | completed | Concise source-cohort teacher collection completed
+
+Saved 1800/1800 original attempts; 1565 passed strict reference-match/completion/token checks, supplying 150750 supervised tokens. Source-origin breakdowns and failed attempts are preserved. No Granite training or official test evaluation was launched.
+
+## 2026-11-03T19:15:15.994333+00:00 | completed | Teacher funding watcher stopped
+
+The bounded local watcher stopped: collector completed. No collector was killed or restarted and no reservation was increased. Inspect durable collector state before any paid resumption.
+
+## 2026-11-03T19:17:33.960448+00:00 | planned | Bounded gradient valuation protocol reviewed
+
+Frozen1541 verified candidates and24 separate human-reference development targets. Checked original-pool isolation, complete-token masks, pinned model/tokenizer and2621440 q/v LoRA parameters. One A100 with1800-second hard bound and calibration refusal; reserved3 dollars. This collects student gradient proxies, not measured accuracy improvement.
+
+## 2026-11-03T19:21:36.202962+00:00 | failed | Gradient feature image configuration rejected
+
+Modal rejected an image build step after its source mount before any function call or GPU task. Both stopped applications were reconciled; original failure is preserved.
+
+## 2026-11-03T19:21:36.219747+00:00 | resolved | Gradient image definition corrected
+
+Reused the shared pinned image and moved thread/determinism flags before GPU library imports. Frozen data, optimizer and CountSketch protocol are unchanged.
+
+## 2026-11-03T19:21:58.769532+00:00 | in_progress | Student gradient feature collection launched
+
+One bounded A100 job is collecting two CountSketch gradient checkpoints for1541 candidate records and24 separate selection-development targets. Calibration can refuse an infeasible workload; completed features are not accuracy results. The saved call is monitored without duplicate launches.
+
+## 2026-11-03T19:22:29.324887+00:00 | in_progress | Research improvement cycle
+
+Poll the saved gradient_feature_control.py call; preserve checkpointed features and finish source-reference auditing. Never duplicate the call.
+
+## 2026-11-03T19:25:05.663784+00:00 | completed | Reference audit separates label agreement from quality
+
+Checked all600 SVAMP source equations: one contradicts its reference and was already excluded. All24 held-out selection targets passed arithmetic, prompt projection, source hash and teacher-match checks. Synthetic reference agreement still does not establish correct reasoning or an unambiguous problem.

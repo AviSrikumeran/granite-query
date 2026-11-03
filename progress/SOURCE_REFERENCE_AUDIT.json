@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-03T19:24:19.502111+00:00",
+  "audit_type": "No-network source-reference and target-projection checks",
+  "teacher_run": "math_source_teacher1800_v1",
+  "teacher_summary_sha256": "9af5cbd44a023959287b933580a5e3fcb01b2c4ff41ce343c6bf65b8e24bff28",
+  "target_file_sha256": "59117b9d1a0c4569f5cb30fc0bf19c54a861403ba3678ec343831add3230bd89",
+  "official_test_accessed": false,
+  "new_teacher_calls": 0,
+  "new_gpu_jobs": 0,
+  "frozen_artifacts_modified": false,
+  "teacher_attempts": 1800,
+  "reference_match_eligible": 1565,
+  "source_breakdown": [
+    {
+      "source": "ChilleD/SVAMP",
+      "attempts": 600,
+      "reference_match_eligible": 571,
+      "eligible_supervised_tokens": 36898,
+      "reference_origins": {
+        "human_dataset_answer": 600
+      },
+      "rejection_labels": {
+        "incorrect_teacher_final_answer": 26,
+        "unparsed_teacher_final_answer": 3
+      }
+    },
+    {
+      "source": "math-ai/TemplateGSM",
+      "attempts": 600,
+      "reference_match_eligible": 471,
+      "eligible_supervised_tokens": 53011,
+      "reference_origins": {
+        "procedurally_generated_result": 600
+      },
+      "rejection_labels": {
+        "incorrect_teacher_final_answer": 94,
+        "unparsed_teacher_final_answer": 35
+      }
+    },
+    {
+      "source": "nvidia/OpenMathInstruct-2",
+      "attempts": 600,
+      "reference_match_eligible": 523,
+      "eligible_supervised_tokens": 60841,
+      "reference_origins": {
+        "synthetic_majority_vote_answer": 600
+      },
+      "rejection_labels": {
+        "incorrect_teacher_final_answer": 59,
+        "unparsed_teacher_final_answer": 17,
+        "failed_or_nonstop_completion": 1
+      }
+    }
+  ],
+  "svamp_equation_audit": {
+    "counts": {
+      "equations_checked": 600,
+      "equation_reference_disagreements": 1,
+      "disagreement_teacher_rejected": 1,
+      "teacher_matches_equation_not_reference": 1
+    },
+    "reference_disagreements": [
+      {
+        "source_row_idx": 351,
+        "upstream_id": "chal-680",
+        "source": "ChilleD/SVAMP",
+        "teacher_eligible": false,
+        "equation_result": "5.0",
+        "provided_reference": "1"
+      }
+    ]
+  },
+  "selection_target_audit": {
+    "target_count": 24,
+    "counts": {
+      "targets_checked": 24,
+      "equation_equals_reference_passed": 24,
+      "source_answer_equals_reference_passed": 24,
+      "complete_context_projection_matches_passed": 24,
+      "raw_row_attribution_hash_matches_passed": 24,
+      "teacher_final_equals_reference_passed": 24
+    },
+    "mismatched_target_ids": [],
+    "all_arithmetic_projection_checks_pass": true
+  },
+  "numeric_precision_diagnostic": {
+    "policy": "Diagnostic only; no tolerance or eligibility changed",
+    "sources": [
+      {
+        "source": "ChilleD/SVAMP",
+        "within_relative_1e9_but_exactly_rejected": 0
+      },
+      {
+        "source": "math-ai/TemplateGSM",
+        "within_relative_1e9_but_exactly_rejected": 2
+      },
+      {
+        "source": "nvidia/OpenMathInstruct-2",
+        "within_relative_1e9_but_exactly_rejected": 0
+      }
+    ]
+  },
+  "manual_semantic_observations": [
+    {
+      "source": "ChilleD/SVAMP",
+      "source_row_idx": 278,
+      "issue": "Question time horizon is not supported by the provided two-day equation; not a selection target"
+    },
+    {
+      "source": "math-ai/TemplateGSM",
+      "source_row_idx": 304152,
+      "issue": "Time-per-distance question omits total distance; provided program result does not establish self-contained question validity"
+    },
+    {
+      "source": "nvidia/OpenMathInstruct-2",
+      "source_row_idx": 23036,
+      "issue": "Four consecutive integer ages cannot sum to the stated total; a majority reference is not independent gold"
+    },
+    {
+      "source": "ChilleD/SVAMP",
+      "source_row_idx": 52,
+      "selection_target": true,
+      "issue": "Irrelevant inventory fact is physically inconsistent, while asked wrapper quantity remains arithmetically determined"
+    },
+    {
+      "source": "ChilleD/SVAMP",
+      "source_row_idx": 696,
+      "selection_target": true,
+      "issue": "Irrelevant initial inventory is smaller than stated picked total, while asked picked total remains arithmetically determined"
+    }
+  ],
+  "limitations": [
+    "Equation/reference agreement does not verify semantic sufficiency of a question.",
+    "Reference-match eligibility is a training gate, not independent teacher accuracy or proof that each reasoning step is correct.",
+    "Procedural and synthetic majority-vote references retain their stated origins.",
+    "Manual semantic observations are documented examples, not an exhaustive semantic audit.",
+    "Current frozen targets and pools were inspected without alteration."
+  ],
+  "interpretation": "Source equation/reference disagreements and their existing eligibility are reported above. All 24 current selection targets were checked for equation/reference, complete raw-context projection, attribution hash and teacher-final agreement; individual failures, if any, are listed explicitly. Broader semantic/reference-quality work remains necessary."
+}

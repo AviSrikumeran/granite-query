@@ -11,6 +11,8 @@ except ImportError:
 WORKSPACE = Path(__file__).resolve().parents[2]
 REPORT_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESULTS.md'
 RUNS_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md'
+VALUATION_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md'
+GRADIENT_URL = 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/NEXT_VALUATION_METHOD.md'
 MODEL = 'ibm-granite/granite-4.2-3b'
 REVISION = '4e9c275e232f10211ec88644d106a1f6a1b60e06'
 SOURCE = 'https://github.com/openai/grade-school-math'
@@ -43,9 +45,12 @@ def _phase(folder, expected_variants):
     status = _read(folder / 'remote_status.json')
     result = _read(folder / 'result.json')
     evaluations = result.get('evaluations', {})
+    expected_ids=plan.get('development_ids',result.get('plan',{}).get('development_ids',[]))
     complete = (result.get('stage') == 'completed'
                 and isinstance(evaluations, dict)
                 and all(isinstance(evaluations.get(name), list) and len(evaluations[name]) == 64
+                        and len({row.get('id') for row in evaluations[name] if isinstance(row,dict)})==64
+                        and (not expected_ids or {row.get('id') for row in evaluations[name]}==set(expected_ids))
                         for name in expected_variants))
     if complete:
         return 'completed', 'All required outputs on the 64 monitoring questions are saved.', result
@@ -67,6 +72,40 @@ def _phase(folder, expected_variants):
     if plan:
         return 'queued', 'The input and plan are prepared. No Modal function call has been submitted.', {}
     return 'not_started', 'No prepared plan or submitted Modal call is recorded.', {}
+
+
+def _feature_phase(folder):
+    plan,launch,status,result=(_read(folder/name) for name in ('plan.json','launch.json','remote_status.json','result.json'))
+    protocol=plan.get('protocol',{})
+    candidates=len(protocol.get('candidate_ids',[])); targets=len(protocol.get('target_ids',[]))
+    checkpoints=len(protocol.get('config',{}).get('checkpoint_updates',[]))
+    expected=(candidates+targets)*checkpoints
+    public=result.get('public_summary',{})
+    complete=(result.get('stage')=='completed' and result.get('projected_features_complete') is True
+              and expected>0 and public.get('completed_features')==expected and public.get('total_features')==expected
+              and public.get('candidates')==candidates and public.get('selection_development_targets')==targets)
+    description=f'{candidates:,} new-cohort candidates and {targets} separate selection-development targets; {checkpoints} planned warmup checkpoints.'
+    limitation=' CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.'
+    if complete:
+        return 'completed',f'{expected:,} projected features are saved for {candidates:,} candidates and {targets} held-out selection targets.'+limitation,result
+    if result.get('stage') in ('calibration_refused','bounded_stop'):
+        reason=('Calibration rejected the projected workload before full collection.' if result['stage']=='calibration_refused'
+                else 'The application stopped at its bounded deadline and preserved partial artifacts.')
+        return 'stopped',reason+' '+description+' The complete datastore has not been recovered.'+limitation,{}
+    if status.get('stage')=='failed':
+        return 'failed','The feature worker failed before a complete datastore was recovered. Partial snapshots/features remain separate from completed work.'+limitation,{}
+    if launch.get('call_id'):
+        stage={'loading_model':'loading pinned Granite','selector_warmup':'warming up the selection adapter',
+            'calibration':'checking projected collection time','collecting_candidate':'collecting candidate gradients',
+            'collecting_target':'collecting selection-target gradients','checkpoint_features_completed':'finishing a checkpoint datastore',
+            'completed':'recovering the feature result'}.get(status.get('stage'),'waiting for a saved worker update')
+        saved=_number(status.get('completed_features'))
+        return 'running',f'A confirmed Modal call is {stage}; {saved:,}/{expected:,} features reported saved. '+description+limitation,{}
+    if launch:
+        return 'blocked','Launch record has no confirmed call ID; reconcile it before retrying. '+description+limitation,{}
+    if plan:
+        return 'queued','Input and feature protocol are frozen; no confirmed Modal function call is recorded. '+description+limitation,{}
+    return 'not_started','No feature-stage input or confirmed Modal call is recorded.',{}
 
 
 def _comparable_scores(result, variants):
@@ -183,10 +222,22 @@ def build(workspace=None):
         current.append({'title':'New verified teacher pool for token-matched controls',
                         'status':'running' if pool_stage=='collecting' else ('completed' if pool_stage=='completed' else 'stopped'),
                         'detail':f"{_number(pool.get('completed'))}/{_number(pool.get('requested'))} separate training questions answered; {_number(pool.get('eligible'))} passed eligibility checks, with {_number(pool.get('supervised_tokens_available')):,} available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment."})
-    if (workspace/'granite_query/cloud/student_valuation.py').exists():
-        current.append({'title':'Student-aware selector and equal-token experiment', 'status':'queued',
-                        'detail':'Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value.'})
+    multi_teacher=_read(runs/'math_source_teacher1800_v1/teacher_summary.json')
+    multi_complete=(multi_teacher.get('stage')=='completed' and multi_teacher.get('completed')==multi_teacher.get('requested')
+                    and _number(multi_teacher.get('requested'))>0)
+    if multi_teacher:
+        teacher_detail=(f"{_number(multi_teacher.get('completed')):,}/{_number(multi_teacher.get('requested')):,} DeepSeek responses saved; "
+            f"{_number(multi_teacher.get('eligible')):,} passed complete-response/reference-match checks, supplying "
+            f"{_number(multi_teacher.get('supervised_tokens_available')):,} supervised answer tokens. "
+            'Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.')
+        current.append({'title':'Verify the new multi-source arithmetic teaching pool',
+                        'status':'completed' if multi_complete else ('running' if multi_teacher.get('stage')=='collecting' else 'stopped'),
+                        'detail':teacher_detail})
+        if multi_complete:
+            add('New multi-source DeepSeek teaching pool completed',teacher_detail,
+                'https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json')
     controlled_results=[]
+    controlled=[]
     for seed in (42,43):
         for arm in ('random','valued'):
             arm_folder=runs/f'student_valuation32768_seed{seed}_{arm}_v1'
@@ -194,8 +245,43 @@ def build(workspace=None):
                 arm_state,arm_detail,arm_result=_phase(arm_folder,(arm,))
                 if arm_result:
                     controlled_results.append((arm,arm_result))
-                current.append({'title':f'Equal-token {arm} training, seed{seed}', 'status':arm_state,
-                                'detail':arm_detail+' Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist.'})
+                scores=_comparable_scores(arm_result,(arm,))
+                controlled.append(dict(seed=seed,arm=arm,state=arm_state,result=arm_result,scores=scores.get(arm)))
+                label='skill and diversity' if arm=='valued' else 'random'
+                if scores:
+                    measured=scores[arm]
+                    arm_detail=(f"Measured {measured['numeric_correct']}/64 numeric answers, with {measured['truncated']} truncated outputs counted as failures. "
+                        f"Completed {_number(arm_result.get('supervised_tokens')):,} supervised tokens and {_number(arm_result.get('optimizer_updates'))} token-weighted updates. "
+                        'This is adaptive development monitoring, not a final-test result.')
+                else:
+                    arm_detail+=' Frozen plan: 32,768 supervised tokens and 32 token-weighted updates; completed accuracy outputs are still required.'
+                current.append({'title':f'Equal-token {label} training, seed {seed}', 'status':arm_state,'detail':arm_detail})
+    shared_ids=[{r['id'] for r in item['result']['evaluations'][item['arm']]}
+                for item in controlled if item['scores']]
+    first_block_complete=(len(controlled)==4 and all(item['scores'] and item['result'].get('supervised_tokens')==32768
+        and item['result'].get('optimizer_updates')==32 for item in controlled)
+        and all(ids==shared_ids[0] for ids in shared_ids))
+    if first_block_complete:
+        cells={(item['seed'],item['arm']):item['scores']['numeric_correct'] for item in controlled}
+        measurements='; '.join(f"seed {seed}: random {cells[seed,'random']}/64, skill and diversity {cells[seed,'valued']}/64" for seed in (42,43))
+        no_advantage=all(cells[seed,'valued']<=cells[seed,'random'] for seed in (42,43))
+        interpretation=('The skill heuristic did not beat random in either seed.' if no_advantage
+                        else 'These two development seeds require a paired comparison before claiming a robust selection advantage.')
+        block_detail=(measurements+'. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. '
+                      +interpretation+' Targeted gradient selection and the new source cohort are separate experiments.')
+        add('First equal-token random versus skill experiment completed',block_detail,VALUATION_URL)
+    else:
+        block_detail='Current controlled results are incomplete or still need protocol reconciliation. A prepared plan or result filename is not proof of a completed matched experiment.'
+    if (workspace/'granite_query/cloud/student_valuation.py').exists() or controlled:
+        block_state=('completed' if first_block_complete else 'running' if any(r['state']=='running' for r in controlled)
+                     else 'failed' if any(r['state']=='failed' for r in controlled) else 'queued')
+        current.append({'title':'First student-aware equal-token experiment','status':block_state,'detail':block_detail})
+    feature_folder=runs/'gradient_features_math_v1'
+    if (feature_folder/'plan.json').exists() or (feature_folder/'launch.json').exists():
+        feature_state,feature_detail,feature_result=_feature_phase(feature_folder)
+        current.append({'title':'Model-gradient data selection on the new math cohort','status':feature_state,'detail':feature_detail})
+        if feature_result:
+            add('Student-gradient feature collection completed',feature_detail,GRADIENT_URL)
     if (workspace/'granite_query/cloud/modal_api.py').exists():
         current.append({'title':'Capped Granite API trial', 'status':'queued',
                         'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})
@@ -217,7 +303,7 @@ def build(workspace=None):
     training_evidenced = smoke.get('stage') == 'completed' or comparison.get('stage') == 'completed'
     summary = ('At least one fine-tuned Granite checkpoint scored higher on the shared 64-question development set; robust final-test improvement is not established.'
                if accuracy_improved else
-               ('Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. Only GSM8K has been processed for this training study.'
+               ('Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.'
                 if training_evidenced else
                 'No completed Modal fine-tuning result has been recovered in this evidence set. Plans and submitted jobs are reported separately from completed work.'))
     public = {
@@ -237,8 +323,7 @@ def build(workspace=None):
         'not_done': [
             'Robust or final-test Granite accuracy improvement has not been established.',
             'Multiple Hugging Face dataset/repository evaluation and a complete inventory of supplied links.',
-            'Multiple training/selection seeds and matched supervised-token controls.',
-            'A completed controlled evaluation of the new student-aware selection method.',
+            'Robust or final-test evidence that the new selection method outperforms random.',
             'Independent explanation-quality/depth evaluation.',
             'Official GSM8K test evaluation of a final frozen checkpoint.',
             'Public Granite model-serving API and Vercel deployment.',
@@ -253,8 +338,36 @@ def build(workspace=None):
             public['dataset_coverage'].append({'name':row['name'],'actual_source':row['card_url'],
                 'status':row.get('status') if row.get('status') in ('researched_not_imported','inspected_no_eligible_data') else 'researched_not_imported',
                 'used_for':row['purpose']})
+    cohort=_read(runs/'math_source_cohort1800_v1/manifest.json')
+    allowed_repos={'ChilleD/SVAMP','math-ai/TemplateGSM','nvidia/OpenMathInstruct-2'}
+    eligible_by_source=multi_teacher.get('eligible_by_source',{})
+    origins={'human_dataset_answer':'human dataset answers','procedurally_generated_result':'procedural references',
+             'synthetic_majority_vote_answer':'synthetic majority-vote references'}
+    for source in cohort.get('sources',[]):
+        repo=source.get('repo'); revision=source.get('revision','')
+        if repo not in allowed_repos or not isinstance(revision,str) or len(revision)!=40:
+            continue
+        count=_number(source.get('accepted_prompts'))
+        if not count:
+            continue
+        source_url='https://huggingface.co/datasets/'+repo+'/tree/'+revision
+        detail=(f"{count:,} source training prompts imported; {_number(eligible_by_source.get(repo)):,} teacher responses passed the verifier. "
+                +'Reference type: '+origins.get(source.get('reference_type'),'explicit source reference origins')+'. New-cohort Granite training/evaluation remains separate from teacher-data collection.')
+        item={'name':repo,'actual_source':source_url,'status':'teacher_pool_completed' if multi_complete else 'training_samples_imported',
+              'used_for':detail}
+        existing=next((row for row in public['dataset_coverage'] if '/datasets/'+repo in row['actual_source']),None)
+        if existing:
+            existing.update(item)
+        else:
+            public['dataset_coverage'].append(item)
     public['not_done']=[s.replace('Multiple Hugging Face dataset/repository evaluation and a complete inventory of supplied links.',
-        'Training/evaluation on additional math datasets; candidate sources are researched but not imported.') for s in public['not_done']]
+        'Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.') for s in public['not_done']]
+    inventory=_read(workspace/'progress/HF_SOURCE_INVENTORY.json')
+    if inventory.get('actually_imported_sources'):
+        public['dataset_coverage'].append({'name':'Broader Hugging Face source audit',
+            'actual_source':'https://github.com/AviSrikumeran/granite-query/blob/main/progress/HF_SOURCE_INVENTORY.json',
+            'status':'bounded_samples_imported',
+            'used_for':f"{_number(inventory.get('actually_imported_sources'))} repositories sampled, with {_number(inventory.get('sample_rows_imported'))} complete training rows across {_number(inventory.get('actually_imported_families'))} declared families. These samples are not entire datasets or evidence of training across all domains."})
     (workspace / 'docs').mkdir(parents=True, exist_ok=True)
     (workspace / 'progress').mkdir(parents=True, exist_ok=True)
     (workspace / 'docs/project-status.json').write_text(json.dumps(public, indent=2) + '\n', encoding='utf-8')

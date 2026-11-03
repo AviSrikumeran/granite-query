@@ -102,6 +102,28 @@ def tick():
             else:
                 remote_status={'stage':'next_data_efficiency_cohort'}
                 training_action='Analyze both matched seeds, advance the HF import registry and a separately frozen larger token-budget cohort using remaining credits; preserve final evaluation and capped serving allowance. The first four arms are not project completion.'
+        math_teacher=ROOT/'runs/math_source_teacher1800_v1'
+        if (math_teacher/'teacher_summary.json').exists():
+            teacher=json.loads((math_teacher/'teacher_summary.json').read_text())
+            if teacher.get('stage')!='completed':
+                remote_status={'stage':'multi_source_teacher_collection','completed':teacher.get('completed',0),'total':teacher.get('requested',1800)}
+                training_action='Inspect the existing multi-source teacher collector and funding watcher; preserve original receipts and do not duplicate transmitted requests.'
+            elif all((folder/'result.json').exists() for folder in valuation_folders):
+                remote_status={'stage':'gradient_feature_preparation'}
+                training_action='Advance the separately frozen gradient selector and source-reference audit on the completed multi-source pool. The initial two seed pairs showed no skill-selector advantage.'
+        feature_folder=ROOT/'runs/gradient_features_math_v1'
+        if (feature_folder/'plan.json').exists():
+            feature_result=json.loads((feature_folder/'result.json').read_text()) if (feature_folder/'result.json').exists() else {}
+            feature_terminal=json.loads((feature_folder/'terminal.json').read_text()) if (feature_folder/'terminal.json').exists() else {}
+            if (feature_folder/'launch.json').exists() and not feature_terminal.get('confirmed_terminal'):
+                remote_status=json.loads((feature_folder/'remote_status.json').read_text()) if (feature_folder/'remote_status.json').exists() else {'stage':'gradient_features_queued'}
+                training_action='Poll the saved gradient_feature_control.py call; preserve checkpointed features and finish source-reference auditing. Never duplicate the call.'
+            elif feature_result.get('stage')=='completed':
+                remote_status={'stage':'gradient_features_completed'}
+                training_action='Download and hash-check the private feature export, audit scores, then freeze the common-pool random/skill/gradient token-budget grid with data_efficiency_control.py. Reserve and launch only one reviewed arm at a time.'
+            elif feature_terminal.get('confirmed_terminal'):
+                remote_status={'stage':feature_terminal.get('stage','gradient_features_terminal')}
+                training_action='Inspect the terminal feature result and preserved artifacts. Calibration refusal requires a smaller new frozen cohort; other deterministic failures require local fixes before separately recorded recovery.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
         allocation_full=exhausted
         exhausted=allocation_full and not open_calls
@@ -112,13 +134,16 @@ def tick():
             'training_worker_exists': training_ready,
             'next_action': 'Stop paid work and report budget ceiling.' if exhausted else
                 training_action,
-            'training_progress': {k: v for k, v in remote_status.items() if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens','completed','total')},
+            'training_progress': {k: v for k, v in remote_status.items() if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens','completed','total','completed_features','total_features')},
             'paid_work_launched_by_tick': False,
             'budget_allocation_full':allocation_full}
         account=ledger.get('modal_budget_accounting',{})
         if account:
             status['public_budget']={key:account[key] for key in ('observed_metered_usd','collection_lag_buffer_usd','active_reservations_usd','pending_terminal_liability_usd','budget_remaining_usd') if key in account}
             status['public_budget']['deepseek_peak_estimate_usd']=ledger.get('deepseek_recorded_peak_estimate_usd',ledger['estimated_spend']['deepseek'])
+            deepseek_account=ledger.get('deepseek_budget_accounting',{})
+            if deepseek_account.get('status')=='conditional_wallet_inference':
+                status['public_budget']['deepseek_observed_usage_usd']=deepseek_account['observed_project_usage_usd']
         temp = STATE / 'status.tmp'
         temp.write_text(json.dumps(status, indent=2), encoding='utf-8')
         temp.replace(STATE / 'status.json')

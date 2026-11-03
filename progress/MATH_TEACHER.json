@@ -1,0 +1,56 @@
+{
+  "run_id": "math_source_teacher1800_v1",
+  "stage": "completed",
+  "requested": 1800,
+  "completed": 1800,
+  "eligible": 1565,
+  "failed": 0,
+  "truncated": 1,
+  "supervised_tokens_available": 150750,
+  "eligibility_counts": {
+    "verified_final_answer": 1565,
+    "incorrect_teacher_final_answer": 179,
+    "unparsed_teacher_final_answer": 55,
+    "failed_or_nonstop_completion": 1
+  },
+  "eligible_by_source": {
+    "ChilleD/SVAMP": 571,
+    "nvidia/OpenMathInstruct-2": 523,
+    "math-ai/TemplateGSM": 471
+  },
+  "eligible_by_reference_origin": {
+    "human_dataset_answer": 571,
+    "synthetic_majority_vote_answer": 523,
+    "procedurally_generated_result": 471
+  },
+  "chunks": [
+    {
+      "index": 0,
+      "requested": 512,
+      "completed": 512
+    },
+    {
+      "index": 1,
+      "requested": 512,
+      "completed": 512
+    },
+    {
+      "index": 2,
+      "requested": 512,
+      "completed": 512
+    },
+    {
+      "index": 3,
+      "requested": 264,
+      "completed": 264
+    }
+  ],
+  "estimated_peak_cost_usd": 0.8757632399999999,
+  "cost_note": "Recorded peak-rate token estimate, not wallet consumption or invoice; missing failed-request usage remains unknown",
+  "halt_reason": null,
+  "automatic_retries": 0,
+  "thinking_enabled": false,
+  "official_test_accessed": false,
+  "updated_at_utc": "2026-11-03T19:15:12.112665+00:00",
+  "interpretation": "Eligibility means complete short teacher response matches the provided reference; source origins retain different levels of independence. No trained Granite improvement is claimed."
+}

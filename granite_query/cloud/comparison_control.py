@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import random
@@ -27,20 +28,34 @@ def read_jsonl(path):
     return [json.loads(line) for line in path.read_text(encoding='utf-8').split('\n') if line.strip()]
 
 def reserve(service, amount, job_id):
+    if service not in ('modal','deepseek') or isinstance(amount,bool) or not isinstance(amount,(int,float)) or not math.isfinite(amount) or amount<=0:
+        raise ValueError('A known service and positive finite reservation are required')
     path = ROOT / 'runs/supervisor/budget.json'
-    ledger = json.loads(path.read_text())
-    if any(j['run_id'] == job_id for j in ledger['jobs']):
-        return
-    require_fresh_modal_budget(ledger, service, new_reservation=True)
-    if service=='deepseek':
-        from cloud.deepseek_reconcile import require_fresh_deepseek_budget
-        require_fresh_deepseek_budget(ledger,new_reservation=True)
-    if ledger['estimated_spend'][service] + ledger['reserved'][service] + amount > ledger['limits'][service]:
-        raise RuntimeError('Service budget would be exceeded')
-    ledger['reserved'][service] += amount
-    ledger['jobs'].append({'run_id': job_id, 'service': service, 'reserved_usd': amount,
-        'status': 'reserved', 'created_at_utc': datetime.now(timezone.utc).isoformat()})
-    write(path, ledger)
+    # Share the reconciliation lock with the background funding watcher so a
+    # provider refresh cannot overwrite a simultaneous reservation (or vice versa).
+    lock=path.parent/'budget_reconcile.lock'
+    fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY)
+    try:
+        os.write(fd,str(os.getpid()).encode())
+        ledger = json.loads(path.read_text())
+        existing=next((j for j in ledger['jobs'] if j['run_id']==job_id),None)
+        if existing:
+            if existing.get('service','modal')!=service or existing['reserved_usd']!=amount:
+                raise ValueError('An existing run ID has a different reservation')
+            return
+        require_fresh_modal_budget(ledger, service, new_reservation=True)
+        if service=='deepseek':
+            from cloud.deepseek_reconcile import require_fresh_deepseek_budget
+            require_fresh_deepseek_budget(ledger,new_reservation=True)
+        if ledger['estimated_spend'][service] + ledger['reserved'][service] + amount > ledger['limits'][service]:
+            raise RuntimeError('Service budget would be exceeded')
+        ledger['reserved'][service] += amount
+        ledger['jobs'].append({'run_id': job_id, 'service': service, 'reserved_usd': amount,
+            'status': 'reserved', 'created_at_utc': datetime.now(timezone.utc).isoformat()})
+        write(path, ledger)
+    finally:
+        os.close(fd)
+        lock.unlink()
 
 
 def require_fresh_modal_budget(ledger, service='modal', *, new_reservation=False):

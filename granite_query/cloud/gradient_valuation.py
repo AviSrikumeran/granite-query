@@ -112,8 +112,9 @@ def score_projected(payload, *, reduction='mean_per_target_cosine'):
         raise ValueError('A separate explicitly labeled selection-development set is required')
     projection = payload.get('projection',{})
     dimension = projection.get('dimension')
-    if type(dimension) is not int or not 1 <= dimension <= 8192 or projection.get('family') != 'rademacher_jl':
-        raise ValueError('Require frozen Rademacher JL features of dimension at most8192')
+    if (type(dimension) is not int or not 1 <= dimension <= 8192 or
+            projection.get('family') not in {'rademacher_jl','countsketch_shake256_v1'}):
+        raise ValueError('Require explicitly named frozen JL/CountSketch features of dimension at most8192')
     layout = projection.get('parameter_layout_sha256')
     if not isinstance(layout,str) or len(layout) != 64 or any(c not in '0123456789abcdef' for c in layout):
         raise ValueError('A frozen named trainable-parameter layout hash is required')

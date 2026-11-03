@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T18:55:26.719537+00:00",
+  "generated_at_utc": "2026-11-03T19:25:06.404971+00:00",
   "title": "Matched-token student-aware valuation development results",
-  "status": "partial",
-  "completed_pairs": 1,
+  "status": "completed",
+  "completed_pairs": 2,
   "planned_pairs": 2,
-  "completed_arms": 3,
+  "completed_arms": 4,
   "planned_arms": 4,
   "protocol": {
     "mode": "train_evaluate",
@@ -141,14 +141,14 @@
     },
     "43": {
       "seed": 43,
-      "status": "partial",
+      "status": "completed",
       "arms": {
         "random": {
           "run_id": "student_valuation32768_seed43_random_v1",
           "seed": 43,
           "arm": "random",
-          "status": "running",
-          "stage": "queued",
+          "status": "completed",
+          "stage": "completed",
           "exposure": {
             "examples": 280,
             "supervised_tokens": 32768,
@@ -163,8 +163,20 @@
             "selector_arm_sha256": "28fd8a9ce6aec49f9b5a9bf62cf039babe914bce9e8304791420e33c377bbedf",
             "selection_manifest_sha256": "77863fd3194e5fbfab105464ea99b69ef6c655fa704e9584ac5384bf9757f0be",
             "development_ids_sha256": "b00a7d78fa3514b3279c8c228c831d52199a9319eef3f3dc79cfefe265b733ec",
-            "protocol_hash": "e77937f64f6b98dc2fb03102721f17aa6caaef148727255129667a85f9e473b7"
-          }
+            "protocol_hash": "e77937f64f6b98dc2fb03102721f17aa6caaef148727255129667a85f9e473b7",
+            "result_sha256": "ee64bd1545ddcc0b4ad581d2d1ee689dff9861e0c4563a9351ce7dd7ba88e0c0"
+          },
+          "metrics": {
+            "count": 64,
+            "numeric_correct": 57,
+            "strict_format_correct": 57,
+            "truncated": 0,
+            "latency_seconds_total": 130.233703218,
+            "generated_tokens": 6681,
+            "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+          },
+          "worker_elapsed_seconds": 270.652401132,
+          "latency_measurement": "batched amortized GPU timings, not comparable directly with serial latency"
         },
         "valued": {
           "run_id": "student_valuation32768_seed43_valued_v1",
@@ -201,12 +213,56 @@
           "worker_elapsed_seconds": 164.828768712,
           "latency_measurement": "batched amortized GPU timings, not comparable directly with serial latency"
         }
-      }
+      },
+      "paired_valued_vs_random": {
+        "count": 64,
+        "corrected": 1,
+        "regressed": 2,
+        "difference_percentage_points": -1.5625,
+        "paired_bootstrap_95_interval_pp": [
+          -7.8125,
+          3.125
+        ],
+        "mcnemar_exact_two_sided_p": 1.0,
+        "bootstrap_seed": 20261103,
+        "bootstrap_resamples": 20000,
+        "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps."
+      },
+      "difference_correct": -1
     }
   },
   "seed_variation": {
-    "available": false,
-    "reason": "Both matched seed 42 and seed 43 pairs must finish before seed variation is reported."
+    "available": true,
+    "seeds": [
+      42,
+      43
+    ],
+    "n_seeds": 2,
+    "same_development_questions": true,
+    "limitation": "Two seeds give descriptive variation, not a robust estimate of training-seed uncertainty. The same 64 questions are not 128 independent test questions.",
+    "random": {
+      "mean_accuracy_pct": 87.5,
+      "accuracy_range_pct": [
+        85.9375,
+        89.0625
+      ],
+      "sample_sd_accuracy_pct": 2.209708691207961
+    },
+    "valued": {
+      "mean_accuracy_pct": 85.15625,
+      "accuracy_range_pct": [
+        82.8125,
+        87.5
+      ],
+      "sample_sd_accuracy_pct": 3.3145630368119416
+    },
+    "valued_minus_random": {
+      "mean_difference_pp": -2.34375,
+      "range_pp": [
+        -3.125,
+        -1.5625
+      ]
+    }
   },
   "historical_checkpoints_separate": [
     {

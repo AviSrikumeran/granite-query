@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "run_id": "math_source_cohort1800_v1",
-  "stage": "preparing",
-  "updated_at_utc": "2026-11-03T18:55:32.404780+00:00",
+  "stage": "prepared",
+  "updated_at_utc": "2026-11-03T18:59:57.044023+00:00",
   "max_prompts_per_source": 600,
   "max_prompts_total": 1800,
-  "actual_prompts": 1247,
+  "actual_prompts": 1800,
   "sources": [
     {
       "repo": "ChilleD/SVAMP",
@@ -58,18 +58,21 @@
       "split": "train_1M",
       "reference_type": "synthetic_majority_vote_answer",
       "reference_limitation": "Only augmented_gsm8k prompts; expected_answer is a generated majority-vote reference, not independent human gold",
-      "status": "scanning",
-      "examined_rows": 300,
-      "accepted_prompts": 47,
-      "bytes_cached": 427927,
+      "status": "quota_reached",
+      "examined_rows": 4450,
+      "accepted_prompts": 600,
+      "bytes_cached": 6806364,
       "rejections": {
-        "not_augmented_gsm8k": 253
+        "not_augmented_gsm8k": 3847,
+        "unsupported_prompt_format": 1,
+        "candidate_exact_overlap": 1,
+        "source_quota": 1
       },
       "observed_problem_sources": {
-        "augmented_math": 241,
-        "augmented_gsm8k": 47,
-        "math": 5,
-        "gsm8k": 7
+        "augmented_math": 3720,
+        "augmented_gsm8k": 603,
+        "math": 55,
+        "gsm8k": 72
       },
       "unique_templates": 0,
       "template_cap": null,

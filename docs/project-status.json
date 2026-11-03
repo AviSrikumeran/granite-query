@@ -1,5 +1,5 @@
 {
-  "summary": "Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. Only GSM8K has been processed for this training study.",
+  "summary": "Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.",
   "dataset_coverage": [
     {
       "name": "GSM8K",
@@ -21,15 +21,33 @@
     },
     {
       "name": "nvidia/OpenMathInstruct-2",
-      "actual_source": "https://huggingface.co/datasets/nvidia/OpenMathInstruct-2",
-      "status": "researched_not_imported",
-      "used_for": "Supporting GSM8K-style prompt pool. Filter augmented_gsm8k and numeric expected answers; its supplied solutions come from Llama, so regenerate with DeepSeek if teacher consistency is required. Do not assume augmented answers are independently verified gold."
+      "actual_source": "https://huggingface.co/datasets/nvidia/OpenMathInstruct-2/tree/469216e3f46f4dacf476b382e192485ea51a143e",
+      "status": "teacher_pool_completed",
+      "used_for": "600 source training prompts imported; 523 teacher responses passed the verifier. Reference type: synthetic majority-vote references. New-cohort Granite training/evaluation remains separate from teacher-data collection."
     },
     {
       "name": "open-thoughts/OpenThoughts-114k",
       "actual_source": "https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k",
       "status": "researched_not_imported",
       "used_for": "Later skill-diversity source: use math-only records from its DeepSeek-R1 reasoning data. Mixed domains and long traces require filtering; not yet imported."
+    },
+    {
+      "name": "ChilleD/SVAMP",
+      "actual_source": "https://huggingface.co/datasets/ChilleD/SVAMP/tree/5e0bf1e5e7c0e9c4bc39180d224f41f3f801b7ef",
+      "status": "teacher_pool_completed",
+      "used_for": "600 source training prompts imported; 571 teacher responses passed the verifier. Reference type: human dataset answers. New-cohort Granite training/evaluation remains separate from teacher-data collection."
+    },
+    {
+      "name": "math-ai/TemplateGSM",
+      "actual_source": "https://huggingface.co/datasets/math-ai/TemplateGSM/tree/0c8ed6b60fea0a84f25ddb1b8b761db695df2e19",
+      "status": "teacher_pool_completed",
+      "used_for": "600 source training prompts imported; 471 teacher responses passed the verifier. Reference type: procedural references. New-cohort Granite training/evaluation remains separate from teacher-data collection."
+    },
+    {
+      "name": "Broader Hugging Face source audit",
+      "actual_source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/HF_SOURCE_INVENTORY.json",
+      "status": "bounded_samples_imported",
+      "used_for": "40 repositories sampled, with 312 complete training rows across 37 declared families. These samples are not entire datasets or evidence of training across all domains."
     }
   ],
   "model": {
@@ -87,6 +105,16 @@
       "title": "64-question Granite benchmark fully recovered",
       "detail": "All three Granite checkpoint evaluations on the same 64 monitoring questions are saved. This is development monitoring, not the official final test.",
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md"
+    },
+    {
+      "title": "New multi-source DeepSeek teaching pool completed",
+      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json"
+    },
+    {
+      "title": "First equal-token random versus skill experiment completed",
+      "detail": "seed 42: random 55/64, skill and diversity 53/64; seed 43: random 57/64, skill and diversity 56/64. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. The skill heuristic did not beat random in either seed. Targeted gradient selection and the new source cohort are separate experiments.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESEARCH_EXECUTION_PLAN.md"
     }
   ],
   "current_work": [
@@ -111,29 +139,39 @@
       "detail": "512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment."
     },
     {
-      "title": "Student-aware selector and equal-token experiment",
-      "status": "queued",
-      "detail": "Selection and worker code is implemented; controlled results are pending. The rule uses adaptive development skill gaps and diversity. Each planned arm receives32,768 supervised tokens,32 matched token-weighted updates and the same shuffle policy. This has not yet demonstrated data value."
-    },
-    {
-      "title": "Equal-token random training, seed42",
+      "title": "Verify the new multi-source arithmetic teaching pool",
       "status": "completed",
-      "detail": "All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist."
+      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort."
     },
     {
-      "title": "Equal-token valued training, seed42",
+      "title": "Equal-token random training, seed 42",
       "status": "completed",
-      "detail": "All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist."
+      "detail": "Measured 55/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
     },
     {
-      "title": "Equal-token random training, seed43",
+      "title": "Equal-token skill and diversity training, seed 42",
+      "status": "completed",
+      "detail": "Measured 53/64 numeric answers, with 1 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
+    },
+    {
+      "title": "Equal-token random training, seed 43",
+      "status": "completed",
+      "detail": "Measured 57/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
+    },
+    {
+      "title": "Equal-token skill and diversity training, seed 43",
+      "status": "completed",
+      "detail": "Measured 56/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
+    },
+    {
+      "title": "First student-aware equal-token experiment",
+      "status": "completed",
+      "detail": "seed 42: random 55/64, skill and diversity 53/64; seed 43: random 57/64, skill and diversity 56/64. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. The skill heuristic did not beat random in either seed. Targeted gradient selection and the new source cohort are separate experiments."
+    },
+    {
+      "title": "Model-gradient data selection on the new math cohort",
       "status": "running",
-      "detail": "A Modal function call was submitted; currently waiting for the next saved worker update. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist."
-    },
-    {
-      "title": "Equal-token valued training, seed43",
-      "status": "completed",
-      "detail": "All required outputs on the 64 monitoring questions are saved. Frozen budget:32,768 supervised tokens and32 token-weighted optimizer updates; uses adaptive development skill information. No selection advantage is claimed before matched results exist."
+      "detail": "A confirmed Modal call is collecting candidate gradients; 208/3,130 features reported saved. 1,541 new-cohort candidates and 24 separate selection-development targets; 2 planned warmup checkpoints. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain."
     },
     {
       "title": "Capped Granite API trial",
@@ -143,13 +181,12 @@
   ],
   "not_done": [
     "Robust or final-test Granite accuracy improvement has not been established.",
-    "Training/evaluation on additional math datasets; candidate sources are researched but not imported.",
-    "Multiple training/selection seeds and matched supervised-token controls.",
-    "A completed controlled evaluation of the new student-aware selection method.",
+    "Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.",
+    "Robust or final-test evidence that the new selection method outperforms random.",
     "Independent explanation-quality/depth evaluation.",
     "Official GSM8K test evaluation of a final frozen checkpoint.",
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T18:55:26.252911+00:00"
+  "updated_at_utc": "2026-11-03T19:25:05.869506+00:00"
 }
