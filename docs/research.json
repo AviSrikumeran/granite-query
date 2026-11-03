@@ -8,13 +8,19 @@
     "settings_note": "DeepSeek thinking/4096 output tokens; Granite non-thinking/512. API round-trip and GPU-generation timing differ."
   },
   "matched64": {
-    "stage": "in_progress"
+    "stage": "partial",
+    "count": 64,
+    "correct": {
+      "DeepSeek Pro": 63,
+      "baseline": 58
+    }
   },
   "training120": {
     "stage": "queued"
   },
   "figures": [
     "figures/matched16-accuracy.svg",
-    "figures/pilot-learning-history.svg"
+    "figures/pilot-learning-history.svg",
+    "figures/matched64-accuracy.svg"
   ]
 }

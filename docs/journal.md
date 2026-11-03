@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: matched_eval64_v1: baseline_evaluation
+Current stage: Resume of unfinished 64-question evaluations
 
-Next: Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.
+Next: A Modal function call was submitted; currently evaluating the saved BM25 adapter. It is a separate attempt and should reuse completed outputs instead of rerunning them.
 
 > Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.
 
@@ -161,3 +161,23 @@ One detached A100 is evaluating untouched Granite and the saved32-example adapte
 ## 2026-11-03T17:56:23.838779+00:00 | in_progress | Research improvement cycle
 
 Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.
+
+## 2026-11-03T18:07:40.974556+00:00 | in_progress | Shared64 worker: failed
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T18:08:26.359102+00:00 | planned | Resume only unfinished64-question evaluations
+
+The first evaluation attempt ended before all checkpoints finished. A single separately reserved resume preserves completed outputs and evaluates only missing questions under identical frozen conditions. Do not rerun completed phases.
+
+## 2026-11-03T18:10:54.863349+00:00 | in_progress | Shared64 worker: ranked32 evaluation
+
+Polling the existing detached call; no duplicate job launched.
+
+## 2026-11-03T18:13:42.873338+00:00 | completed | Scope and accomplishments audited against saved evidence
+
+Only GSM8K has been used for training; its data came from the canonical author GitHub repository. Granite4.2 3B LoRA adapters really ran on Modal A100 workers:12 smoke-test updates and32 updates in each selection arm. The first16-question experiment showed no accuracy gain. The website now separates completed work, the timed-out evaluation, its running resume, queued120-example training, and uncompleted research claims. Additional dataset cards are researched, not imported.
+
+## 2026-11-03T18:13:42.997596+00:00 | resolved | Larger evaluation resumed without repeating completed work
+
+The original64-question GPU comparison reached its application deadline. Preserved outputs include64 baseline and27 ranked generations. A separately reserved resume is evaluating only101 missing generations. The recovered original Granite baseline is58/64 versus DeepSeek63/64 on identical questions; trained-checkpoint comparisons remain pending.

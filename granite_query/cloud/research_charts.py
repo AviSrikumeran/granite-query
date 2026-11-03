@@ -74,19 +74,28 @@ def build():
         'figures':['figures/matched16-accuracy.svg','figures/pilot-learning-history.svg']}
     evalpath=ROOT/'runs/matched_eval64_v1/metrics.json'
     teacher64path=ROOT/'runs/matched_eval64_v1/teacher/summary.json'
-    if evalpath.exists() and teacher64path.exists():
+    recovered=ROOT/'runs/matched_eval64_v1/recovered_baseline64.json'
+    if (evalpath.exists() or recovered.exists()) and teacher64path.exists():
         expected64=set(json.loads((ROOT/'runs/matched_eval64_v1/plan.json').read_text())['development_ids'])
         actual64=set(json.loads((ROOT/'runs/matched_eval64_v1/teacher/manifest.json').read_text())['ids'])
         if expected64!=actual64 or len(expected64)!=64:
             raise ValueError('Cannot combine unmatched64 evaluation sets')
-        metrics=json.loads(evalpath.read_text());t=json.loads(teacher64path.read_text())
-        items=[('DeepSeek Pro',t)]+[(name,metrics[name]) for name in ('baseline','ranked32','random32')]
+        if evalpath.exists():
+            metrics=json.loads(evalpath.read_text())
+        else:
+            from comparison_metrics import summarize
+            rows=json.loads(recovered.read_text())
+            if len(rows)!=64 or {r['id'] for r in rows}!=expected64:
+                raise ValueError('Recovered baseline is not a complete matched64 phase')
+            metrics={'baseline':summarize(rows)}
+        t=json.loads(teacher64path.read_text())
+        items=[('DeepSeek Pro',t)]+[(name,metrics[name]) for name in ('baseline','ranked32','random32') if name in metrics]
         fullpath=ROOT/'runs/granite_full120_v1/metrics.json'
         if fullpath.exists():
             full=json.loads(fullpath.read_text())['full120'];items.append(('Granite full120',full));public['training120']={'stage':'completed','correct':full['numeric_correct']}
         accuracy_chart(items,'Matched64-question development evaluation','matched64-accuracy',
             'Same64 monitoring questions. Lines:95% Wilson intervals. Development, not final-test accuracy.')
-        public['matched64']={'stage':'completed','count':64,'correct':{name:m['numeric_correct'] for name,m in items}}
+        public['matched64']={'stage':'completed' if evalpath.exists() else 'partial','count':64,'correct':{name:m['numeric_correct'] for name,m in items}}
         public['figures'].append('figures/matched64-accuracy.svg')
     (WORKSPACE/'progress/research_summary.json').write_text(json.dumps(public,indent=2),encoding='utf-8')
     (WORKSPACE/'docs/research.json').write_text(json.dumps(public,indent=2),encoding='utf-8')

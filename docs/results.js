@@ -26,10 +26,12 @@ async function refreshResults(){
 refreshResults();setInterval(refreshResults,60000);
 async function refreshResearch(){
   try{const response=await fetch('research.json?t='+Date.now(),{cache:'no-store'});if(!response.ok)return;
-    const data=await response.json();if(data.matched64?.stage==='completed'){
+    const data=await response.json();if(['completed','partial'].includes(data.matched64?.stage)){
       document.getElementById('larger-image').src='figures/matched64-accuracy.svg?t='+Date.now();
       document.getElementById('larger-figure').hidden=false;
-      document.getElementById('research-phase').textContent=data.training120?.stage==='completed'
+      document.getElementById('research-phase').textContent=data.matched64.stage==='partial'
+        ? 'The larger matched baseline is complete: DeepSeek 63/64 and original Granite 58/64 on the same questions. The trained checkpoints are still being recovered and evaluated. This is not an improvement from the earlier 16-question score; it is a different evaluation set.'
+        : data.training120?.stage==='completed'
         ? 'The shared 64-question teacher/student evaluation and the 120-example training round are complete. The chart below shows their measured results.'
         : 'The shared 64-question benchmark is complete. The 120-example training round is queued or running; no improvement is claimed before its evaluation finishes.';
     }

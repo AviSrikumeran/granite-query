@@ -59,6 +59,14 @@ def build(status=None):
                               if k in ('stage', 'steps', 'total_steps', 'elapsed_seconds', 'supervised_tokens')},
         'caveat': 'Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.',
         'events': events}
+    audit_path=WORKSPACE/'docs/project-status.json'
+    if audit_path.exists():
+        audit=json.loads(audit_path.read_text(encoding='utf-8'))
+        work=audit.get('current_work',[])
+        active=next((r for r in work if r.get('status')=='running'),None) or next((r for r in work if r.get('status')=='queued'),None)
+        if active:
+            public['stage']=clean(active['title'])
+            public['next_action']=clean(active['detail'])
     summary_path=WORKSPACE/'granite_query/cloud/runs/ranked_random_32_seed42_v1/public_summary.json'
     if summary_path.exists():
         summary=json.loads(summary_path.read_text(encoding='utf-8'))

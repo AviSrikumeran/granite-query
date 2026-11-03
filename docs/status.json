@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-03T17:57:53.868746+00:00",
+  "generated_at_utc": "2026-11-03T18:14:19.775424+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "matched_eval64_v1: baseline_evaluation",
-  "next_action": "Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch.",
+  "stage": "Resume of unfinished 64-question evaluations",
+  "next_action": "A Modal function call was submitted; currently evaluating the saved BM25 adapter. It is a separate attempt and should reuse completed outputs instead of rerunning them.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,8 +17,8 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "baseline_evaluation",
-    "elapsed_seconds": 284.399
+    "stage": "ranked32_evaluation",
+    "elapsed_seconds": 103.711
   },
   "caveat": "Teacher pilot uses training questions. It is not held-out accuracy or evidence of Granite improvement.",
   "events": [
@@ -287,6 +287,41 @@
       "kind": "in_progress",
       "title": "Research improvement cycle",
       "detail": "Poll improvement_control.py poll --run eval. Preserve partial outputs; if confirmed timeout, prepare the single bounded resume before any relaunch."
+    },
+    {
+      "id": "matched_eval64_v1-failed",
+      "at_utc": "2026-11-03T18:07:40.974556+00:00",
+      "kind": "in_progress",
+      "title": "Shared64 worker: failed",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "matched64-resume-plan",
+      "at_utc": "2026-11-03T18:08:26.359102+00:00",
+      "kind": "planned",
+      "title": "Resume only unfinished64-question evaluations",
+      "detail": "The first evaluation attempt ended before all checkpoints finished. A single separately reserved resume preserves completed outputs and evaluates only missing questions under identical frozen conditions. Do not rerun completed phases."
+    },
+    {
+      "id": "matched_eval64_resume1-ranked32_evaluation",
+      "at_utc": "2026-11-03T18:10:54.863349+00:00",
+      "kind": "in_progress",
+      "title": "Shared64 worker: ranked32 evaluation",
+      "detail": "Polling the existing detached call; no duplicate job launched."
+    },
+    {
+      "id": "2f4dd332e137990838c8",
+      "at_utc": "2026-11-03T18:13:42.873338+00:00",
+      "kind": "completed",
+      "title": "Scope and accomplishments audited against saved evidence",
+      "detail": "Only GSM8K has been used for training; its data came from the canonical author GitHub repository. Granite4.2 3B LoRA adapters really ran on Modal A100 workers:12 smoke-test updates and32 updates in each selection arm. The first16-question experiment showed no accuracy gain. The website now separates completed work, the timed-out evaluation, its running resume, queued120-example training, and uncompleted research claims. Additional dataset cards are researched, not imported."
+    },
+    {
+      "id": "77a8184f48f98611e2fc",
+      "at_utc": "2026-11-03T18:13:42.997596+00:00",
+      "kind": "resolved",
+      "title": "Larger evaluation resumed without repeating completed work",
+      "detail": "The original64-question GPU comparison reached its application deadline. Preserved outputs include64 baseline and27 ranked generations. A separately reserved resume is evaluating only101 missing generations. The recovered original Granite baseline is58/64 versus DeepSeek63/64 on identical questions; trained-checkpoint comparisons remain pending."
     }
   ],
   "comparison": {

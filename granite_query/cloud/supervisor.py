@@ -2,6 +2,7 @@
 import json
 import os
 from progress import record, build
+from accomplishments import build as build_accomplishments
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -110,6 +111,7 @@ def tick():
             handle.write(json.dumps(status) + '\n')
         record('in_progress', 'Research improvement cycle' if improving else ('Ranked versus random supervision' if (comparison/'plan.json').exists() else 'Granite training smoke test'),
                status['next_action'], event_id='supervisor-next-' + status['next_action'])
+        build_accomplishments()
         build(status)
         print(json.dumps(status))
     finally:
