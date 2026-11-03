@@ -252,8 +252,11 @@ def _grid_phase(folder):
     if (scope_total and scope_total==scope_completed and counts['completed']<planned
             and not any(counts[k] for k in ('running','blocked','failed'))):
         state='deferred'
+    waiting=counts['queued']+counts['not_started']
+    waiting_detail=(f"{waiting} deferred reference {'plan' if waiting==1 else 'plans'}" if state=='deferred'
+                    else f'{waiting} queued')
     detail=(f"{prepared}/{planned} arm plans prepared; {counts['completed']} completed, {counts['running']} running, "
-            f"{counts['queued']+counts['not_started']} queued, {counts['failed']} failed and {counts['blocked']} requiring launch reconciliation. "
+            f"{waiting_detail}, {counts['failed']} failed and {counts['blocked']} requiring launch reconciliation. "
             'Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. ')
     if state=='deferred':
         detail+=f'The {scope_total} reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain.'
@@ -301,6 +304,7 @@ def _grid_development_gain(folder):
 
     A gain versus the zero-training batch8 control is development evidence for
     a checkpoint. It does not establish that selection outperforms random.
+    Validated arm completion is tracked separately from gains or baseline readiness.
     """
     if not (folder/'grid_manifest.json').exists():
         return None
@@ -328,9 +332,8 @@ def _grid_development_gain(folder):
             expected_development_sha256=plan['development_source_sha256'],expected_ids=plan['development_ids'],
             expected_gold={key:row['gold_answer'] for key,row in expected.items()},
             expected_prompts={key:row['prompt'] for key,row in expected.items()})
-        if base_rows is None or base.get('status')!='completed':
-            return None
-        baseline=base['metrics']['numeric_correct'];improved=[]
+        baseline=base['metrics']['numeric_correct'] if base_rows is not None and base.get('status')=='completed' else None
+        improved=[];validated_completed=0
         for study,manifest in studies:
             for job in manifest['jobs']:
                 arm_folder=report.private_child(study,job['folder'])
@@ -340,10 +343,13 @@ def _grid_development_gain(folder):
                         or arm_plan['development_ids']!=plan['development_ids'] or arm_expected!=expected):
                     raise ValueError('New-grid development input differs from matched base')
                 public,rows=report.summarize_arm(study,manifest,job)
-                if rows is not None and public['metrics']['numeric_correct']>baseline:
-                    improved.append({'selector':job['selector'],'seed':job['seed'],
-                        'token_budget':manifest['token_budget'],'numeric_correct':public['metrics']['numeric_correct']})
-        return {'baseline_numeric_correct':baseline,'improved':improved}
+                if rows is not None:
+                    validated_completed+=1
+                    if baseline is not None and public['metrics']['numeric_correct']>baseline:
+                        improved.append({'selector':job['selector'],'seed':job['seed'],
+                            'token_budget':manifest['token_budget'],'numeric_correct':public['metrics']['numeric_correct']})
+        return {'baseline_numeric_correct':baseline,'improved':improved,
+                'validated_completed_arms':validated_completed}
     except (KeyError,TypeError,ValueError,OSError,IndexError,StopIteration):
         # An incomplete/mutated evidence bundle cannot establish an accuracy gain.
         return None
@@ -492,7 +498,7 @@ def build(workspace=None):
         teacher_detail=(f"{_number(multi_teacher.get('completed')):,}/{_number(multi_teacher.get('requested')):,} DeepSeek responses saved; "
             f"{_number(multi_teacher.get('eligible')):,} passed complete-response/reference-match checks, supplying "
             f"{_number(multi_teacher.get('supervised_tokens_available')):,} supervised answer tokens. "
-            'Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.')
+            'Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. These teacher receipts alone are not completed Granite training; separate validated arm results establish any later training/evaluation.')
         current.append({'title':'Verify the new multi-source arithmetic teaching pool',
                         'status':'completed' if multi_complete else ('running' if multi_teacher.get('stage')=='collecting' else 'stopped'),
                         'detail':teacher_detail})
@@ -625,12 +631,18 @@ def build(workspace=None):
                 'This is single-seed development evidence on the separate human study; final-test validation and a robust selection benefit remain pending.',
                 'https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_STUDY_RESULTS.md')
 
-    training_evidenced = smoke.get('stage') == 'completed' or comparison.get('stage') == 'completed'
+    validated_multi_source_arms=grid_gain['validated_completed_arms'] if grid_gain else 0
+    training_evidenced = (smoke.get('stage') == 'completed' or comparison.get('stage') == 'completed'
+                          or validated_multi_source_arms>0)
     summary = ('At least one fine-tuned Granite checkpoint scored higher in a matched training-split development comparison. Final-test validation and a robust selection advantage remain unestablished.'
                if accuracy_improved else
-               ('Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.'
+               ('Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet.'
                 if training_evidenced else
                 'No completed Modal fine-tuning result has been recovered in this evidence set. Plans and submitted jobs are reported separately from completed work.'))
+    if validated_multi_source_arms:
+        summary+=f" The new multi-source math cohort has {validated_multi_source_arms} validated Granite training/evaluation {'arm' if validated_multi_source_arms==1 else 'arms'}."
+    elif training_evidenced:
+        summary+=' The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.'
     public = {
         'summary': summary,
         'dataset_coverage': [
@@ -647,7 +659,6 @@ def build(workspace=None):
         'current_work': current,
         'not_done': [
             'Robust or final-test Granite accuracy improvement has not been established.',
-            'Multiple Hugging Face dataset/repository evaluation and a complete inventory of supplied links.',
             'Robust or final-test evidence that the new selection method outperforms random.',
             'Independent explanation-quality/depth evaluation.',
             'Official GSM8K test evaluation of a final frozen checkpoint.',
@@ -685,8 +696,8 @@ def build(workspace=None):
             existing.update(item)
         else:
             public['dataset_coverage'].append(item)
-    public['not_done']=[s.replace('Multiple Hugging Face dataset/repository evaluation and a complete inventory of supplied links.',
-        'Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.') for s in public['not_done']]
+    if not validated_multi_source_arms:
+        public['not_done'].insert(1,'Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.')
     inventory=_read(workspace/'progress/HF_SOURCE_INVENTORY.json')
     if inventory.get('actually_imported_sources'):
         public['dataset_coverage'].append({'name':'Broader Hugging Face source audit',

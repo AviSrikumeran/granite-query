@@ -216,6 +216,9 @@ class AccomplishmentTests(unittest.TestCase):
             state,detail=accomplishments._grid_phase(self.runs/'data_efficiency_math_v1')
         self.assertEqual(state,'deferred');self.assertIn('1 reviewed arms are complete',detail)
         self.assertIn('higher-budget plans are deferred',detail)
+        self.assertIn('1 deferred reference plan',detail)
+        self.assertNotIn('1 queued',detail)
+        self.assertNotIn('The next prepared arm is',detail)
 
     def test_latest_same_protocol_feature_continuation_replaces_old_terminal_row(self):
         prefix='granite_query/cloud/runs/'
@@ -336,6 +339,38 @@ class NewGridGainTests(unittest.TestCase):
                 self.assertIn('random, seed 42, 1,024 tokens: 59/64',item['detail'])
                 self.assertIn('not final-test validation or evidence that a selector beats random',item['detail'])
                 self.assertIn('Robust or final-test evidence that the new selection method outperforms random.',public['not_done'])
+
+    def test_valid_new_cohort_training_removes_only_its_missing_claim(self):
+        missing='Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.'
+        # A public count is not evidence that any private training arm completed.
+        self.write(self.root/'docs/data-efficiency-results.json',{'status':'completed','completed_arms':12})
+        before=accomplishments.build(self.root)
+        self.assertIn(missing,before['not_done'])
+        self.assertFalse(before['accuracy_improved'])
+        folder,valid=self.complete(correct=57)
+        after=accomplishments.build(self.root)
+        self.assertNotIn(missing,after['not_done'])
+        self.assertIn('new multi-source math cohort has 1 validated Granite training/evaluation arm',after['summary'])
+        self.assertFalse(after['accuracy_improved'])
+        self.assertIn('Robust or final-test evidence that the new selection method outperforms random.',after['not_done'])
+        invalid=copy.deepcopy(valid);invalid['supervised_tokens']=1023
+        self.write(folder/'result.json',invalid)
+        reconciled=accomplishments.build(self.root)
+        self.assertIn(missing,reconciled['not_done'])
+        self.assertFalse(reconciled['accuracy_improved'])
+        self.assertNotIn('cohort has 1 validated',reconciled['summary'])
+
+    def test_training_completion_does_not_require_a_completed_gain_baseline(self):
+        self.complete(correct=57)
+        pending=copy.deepcopy(self.base_result);pending['stage']='running'
+        self.write(self.base/'result.json',pending)
+        evidence=accomplishments._grid_development_gain(self.grid)
+        self.assertEqual(evidence['validated_completed_arms'],1)
+        self.assertIsNone(evidence['baseline_numeric_correct'])
+        self.assertEqual(evidence['improved'],[])
+        public=accomplishments.build(self.root)
+        self.assertIn('new multi-source math cohort has 1 validated',public['summary'])
+        self.assertFalse(public['accuracy_improved'])
 
     def test_pending_wrong_tokens_questions_or_checkpoint_cannot_claim_gain(self):
         self.assertFalse(accomplishments.build(self.root)['accuracy_improved'])

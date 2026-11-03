@@ -769,3 +769,11 @@ The separately frozen human200 development evaluation validated174correct answer
 ## 2026-11-03T22:21:23.039905+00:00 | resolved | Dashboard separates the200-question study from completed primary arms
 
 The dashboard now reads the validated human-study report, displaying completed base/random scores and unavailable pending metrics. The earlier multi-source panel distinguishes12completed primary arms from6deferred near-all-data plans. Paired uncertainty is shown only when matching completed receipts exist. Syntax and DOM fixture checks cover pending and completed rendering, deferred boundaries and duplicate IDs.
+
+## 2026-11-03T22:25:25.059543+00:00 | completed | Exact Granite adapter-layout prototype passes10 local checks
+
+A separate pure helper matches the pinned model configuration and recorded runtime layout:40layers,160 q/v LoRA tensors and2621440parameters. Ten synthetic checks pass. Saved-key serialization is derived rather than locally observed; this prototype is not integrated into seals or workers and does not prove tensor values, training quality or final-execution readiness. No provider request, permit or official-test access occurred.
+
+## 2026-11-03T22:27:33.269121+00:00 | resolved | Accomplishments checklist now follows validated training artifacts
+
+Live website verification caught a stale missing-work statement after all12 primary training evaluations had completed. The accomplishments generator now counts only validated frozen input/result bundles when acknowledging multi-source training; malformed or pending results cannot clear the missing-work claim. Twenty focused checks pass. Completed training is kept separate from unestablished accuracy or selection gains, and6deferred reference plans no longer read as imminent queued work.

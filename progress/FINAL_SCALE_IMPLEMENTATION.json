@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "stage": "partial_implementation_not_execution_ready",
-  "updated_at_utc": "2026-11-03T22:17:51.142148+00:00",
+  "updated_at_utc": "2026-11-03T22:25:25.057542+00:00",
   "proposed_question_counts": [
     1000,
     1319
@@ -13,7 +13,8 @@
     "permit_first_bounded_loader": "implemented_and_fixture_checked",
     "scaled_gpu_evaluator": "not_implemented",
     "scaled_teacher_collector": "not_implemented",
-    "paid_dispatch_and_escrow_controller": "not_implemented"
+    "paid_dispatch_and_escrow_controller": "not_implemented",
+    "exact_granite_qv_layout": "separate_pure_prototype_not_integrated"
   },
   "focused_synthetic_checks_passed": 52,
   "existing_final256_sources_unchanged": true,
@@ -30,12 +31,16 @@
     "final_scale_seal.py": "69efeac1aab2b658400065a803779b771dca35ffad560b95a26dd5428eabcff6",
     "test_final_scale_seal.py": "426d6da053148e82f52a14fbd74e28db973c5786a067baedbe603bd6d5316394",
     "final_scale_loader.py": "eb7e1787a1d43e7087770967a9800887fbb5add6af0d80b967ec4808ca26fac5",
-    "test_final_scale_loader.py": "0ed32cf4d52c8d9a22ea35fddcce93e007e9d69a89f294c7b39408f56c6593a2"
+    "test_final_scale_loader.py": "0ed32cf4d52c8d9a22ea35fddcce93e007e9d69a89f294c7b39408f56c6593a2",
+    "granite_lora_layout.py": "8d53f7cd48f8a7054b90cb230b8d42457f9022b3541f03c38d014f0d607544b7",
+    "test_granite_lora_layout.py": "13952cb12b10a6934a9a9bc965d602c8c34919a1fe99eb285781fb8166d42699"
   },
   "limitations": [
     "No1000/1319 execution is ready from helpers alone; remaining workers/controller and source/funding review must finish first.",
     "Safetensors validation covers structure and r8qv pairs, not complete pinned-model tensor/module compatibility.",
     "Adapter byte hashes are captured after development evaluation and before a future final seal; no earlier contemporaneous hash proof is invented.",
-    "Default inspection and tests use synthetic data; final dataset access still requires one reviewed global owner before any source read."
-  ]
+    "Default inspection and tests use synthetic data; final dataset access still requires one reviewed global owner before any source read.",
+    "The separate layout prototype matches recorded160 runtime q/v tensors and2621440 parameters. Saved-key serialization remains derived rather than locally observed, and runtime/seal integration is still required."
+  ],
+  "separate_layout_prototype_synthetic_checks_passed": 10
 }

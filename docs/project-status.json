@@ -1,5 +1,5 @@
 {
-  "summary": "Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.",
+  "summary": "Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The new multi-source math cohort has 12 validated Granite training/evaluation arms.",
   "dataset_coverage": [
     {
       "name": "GSM8K",
@@ -119,7 +119,7 @@
     },
     {
       "title": "New multi-source DeepSeek teaching pool completed",
-      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.",
+      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. These teacher receipts alone are not completed Granite training; separate validated arm results establish any later training/evaluation.",
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json"
     },
     {
@@ -172,7 +172,7 @@
     {
       "title": "Verify the new multi-source arithmetic teaching pool",
       "status": "completed",
-      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort."
+      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. These teacher receipts alone are not completed Granite training; separate validated arm results establish any later training/evaluation."
     },
     {
       "title": "Future human-reference arithmetic cohort preparation",
@@ -212,7 +212,7 @@
     {
       "title": "New math-cohort data-efficiency training grid",
       "status": "deferred",
-      "detail": "18/18 arm plans prepared; 12 completed, 0 running, 6 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check."
+      "detail": "18/18 arm plans prepared; 12 completed, 0 running, 6 deferred reference plans, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check."
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
@@ -237,12 +237,11 @@
   ],
   "not_done": [
     "Robust or final-test Granite accuracy improvement has not been established.",
-    "Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.",
     "Robust or final-test evidence that the new selection method outperforms random.",
     "Independent explanation-quality/depth evaluation.",
     "Official GSM8K test evaluation of a final frozen checkpoint.",
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T22:21:29.394415+00:00"
+  "updated_at_utc": "2026-11-03T22:27:39.792169+00:00"
 }

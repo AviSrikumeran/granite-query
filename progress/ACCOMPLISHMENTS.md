@@ -1,6 +1,6 @@
 # What Granite Query has actually accomplished
 
-Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The initial training study used GSM8K; additional source imports and teacher-data stages are tracked separately.
+Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The new multi-source math cohort has 12 validated Granite training/evaluation arms.
 
 ## Dataset coverage
 
@@ -98,7 +98,7 @@ Evaluation-only plan: untouched pinned Granite, no adapter, the same 64 question
 
 ### New multi-source DeepSeek teaching pool completed
 
-1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.
+1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. These teacher receipts alone are not completed Granite training; separate validated arm results establish any later training/evaluation.
 
 [Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/MATH_TEACHER.json)
 
@@ -138,7 +138,7 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 - **New verified teacher pool for token-matched controls — completed**. 512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment.
 
-- **Verify the new multi-source arithmetic teaching pool — completed**. 1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. This is teacher-data preparation, not completed Granite training on the new cohort.
+- **Verify the new multi-source arithmetic teaching pool — completed**. 1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. These teacher receipts alone are not completed Granite training; separate validated arm results establish any later training/evaluation.
 
 - **Future human-reference arithmetic cohort preparation — completed**. 2,048 new GSM training questions and 200 separate training-split development questions are frozen. 6,053 questions passed exact arithmetic-annotation/final-link checks after 994 prior-question or detectable-ancestry exclusions. These checks do not prove semantic correctness; TemplateGSM ancestry uses a conservative proxy and OpenMath lineage is incomplete. No official test questions were used. Data preparation is separate from teacher generation and Granite training.
 
@@ -154,7 +154,7 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 - **Model-gradient data selection on the new math cohort — completed**. Separate continuation of the same frozen feature protocol. 3,130 projected features are saved for 1,541 candidates and 24 held-out selection targets. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain.
 
-- **New math-cohort data-efficiency training grid — deferred**. 18/18 arm plans prepared; 12 completed, 0 running, 6 queued, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check.
+- **New math-cohort data-efficiency training grid — deferred**. 18/18 arm plans prepared; 12 completed, 0 running, 6 deferred reference plans, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check.
 
 - **Human-reference training with separate 200-question development evaluation — running**. 2/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: running. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
@@ -167,10 +167,9 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 ## Not completed
 
 - Robust or final-test Granite accuracy improvement has not been established.
-- Completed Granite training/evaluation on the new multi-source math cohort; source imports and teacher collection are separate stages.
 - Robust or final-test evidence that the new selection method outperforms random.
 - Independent explanation-quality/depth evaluation.
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T22:21:29.394415+00:00
+Updated: 2026-11-03T22:27:39.792169+00:00
