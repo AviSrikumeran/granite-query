@@ -224,7 +224,8 @@ def build(workspace=None):
     for row in candidates.get('sources',[]):
         if all(isinstance(row.get(k),str) for k in ('name','card_url','purpose')):
             public['dataset_coverage'].append({'name':row['name'],'actual_source':row['card_url'],
-                'status':'researched_not_imported','used_for':row['purpose']})
+                'status':row.get('status') if row.get('status') in ('researched_not_imported','inspected_no_eligible_data') else 'researched_not_imported',
+                'used_for':row['purpose']})
     public['not_done']=[s.replace('Multiple Hugging Face dataset/repository evaluation and a complete inventory of supplied links.',
         'Training/evaluation on additional math datasets; candidate sources are researched but not imported.') for s in public['not_done']]
     (workspace / 'docs').mkdir(parents=True, exist_ok=True)

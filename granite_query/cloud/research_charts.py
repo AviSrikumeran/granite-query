@@ -73,6 +73,13 @@ def build():
         'matched64':{'stage':'in_progress'},'training120':{'stage':'queued'},
         'figures':['figures/matched16-accuracy.svg','figures/pilot-learning-history.svg']}
     evalpath=ROOT/'runs/matched_eval64_v1/metrics.json'
+    trainfolder=ROOT/'runs/granite_full120_v1'
+    if (trainfolder/'launch.json').exists():
+        launch=json.loads((trainfolder/'launch.json').read_text())
+        if launch.get('call_id'):
+            statuspath=trainfolder/'remote_status.json'
+            status=json.loads(statuspath.read_text()) if statuspath.exists() else {}
+            public['training120']={'stage':status.get('stage','running')}
     teacher64path=ROOT/'runs/matched_eval64_v1/teacher/summary.json'
     recovered=ROOT/'runs/matched_eval64_v1/recovered_baseline64.json'
     if (evalpath.exists() or recovered.exists()) and teacher64path.exists():

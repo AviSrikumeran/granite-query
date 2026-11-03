@@ -76,13 +76,19 @@ Original Granite scored 58/64, with 2 truncated outputs counted as failures. Dee
 
 [Evidence](https://modal.com/apps/avisrikumeran/main/ap-KMIiovWHG4Bt4CyMzjrU5b)
 
+### 64-question Granite benchmark fully recovered
+
+All three Granite checkpoint evaluations on the same 64 monitoring questions are saved. This is development monitoring, not the official final test.
+
+[Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md)
+
 ## Current work and failures
 
 - **Original 64-question Granite attempt — failed**. The original attempt reached its application deadline before completing all checkpoints. Completed phase outputs were preserved; this is not a completed comparison across all checkpoints.
 
-- **Resume of unfinished 64-question evaluations — running**. A Modal function call was submitted; currently evaluating the saved BM25 adapter. It is a separate attempt and should reuse completed outputs instead of rerunning them.
+- **Resume of unfinished 64-question evaluations — completed**. All required outputs on the 64 monitoring questions are saved. It is a separate attempt and should reuse completed outputs instead of rerunning them.
 
-- **Larger 120-example Granite training round — queued**. The input and plan are prepared. No Modal function call has been submitted. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
+- **Larger 120-example Granite training round — running**. A Modal function call was submitted; currently waiting for the next saved worker update. Its purpose is to measure whether more verified data helps; improvement is not guaranteed.
 
 ## Not completed
 
@@ -94,4 +100,4 @@ Original Granite scored 58/64, with 2 truncated outputs counted as failures. Dee
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T18:14:19.773423+00:00
+Updated: 2026-11-03T18:22:04.790349+00:00

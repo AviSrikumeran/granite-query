@@ -86,7 +86,7 @@ def tick():
                     training_action='After confirming the evaluation GPU call stopped, launch the already-reserved full120 training worker once.'
             else:
                 remote_status={'stage':'matched64_analysis'}
-                training_action='Build research_charts.py, compare teacher and Granite on the same64 questions, and plan the bounded skill-targeted round if no improvement is measured.'
+                training_action='Compare all checkpoints on the shared64 questions, then advance the token-matched student-aware versus random study in progress/RESEARCH_EXECUTION_PLAN.md. Continue regardless of whether more-data training improved; preserve funds for final evaluation and a capped API trial.'
         status = {'updated_at_utc': datetime.now(timezone.utc).isoformat(),
             'mode': 'budget_exhausted' if exhausted else ('ready_for_agent' if improving else ('awaiting_review' if (comparison/'review_complete.json').exists() else 'ready_for_agent')),
             'teacher_pilot_complete': summary.get('completed') == 16,

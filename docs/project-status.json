@@ -82,6 +82,11 @@
       "title": "Original Granite baseline completed on the same 64 questions",
       "detail": "Original Granite scored 58/64, with 2 truncated outputs counted as failures. DeepSeek scored 63/64 on those identical questions. This is a baseline comparison, not evidence that training improved Granite.",
       "evidence_url": "https://modal.com/apps/avisrikumeran/main/ap-KMIiovWHG4Bt4CyMzjrU5b"
+    },
+    {
+      "title": "64-question Granite benchmark fully recovered",
+      "detail": "All three Granite checkpoint evaluations on the same 64 monitoring questions are saved. This is development monitoring, not the official final test.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/IMPROVEMENT_PLAN.md"
     }
   ],
   "current_work": [
@@ -92,13 +97,13 @@
     },
     {
       "title": "Resume of unfinished 64-question evaluations",
-      "status": "running",
-      "detail": "A Modal function call was submitted; currently evaluating the saved BM25 adapter. It is a separate attempt and should reuse completed outputs instead of rerunning them."
+      "status": "completed",
+      "detail": "All required outputs on the 64 monitoring questions are saved. It is a separate attempt and should reuse completed outputs instead of rerunning them."
     },
     {
       "title": "Larger 120-example Granite training round",
-      "status": "queued",
-      "detail": "The input and plan are prepared. No Modal function call has been submitted. Its purpose is to measure whether more verified data helps; improvement is not guaranteed."
+      "status": "running",
+      "detail": "A Modal function call was submitted; currently waiting for the next saved worker update. Its purpose is to measure whether more verified data helps; improvement is not guaranteed."
     }
   ],
   "not_done": [
@@ -111,5 +116,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T18:14:19.773423+00:00"
+  "updated_at_utc": "2026-11-03T18:22:04.790349+00:00"
 }

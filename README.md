@@ -6,6 +6,8 @@ This project studies verified teacher-data selection for IBM Granite on GSM8K. I
 
 ## Research status
 
+The user has authorized the full existing $30 Modal ceiling for useful experiments. The [expanded execution plan](progress/RESEARCH_EXECUTION_PLAN.md) requires token-matched student-aware versus random training, repeated seeds as feasible, frozen final evaluation, and a capped model API trial. These stages are active work, not completed features. We will report measured gains and regressions rather than promise that training must improve the model.
+
 The broader project is active. Completion of the first pilot did not complete the teacher/student improvement objective. DeepSeek has now been evaluated on the exact same16 questions: **15/16**, versus **13/16** for the original and both32-example Granite checkpoints. Measured comparison figures are on the dashboard. Inference settings differ and are disclosed.
 
 A new shared64-question development monitoring benchmark is running, with a fresh120-example Granite LoRA training round queued next. DeepSeek has completed its side of the64-question benchmark; its score must not be compared to Granite's earlier16-question score. All checkpoints will be compared on the same64 questions before interpreting improvement. The supervisor continues across these queued stages within the original service budgets.

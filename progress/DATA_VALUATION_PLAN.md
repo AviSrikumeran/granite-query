@@ -10,6 +10,8 @@ Only GSM8K has been used in the training experiments so far. The user confirmed 
 
 ## The controlled comparison
 
+Actual bounded source inspection changed the initial recommendation: a seeded block scan of256 OpenR1 training records yielded zero complete verified numeric word-problem traces meeting the768-response-token/2048-context limits.154 inspected verified scalar traces had lengths of at least1217 student tokens. A server429 stopped further scanning; cached records and rejection counts were preserved. This is a small bounded scan, not proof no suitable OpenR1 examples exist. Use new, disjoint GSM8K training prompts with concise DeepSeekV4-Pro responses for the next controlled pool. OpenR1 is not training-ready for this recipe and must not be silently stripped or truncated to fit.
+
 1. Freeze a seeded sample of up to512 eligible OpenR1 records, pinning revision, IDs and content hashes. Retain complete, verified, numeric-answer records that fit the student context; report how much filtering removes. Do not silently truncate traces or claim final-answer flags verify every reasoning step.
 2. Remove candidate duplicates and matches to existing training/development questions before either selector. Keep the official test set sealed under the current protocol. Provenance and development exclusion do not prove that a public dataset is free of all test contamination.
 3. Draw random and student-aware selections from the SAME eligible pool. Match actual supervised-token budgets and use the same shuffled order policy. Keep source mixture, teacher provenance, optimizer and starting Granite checkpoint identical.

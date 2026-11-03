@@ -1,8 +1,21 @@
 {
   "status": "researched_only_not_downloaded_or_trained",
   "sources": [
-    {"name":"open-r1/OpenR1-Math-220k","card_url":"https://huggingface.co/datasets/open-r1/OpenR1-Math-220k","purpose":"Recommended next valuation pool: existing DeepSeek-R1 math traces with completion/correctness flags. Start with a small, pinned sample of short numeric-answer word problems; long and difficult traces may not fit Granite's context. Teacher differs from the current V4-Pro API and must be labelled."},
-    {"name":"nvidia/OpenMathInstruct-2","card_url":"https://huggingface.co/datasets/nvidia/OpenMathInstruct-2","purpose":"Supporting GSM8K-style prompt pool. Filter augmented_gsm8k and numeric expected answers; its supplied solutions come from Llama, so regenerate with DeepSeek if teacher consistency is required. Do not assume augmented answers are independently verified gold."},
-    {"name":"open-thoughts/OpenThoughts-114k","card_url":"https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k","purpose":"Later skill-diversity source: use math-only records from its DeepSeek-R1 reasoning data. Mixed domains and long traces require filtering; not yet imported."}
+    {
+      "name": "open-r1/OpenR1-Math-220k",
+      "card_url": "https://huggingface.co/datasets/open-r1/OpenR1-Math-220k",
+      "purpose": "Bounded seeded scan of256 training records found zero complete verified numeric word-problem traces meeting the768-response-token limit; cached artifacts retained. Not used for Granite training. This sample does not establish that the full dataset has no suitable records.",
+      "status": "inspected_no_eligible_data"
+    },
+    {
+      "name": "nvidia/OpenMathInstruct-2",
+      "card_url": "https://huggingface.co/datasets/nvidia/OpenMathInstruct-2",
+      "purpose": "Supporting GSM8K-style prompt pool. Filter augmented_gsm8k and numeric expected answers; its supplied solutions come from Llama, so regenerate with DeepSeek if teacher consistency is required. Do not assume augmented answers are independently verified gold."
+    },
+    {
+      "name": "open-thoughts/OpenThoughts-114k",
+      "card_url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k",
+      "purpose": "Later skill-diversity source: use math-only records from its DeepSeek-R1 reasoning data. Mixed domains and long traces require filtering; not yet imported."
+    }
   ]
 }
