@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Split training/evaluation implementation; GPU idle at last check
+Current stage: Stopped at user request; no running GPU tasks
 
-Next: Local code and review work is preparing four smaller jobs using the existing175/200 baseline. Each adapter trains unchanged16k tokens and evaluates96 questions, then its exact checkpoint evaluates104 more. No new baseline or teacher generation is planned. The proposed4.60 allowance is not yet reserved; full source, runtime and fresh funding review must pass before any GPU launch. No training improvement is established.
+Next: Stopped at user request. No further scheduled or paid work; review the concise results before deciding on any future experiment.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -1057,3 +1057,23 @@ The original full training/evaluation forecasts1462.341/1455.678s exceed1250, so
 ## 2026-11-04T05:18:42.281673+00:00 | decision | GPU idle while training-job implementation is reviewed
 
 Supported account/task inspection found zero active Modal tasks. Observed metered Modal usage is14.4104USD; conditional DeepSeek wallet use is2.00USD. The teacher answers are already stored and reused; new teacher calls are unnecessary for this comparison. The current3.50Modal allowance is unused reservation, not a new charge. Next paid work is the source-reviewed split training/evaluation comparison using the existing175/200baseline; no new baseline or teacher generation is planned. No model improvement is established.
+
+## 2026-11-04T05:40:23.673049+00:00 | decision | Funded actual Granite training comparison
+
+Reserved a $4.60 four-job phase within the $30 Modal ceiling: transferred $3.50 unused allowance and added $1.10. Both recipes train on saved DeepSeek answers; no additional teacher or baseline generation. Same 200 development questions and exact 16,384 training tokens per adapter. No result or improvement yet.
+
+## 2026-11-04T05:40:42.303075+00:00 | in_progress | Development shard dispatch prepared
+
+Bounded development shard concise_A; no official test data or partial accuracy.
+
+## 2026-11-04T05:41:27.607774+00:00 | decision | Stopped autonomous experiments at user request
+
+The user requested an end to continuous compute and scheduled AI work. The schedule was deleted. The just-dispatched training app is being stopped; existing results will be reorganized into a short results-first page. No new paid experiment is authorized.
+
+## 2026-11-04T05:44:09.514883+00:00 | completed | Confirmed experiment shutdown
+
+The experiment schedule has been deleted. Modal reports the exact dispatched app stopped and zero running tasks across the workspace. Its last saved progress was source verification; no completed training result is claimed. Prior data and negative results remain available.
+
+## 2026-11-04T05:46:43.666744+00:00 | decision | Paused remaining Granite background design schedule
+
+A separate daily Granite design automation was also paused to stop recurring project-related AI work. The experiment supervisor is deleted, no GPU tasks remain, and no autonomous continuation is authorized.

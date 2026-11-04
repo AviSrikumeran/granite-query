@@ -1,3 +1,5 @@
+Current status: **Stopped at user request.** The supervisor was deleted, the daily design schedule paused, and the dispatched Modal app terminated. No accuracy improvement has been established. See the concise public homepage; the material below preserves the previous audit as history.
+
 # What Granite Query has actually accomplished
 
 Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The new multi-source math cohort has 12 validated Granite training/evaluation arms.

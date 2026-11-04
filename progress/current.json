@@ -1,8 +1,12 @@
 {
-  "stage": "GPU idle; preparing the actual training comparison",
+  "stage": "Stopped at user request; no running GPU tasks",
   "training_completed": true,
   "held_out_evaluation_completed": false,
-  "active_run_id": "native_reasoning16k_dev200_seed42_batch32_v4",
+  "active_run_id": null,
   "current_native_training_completed": false,
-  "current_native_baseline_completed": true
+  "current_native_baseline_completed": true,
+  "paid_work_enabled": false,
+  "automation_status": "DELETED",
+  "stop_verified_at_utc": "2026-11-04T05:44:09.498920+00:00",
+  "before_after_result": "Earlier trained models scored174/171 versus original179 out of200; no gain."
 }

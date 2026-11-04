@@ -1,5 +1,5 @@
 {
-  "summary": "Granite has been fine-tuned on Modal, but no accuracy improvement has been demonstrated yet. The new multi-source math cohort has 12 validated Granite training/evaluation arms.",
+  "summary": "Experiments stopped at user request. Real fine-tuning was completed, but no accuracy gain was established. No live GPU job or public model API.",
   "dataset_coverage": [
     {
       "name": "GSM8K",
@@ -160,119 +160,9 @@
   ],
   "current_work": [
     {
-      "title": "Original 64-question Granite attempt",
-      "status": "failed",
-      "detail": "The original attempt reached its application deadline before completing all checkpoints. Completed phase outputs were preserved; this is not a completed comparison across all checkpoints."
-    },
-    {
-      "title": "Resume of unfinished 64-question evaluations",
-      "status": "completed",
-      "detail": "All required outputs on the 64 monitoring questions are saved. It is a separate attempt and should reuse completed outputs instead of rerunning them."
-    },
-    {
-      "title": "Larger 120-example Granite training round",
-      "status": "completed",
-      "detail": "All required outputs on the 64 monitoring questions are saved. Its purpose is to measure whether more verified data helps; improvement is not guaranteed."
-    },
-    {
-      "title": "Untouched Granite control with matched batch8 evaluation",
-      "status": "completed",
-      "detail": "Evaluation-only plan: untouched pinned Granite, no adapter, the same 64 questions, non-thinking 512-token generation and batch8 evaluation. Completed 58/64 numeric answers, with zero actual training tokens and updates. This matched-batch control is separate from the earlier serial58/64 result."
-    },
-    {
-      "title": "New verified teacher pool for token-matched controls",
-      "status": "completed",
-      "detail": "512/512 separate training questions answered; 477 passed eligibility checks, with 55,738 available answer tokens. Uses DeepSeek V4-Pro non-thinking concise responses; original raw answers remain private. Collection is not a completed training experiment."
-    },
-    {
-      "title": "Verify the new multi-source arithmetic teaching pool",
-      "status": "completed",
-      "detail": "1,800/1,800 DeepSeek responses saved; 1,565 passed complete-response/reference-match checks, supplying 150,750 supervised answer tokens. Sources are SVAMP, TemplateGSM and OpenMath arithmetic augmentation. Human dataset answers, procedural results and synthetic majority-vote references remain distinct; reference match does not independently prove every reasoning step correct. These teacher receipts alone are not completed Granite training; separate validated arm results establish any later training/evaluation."
-    },
-    {
-      "title": "Future human-reference arithmetic cohort preparation",
-      "status": "completed",
-      "detail": "2,048 new GSM training questions and 200 separate training-split development questions are frozen. 6,053 questions passed exact arithmetic-annotation/final-link checks after 994 prior-question or detectable-ancestry exclusions. These checks do not prove semantic correctness; TemplateGSM ancestry uses a conservative proxy and OpenMath lineage is incomplete. No official test questions were used. Data preparation is separate from teacher generation and Granite training."
-    },
-    {
-      "title": "Equal-token random training, seed 42",
-      "status": "completed",
-      "detail": "Measured 55/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
-    },
-    {
-      "title": "Equal-token skill and diversity training, seed 42",
-      "status": "completed",
-      "detail": "Measured 53/64 numeric answers, with 1 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
-    },
-    {
-      "title": "Equal-token random training, seed 43",
-      "status": "completed",
-      "detail": "Measured 57/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
-    },
-    {
-      "title": "Equal-token skill and diversity training, seed 43",
-      "status": "completed",
-      "detail": "Measured 56/64 numeric answers, with 0 truncated outputs counted as failures. Completed 32,768 supervised tokens and 32 token-weighted updates. This is adaptive development monitoring, not a final-test result."
-    },
-    {
-      "title": "First student-aware equal-token experiment",
-      "status": "completed",
-      "detail": "seed 42: random 55/64, skill and diversity 53/64; seed 43: random 57/64, skill and diversity 56/64. Every arm completed 32,768 supervised tokens and 32 matched optimizer updates on the same 64 monitoring questions. The skill heuristic did not beat random in either seed. Targeted gradient selection and the new source cohort are separate experiments."
-    },
-    {
-      "title": "Model-gradient data selection on the new math cohort",
-      "status": "completed",
-      "detail": "Separate continuation of the same frozen feature protocol. 3,130 projected features are saved for 1,541 candidates and 24 held-out selection targets. CountSketch gradient alignment is an approximate selection signal, not a measured Granite accuracy gain."
-    },
-    {
-      "title": "New math-cohort data-efficiency training grid",
-      "status": "deferred",
-      "detail": "18/18 arm plans prepared; 12 completed, 0 running, 6 deferred reference plans, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check."
-    },
-    {
-      "title": "Matched DeepSeek versus Granite on200 development questions",
-      "status": "completed",
-      "detail": "DeepSeek scored 194/200 on the same development questions as original Granite179/200, random-trained174/200 and skill-trained171/200. All used the same prompt, nonthinking mode and512-token output cap. This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. No Granite accuracy improvement is established. Official test data remains sealed."
-    },
-    {
-      "title": "Native OPEN1024 baseline and runtime calibration",
-      "status": "completed",
-      "detail": "Validated untouched OPEN/1024 baseline: 138/200, with 59 truncated outputs counted as failures. All25physical raw batches and the provider terminal validate. The training-pair runtime forecast failed, so neither V3adapter launched. The earlier nonthinking512 baseline179/200 remains a separate, stronger practical reference."
-    },
-    {
-      "title": "Native reasoning transfer: batch32 and2048output tokens",
-      "status": "blocked",
-      "detail": "The full 200-question OPEN/2048 baseline and seven raw batches validate. Its measured runtime fails the training-pair forecast gate. Accuracy does not override this gate; preserve the completed baseline and review before any new dispatch. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/2048 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result."
-    },
-    {
-      "title": "Split training/evaluation implementation; GPU idle at last check",
-      "status": "queued",
-      "detail": "Local code and review work is preparing four smaller jobs using the existing175/200 baseline. Each adapter trains unchanged16k tokens and evaluates96 questions, then its exact checkpoint evaluates104 more. No new baseline or teacher generation is planned. The proposed4.60 allowance is not yet reserved; full source, runtime and fresh funding review must pass before any GPU launch. No training improvement is established."
-    },
-    {
-      "title": "Human-reference training with separate 200-question development evaluation",
-      "status": "completed",
-      "detail": "3/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: 171/200. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit."
-    },
-    {
-      "title": "Human-reference DeepSeek teaching chunks",
-      "status": "completed",
-      "detail": "2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved."
-    },
-    {
-      "title": "Paired teacher-reasoning feasibility pilot",
-      "status": "completed",
-      "detail": "Last recorded snapshot: 64/64 original responses across 32 separate training questions; 29 complete, reference-matched pairs fit the student context. The separately funded pilot compares concise and thinking outputs under different output caps. It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain."
-    },
-    {
-      "title": "Larger final benchmark implementation and funding review",
-      "status": "queued",
-      "detail": "Separate sharded GPU/teacher executors, portable artifact checks, whole-bundle escrow and controller recovery now pass offline software fixtures. A development-only adapter-reload producer is implemented; its funded production entrypoint and actual GPU/PEFT reload are still pending. Actual final benchmark execution and serving remain incomplete. Finish the entrypoint/review, validate the chosen weight bytes on development data and review whole-bundle funding before final selection/freezing or official-test access. No paid call, test access or model endpoint is created by this software status."
-    },
-    {
-      "title": "Capped Granite API trial",
-      "status": "queued",
-      "detail": "API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota."
+      "title": "Experiments stopped at user request",
+      "status": "stopped",
+      "detail": "The schedule was deleted and the newly dispatched app was stopped. No new paid work will start."
     }
   ],
   "not_done": [
@@ -283,5 +173,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-04T05:23:39.236276+00:00"
+  "updated_at_utc": "2026-11-04T05:44:09.498920+00:00"
 }

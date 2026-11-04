@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-04T05:43:09.659575+00:00",
+  "project_status": "stopped_at_user_request",
+  "automation_deleted": true,
+  "active_gpu_tasks": 0,
+  "stop_verified": true,
+  "paid_work_enabled": false,
+  "headline": "Training has not improved Granite yet.",
+  "comparison": {
+    "dataset": "GSM8K",
+    "split": "Separate 200-question TRAIN development set, withheld from teaching",
+    "count": 200,
+    "mode": "nonthinking",
+    "max_output_tokens": 512,
+    "official_test": false,
+    "models": [
+      {
+        "name": "DeepSeek teacher",
+        "correct": 194,
+        "percent": 97,
+        "delta_vs_granite_base_pp": 7.5
+      },
+      {
+        "name": "Original Granite",
+        "correct": 179,
+        "percent": 89.5,
+        "delta_vs_granite_base_pp": 0
+      },
+      {
+        "name": "Random-data trained Granite",
+        "correct": 174,
+        "percent": 87,
+        "delta_vs_granite_base_pp": -2.5
+      },
+      {
+        "name": "Ranked-data trained Granite",
+        "correct": 171,
+        "percent": 85.5,
+        "delta_vs_granite_base_pp": -4
+      }
+    ]
+  },
+  "conclusion": "The tested fine-tuning recipes did not improve accuracy. Ranked selection did not beat random selection. A teacher performance gap is not an achieved student improvement.",
+  "observed_usage_usd": {
+    "modal": 14.49040674,
+    "deepseek": 2
+  },
+  "usage_as_of_utc": "2026-11-04T05:45:20.106451+00:00",
+  "budget_ceiling_usd": {
+    "modal": 30,
+    "deepseek": 20
+  },
+  "billing_note": "Observed usage consumes credits. Buffers and reservations are separate planning holds. The final stopped-call charge may still arrive.",
+  "latest_attempt": "The just-dispatched native training attempt was stopped at the user request. Last saved progress was source verification; no completed training or evaluation result is established.",
+  "missing": [
+    "Demonstrated trained-model gain",
+    "Frozen official-test evaluation",
+    "Public model API"
+  ],
+  "research_log": "research-log.html",
+  "cancelled_call_billing_hold_usd": 1.2,
+  "unused_planning_allowance_usd": 3.4,
+  "design_automation_paused": true
+}

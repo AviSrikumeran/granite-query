@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-04T05:10:47.995370+00:00",
+  "updated_at_utc": "2026-11-04T05:44:09.498920+00:00",
   "project_complete": false,
-  "current_schedule_status": "ACTIVE",
+  "current_schedule_status": "DELETED",
   "check_interval_minutes": 5,
   "limits_usd": {
     "modal": 30,
     "deepseek": 20
   },
-  "current_work": "OPEN2048 baseline175/20017caps validated; monolithic trainingforecast fails. Newfour-job development split under implementation/review. No newcheckpoint gain/API/finaltest yet.",
+  "current_work": "Stopped at user request. No further experiment or scheduled continuation. Existing results being summarized; project incomplete.",
   "remaining_deliverables": [
     "Complete the current frozen native baseline with provider terminal and full raw replay.",
     "Train both independent adapters only after measured runtime/funding review and evaluate them on the same development questions.",
@@ -34,5 +34,6 @@
   ],
   "broad_DeepSeek_parity_is_not_a_promised_completion_metric": true,
   "new_budget_authorized_by_stop_question": false,
-  "actual_baseline_training_api_complete": false
+  "actual_baseline_training_api_complete": false,
+  "user_cancelled": true
 }
