@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "reviewed_local_date": "2026-11-03",
+  "timezone": "America/Chicago",
+  "priority": "high",
+  "status": "artifact_audit_complete_experiments_proposed",
+  "student": "ibm-granite/granite-4.2-3b",
+  "student_revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "weight_download_complete": true,
+  "published_weight_hashes_verified": true,
+  "weight_bytes": 7319517120,
+  "granite_scalar_elements_checked": 3659737600,
+  "nonfinite_elements": 0,
+  "new_inference_or_training_launched": false,
+  "sparse_conversion_implemented": false,
+  "official_test_accessed": false,
+  "page": "https://avisrikumeran.github.io/granite-query/granite-efficiency.html",
+  "report": "progress/GRANITE_EFFICIENCY_RESEARCH.md",
+  "next_research_step": "Measure native-mode accuracy and total generation cost on isolated development questions before choosing an intervention.",
+  "budget_note": "Existing project ceilings are shared; this research audit creates no additional compute allocation."
+}

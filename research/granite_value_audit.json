@@ -1,0 +1,9 @@
+{
+  "repo": "ibm-granite/granite-4.2-3b",
+  "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "scalar_elements_checked": 3659737600,
+  "nonfinite_elements": 0,
+  "exact_zero_elements": 0,
+  "method": "Bitwise BF16 exponent scan of all weight tensors in 8M-element chunks. Does not execute model code or inference.",
+  "finite": true
+}

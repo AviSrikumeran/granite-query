@@ -21,3 +21,5 @@
 **/mp2_results.json
 **/*.lock
 **/*.tmp
+research/models/
+*.partial

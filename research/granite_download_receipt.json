@@ -1,0 +1,22 @@
+{
+  "repo": "ibm-granite/granite-4.2-3b",
+  "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "complete": true,
+  "weight_bytes": 7319517120,
+  "files": [
+    {
+      "file": "model-00001-of-00002.safetensors",
+      "bytes": 5358533712,
+      "sha256": "db39eb2776b5404dbfd0696cf7fe5ec671f0dad0e0918c62c5aea9e2eb5825d7",
+      "verified_against_hf_lfs": true
+    },
+    {
+      "file": "model-00002-of-00002.safetensors",
+      "bytes": 1960983408,
+      "sha256": "8fba6ea17551d5d129eac519dbd70237139221c7fd0b89623ef54d9711062505",
+      "verified_against_hf_lfs": true
+    }
+  ],
+  "downloaded_at_utc": "2026-11-04T00:34:44.174862+00:00",
+  "loaded_for_inference": false
+}
