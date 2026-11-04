@@ -47,15 +47,15 @@ Complete relevant checks once. Broaden or repeat them only after a change, failu
 | 1 | Can the selected core be extracted clearly? | First comparison delivered at [core extraction](https://avisrikumeran.github.io/granite-query/playground/core-extraction/). See the [review](reviews/2026-11-03-core-extraction.md). User verdict pending; refinements need a specific finding or feedback. |
 | 1b | Can the proof branches grip and pull the core? | Separate [branch claw comparison](https://avisrikumeran.github.io/granite-query/playground/claw-extraction/) delivered at the owner's request. See the [review](reviews/2026-11-03-claw-extraction.md). User verdict pending. |
 | 1c | Which exact website artwork should define the outer Granite form? | Superseded by the owner's move toward an original project identity. The green-outer/blue-inner IBM artwork is a reference only. Do not keep searching for or reconstructing an IBM logo for the next study. |
-| 1d | Can one large original form communicate selection and reveal? | Highest priority: study two interlocking mineral-like pieces and one luminous core, with a single select/reveal/return gesture. Use one dominant view instead of a permanent side-by-side comparison; keep references and detailed controls in the lab. Reuse the established material depth and mouse response. The three-piece concept is a recommendation to test, not an approved final mark. Preserve all published studies and the homepage. |
+| 1d | Can one large original form communicate selection and reveal? | Authorized prototype delivered at [interlocking reveal](https://avisrikumeran.github.io/granite-query/playground/interlocking-reveal/). Two keyed mineral pieces, one magenta core and a select/unlock/reveal/return sequence in one large view. See the [review](reviews/2026-11-03-interlocking-reveal.md). User verdict and final identity remain pending. Preserve all published studies and the homepage. |
 | 2 | Can branches explain a query? | Scroll-revealed connections with a short evidence label per node, using clearly marked illustrative content. No implied access to a model's private reasoning. |
 | 3 | Can visitors understand a result quickly? | One result-summary component driven by existing public data, with context and a route to detailed evidence. Preserve homepage and exporter. |
 
-The next ready question is 1d: simplify the original visual identity and make its main action larger and clearer. The IBM logo reconstruction is superseded. Judge the resting silhouette and a paused reveal before adding secondary effects. The daily workflow handles one ready question per run. Do not implement the whole queue in one pass or repeat a delivered experiment without a specific unresolved question.
+Question 1d now has a working prototype for review. Do not add more hero components or repeat it without specific feedback. The next independent ready question is 2: use the preferred proof branches to explain a query in a separate scroll specimen, with clearly illustrative evidence. The IBM logo reconstruction is superseded. The daily workflow handles one ready question per run. Do not implement the whole queue in one pass.
 
 The owner requested that the earlier core extraction and homepage stay unchanged while the claw was built separately. Treat all published study folders, including core-extraction and claw-extraction, as protected review baselines. Develop new directions in new folders unless the owner's active request authorizes editing an existing study.
 
-A composition target for the next specimen is one dominant object occupying roughly two-thirds of its artwork area, with at most three independently moving pieces. This is a proposed starting point, not a measured usability threshold. Detail should come from light, surface shading, negative space and easing. Keep proof branches available for a separate evidence section rather than attaching another network to the hero. Retain pause, keyboard and reduced-motion support even when the visible controls are compact.
+The composition brief for 1d was one dominant object occupying roughly two-thirds of its artwork area, with at most three independently moving pieces. This was a starting point, not a measured usability threshold. The delivered prototype uses two rigid keyed groups and one core. Detail should come from light, surface shading, negative space and easing. Keep proof branches available for a separate evidence section rather than attaching another network to the hero. Retain pause, keyboard and reduced-motion support even when the visible controls are compact.
 
 ## Scheduling
 
@@ -68,6 +68,7 @@ Scheduled local work needs the computer on, the app running and project files av
 ## Working links
 
 - [All experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/)
+- [Interlocking reveal](https://avisrikumeran.github.io/granite-query/playground/interlocking-reveal/)
 - [Branch claw extraction](https://avisrikumeran.github.io/granite-query/playground/claw-extraction/)
 - [Magenta core extraction](https://avisrikumeran.github.io/granite-query/playground/core-extraction/)
 - [Electric magenta](https://avisrikumeran.github.io/granite-query/playground/purple/?material=magenta)

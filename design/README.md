@@ -6,7 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
-- [All live experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/): latest magenta comparison, three directions, accepted green motion and earlier studies.
+- [All live experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/): the large interlocking reveal, earlier magenta comparisons, three directions and accepted green motion.
+- [Interlocking reveal review](reviews/2026-11-03-interlocking-reveal.md): one large original sculpture, two keyed pieces and a magenta core; simpler motion with mouse inspection.
 - [Branch claw review](reviews/2026-11-03-claw-extraction.md): proof branches forming a gripper and lifting the core, compared against the preserved extraction.
 - [Magenta core extraction review](reviews/2026-11-03-core-extraction.md): the first daily-workflow specimen, with its boundaries, checks and remaining questions.
 - [Asynchronous design workflow](DESIGN_WORKFLOW.md): recorded preferences, one-question passes, review evidence, workload limits and a queue for future work.
@@ -22,6 +23,7 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 | Color palette and typography | Full site system remains undecided; electric magenta is the selected experimental material direction, with deep plum recesses and bright pink-white highlights |
 | Cubes, boxes, modular geometry | Explicit user interest; explore original geometry, not another company's mark |
 | Interlocking blocks and proof branches | Preferred by the user; pursue readable joints, extraction and connected evidence |
+| Large three-piece reveal | Authorized as a separate prototype: two interlocking mineral pieces and one magenta core. One dominant view; final identity and user verdict remain pending |
 | Nested frames | Retain as a comparison; not the next direction to develop |
 | Accepted green motion study | Preserve as the reference for shading, reveal, selective flash, surrounding fragments and mouse response |
 | Motion that runs on its own | Required candidate; specify pause, offscreen suspension, and reduced-motion states from the start |
