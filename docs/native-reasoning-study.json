@@ -1,45 +1,51 @@
 {
   "schema_version": 1,
-  "version": "native-reasoning-mount-recovery-public-v1",
-  "run_id": "native_reasoning16k_dev200_seed42_mount_v2",
-  "updated_at_utc": "2026-11-04T02:41:03.281375+00:00",
-  "stage": "recovery_attempt_failed_requires_review",
+  "version": "native-reasoning-config-recovery-public-v1",
+  "run_id": "native_reasoning16k_dev200_seed42_config_v3_final",
+  "updated_at_utc": "2026-11-04T03:25:56.500257+00:00",
+  "stage": "config_recovery_call_awaiting_terminal_validation",
   "current_work": {
-    "stage": "recovery_attempt_failed_requires_review",
-    "detail": "A new recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published."
+    "stage": "config_recovery_call_awaiting_terminal_validation",
+    "detail": "A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published."
   },
-  "original_attempt": {
-    "status": "failed_pre_model_attempt_verified",
-    "call_id": "fc-01M6J47BZT6FXBYCC55KC3S6K3",
-    "validated_evaluation_outputs": 0,
-    "accuracy_percent": null,
-    "failure_category": "artifact_mount_preflight",
-    "recovery_evidence_verified": true,
-    "training_or_evaluation_completed": false,
-    "evidence_sha256": {
-      "original_design_sha256": "e5799faa751d21b015d71ff6828c2bb07817ebd0f6044768322036f0fbcd5d61",
-      "original_manifest_sha256": "e0f2d72cdf69bcddfff97aff2b4a8dbfed0126a09d74d19d60872cade5eebf75",
-      "original_launch_sha256": "cad06220e2d92fdace32b5cbb9462de64a2ab810a93dfa24940a8147028b0b39",
-      "original_provider_terminal_sha256": "cce536d090576416dfbf9a61ba44f5dd7eb0c1b487c3c0babcb097520e901c9f",
-      "original_call_graph_sha256": "222eb4c702d7f9ff55e5cc218e96f891acb84e5a46a62b9a0e3c741d53cec417",
-      "original_error_sha256": "cb9969a5da684a5883911302628600302d6916115c118be6c3db21a19492c361"
+  "prior_attempts": [
+    {
+      "attempt": "v1_mount_preflight",
+      "call_id": "fc-01M6J47BZT6FXBYCC55KC3S6K3",
+      "status": "failed_and_evidence_verified",
+      "validated_evaluation_outputs": 0,
+      "accuracy_percent": null,
+      "model_loaded": false,
+      "evaluation_complete": false,
+      "evidence_sha256": "cce536d090576416dfbf9a61ba44f5dd7eb0c1b487c3c0babcb097520e901c9f"
     },
-    "recovery_review_sha256": "356f0588f623d887f81469173205e3f6c2000624b9eb4bf3da99548fabfae3e7",
-    "detail": "The original call failed before the reviewed remote-owner, model-loading and evaluation stages. Its original failure is retained; it produced 0 validated evaluation outputs."
-  },
+    {
+      "attempt": "v2_config_preflight",
+      "call_id": "fc-01M6J5XRZP90X3RR879RN2A0QE",
+      "status": "failed_and_evidence_verified",
+      "validated_evaluation_outputs": 0,
+      "accuracy_percent": null,
+      "model_loaded": false,
+      "evaluation_complete": false,
+      "evidence_sha256": "fa10319362768e873a523eac73a5e5a5b1ed11d7f46419483a029db30b095a65",
+      "mount_verified": true,
+      "source_verified": true,
+      "tokenizer_verified": true,
+      "elapsed_seconds": 19.087607
+    }
+  ],
   "jobs": [
     {
       "role": "baseline",
       "label": "Fresh untouched Granite",
-      "status": "failed_or_incomplete",
+      "status": "running_or_awaiting_terminal",
       "accuracy_percent": null,
       "metrics": null,
       "validated_evaluation_outputs": 0,
-      "retained_evaluation_count": 0,
+      "retained_evaluation_count": null,
       "actual_supervised_tokens": null,
       "actual_optimizer_updates": null,
-      "planned_evaluation_count": 200,
-      "call_id": "fc-01M6J5XRZP90X3RR879RN2A0QE"
+      "planned_evaluation_count": 200
     },
     {
       "role": "concise",
@@ -113,14 +119,25 @@
     "input_limit": 1536,
     "training_seed": 42
   },
-  "budget_migration": {
-    "status": "reviewed_receipt_verified_ledger_not_queried",
-    "migrated_existing_envelope_usd": 5.25,
-    "old_failed_child_allowance_recorded_held_usd": 1.75,
-    "new_credit_reserved_by_reporter": false,
-    "migration_receipt_sha256": "5a5250c647b179f461cbbf935ead9f966250afaddbb67a0221d14ad9ee12470f",
-    "migration_sha256": "75b69bf43ebbfab9b6121d62e63e3a0fa30684ff2a0cdcf98f6f6d2bc9991049",
-    "note": "This verifies the recorded transfer, not current ledger or provider billing. The reporter performs no financial action."
+  "config_fix": {
+    "scope": "Versioned correction to the configuration raw-byte check; not a model-quality improvement.",
+    "official_config_bytes": 905,
+    "official_config_sha256": "e4f44b9c6924a283f1d1d36057a89f1a04404bf1561fc2c0b64cf98180e72915",
+    "model_revision_changed": false
+  },
+  "funding": {
+    "status": "reviewed_funding_receipt_verified_ledger_not_queried",
+    "transferred_existing_unused_usd": 3.5,
+    "additional_new_reservation_usd": 1.75,
+    "funded_envelope_usd": 5.25,
+    "new_reservation_created": true,
+    "total_commitment_increase_usd": 1.75,
+    "existing_modal_ceiling_usd": 30,
+    "additional_cash_claimed": false,
+    "financial_action_by_reporter": false,
+    "funding_receipt_sha256": "c35b43d17bb0d4e2cb954d15a1c9090ff68942e0581356c0c9f5d6a7b8100774",
+    "funding_sha256": "781c47cf998510e949ee9fc2139840390d1ba86ec649ac5eeca36a94b5a0b38e",
+    "note": "A new $1.75 reservation uses the existing $30 Modal ceiling, alongside $3.50 of transferred unused allowance. This is not additional cash or a fresh budget ceiling. The reporter does not query current billing or ledger balances."
   },
   "strong_teacher_reference": {
     "status": "pending_separate_review_and_funding",
@@ -129,21 +146,49 @@
   "official_test_used": false,
   "paid_work_launched_by_reporter": false,
   "limitations": [
-    "The original failed call remains a separate historical attempt; recovery is a new reviewed version, not an automatic retry.",
-    "Prepared sources, migrated reservations and dispatch claims are not completed GPU work.",
-    "All metrics require the new controller source/input/manifest, actual call, provider-terminal and full raw-replay receipt bindings.",
-    "Adaptive 200-question TRAIN development and one training seed; this is separate from prior nonthinking 512-token results.",
-    "Equal complete loss tokens do not match example counts, forwarded compute or wall time. This tests a supervision recipe, not ranker superiority.",
-    "No guaranteed improvement or intermediate-reasoning correctness is implied."
+    "Two earlier failed attempts remain separately preserved; this is a new reviewed version, not an automatic retry.",
+    "Prepared code and funding reservations do not establish GPU completion or model improvement.",
+    "The additional $1.75 is a reservation within the existing $30 ceiling, not additional cash.",
+    "All student metrics require exact new controller/input/manifest/dispatch/provider-terminal/full-raw-replay receipts.",
+    "Adaptive 200-question TRAIN-development evaluation, one training seed and OPEN/1024 inference; prior nonthinking 512-token results are separate.",
+    "Complete 16k-token supervision matches loss-token exposure, not example counts or compute; this is a recipe comparison, not ranker superiority.",
+    "No guaranteed improvement or verification of every intermediate reasoning step is implied."
   ],
-  "design_sha256": "90528306bab2d90f83d0a86b05c3d0afa3df79e5b74e6e940b66805432373f66",
+  "design_sha256": "50d92e3d35dcdd28cde4867b99e1b6485adefc57cac1bb92291fbdfffba9fae9",
+  "original_attempt": {
+    "attempt": "v1_mount_preflight",
+    "call_id": "fc-01M6J47BZT6FXBYCC55KC3S6K3",
+    "status": "failed_and_evidence_verified",
+    "validated_evaluation_outputs": 0,
+    "accuracy_percent": null,
+    "model_loaded": false,
+    "evaluation_complete": false,
+    "evidence_sha256": "cce536d090576416dfbf9a61ba44f5dd7eb0c1b487c3c0babcb097520e901c9f"
+  },
+  "most_recent_prior_attempt": {
+    "attempt": "v2_config_preflight",
+    "call_id": "fc-01M6J5XRZP90X3RR879RN2A0QE",
+    "status": "failed_and_evidence_verified",
+    "validated_evaluation_outputs": 0,
+    "accuracy_percent": null,
+    "model_loaded": false,
+    "evaluation_complete": false,
+    "evidence_sha256": "fa10319362768e873a523eac73a5e5a5b1ed11d7f46419483a029db30b095a65",
+    "mount_verified": true,
+    "source_verified": true,
+    "tokenizer_verified": true,
+    "elapsed_seconds": 19.087607
+  },
   "report_kind": "derived_current_study_view",
   "derived_current_study_view": true,
-  "source_report": "native-reasoning-recovery.json",
-  "source_report_sha256": "584abd5023f1f47239ab0e32ffa53709cedf01b21e98ceb2e4a142eac572f923",
+  "source_report": "native-reasoning-config-recovery.json",
+  "source_report_sha256": "e9f16377eda9ebc30738acd01d80af4da7810f1903f7aae85d78d3294a377784",
   "original_historical_report": "progress/NATIVE_REASONING_STUDY.json",
-  "original_historical_journal": "progress/NATIVE_REASONING_STUDY.md",
-  "original_historical_report_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NATIVE_REASONING_STUDY.json",
+  "previous_recovery_historical_report": "progress/NATIVE_REASONING_RECOVERY.json",
+  "historical_reports": [
+    "progress/NATIVE_REASONING_STUDY.json",
+    "progress/NATIVE_REASONING_RECOVERY.json"
+  ],
   "provider_export": false,
-  "derivation": "Dashboard compatibility view of the canonical sanitized recovery report. The original canonical progress report and journal remain unchanged."
+  "derivation": "Current dashboard compatibility view of the canonical V3 config recovery; V1 and V2 canonical progress histories remain unchanged."
 }

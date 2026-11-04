@@ -1,6 +1,8 @@
 {
-  "stage": "Native config byte-check failure diagnosed on CPU; versioned fix under review",
+  "stage": "Pinned Granite baseline loaded and evaluating; before-and-after results pending",
   "training_completed": true,
   "held_out_evaluation_completed": false,
-  "active_run_id": "native_reasoning16k_dev200_seed42_mount_v2"
+  "active_run_id": "native_reasoning16k_dev200_seed42_config_v3_final",
+  "current_native_training_completed": false,
+  "current_native_baseline_completed": false
 }

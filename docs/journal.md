@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Native reasoning transfer: versioned mount recovery
+Current stage: Native reasoning transfer: official config recovery
 
-Next: A new recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -977,3 +977,23 @@ The supervisor remains active while concrete approved research and delivery work
 ## 2026-11-04T02:55:02.190616+00:00 | planned | Recognize audited transferred envelopes without weakening accounting
 
 A fresh supported refresh blocks new launches because the generic accounting helper does not recognize a superseded zero-valued reservation envelope. Current funds are sufficient; this is a bookkeeping classification issue. A separate adapter is being reviewed to recognize only physically audited, balanced native transfers while preserving true statuses and every unknown liability. Historical accounting sources remain unchanged. No V3 reservation or model call is created by this preparation.
+
+## 2026-11-04T03:14:54.803006+00:00 | resolved | Official-config and transfer-accounting fix reviewed
+
+The final V3 sources passed53focused native software checks and independent source/physical-input review. They pin the official905-byte config explicitly, preserve private failure diagnostics and reconcile only proven zero-valued transfers. The actual teacher targets, masks, updates and200development questions match the prior plan. An earlier unpaid draft was preserved after the final accounting hardening; only the distinct final namespace is approved. These are engineering checks, not new accuracy results.
+
+## 2026-11-04T03:14:54.812859+00:00 | decision | Final config phase funded within the original ceiling
+
+Created the reviewed5.25USD envelope by transferring3.50unused and reserving1.75additional from the existing30USD Modal project limit. Total commitment increased by exactly1.75; no additional cash or ceiling increase was requested. Both failed attempts and all historical allowances remain preserved. Fresh supported observations left9.22USD free after liabilities including5protected. One final baseline controller was invoked; pair training still needs the completed baseline and measured calibration.
+
+## 2026-11-04T03:23:40.872579+00:00 | resolved | Official-config startup validated on the actual GPU
+
+The separate final V3 baseline passed actual mount/source/tokenizer checks and loaded pinned Granite4.2-3B using the official905-byte configuration. Both earlier failed attempts remain preserved. The source/input/claim identity was independently checked; this is a runtime fix, not an accuracy improvement.
+
+## 2026-11-04T03:23:40.877158+00:00 | in_progress | Granite OPEN1024 baseline is generating development answers
+
+A single saved final V3 call is evaluating the same200excluded TRAIN-development questions with native thinking and1024output tokens. Last saved receipt at03:19UTC records32outputs. Complete accuracy stays unavailable until provider termination and all25physical raw batches replay. Both training arms remain pending measured runtime and budget review.
+
+## 2026-11-04T03:26:52.189228+00:00 | in_progress | Research improvement cycle
+
+Poll only the saved native_reasoning_control_v3 call in native_reasoning16k_dev200_seed42_config_v3_final. Require its actual terminal and all25 physical raw replay batches; never duplicate a saved or ambiguous call.

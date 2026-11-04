@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "version": "native-reasoning-config-recovery-public-v1",
+  "run_id": "native_reasoning16k_dev200_seed42_config_v3_final",
+  "updated_at_utc": "2026-11-04T03:25:56.500257+00:00",
+  "stage": "config_recovery_call_awaiting_terminal_validation",
+  "current_work": {
+    "stage": "config_recovery_call_awaiting_terminal_validation",
+    "detail": "A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published."
+  },
+  "prior_attempts": [
+    {
+      "attempt": "v1_mount_preflight",
+      "call_id": "fc-01M6J47BZT6FXBYCC55KC3S6K3",
+      "status": "failed_and_evidence_verified",
+      "validated_evaluation_outputs": 0,
+      "accuracy_percent": null,
+      "model_loaded": false,
+      "evaluation_complete": false,
+      "evidence_sha256": "cce536d090576416dfbf9a61ba44f5dd7eb0c1b487c3c0babcb097520e901c9f"
+    },
+    {
+      "attempt": "v2_config_preflight",
+      "call_id": "fc-01M6J5XRZP90X3RR879RN2A0QE",
+      "status": "failed_and_evidence_verified",
+      "validated_evaluation_outputs": 0,
+      "accuracy_percent": null,
+      "model_loaded": false,
+      "evaluation_complete": false,
+      "evidence_sha256": "fa10319362768e873a523eac73a5e5a5b1ed11d7f46419483a029db30b095a65",
+      "mount_verified": true,
+      "source_verified": true,
+      "tokenizer_verified": true,
+      "elapsed_seconds": 19.087607
+    }
+  ],
+  "jobs": [
+    {
+      "role": "baseline",
+      "label": "Fresh untouched Granite",
+      "status": "running_or_awaiting_terminal",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    },
+    {
+      "role": "concise",
+      "label": "Concise supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    },
+    {
+      "role": "thinking",
+      "label": "Native reasoning supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    }
+  ],
+  "comparisons": null,
+  "teacher": {
+    "stage": "completed",
+    "planned_questions": 256,
+    "planned_original_calls": 512,
+    "conditions": {
+      "concise": {
+        "thinking": false,
+        "teacher_output_cap": 1024,
+        "retained_original_outcomes": 256,
+        "individually_eligible": 251,
+        "paired_eligible_supervised_tokens": 27887
+      },
+      "thinking": {
+        "thinking": true,
+        "reasoning_effort": "high",
+        "teacher_output_cap": 4096,
+        "retained_original_outcomes": 256,
+        "individually_eligible": 249,
+        "paired_eligible_supervised_tokens": 68885
+      }
+    },
+    "retained_original_outcomes": 512,
+    "eligible_question_pairs": 246,
+    "unknown_usage_attempts": 1,
+    "raw_channels_public": false
+  },
+  "protocol": {
+    "teacher_candidate_pairs": 256,
+    "teacher_output_caps": {
+      "concise": 1024,
+      "thinking": 4096
+    },
+    "loss_tokens_per_adapter": 16384,
+    "optimizer_updates": 16,
+    "tokens_per_update": 1024,
+    "context_limit": 4096,
+    "evaluation_count": 200,
+    "student_evaluation_count": 200,
+    "evaluation_split": "GSM8K TRAIN development",
+    "native_generation_prefix": "OPEN",
+    "enable_thinking": true,
+    "max_new_tokens": 1024,
+    "evaluation_batch_size": 8,
+    "input_limit": 1536,
+    "training_seed": 42
+  },
+  "config_fix": {
+    "scope": "Versioned correction to the configuration raw-byte check; not a model-quality improvement.",
+    "official_config_bytes": 905,
+    "official_config_sha256": "e4f44b9c6924a283f1d1d36057a89f1a04404bf1561fc2c0b64cf98180e72915",
+    "model_revision_changed": false
+  },
+  "funding": {
+    "status": "reviewed_funding_receipt_verified_ledger_not_queried",
+    "transferred_existing_unused_usd": 3.5,
+    "additional_new_reservation_usd": 1.75,
+    "funded_envelope_usd": 5.25,
+    "new_reservation_created": true,
+    "total_commitment_increase_usd": 1.75,
+    "existing_modal_ceiling_usd": 30,
+    "additional_cash_claimed": false,
+    "financial_action_by_reporter": false,
+    "funding_receipt_sha256": "c35b43d17bb0d4e2cb954d15a1c9090ff68942e0581356c0c9f5d6a7b8100774",
+    "funding_sha256": "781c47cf998510e949ee9fc2139840390d1ba86ec649ac5eeca36a94b5a0b38e",
+    "note": "A new $1.75 reservation uses the existing $30 Modal ceiling, alongside $3.50 of transferred unused allowance. This is not additional cash or a fresh budget ceiling. The reporter does not query current billing or ledger balances."
+  },
+  "strong_teacher_reference": {
+    "status": "pending_separate_review_and_funding",
+    "proposed_thinking_output_cap": 8192
+  },
+  "official_test_used": false,
+  "paid_work_launched_by_reporter": false,
+  "limitations": [
+    "Two earlier failed attempts remain separately preserved; this is a new reviewed version, not an automatic retry.",
+    "Prepared code and funding reservations do not establish GPU completion or model improvement.",
+    "The additional $1.75 is a reservation within the existing $30 ceiling, not additional cash.",
+    "All student metrics require exact new controller/input/manifest/dispatch/provider-terminal/full-raw-replay receipts.",
+    "Adaptive 200-question TRAIN-development evaluation, one training seed and OPEN/1024 inference; prior nonthinking 512-token results are separate.",
+    "Complete 16k-token supervision matches loss-token exposure, not example counts or compute; this is a recipe comparison, not ranker superiority.",
+    "No guaranteed improvement or verification of every intermediate reasoning step is implied."
+  ],
+  "design_sha256": "50d92e3d35dcdd28cde4867b99e1b6485adefc57cac1bb92291fbdfffba9fae9",
+  "original_attempt": {
+    "attempt": "v1_mount_preflight",
+    "call_id": "fc-01M6J47BZT6FXBYCC55KC3S6K3",
+    "status": "failed_and_evidence_verified",
+    "validated_evaluation_outputs": 0,
+    "accuracy_percent": null,
+    "model_loaded": false,
+    "evaluation_complete": false,
+    "evidence_sha256": "cce536d090576416dfbf9a61ba44f5dd7eb0c1b487c3c0babcb097520e901c9f"
+  },
+  "most_recent_prior_attempt": {
+    "attempt": "v2_config_preflight",
+    "call_id": "fc-01M6J5XRZP90X3RR879RN2A0QE",
+    "status": "failed_and_evidence_verified",
+    "validated_evaluation_outputs": 0,
+    "accuracy_percent": null,
+    "model_loaded": false,
+    "evaluation_complete": false,
+    "evidence_sha256": "fa10319362768e873a523eac73a5e5a5b1ed11d7f46419483a029db30b095a65",
+    "mount_verified": true,
+    "source_verified": true,
+    "tokenizer_verified": true,
+    "elapsed_seconds": 19.087607
+  }
+}

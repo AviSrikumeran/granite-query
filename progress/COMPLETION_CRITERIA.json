@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-04T02:45:16.068263+00:00",
+  "updated_at_utc": "2026-11-04T03:23:40.857439+00:00",
   "project_complete": false,
   "current_schedule_status": "ACTIVE",
   "check_interval_minutes": 5,
@@ -8,7 +8,7 @@
     "modal": 30,
     "deepseek": 20
   },
-  "current_work": "Versioned official-config fix and funding review; two previous startup attempts preserved with0validatedoutputs",
+  "current_work": "Final V3 baseline has loaded the pinned model and is evaluating200developmentquestions; actualterminal/fullrawreplay and runtime-gated training remain.",
   "remaining_deliverables": [
     "Complete the current frozen native baseline with provider terminal and full raw replay.",
     "Train both independent adapters only after measured runtime/funding review and evaluate them on the same development questions.",

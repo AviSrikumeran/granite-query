@@ -216,6 +216,22 @@ def tick():
                 training_action='Calibrate the validated V2 baseline, independently review the actual forecasts and funding, and bind review_pair.json before advancing either unchanged16k-token training arm through native_reasoning_control_v2.'
             else:
                 training_action='Complete the separately versioned mount-recovery source/manifest/terminal review and audited transfer of the existing5.25USD before one new baseline dispatch through native_reasoning_control_v2. Preserve the failed original1.75USD attempt and all liabilities; no fresh7USD reservation or blind retry.'
+        config_study=ROOT/'runs/native_reasoning16k_dev200_seed42_config_v3_final'
+        if (config_study/'design.json').exists():
+            from cloud.native_reasoning_config_report import build as build_config_report
+            config_report=build_config_report(config_study,write=True)
+            remote_status={'stage':config_report['stage']}
+            config_jobs={job['role']:job for job in config_report.get('jobs',[])}
+            if config_report['stage']=='config_recovery_all_three_completed_and_validated':
+                training_action='Analyze the validated official-config baseline/concise/thinking results and publish paired before/after estimates with actual token exposure. Preserve both failed startup attempts separately; review remaining resources before final checkpoint/evaluation/API work.'
+            elif config_report['stage']=='config_recovery_call_awaiting_terminal_validation':
+                training_action='Poll only the saved native_reasoning_control_v3 call in native_reasoning16k_dev200_seed42_config_v3_final. Require its actual terminal and all25 physical raw replay batches; never duplicate a saved or ambiguous call.'
+            elif config_report['stage']=='config_recovery_attempt_failed_requires_review':
+                training_action='Preserve the failed V3 result, actual config bytes and private diagnostics. No partial accuracy or further automatic recovery is allowed; inspect concrete evidence and resources before any separately reviewed next work.'
+            elif config_jobs.get('baseline',{}).get('status')=='completed':
+                training_action='Calibrate the validated V3 baseline and independently bind review_pair.json to its actual call/result/raw proof, source/manifest and current funding before either unchanged16k training arm. Runtime/funding gates do not depend on favorable accuracy.'
+            else:
+                training_action='Complete the final-namespace V3 config/source/input/funding review, then use its controller for one baseline. Funding explicitly combines3.50USD transferred and1.75USD newly reserved inside the original30USD ceiling with5USD protected; both failed histories remain preserved.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
         allocation_full=exhausted
         exhausted=allocation_full and not open_calls

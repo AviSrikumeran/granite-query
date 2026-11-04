@@ -588,16 +588,20 @@ def build(workspace=None):
         is_recovery=bool(recovery_native.get('stage') and recovery_native['stage']!='recovery_unprepared')
         if is_recovery:
             native=recovery_native
+        config_native=_read(workspace/'progress/NATIVE_REASONING_CONFIG_RECOVERY.json')
+        is_config=bool(config_native.get('stage') and config_native['stage']!='config_recovery_unprepared')
+        if is_config:
+            native=config_native
         if native.get('stage') and native['stage']!='unprepared':
             teacher=native.get('teacher') or {}; jobs=native.get('jobs',[])
             running=(teacher.get('stage')=='collecting' or any(j.get('status')=='running_or_awaiting_terminal' for j in jobs))
-            state=('completed' if native['stage'] in ('all_three_completed_and_locally_validated','recovery_all_three_completed_and_validated') else
+            state=('completed' if native['stage'] in ('all_three_completed_and_locally_validated','recovery_all_three_completed_and_validated','config_recovery_all_three_completed_and_validated') else
                    'blocked' if native['stage'] in ('design_or_source_validation_failed','teacher_collection_halted_requires_reconciliation') else 'running' if running else 'queued')
             count=teacher.get('retained_original_outcomes')
             detail=native.get('current_work',{}).get('detail','Native study preparation.')
             detail+=(f' Paired teacher outcomes retained: {count}/512.' if isinstance(count,int) else '')
             detail+=' Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.'
-            current.append({'title':('Native reasoning transfer: versioned mount recovery' if is_recovery else 'Native reasoning transfer: concise versus thinking supervision'),'status':state,'detail':detail})
+            current.append({'title':('Native reasoning transfer: official config recovery' if is_config else 'Native reasoning transfer: versioned mount recovery' if is_recovery else 'Native reasoning transfer: concise versus thinking supervision'),'status':state,'detail':detail})
         else:
             current.append({'title':'Reasoning transfer and learning-curve study design','status':'queued',
                 'detail':'Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.'})
