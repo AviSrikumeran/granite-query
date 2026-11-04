@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-04T01:25:34.571049+00:00",
+  "generated_at_utc": "2026-11-04T01:36:21.767553+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
   "stage": "Native reasoning transfer: concise versus thinking supervision",
-  "next_action": "Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.",
+  "next_action": "At the last recorded check, the prior shared call had stopped, its remaining audit was queued, and no shared GPU task was active. Billing protection and queued reservations still needed reconciliation before the native baseline could launch. No native-study claim or call was recorded; the baseline remained unlaunched and training still required measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,7 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "student_baseline_waiting_for_shared_modal_capacity"
+    "stage": "student_baseline_waiting_for_shared_billing_and_queue_reconciliation"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -1602,6 +1602,20 @@
       "kind": "in_progress",
       "title": "Research improvement cycle",
       "detail": "Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch."
+    },
+    {
+      "id": "native-wait-shared-billing-remaining14-v1",
+      "at_utc": "2026-11-04T01:35:09.500674+00:00",
+      "kind": "decision",
+      "title": "Shared Modal call stopped; baseline waits for billing and remaining audit",
+      "detail": "The other inference audit preserved178of192 cases and stopped at its time guard. Its owner prepared14never-attempted cases within the original envelope; that continuation is queued without a call. Current app inventory has no active GPU, but pending billing and queued reservations leave4.73USD after liabilities, below the protected5USD by0.27. No Granite native baseline dispatch was created. Preserve the billing hold and existing7USD native envelope; resume only after shared queue and fresh funding checks clear. No additional cash or lower protection is requested."
+    },
+    {
+      "id": "native-report-shared-billing-wait-v1",
+      "at_utc": "2026-11-04T01:35:09.501672+00:00",
+      "kind": "resolved",
+      "title": "Dashboard distinguishes idle GPUs from an uncleared shared queue",
+      "detail": "Added a report-only waiting reason that describes the last observed billing/queue hold, keeps all student metrics unavailable and stops showing the wait once a native dispatch claim exists. All7 focused synthetic report checks pass. Frozen training/controller/source hashes remain unchanged."
     }
   ],
   "latest_training_pool": {
@@ -1614,11 +1628,11 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 11.64961686,
+    "observed_metered_usd": 12.26964367,
     "collection_lag_buffer_usd": 3.0,
-    "active_reservations_usd": 10.0,
-    "pending_terminal_liability_usd": 0.0,
-    "budget_remaining_usd": 5.35,
+    "active_reservations_usd": 7.9,
+    "pending_terminal_liability_usd": 2.1,
+    "budget_remaining_usd": 4.73,
     "deepseek_peak_estimate_usd": 3.28010392,
     "deepseek_observed_usage_usd": 1.96
   },
