@@ -1,14 +1,17 @@
 {
   "schema_version": 1,
   "version": "native-reasoning-public-receipts-v1",
-  "updated_at_utc": "2026-11-04T01:47:06.263532+00:00",
+  "updated_at_utc": "2026-11-04T02:05:22.131024+00:00",
   "run_id": "native_reasoning16k_dev200_seed42_v1",
-  "stage": "student_baseline_waiting_for_shared_modal_capacity",
+  "stage": "student_attempt_failed_requires_review",
   "paid_work_launched_by_reporter": false,
   "official_test_used": false,
   "current_work": {
-    "stage": "student_baseline_waiting_for_shared_modal_capacity",
-    "detail": "Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration."
+    "stage": "student_attempt_failed_requires_review",
+    "failed_roles": [
+      "baseline"
+    ],
+    "detail": "A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized."
   },
   "protocol": {
     "teacher_candidate_pairs": 256,
@@ -59,14 +62,15 @@
     {
       "role": "baseline",
       "label": "Fresh untouched Granite",
-      "status": "prepared",
+      "status": "failed_or_incomplete",
       "accuracy_percent": null,
       "metrics": null,
       "actual_supervised_tokens": null,
       "actual_optimizer_updates": null,
       "retained_evaluation_count": null,
       "planned_evaluation_count": 200,
-      "provider_terminal_receipt_verified": false
+      "provider_terminal_receipt_verified": false,
+      "validated_evaluation_count": 0
     },
     {
       "role": "concise",

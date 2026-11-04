@@ -89,8 +89,22 @@ class NativeReportTests(unittest.TestCase):
         control.write(folder / 'provider_terminal.json', {'kind': 'failed', 'partial_result_sha256': control.sha(folder / 'provider_result.json')})
         value = report.build(self.output)
         self.assertEqual(value['jobs'][1]['retained_evaluation_count'], 8)
+        self.assertEqual(value['stage'], 'student_attempt_failed_requires_review')
         self.assertIsNone(value['jobs'][1]['accuracy_percent']); self.assertIsNone(value['jobs'][1]['metrics'])
         self.assertNotIn('DO NOT PUBLISH', str(value)); self.assertIsNone(value['comparisons'])
+
+    def test_original_failed_attempt_has_explicit_precedence_and_zero_validated_outputs(self):
+        self.prepare_jobs()
+        folder = self.jobs[0]['folder_path']
+        control.write(folder / 'provider_terminal.json', {'kind': 'failed', 'call_id': 'fc-INVENTED-original',
+            'error_type': 'ValueError', 'private_error': 'PRIVATE ERROR PATH AND TEXT'})
+        value = report.build(self.output)
+        self.assertEqual(value['stage'], 'student_attempt_failed_requires_review')
+        self.assertEqual(value['current_work']['failed_roles'], ['baseline'])
+        self.assertIn('0 validated evaluation outputs', value['current_work']['detail'])
+        self.assertEqual(value['jobs'][0]['validated_evaluation_count'], 0)
+        self.assertIsNone(value['jobs'][0]['accuracy_percent']); self.assertIsNone(value['comparisons'])
+        self.assertNotIn('PRIVATE ERROR PATH AND TEXT', str(value))
 
     def test_current_teacher_halted_is_explicit_until_a_new_collector_owner_exists(self):
         control.write(self.collection / 'teacher_summary.json', {'stage': 'halted', 'run_id': self.collection.name,

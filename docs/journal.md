@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: Native reasoning transfer: concise versus thinking supervision
 
-Next: Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -925,3 +925,19 @@ Added a report-only waiting reason that describes the last observed billing/queu
 ## 2026-11-04T01:47:04.507689+00:00 | in_progress | Shared billing hold cleared; remaining14audit cases launched
 
 Supported reconciliation cleared the prior2.1USD terminal hold while retaining the3USD collection buffer and existing reservations. The other chat launched only its14never-attempted audit cases under the original0.9USD continuation allocation. The native Granite baseline remains unclaimed and waits for that actual call to terminate/reconcile. Current conservative free allowance is6.83USD including the protected5; this is not an invoice or an increased project budget.
+
+## 2026-11-04T01:52:50.883373+00:00 | decision | Native baseline cleared for bounded launch
+
+The shared14-case continuation returned all14 outcomes and its owner settled the call terminal. Fresh supported observations, zero active workspace tasks, no other open GPU jobs and an independent12-source/manifest/review audit passed. The existing7USD native envelope and5USD protection remain; free allowance after all liabilities is6.57USD. Proceed only with the new zero-training OPEN1024 baseline on the frozen200 TRAIN-development questions. Pair training still requires its measured runtime and separate bound review.
+
+## 2026-11-04T02:04:00.648486+00:00 | failed | Native baseline stopped before model loading
+
+The original saved baseline call failed in its artifact-path guard before owner registration, tokenizer/model loading or any evaluation. Preserved SDK exception/remote traceback and exact-call provider graph FAILURE positively confirm the terminal error. No baseline score, adapter or before-and-after result exists. The original claim/call/source snapshots remain unchanged; its allowance stays a billing liability pending supported reconciliation.
+
+## 2026-11-04T02:04:00.648486+00:00 | planned | Review a versioned mount-path recovery
+
+Preparing separate worker/controller/launcher/report modules and fixtures while preserving the original attempt and all frozen sources. The fix may normalize only the explicit trusted artifact-mount alias, retain strict checks on descendant/source/adapter paths and record actual mount evidence. A new namespace, positive original-terminal proof, an audited transfer of the remaining5.25USD and fresh budget/source reviews are required before a single recovery launch. No retry is launched by this event.
+
+## 2026-11-04T02:06:19.510624+00:00 | in_progress | Research improvement cycle
+
+Preserve the original failed native baseline call, positive provider terminal and zero validated outputs. Finish the separately versioned trusted-mount recovery review and funding transfer before a new attempt; never rerun its existing claim or weaken descendant/source path checks. Training still requires a completed new baseline and measured calibration.

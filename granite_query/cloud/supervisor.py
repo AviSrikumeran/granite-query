@@ -196,6 +196,8 @@ def tick():
                 training_action='Reconcile the stopped native collector and preserved original outcomes. Keep unknown usage reserved and never resend an attempted request. A separately reviewed continuation may schedule only original requests with no intent or receipt, within the original deadline and reservation. Student training remains pending complete-target capacity and baseline calibration.'
             elif native['stage']=='all_three_completed_and_locally_validated':
                 training_action='Analyze native baseline/concise/thinking paired outcomes, actual exposures and saved weights. Keep earlier512 results separate, preserve negative results and review fresh remaining resources before any stronger teacher reference, frozen final evaluation or API.'
+            elif native['stage']=='student_attempt_failed_requires_review':
+                training_action='Preserve the original failed native baseline call, positive provider terminal and zero validated outputs. Finish the separately versioned trusted-mount recovery review and funding transfer before a new attempt; never rerun its existing claim or weaken descendant/source path checks. Training still requires a completed new baseline and measured calibration.'
             else:
                 training_action='Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))

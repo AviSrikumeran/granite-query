@@ -1,12 +1,12 @@
 # Native reasoning study
 
-Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration.
+A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized.
 
 This study uses 256 planned paired TRAIN questions and three fresh student conditions. Each adapter receives 16,384 complete supervised tokens over 16 updates. Evaluation uses the same adaptive 200 TRAIN-development questions with native OPEN thinking and a 1024-token generation cap.
 
 | Condition | State | Accuracy |
 |---|---|---|
-| Fresh untouched Granite | prepared | Unavailable |
+| Fresh untouched Granite | failed_or_incomplete | Unavailable |
 | Concise supervision | prepared | Unavailable |
 | Native reasoning supervision | prepared | Unavailable |
 

@@ -126,6 +126,7 @@ def _job(controller, job):
     terminal = control.read(terminal_path)
     if terminal.get('kind') == 'completed': return _completed(controller, job, terminal)
     public['status'] = 'failed_or_incomplete'
+    public['validated_evaluation_count'] = 0
     # A partial attempt is never scored as a smaller benchmark. Its retained
     # count is descriptive only and has no numeric accuracy attached.
     partial = folder / 'provider_result.json'
@@ -191,6 +192,12 @@ def build(output=control.DEFAULT, *, write=False):
                 result['jobs'] = public
                 result['stage'] = 'student_study_active_or_prepared'
                 result['current_work'] = {'stage': result['stage'], 'detail': 'Fresh baseline, concise and native reasoning arms share the OPEN/1024 development protocol. Pending or failed attempts have no accuracy.'}
+                failed = [job for job in public if job['status'] == 'failed_or_incomplete']
+                if failed:
+                    result['stage'] = 'student_attempt_failed_requires_review'
+                    result['current_work'] = {'stage': result['stage'],
+                        'failed_roles': [job['role'] for job in failed],
+                        'detail': 'A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized.'}
                 wait_path=output/'dispatch_wait.json'
                 if wait_path.exists() and all(job['status']=='prepared' for job in public):
                     waiting=control.read(wait_path)
