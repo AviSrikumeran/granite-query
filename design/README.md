@@ -7,6 +7,7 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 ## Start here
 
 - [All live experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/): latest magenta comparison, three directions, accepted green motion and earlier studies.
+- [Branch claw review](reviews/2026-11-03-claw-extraction.md): proof branches forming a gripper and lifting the core, compared against the preserved extraction.
 - [Magenta core extraction review](reviews/2026-11-03-core-extraction.md): the first daily-workflow specimen, with its boundaries, checks and remaining questions.
 - [Asynchronous design workflow](DESIGN_WORKFLOW.md): recorded preferences, one-question passes, review evidence, workload limits and a queue for future work.
 - [Component study with eight screenshots](COMPONENT_STUDY.md): what we observed, what is worth studying, reservations, and how each pattern could be built for Granite Query.
