@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Larger final benchmark implementation and funding review
+Current stage: Reasoning transfer and learning-curve study design
 
-Next: Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.
+Next: Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -801,3 +801,47 @@ Analyze the completed human200 comparison and regressions; finish the separately
 ## 2026-11-03T22:36:05.030407+00:00 | completed | Completed human200 comparison figure generated and visually checked
 
 Published-report data produced a standalone SVG showing179/200untouched,174/200random and171/200skill, with a zero-based accuracy axis, reported Wilson intervals, actual65536-token arm budgets and truncation counts. The skill-minus-random paired interval and single-seed/development-only limits are visible. Four local completed/pending chart checks pass, JavaScript syntax/DOM fixtures pass and raster visual review found no clipped labels. The chart never merges the old64 or official test.
+
+## 2026-11-03T23:06:56.569191+00:00 | in_progress | Sharded final execution and funded-access integration underway
+
+Implementing separate bounded GPU and teacher executors, portable adapter/source validation, whole-bundle escrow, single-dispatch claims and unpaid receipt recovery. Work uses synthetic fixtures only. Production readiness still requires the new controller checks, an actual hashed-adapter development reload, selected checkpoint and fresh whole-bundle review. No official source access, reservation, paid call or endpoint is created by this implementation stage.
+
+## 2026-11-03T23:26:52.637375+00:00 | resolved | Final integration failures caught before paid work
+
+Independent review and synthetic crash fixtures exposed source/path preflight, stale funding, raw-derivation and settlement gaps. The separate controller now checks sources and complete paths before access, proves current owned reservations without rewriting historical reviews, preserves raw bytes and failed terminal history, and reconstructs completion after atomic settlement without a second release. Unknown launches retain their claim and liability. No real final access or paid model job occurred.
+
+## 2026-11-03T23:26:52.644375+00:00 | completed | Final execution components pass156 software fixtures
+
+All156 combined synthetic software checks passed in89.152seconds: core52, layout10, portable artifacts14, GPU execution18, funding10, controller/staging33, teacher11 and development reload producer8. The tests include1000 fabricated teacher requests with no-resend recovery,1319 tail handling, failed fixed denominators, ambiguous launch holds and budget conservation. These are software checks, not official benchmark answers. Actual CUDA/PEFT reload, final selection, a funded entrypoint and native calibration binding remain pending.
+
+## 2026-11-03T23:26:52.651375+00:00 | completed | Pinned PEFT serialization source inspected
+
+Downloaded only the official pinned PEFT0.17.1 wheel without installation or dependencies; checked165 RECORD members and hashed8 inspected source files. Saved adapter-name removal/reinsertion and default half-to-float32 promotion match the intended layout/value checks. Permissive loading still requires independent exact checks. No real adapter header, GPU reload, model call or official data was observed.
+
+## 2026-11-03T23:27:52.508332+00:00 | in_progress | Research improvement cycle
+
+Finish and review the funded development-only reload entrypoint; validate actual candidate weight bytes and runtime calibration before final checkpoint/target selection and fresh whole-bundle funding review. Sharded final workers/controller have offline checks, but actual final execution and serving remain unopened. No paid expansion is implied by this checkpoint.
+
+## 2026-11-03T23:39:35.457221+00:00 | completed | Saved Granite adapters verified and copied locally
+
+Verified both completed human-study adapters in persistent Modal storage and downloaded all9files per private snapshot. Each trained weight file is10506824bytes with160q/v tensors and2621440trainable parameters; all values are finite and983040LoRA-B parameters are nonzero. Both runs recorded65536supervisedtokens/64updates. Saved outputs are viewable locally; the website remains a research dashboard without a live model endpoint. This download is not a new GPU reload or accuracy gain.
+
+## 2026-11-03T23:39:35.460096+00:00 | resolved | Unpaid decoder uses the actual pinned project tokenizer cache
+
+Inspecting local model state showed the project tokenizer lives in its dedicated cache. The controller decoder now uses that pinned cache with local_files_only, and a new fixture verifies no download and one cached load. All157 combined software checks pass94.497seconds. No model invocation, official-test access or serving deployment occurred.
+
+## 2026-11-03T23:39:35.475482+00:00 | planned | Measure the teacher gap under the same200-question settings
+
+The user asked whether DeepSeek gives enough headroom for Granite improvement. Earlier63/64versus58/64used different thinking/output budgets. Preparing a separate200-question DeepSeek development evaluation with the same frozen questions/user prompt,nonthinking512cap and numeric scorer as Granite. At most200originalrequests, no retries and a1USD allowance bound0.933504; these evaluation questions remain excluded from teaching. No collection is claimed started by this preparation event.
+
+## 2026-11-03T23:56:58.384267+00:00 | completed | DeepSeek teacher gap measured on the same200 development questions
+
+Validated all200 original requests/raw receipts: DeepSeek194/200, untouched Granite179/200, random174/200, skill171/200 under the same prompt/nonthinking512 cap. Teacher minus base+7.5points, paired95% interval[4,11.5]. This is development headroom, not a Granite improvement or strongest-teacher benchmark. No teacher failures/truncations;189strict plus5fallback matches. Official test remains sealed. Peak token estimate0.10926432USD, local settlement0.11USD, not invoice.
+
+## 2026-11-03T23:56:58.394266+00:00 | decision | Prioritize useful reasoning transfer before bulk final measurement
+
+The user clarified that strongest-practical DeepSeek is the target; matched output caps are a diagnostic control. Current concise training regressed. Prepare a separately versioned, reviewed and funded reasoning-transfer/learning-curve comparison before committing most remaining GPU funds to a1000-question final benchmark. No example count guarantees improvement. Preserve random controls, final evaluation/API protection and test isolation.
+
+## 2026-11-03T23:58:16.471432+00:00 | in_progress | Research improvement cycle
+
+Prioritize a separately versioned, reviewed and funded reasoning-transfer study before bulk final-benchmark spending. Preserve negative concise-training results and random controls. Strongest-practical DeepSeek remains the target; matched512 is a diagnostic. Finish physical reload/calibration integration before any actual final choice or official-test access. No paid launch is made by this checkpoint.

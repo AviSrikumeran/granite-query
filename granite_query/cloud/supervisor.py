@@ -170,7 +170,7 @@ def tick():
                 elif human['status']=='completed':
                     depth_path=ROOT.parent.parent/'progress/TEACHER_DEPTH_PILOT.json'
                     depth=json.loads(depth_path.read_text(encoding='utf-8')) if depth_path.exists() else {}
-                    training_action=('Analyze the completed human200 comparison and regressions; finish the separately versioned final-scale workers/controller, physical checkpoint compatibility and whole-bundle funding review before choosing/final-freezing a checkpoint. Official test and serving remain unopened; no further paid expansion is implied.'
+                    training_action=('Prioritize a separately versioned, reviewed and funded reasoning-transfer study before bulk final-benchmark spending. Preserve negative concise-training results and random controls. Strongest-practical DeepSeek remains the target; matched512 is a diagnostic. Finish physical reload/calibration integration before any actual final choice or official-test access. No paid launch is made by this checkpoint.'
                         if depth.get('stage')=='completed' else
                         'Analyze the completed human200 comparison, preserve all outcomes, then advance the reviewed teacher-depth feasibility pilot or other useful separately versioned work while protecting final evaluation/API funds.')
                 elif human['jobs']['baseline']['status']=='completed':

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-03T23:39:34.946242+00:00",
+  "model": "ibm-granite/granite-4.2-3b",
+  "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "training_method": "LoRA; base model plus saved learned adapter required for inference",
+  "persistent_storage": "Modal Volume granite-query-training-artifacts",
+  "private_local_snapshots_available": true,
+  "loaded_on_local_gpu": false,
+  "current_live_model_endpoint": null,
+  "checkpoint_snapshots": [
+    {
+      "checkpoint": "random",
+      "run_id": "human_study64k_dev200_seed42_v2_seed42_random",
+      "files_in_local_snapshot": 9,
+      "snapshot_bytes": 20222782,
+      "adapter_weights_bytes": 10506824,
+      "adapter_weights_sha256": "4da6fd9af8a606b43bac557ba4fdfa554903b51ff90a699f6f122a2a5d92a79e",
+      "qv_lora_tensor_count": 160,
+      "trainable_adapter_parameters": 2621440,
+      "nonzero_lora_B_parameters": 983040,
+      "all_adapter_float_values_finite": true,
+      "supervised_tokens": 65536,
+      "optimizer_updates": 64,
+      "development_correct": 174,
+      "development_count": 200
+    },
+    {
+      "checkpoint": "skill",
+      "run_id": "human_study64k_dev200_seed42_v2_seed42_skill",
+      "files_in_local_snapshot": 9,
+      "snapshot_bytes": 20222782,
+      "adapter_weights_bytes": 10506824,
+      "adapter_weights_sha256": "ec70b84bc1e42591762d1c6c620b91cfb3e0d3d7052a6ccedb731b3a5ee1b332",
+      "qv_lora_tensor_count": 160,
+      "trainable_adapter_parameters": 2621440,
+      "nonzero_lora_B_parameters": 983040,
+      "all_adapter_float_values_finite": true,
+      "supervised_tokens": 65536,
+      "optimizer_updates": 64,
+      "development_correct": 171,
+      "development_count": 200
+    }
+  ],
+  "weight_capture_timing": "Downloaded and hashed after the original development evaluations; no contemporaneous hash proof is invented.",
+  "limitations": [
+    "Local header, shape, byte and finite-value checks do not prove a fresh GPU/PEFT reload.",
+    "The website displays research results; it is not currently connected to an inference endpoint.",
+    "Raw weights and saved response examples remain private; only this sanitized artifact summary is published."
+  ]
+}

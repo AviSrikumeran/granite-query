@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "stage": "completed_validated",
+  "validated_at_utc": "2026-11-03T23:54:45.747412+00:00",
+  "run_id": "development_teacher200_nonthinking512_v2",
+  "teacher_correct": 194,
+  "count": 200,
+  "official_test_used": false,
+  "training_eligible": false,
+  "source_split": "train",
+  "role": "development_teacher_measurement",
+  "source_sha256": "cccdce864d728e6b43d9d4de866e719bfd9c706cc735a3a3d429095835c767c7",
+  "manifest_sha256": "ea4dcb75e98a563273ed30f67b8c99adf40a8b6efcfcbdb1d41bbb2a962583d0",
+  "settings_sha256": "849646bad52ef3e3f8627b1ea493f0589034089c0471810a92e21e136cae2981",
+  "settings": {
+    "thinking": false,
+    "temperature": 0,
+    "max_output_tokens": 512,
+    "same_user_prompt": true
+  },
+  "teacher": {
+    "metrics": {
+      "count": 200,
+      "failed": 0,
+      "input_limit": 0,
+      "numeric_correct": 194,
+      "strict_format_correct": 189,
+      "truncated": 0
+    },
+    "actual_returned_models": [
+      "deepseek-v4-pro"
+    ],
+    "known_usage": {
+      "completion_tokens": 21742,
+      "prompt_tokens": 17550
+    },
+    "recorded_peak_token_estimate_usd": 0.10926432,
+    "wire_receipts_verified": 200,
+    "original_intents_verified": 200,
+    "derived_results_replayed_and_verified": 200,
+    "numeric_matches_requiring_format_fallback": 5,
+    "max_completion_tokens": 278
+  },
+  "granite": {
+    "baseline": {
+      "accuracy_percent": 89.5,
+      "metrics": {
+        "count": 200,
+        "generated_tokens": 31598,
+        "latency_seconds_total": 398.4672118070001,
+        "numeric_correct": 179,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 179,
+        "truncated": 8
+      },
+      "protocol_hash": "5fb33e087f1fd6c55af06cb8781d64434f9d68d9961221a6efa3b107c9e38c6d",
+      "result_sha256": "89288ba3b9b08f7f77d51bbb6fc255b5d82324d2ca123f10ebca7c287a1abd78"
+    },
+    "random": {
+      "accuracy_percent": 87.0,
+      "metrics": {
+        "count": 200,
+        "generated_tokens": 24619,
+        "latency_seconds_total": 366.3578939419998,
+        "numeric_correct": 174,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 174,
+        "truncated": 2
+      },
+      "protocol_hash": "55e173a24246bdd4bf60ec6bab0f1bfc53d7925dc1107ac92365ece9f541303e",
+      "result_sha256": "b5a36bacddad3e33f8384ecdba7084803a2cb36f5ed7de93c9acfbff8937c464"
+    },
+    "skill": {
+      "accuracy_percent": 85.5,
+      "metrics": {
+        "count": 200,
+        "generated_tokens": 23934,
+        "latency_seconds_total": 280.06737409100015,
+        "numeric_correct": 171,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 171,
+        "truncated": 2
+      },
+      "protocol_hash": "a29f814687f28fdd87638293a08dc3710e720ac876f55b978f8c3062d8b2b566",
+      "result_sha256": "adef4ef0f1b8c077485928bd8f1fa1ebd528e0607c4629dfd3e09a5ef4c0232a"
+    }
+  },
+  "same_question_statistics": {
+    "deepseek_minus_baseline": {
+      "bootstrap_resamples": 20000,
+      "bootstrap_seed": 20261103,
+      "corrected": 16,
+      "count": 200,
+      "difference_percentage_points": 7.5,
+      "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps.",
+      "mcnemar_exact_two_sided_p": 0.000274658203125,
+      "paired_bootstrap_95_interval_pp": [
+        4.0,
+        11.5
+      ],
+      "regressed": 1
+    },
+    "deepseek_minus_random": {
+      "bootstrap_resamples": 20000,
+      "bootstrap_seed": 20261103,
+      "corrected": 21,
+      "count": 200,
+      "difference_percentage_points": 10.0,
+      "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps.",
+      "mcnemar_exact_two_sided_p": 1.0967254638671875e-05,
+      "paired_bootstrap_95_interval_pp": [
+        5.5,
+        14.5
+      ],
+      "regressed": 1
+    },
+    "deepseek_minus_skill": {
+      "bootstrap_resamples": 20000,
+      "bootstrap_seed": 20261103,
+      "corrected": 24,
+      "count": 200,
+      "difference_percentage_points": 11.5,
+      "limitations": "Exploratory development comparison, single training seed, no multiplicity correction. Bootstrap covers question sampling, not training-seed variation. Numeric final-answer verification does not verify reasoning steps.",
+      "mcnemar_exact_two_sided_p": 1.5497207641601562e-06,
+      "paired_bootstrap_95_interval_pp": [
+        7.0,
+        16.5
+      ],
+      "regressed": 1
+    }
+  },
+  "caveats": [
+    "Exact same200 human TRAIN development questions, references and user prefix; bothnonthinking with nominal512outputtoken caps. Tokenizers/APIdecoding/hardware differ; this is not equalFLOPs or matched latency.",
+    "No provider calls, account settlement, shared report regeneration or process-liveness assertion was performed by this audit.",
+    "Independent local numeric reference scoring; DeepSeek did not grade Granite. Numeric accuracy does not verify every reasoning step or all label semantics.",
+    "The194 numeric matches include189 strict-format matches;5 additional matches use the existing final-line fallback scorer.",
+    "DeepSeek APIalias is mutable; originalactual model and raw responses are retained. Reported peak-token estimate is not an invoice.",
+    "These200 are development data in an adaptive project, not a sealed official test. Three pairwise comparisons are exploratory without multiplicity correction.",
+    "Questionbootstrap uncertainty does not cover Granite training-seed variation (one seed42).",
+    "HistoricalGranite200 results have validated call/source/result receipts; adapter hashes were captured afterthose runs, not contemporaneously. This audit is not the separate actualweights PEFT-reload compatibility proof.",
+    "Teacher advantage establishes measured headroom, not guaranteed learnability or positive data-valuation benefit; currentrandom/skill LoRA results still regress from baseline."
+  ],
+  "interpretation": "Measured teacher headroom, not Granite improvement or proof of data-selection value. Strongest-practical teacher configuration remains separate from this output-budget diagnostic."
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "stage": "partial_implementation_not_execution_ready",
-  "updated_at_utc": "2026-11-03T22:25:25.057542+00:00",
+  "updated_at_utc": "2026-11-03T23:39:34.946242+00:00",
   "proposed_question_counts": [
     1000,
     1319
@@ -11,10 +11,14 @@
     "raw_batch_recovery_contract": "implemented_and_fixture_checked",
     "physical_source_checkpoint_seal": "implemented_and_fixture_checked",
     "permit_first_bounded_loader": "implemented_and_fixture_checked",
-    "scaled_gpu_evaluator": "not_implemented",
-    "scaled_teacher_collector": "not_implemented",
-    "paid_dispatch_and_escrow_controller": "not_implemented",
-    "exact_granite_qv_layout": "separate_pure_prototype_not_integrated"
+    "scaled_gpu_evaluator": "implemented_fixture_checked_not_executed",
+    "scaled_teacher_collector": "implemented_fixture_checked_not_executed",
+    "paid_dispatch_and_escrow_controller": "implemented_fixture_checked_not_executed",
+    "exact_granite_qv_layout": "integrated_into_unexecuted_worker_asset_checks",
+    "portable_source_adapter_verifier": "implemented_fixture_checked_not_runtime_exercised",
+    "development_compatibility_producer": "implemented_fixture_checked_not_executed",
+    "funded_development_compatibility_entrypoint": "not_implemented",
+    "native_compatibility_to_physical_calibration_binding": "not_implemented"
   },
   "focused_synthetic_checks_passed": 52,
   "existing_final256_sources_unchanged": true,
@@ -32,15 +36,51 @@
     "test_final_scale_seal.py": "426d6da053148e82f52a14fbd74e28db973c5786a067baedbe603bd6d5316394",
     "final_scale_loader.py": "eb7e1787a1d43e7087770967a9800887fbb5add6af0d80b967ec4808ca26fac5",
     "test_final_scale_loader.py": "0ed32cf4d52c8d9a22ea35fddcce93e007e9d69a89f294c7b39408f56c6593a2",
-    "granite_lora_layout.py": "8d53f7cd48f8a7054b90cb230b8d42457f9022b3541f03c38d014f0d607544b7",
-    "test_granite_lora_layout.py": "13952cb12b10a6934a9a9bc965d602c8c34919a1fe99eb285781fb8166d42699"
+    "granite_lora_layout.py": "83660c4ee08db7df8ed5c289a93835cffbf6fbbe102deb14cc56b3ad08baeb0f",
+    "test_granite_lora_layout.py": "13952cb12b10a6934a9a9bc965d602c8c34919a1fe99eb285781fb8166d42699",
+    "final_scale_compat.py": "05221e48c349d6981fe8297e91f81362820f53144fce9a26112b3f9335356bbb",
+    "modal_final_compat.py": "9421d0e5de4a91ec3d84c65e11b7a4d5683908b83346c44a1e4b75d51b608afc",
+    "test_final_scale_artifacts.py": "abcc652f90bbb24c93cb6c596a24394e79a8363e45107247ea23f64c60e58084",
+    "test_final_scale_teacher.py": "09f3ea14137b818f0ba311ab7aa516fe0e3285846e208884397d4849c58736b3",
+    "test_final_scale_compat.py": "0db0421a55b82d1f1b04295cb0941353303611b0dcdb86a838836ae6a8db4168",
+    "final_scale_execution.py": "c235c5e67d28823e02d17da170bcbe0ed04a8faf59132c7192bee6f4883a854a",
+    "test_final_scale_control.py": "33311b2a44932932cc37ad5877855c9eee0098e66043064f148e277d43f56481",
+    "final_scale_control.py": "867423b7cb9d8b55acde654b02e93dfb5390d92883e6220c0b447bd6ec51cfa5",
+    "final_scale_artifacts.py": "e9907ac4f6a50f6da4e9f821802515d7607d7d19e2fefcb254676045ec7cc466",
+    "modal_final_scale.py": "f3e1ec8cd71c7269c63c2d31b4a4572b185d14e3ce77ce10f1ab812ae8214bf0",
+    "test_modal_final_scale.py": "2b358a1d47aed87da10049653c78c3ccba021118278cf472351ab63e9987d04d",
+    "final_scale_teacher.py": "d9ff803fadb1d34580f29fafc812cec6c251f26f446726687bcec8311c89ede3",
+    "test_final_scale_funding.py": "5e4555e016604a2a01fe8d009270493d0678938524b70d0bf3c4ab7486d45205",
+    "final_scale_teacher_receipts.py": "9327708b241b755a1777a6e14d7d9349a23ed8f55aff60f467d3c5fbc62c85a9",
+    "final_scale_funding.py": "1aabb85ceeaf0384f86ba5fefb1955196de9287ecb85186606df9b2a7e2cdc1d",
+    "test_final_scale_execution.py": "db3ca5f822a932a99f5759c0dba97570366a3049f3d9c6c42509efbb9046ad18"
   },
   "limitations": [
-    "No1000/1319 execution is ready from helpers alone; remaining workers/controller and source/funding review must finish first.",
-    "Safetensors validation covers structure and r8qv pairs, not complete pinned-model tensor/module compatibility.",
-    "Adapter byte hashes are captured after development evaluation and before a future final seal; no earlier contemporaneous hash proof is invented.",
-    "Default inspection and tests use synthetic data; final dataset access still requires one reviewed global owner before any source read.",
-    "The separate layout prototype matches recorded160 runtime q/v tensors and2621440 parameters. Saved-key serialization remains derived rather than locally observed, and runtime/seal integration is still required."
+    "Software fixtures are synthetic, not157 benchmark questions or a model-improvement result.",
+    "Actual CUDA/PEFT reload remains unobserved; two full private trained adapter snapshots were downloaded and checked after evaluation. No actual final candidate, seal, global permit, official-source read or final paid call exists.",
+    "The development-only producer has no funded production entrypoint yet. Its native paired400-result timing/provenance format also needs an exact physical-calibration bridge; derived wrappers must not impersonate provider-returned results.",
+    "The physical seal still has its older per-role200 calibration schema. Existing human200 evidence remains conditionally usable; selecting a different64-question candidate needs an actual200 reload and appropriate provenance binding.",
+    "Reservations and escrow transfers are unspent allowances. Fresh supported observations, complete source/weight reviews and one-GPU claims remain mandatory before paid work.",
+    "The pinned PEFT package source confirms saved-key and autocast conventions; it does not prove a real saved adapter or its GPU loading succeeded."
   ],
-  "separate_layout_prototype_synthetic_checks_passed": 10
+  "separate_layout_prototype_synthetic_checks_passed": 10,
+  "implementation_phase": "executor_controller_fixture_checked",
+  "combined_software_fixture_checks_passed": 157,
+  "combined_software_fixture_seconds": 94.497,
+  "actual_cuda_peft_reload_executed": false,
+  "production_preflight_dispatch_ready": false,
+  "native_compatibility_calibration_bridge_ready": false,
+  "actual_final_evaluation_executed": false,
+  "fixture_check_breakdown": {
+    "core_contract_receipt_seal_loader": 52,
+    "pure_layout": 10,
+    "portable_physical_artifacts": 14,
+    "gpu_execution_and_worker": 18,
+    "whole_bundle_funding": 10,
+    "controller_and_immutable_staging": 34,
+    "teacher_collection": 11,
+    "development_compatibility_producer": 8
+  },
+  "actual_adapter_headers_observed_locally": true,
+  "actual_adapter_values_finite_checked_locally": true
 }

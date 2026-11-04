@@ -573,6 +573,18 @@ def build(workspace=None):
         current.append({'title':'New math-cohort data-efficiency training grid','status':grid_state,'detail':grid_detail})
     human_study=runs/'human_study64k_dev200_seed42_v2'
     human_gains=[]
+    teacher200=_read(workspace/'progress/DEVELOPMENT_TEACHER200.json')
+    if teacher200.get('stage')=='completed_validated':
+        detail=(f"DeepSeek scored {_number(teacher200.get('teacher_correct'))}/200 on the same development questions "
+                'as original Granite179/200, random-trained174/200 and skill-trained171/200. '
+                'All used the same prompt, nonthinking mode and512-token output cap. '
+                'This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. '
+                'No Granite accuracy improvement is established. Official test data remains sealed.')
+        current.append({'title':'Matched DeepSeek versus Granite on200 development questions','status':'completed','detail':detail})
+        add('Matched200-question teacher reference measured',detail,
+            'https://github.com/AviSrikumeran/granite-query/blob/main/progress/DEVELOPMENT_TEACHER200.md')
+        current.append({'title':'Reasoning transfer and learning-curve study design','status':'queued',
+            'detail':'Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.'})
     if (human_study/'study_manifest.json').exists():
         human_study_state,human_study_detail,human_gains=_human_study_phase(human_study,workspace)
         current.append({'title':'Human-reference training with separate 200-question development evaluation',
@@ -598,8 +610,11 @@ def build(workspace=None):
                 +'It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain.'})
     final_scale=_read(workspace/'progress/FINAL_SCALE_IMPLEMENTATION.json')
     if final_scale.get('stage')=='partial_implementation_not_execution_ready':
+        implemented=final_scale.get('implementation_phase')=='executor_controller_fixture_checked'
         current.append({'title':'Larger final benchmark implementation and funding review','status':'queued',
-            'detail':'Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.'})
+            'detail':('Separate sharded GPU/teacher executors, portable artifact checks, whole-bundle escrow and controller recovery now pass offline software fixtures. A development-only adapter-reload producer is implemented; its funded production entrypoint and actual GPU/PEFT reload are still pending. Actual final benchmark execution and serving remain incomplete. Finish the entrypoint/review, validate the chosen weight bytes on development data and review whole-bundle funding before final selection/freezing or official-test access. No paid call, test access or model endpoint is created by this software status.'
+                if implemented else
+                'Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.')})
     if (workspace/'granite_query/cloud/modal_api.py').exists():
         current.append({'title':'Capped Granite API trial', 'status':'queued',
                         'detail':'API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.'})
@@ -672,6 +687,14 @@ def build(workspace=None):
         'updated_at_utc': datetime.now(timezone.utc).isoformat(),
     }
     public['dataset_coverage']=[r for r in public['dataset_coverage'] if r['name']!='Other previously mentioned Hugging Face repositories']
+    model_artifacts=_read(workspace/'progress/MODEL_ARTIFACTS.json')
+    if (model_artifacts.get('model')==MODEL and model_artifacts.get('revision')==REVISION
+            and model_artifacts.get('private_local_snapshots_available') is True
+            and len(model_artifacts.get('checkpoint_snapshots',[]))==2):
+        public['model']['training_method']+=' Trained adapters are saved in persistent Modal storage; both recent adapters now have private local copies. This dashboard is not connected to a live inference endpoint yet.'
+        add('Two recent trained adapters saved and copied locally',
+            'Both human-study adapters have verified nine-file private snapshots, including 10.5MB learned-weight files. Each has160q/v tensors and2,621,440trainable adapter parameters after65,536supervised tokens/64updates. The original3B base model plus an adapter are required for inference. Header/value inspection is complete; a fresh GPU reload is pending.',
+            'https://github.com/AviSrikumeran/granite-query/blob/main/progress/MODEL_ARTIFACTS.json')
     candidates=_read(workspace/'progress/DATASET_CANDIDATES.json')
     for row in candidates.get('sources',[]):
         if all(isinstance(row.get(k),str) for k in ('name','card_url','purpose')):

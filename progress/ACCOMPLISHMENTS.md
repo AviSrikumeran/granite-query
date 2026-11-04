@@ -26,7 +26,7 @@ Granite has been fine-tuned on Modal, but no accuracy improvement has been demon
 
 ibm-granite/granite-4.2-3b at revision 4e9c275e232f10211ec88644d106a1f6a1b60e06.
 
-LoRA adapters on a pinned 3B Granite checkpoint, on Modal A100 workers; not full-parameter training and not the earlier local 8B model.
+LoRA adapters on a pinned 3B Granite checkpoint, on Modal A100 workers; not full-parameter training and not the earlier local 8B model. Trained adapters are saved in persistent Modal storage; both recent adapters now have private local copies. This dashboard is not connected to a live inference endpoint yet.
 
 ## Completed work
 
@@ -120,11 +120,23 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 [Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/NEXT_VALUATION_METHOD.md)
 
+### Matched200-question teacher reference measured
+
+DeepSeek scored 194/200 on the same development questions as original Granite179/200, random-trained174/200 and skill-trained171/200. All used the same prompt, nonthinking mode and512-token output cap. This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. No Granite accuracy improvement is established. Official test data remains sealed.
+
+[Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/DEVELOPMENT_TEACHER200.md)
+
 ### Human-reference DeepSeek teaching pool completed
 
 2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.
 
 [Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_MATH_TEACHER.json)
+
+### Two recent trained adapters saved and copied locally
+
+Both human-study adapters have verified nine-file private snapshots, including 10.5MB learned-weight files. Each has160q/v tensors and2,621,440trainable adapter parameters after65,536supervised tokens/64updates. The original3B base model plus an adapter are required for inference. Header/value inspection is complete; a fresh GPU reload is pending.
+
+[Evidence](https://github.com/AviSrikumeran/granite-query/blob/main/progress/MODEL_ARTIFACTS.json)
 
 ## Current work and failures
 
@@ -156,13 +168,17 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 
 - **New math-cohort data-efficiency training grid — deferred**. 18/18 arm plans prepared; 12 completed, 0 running, 6 deferred reference plans, 0 failed and 0 requiring launch reconciliation. Random, skill and gradient arms use a separately frozen common pool and matched token budgets; these are separate from the earlier four-arm results. The 12 reviewed arms are complete; remaining higher-budget plans are deferred and need a separate review. Later human-reference and reasoning stages remain. Unattended controller snapshot at 2026-11-03T21:49:17.265262+00:00: stopped; saved calls require inspection before resuming. This is a recorded snapshot, not a live process check.
 
+- **Matched DeepSeek versus Granite on200 development questions — completed**. DeepSeek scored 194/200 on the same development questions as original Granite179/200, random-trained174/200 and skill-trained171/200. All used the same prompt, nonthinking mode and512-token output cap. This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. No Granite accuracy improvement is established. Official test data remains sealed.
+
+- **Reasoning transfer and learning-curve study design — queued**. Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.
+
 - **Human-reference training with separate 200-question development evaluation — completed**. 3/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: 171/200. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
 - **Human-reference DeepSeek teaching chunks — completed**. 2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.
 
 - **Paired teacher-reasoning feasibility pilot — completed**. Last recorded snapshot: 64/64 original responses across 32 separate training questions; 29 complete, reference-matched pairs fit the student context. The separately funded pilot compares concise and thinking outputs under different output caps. It prepares data for a future reasoning study; it is not completed Granite training or an accuracy gain.
 
-- **Larger final benchmark implementation and funding review — queued**. Separate count/shard, receipt, physical-seal and permit-first loader components are locally checked. Sharded GPU/teacher execution, paid dispatch integration and runtime adapter compatibility remain incomplete. Finish those components and review whole-bundle funding before selecting/freezing a checkpoint or accessing official test data. The prepared API follows final evaluation; no new paid call is authorized by this status.
+- **Larger final benchmark implementation and funding review — queued**. Separate sharded GPU/teacher executors, portable artifact checks, whole-bundle escrow and controller recovery now pass offline software fixtures. A development-only adapter-reload producer is implemented; its funded production entrypoint and actual GPU/PEFT reload are still pending. Actual final benchmark execution and serving remain incomplete. Finish the entrypoint/review, validate the chosen weight bytes on development data and review whole-bundle funding before final selection/freezing or official-test access. No paid call, test access or model endpoint is created by this software status.
 
 - **Capped Granite API trial — queued**. API source and quota controls are prepared and locally checked. No public model endpoint is deployed. It requires a chosen evaluated checkpoint, completed research GPU work, a serving reservation and an expiring request quota.
 
@@ -174,4 +190,4 @@ Separate continuation of the same frozen feature protocol. 3,130 projected featu
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-03T22:36:12.324634+00:00
+Updated: 2026-11-03T23:58:22.067411+00:00

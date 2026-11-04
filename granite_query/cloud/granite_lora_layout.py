@@ -2,7 +2,8 @@
 
 No imports or functions read files, instantiate models, fetch metadata, inspect
 datasets or authorize execution. Supply already loaded config/header metadata.
-This helper is not integrated into any existing seal, loader or running worker.
+Physical byte verification belongs to final_scale_artifacts; this pure helper
+does not establish a PEFT deserialization or model-execution result.
 """
 import hashlib
 import json
@@ -40,6 +41,15 @@ EVIDENCE = {
         'sha256': '9508ba34ff4f9fff21096524e686f34e3e94acc9872bcdfbf1c0e7b36310ed85'},
     'remote_verification_performed_by_this_helper': False,
     'saved_header_observed_locally': False,
+    'saved_serializer_local_audit': {
+        'target_image_peft_version': '0.17.1',
+        'installed_peft_source_found': False,
+        'cached_peft_source_found_in_bounded_search': False,
+        'already_local_adapter_weight_header_found': False,
+        'already_local_saved_adapter_configs_found': 2,
+        'new_downloads_or_provider_calls_performed': False,
+        'runtime_peft_load_performed': False,
+    },
     'saved_key_policy': 'peft_saved is an explicit adapter-name-free convention derived from observed runtime module keys. A local saved header/PEFT serializer was unavailable; future integration must independently confirm serializer/load compatibility.',
 }
 

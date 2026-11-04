@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "stage": "pinned_package_source_review_not_runtime_evidence",
+  "reviewed_at_utc": "2026-11-03T23:26:52.623295+00:00",
+  "package": "peft",
+  "version": "0.17.1",
+  "primary_source": "https://pypi.org/project/peft/0.17.1/",
+  "wheel_sha256": "3d129d64def3d74779c32a080d2567e5f7b674e77d546e3585138216d903f99e",
+  "wheel_bytes": 504896,
+  "source_members_reviewed": 8,
+  "record_members_hash_checked": 165,
+  "private_review_sha256": "30535caebe9fe1c7949ad4e16044282f7559bed5d85ea88b679b2665de428bf2",
+  "findings": [
+    "Saved LoRA keys omit the adapter name; loading reinserts the requested adapter name.",
+    "Default adapter autocasting promotes half-precision adapter parameters to float32.",
+    "Permissive loading and missing-key warnings make exact independent inventory, layout and loaded-value checks necessary."
+  ],
+  "package_installed_by_review": false,
+  "actual_adapter_header_observed": false,
+  "actual_gpu_or_peft_reload_executed": false,
+  "limitations": "Source behavior was inspected in the official pinned wheel. This is not a successful real adapter load, model accuracy measurement or execution authorization."
+}
