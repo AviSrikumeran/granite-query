@@ -4,6 +4,10 @@
 
 The owner chooses the design direction and the result to communicate. The implementing agent handles reference inspection, construction, comparison, ordinary fixes and review packaging. Bring the owner completed comparisons and substantive choices; do not ask them to supervise routine implementation.
 
+## Current website integration
+
+On 4 November the owner explicitly authorized remaking the entire research website using the accumulated component work. For this integration, the earlier homepage-preservation restriction is superseded. Use the text name Granite Query without a graphic logo, bring original electric magenta material into the opening, and present the actual current research including failed and inconclusive outcomes. The separate published playgrounds, raw research data, exporters and training infrastructure remain protected. See [the integration review](reviews/2026-11-04-site-remake.md). This request does not restart an overnight automation or authorize new model spending.
+
 ## Current design decisions
 
 | Keep or pursue | Reason and constraint |

@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "title": "Granite Query research library",
+  "records": [
+    {
+      "id": "overnight",
+      "title": "Correction training: fitting without transfer",
+      "category": "Reports",
+      "description": "Latest local 32-question development and retention studies. Methods, costs, failures and next scientific step.",
+      "path": "overnight-results.md",
+      "mode": "markdown",
+      "source": "overnight-results.md"
+    },
+    {
+      "id": "human-study",
+      "title": "Matched 200: trained students and baseline",
+      "category": "Reports",
+      "description": "Three student arms; paired changes, uncertainty and training exposure.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/HUMAN_STUDY_RESULTS.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_STUDY_RESULTS.md"
+    },
+    {
+      "id": "teacher-200",
+      "title": "Matched 200: the DeepSeek reference",
+      "category": "Reports",
+      "description": "Teacher headroom under the matched nonthinking 512-token protocol.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/DEVELOPMENT_TEACHER200.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/DEVELOPMENT_TEACHER200.md"
+    },
+    {
+      "id": "capacity",
+      "title": "Larger correction adapter: paired results",
+      "category": "Reports",
+      "description": "The 64-update local study, retention losses and fitted taught targets.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/OVERNIGHT_CAPACITY_RESULTS.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/OVERNIGHT_CAPACITY_RESULTS.md"
+    },
+    {
+      "id": "feedback",
+      "title": "Small correction adapter: paired results",
+      "category": "Reports",
+      "description": "The 8-update local correction study and the random control.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/OVERNIGHT_FEEDBACK_RESULTS.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/OVERNIGHT_FEEDBACK_RESULTS.md"
+    },
+    {
+      "id": "valuation",
+      "title": "Token-matched selection across two seeds",
+      "category": "Reports",
+      "description": "Earlier 64-question development results, corrected and regressed answers.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/VALUATION_RESULTS.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/VALUATION_RESULTS.md"
+    },
+    {
+      "id": "data-efficiency",
+      "title": "Dataset expansion and data efficiency",
+      "category": "Reports",
+      "description": "Separate source families, reference types and training-token budgets.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/DATA_EFFICIENCY_RESULTS.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/DATA_EFFICIENCY_RESULTS.md"
+    },
+    {
+      "id": "pilot",
+      "title": "The first matched pilot",
+      "category": "Reports",
+      "description": "Earlier 16- and 64-question history. These cohorts are not pooled with later studies.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/RESULTS.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/RESULTS.md"
+    },
+    {
+      "id": "model-method",
+      "title": "Model choice and token efficiency",
+      "category": "Methods",
+      "description": "Granite 4.2 3B, parameter/token evidence and conditional research proposals.",
+      "path": "granite-efficiency.html",
+      "mode": "link",
+      "source": "granite-efficiency.html"
+    },
+    {
+      "id": "inference",
+      "title": "Inference efficiency and thinking modes",
+      "category": "Methods",
+      "description": "Untouched-model diagnostics; different caps and batching do not imply training gains.",
+      "path": "inference-efficiency.html",
+      "mode": "link",
+      "source": "inference-efficiency.html"
+    },
+    {
+      "id": "error-review",
+      "title": "Low-effort error review",
+      "category": "Methods",
+      "description": "Reference-sensitive misses, arithmetic review and possible future teaching targets.",
+      "path": "low-effort-error-review.html",
+      "mode": "link",
+      "source": "low-effort-error-review.html"
+    },
+    {
+      "id": "native-2048",
+      "title": "Native OPEN: the 2,048-token diagnostic",
+      "category": "Reports",
+      "description": "The batch-32 untouched-model diagnostic; 175 of 200, capped answers and unlaunched training.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/NATIVE_REASONING_BATCH32_V4.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NATIVE_REASONING_BATCH32_V4.md"
+    },
+    {
+      "id": "native-1024",
+      "title": "Native OPEN: the 1,024-token diagnostic",
+      "category": "Reports",
+      "description": "The separate 200-question untouched-model evaluation and infeasible training-pair forecast.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/NATIVE_REASONING_CONFIG_RECOVERY.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NATIVE_REASONING_CONFIG_RECOVERY.md"
+    },
+    {
+      "id": "gradient-method",
+      "title": "The next data-valuation method",
+      "category": "Methods",
+      "description": "LESS-inspired selection, warmup costs and limitations.",
+      "path": "https://raw.githubusercontent.com/AviSrikumeran/granite-query/main/progress/NEXT_VALUATION_METHOD.md",
+      "mode": "markdown",
+      "source": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NEXT_VALUATION_METHOD.md"
+    },
+    {
+      "id": "overnight-reader",
+      "title": "Standalone overnight report",
+      "category": "Reports",
+      "description": "The full latest audit in its dedicated reading page.",
+      "path": "overnight-results.html",
+      "mode": "link",
+      "source": "overnight-results.html"
+    },
+    {
+      "id": "capacity-json",
+      "title": "Larger correction results · JSON",
+      "category": "Data",
+      "description": "Counts, paired question intervals, source hashes and explicit limits.",
+      "path": "overnight-capacity-results.json",
+      "mode": "link",
+      "source": "overnight-capacity-results.json"
+    },
+    {
+      "id": "feedback-json",
+      "title": "Small correction results · JSON",
+      "category": "Data",
+      "description": "Teacher qualification, local updates, development and retention.",
+      "path": "overnight-feedback-results.json",
+      "mode": "link",
+      "source": "overnight-feedback-results.json"
+    },
+    {
+      "id": "human-json",
+      "title": "Matched student results · JSON",
+      "category": "Data",
+      "description": "Baseline/random/skill jobs and paired 200-question comparisons.",
+      "path": "human-study-results.json",
+      "mode": "link",
+      "source": "human-study-results.json"
+    },
+    {
+      "id": "teacher-json",
+      "title": "Teacher reference · JSON",
+      "category": "Data",
+      "description": "Exact matched cohort, teacher settings and comparison receipts.",
+      "path": "development-teacher200.json",
+      "mode": "link",
+      "source": "development-teacher200.json"
+    },
+    {
+      "id": "valuation-json",
+      "title": "Token-matched selection · JSON",
+      "category": "Data",
+      "description": "Earlier matched-token selection seeds and uncertainty.",
+      "path": "valuation-results.json",
+      "mode": "link",
+      "source": "valuation-results.json"
+    },
+    {
+      "id": "native-json",
+      "title": "Native reasoning study · JSON",
+      "category": "Data",
+      "description": "OPEN-mode baseline diagnostics; prepared adapters are not results.",
+      "path": "native-reasoning-study.json",
+      "mode": "link",
+      "source": "native-reasoning-study.json"
+    },
+    {
+      "id": "inference-json",
+      "title": "Inference efficiency · JSON",
+      "category": "Data",
+      "description": "Published inference comparisons and protocol boundaries.",
+      "path": "inference-efficiency-results.json",
+      "mode": "link",
+      "source": "inference-efficiency-results.json"
+    },
+    {
+      "id": "sources-json",
+      "title": "Source registry · JSON",
+      "category": "Data",
+      "description": "Dataset origins and external reference inventory.",
+      "path": "sources.json",
+      "mode": "link",
+      "source": "sources.json"
+    },
+    {
+      "id": "research-json",
+      "title": "Earlier research snapshot · JSON",
+      "category": "Data",
+      "description": "Historical measured stages, not a current job monitor.",
+      "path": "research.json",
+      "mode": "link",
+      "source": "research.json"
+    },
+    {
+      "id": "paired-json",
+      "title": "Earlier paired comparison · JSON",
+      "category": "Data",
+      "description": "Question-level changes for historical evaluations.",
+      "path": "paired-results.json",
+      "mode": "link",
+      "source": "paired-results.json"
+    },
+    {
+      "id": "data-json",
+      "title": "Data-efficiency evidence · JSON",
+      "category": "Data",
+      "description": "Source families, teacher expansion and token budgets.",
+      "path": "data-efficiency-results.json",
+      "mode": "link",
+      "source": "data-efficiency-results.json"
+    },
+    {
+      "id": "model-json",
+      "title": "Model-efficiency evidence · JSON",
+      "category": "Data",
+      "description": "Parameter counts, tokenizer evidence and reference links.",
+      "path": "granite-efficiency-evidence.json",
+      "mode": "link",
+      "source": "granite-efficiency-evidence.json"
+    },
+    {
+      "id": "plan-json",
+      "title": "Targeted/random proposal · JSON",
+      "category": "Data",
+      "description": "A verified plan; not a completed improvement.",
+      "path": "targeted-random-verified-plan.json",
+      "mode": "link",
+      "source": "targeted-random-verified-plan.json"
+    },
+    {
+      "id": "review-json",
+      "title": "Error review evidence · JSON",
+      "category": "Data",
+      "description": "Case-level observations and reference qualifications.",
+      "path": "low-effort-error-review.json",
+      "mode": "link",
+      "source": "low-effort-error-review.json"
+    },
+    {
+      "id": "native-recovery",
+      "title": "Native reasoning recovery · JSON",
+      "category": "Data",
+      "description": "Historical interruptions and recovery evidence.",
+      "path": "native-reasoning-recovery.json",
+      "mode": "link",
+      "source": "native-reasoning-recovery.json"
+    },
+    {
+      "id": "native-config",
+      "title": "Native configuration recovery · JSON",
+      "category": "Data",
+      "description": "The separate OPEN/1024 baseline and runtime forecast.",
+      "path": "native-reasoning-config-recovery.json",
+      "mode": "link",
+      "source": "native-reasoning-config-recovery.json"
+    },
+    {
+      "id": "native-batch",
+      "title": "Native batch 32 diagnostic · JSON",
+      "category": "Data",
+      "description": "OPEN/2048 baseline, capped answers and prepared training plans.",
+      "path": "native-reasoning-batch32-v4.json",
+      "mode": "link",
+      "source": "native-reasoning-batch32-v4.json"
+    },
+    {
+      "id": "status-snapshot",
+      "title": "Dated status snapshot · JSON",
+      "category": "Data",
+      "description": "An older stopped-status observation; not fresh process telemetry.",
+      "path": "status.json",
+      "mode": "link",
+      "source": "status.json"
+    },
+    {
+      "id": "overview-snapshot",
+      "title": "Earlier overview · JSON",
+      "category": "Data",
+      "description": "The dated 05:43 UTC summary that predates overnight completion.",
+      "path": "overview.json",
+      "mode": "link",
+      "source": "overview.json"
+    },
+    {
+      "id": "project-status",
+      "title": "Historical project status · JSON",
+      "category": "Data",
+      "description": "An older progress snapshot preserved for provenance.",
+      "path": "project-status.json",
+      "mode": "link",
+      "source": "project-status.json"
+    },
+    {
+      "id": "events",
+      "title": "Earlier event history · JSON",
+      "category": "Data",
+      "description": "Append-only milestones, errors and recoveries.",
+      "path": "events.json",
+      "mode": "link",
+      "source": "events.json"
+    },
+    {
+      "id": "journal",
+      "title": "Research journal",
+      "category": "History",
+      "description": "The append-only record of earlier work, failures and fixes.",
+      "path": "journal.md",
+      "mode": "markdown",
+      "source": "journal.md"
+    },
+    {
+      "id": "research-log",
+      "title": "Historical research dashboard",
+      "category": "History",
+      "description": "Full earlier source inventory, detailed studies and dated progress.",
+      "path": "research-log.html",
+      "mode": "link",
+      "source": "research-log.html"
+    },
+    {
+      "id": "design-lab",
+      "title": "All design experiments",
+      "category": "Design",
+      "description": "The original motion, material and evidence-presentation studies.",
+      "path": "playground/experiments/",
+      "mode": "link",
+      "source": "playground/experiments/"
+    },
+    {
+      "id": "night-lab",
+      "title": "Overnight component comparisons",
+      "category": "Design",
+      "description": "Twelve separate public-reference interaction studies.",
+      "path": "playground/night-lab/",
+      "mode": "link",
+      "source": "playground/night-lab/"
+    },
+    {
+      "id": "repository",
+      "title": "Repository, code and methods",
+      "category": "History",
+      "description": "Public source, reports and reproducibility boundaries.",
+      "path": "https://github.com/AviSrikumeran/granite-query",
+      "mode": "link",
+      "source": "https://github.com/AviSrikumeran/granite-query"
+    }
+  ]
+}

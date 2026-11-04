@@ -1,10 +1,14 @@
 # Granite Query: website design research
 
-Reviewed 3 November 2026. Status: working motion and material experiments; original identity and research presentation are still in development.
+Updated 4 November 2026. Status: integrated research website with preserved motion and material studies; owner review of the new presentation is pending.
 
 The goal is a distinctive, enterprise-quality public research website: readable evidence, clear project status, carefully built components, and purposeful motion. This is a presentation-quality goal, not a claim that the model or service is production-ready.
 
 ## Start here
+
+- [Integrated website refresh](reviews/2026-11-04-site-remake.md): the owner authorized rebuilding the homepage and research reading pages around current evidence, original magenta artwork and a searchable report library.
+
+- [Overnight final record](reviews/2026-11-04-overnight-final.md): twelve published studies, three saved local drafts, verification limits and deletion of the one-night automation.
 
 - [Overnight batch 04 review](reviews/2026-11-04-overnight-batch-04.md): authored replay, inspectable source discovery and exact chart-to-record aggregation from Browserbase, Exa and Orb.
 
@@ -36,7 +40,7 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 | Item | Status |
 | --- | --- |
 | Prior enterprise/research design direction | Set aside by the user; the old `VISUAL_RESEARCH.md` remains historical and is not design authority |
-| Color palette and typography | Full site system remains undecided; electric magenta is the selected experimental material direction, with deep plum recesses and bright pink-white highlights |
+| Color palette and typography | The integrated candidate combines an electric magenta opening, dark plum and warm paper reading surfaces. Original material studies remain available; owner review of the full site system is pending |
 | Cubes, boxes, modular geometry | Explicit user interest; explore original geometry, not another company's mark |
 | Interlocking blocks and proof branches | Preferred by the user; pursue readable joints, extraction and connected evidence |
 | Large three-piece reveal | Authorized as a separate prototype: two interlocking mineral pieces and one magenta core. One dominant view; final identity and user verdict remain pending |
@@ -46,7 +50,7 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 | Motion that runs on its own | Required candidate; specify pause, offscreen suspension, and reduced-motion states from the start |
 | Mouse interaction | Required candidate; pair meaningful actions with focus, keyboard, click/tap equivalents |
 | References selected by the assistant | Candidates for review, not user-approved design choices |
-| Live dashboard | Preserve while reviewing; no homepage, training, publishing, or telemetry code changed by this study |
+| Research website | The owner authorized its complete UI refresh on 4 November. The integrated site presents current results and preserves all raw feeds, training infrastructure and playground baselines |
 | Later visual catalogue of “vibe-coded” patterns | Requested for a later chat; not created in this change |
 
 ## Feedback to collect
