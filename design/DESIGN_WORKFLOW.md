@@ -63,11 +63,13 @@ The composition brief for 1d was one dominant object occupying roughly two-third
 
 ## Scheduling
 
-The owner authorized daily background work on 3 November 2026. The app automation **Daily Granite Query design lab** is active at 9:00 AM America/Chicago, with ID `daily-granite-query-design-lab`. It returns to this design chat. Each run reads these decisions, handles one ready question and stops after its review package. Avoid overlapping design runs and do not touch training infrastructure. The app owns the schedule; this file is its durable work brief.
+On 4 November the owner authorized an overnight multi-reference component lab until **05:00 America/Chicago (11:00 UTC)**. Follow [the overnight brief](OVERNIGHT_2026-11-04.md) and [its queue](overnight-2026-11-04.json). This authorizes new separate studies beyond Modal without waiting for a verdict on the constellation. Existing studies and the homepage remain protected.
 
-Durable task brief: Read design/DESIGN_WORKFLOW.md, design/README.md, docs/playground/AGENTS.md and the latest review. Pick one ready question, preserve accepted studies and the homepage, reuse existing reference evidence, and complete one bounded pass. The owner authorizes publishing isolated working comparisons to GitHub. Update the experiment index and record findings. Report a meaningful completed comparison, blocker or required direction choice; stay quiet if there is no new work. Do not generate repeated cosmetic variants or launch paid services.
+The existing heartbeat `daily-granite-query-design-lab` was paused before this request. It is now repurposed as **Overnight Granite Query design lab — ends 5 a.m.**, every 20 minutes with an expiry at 11:00 UTC on 4 November. Do not start a new build after 04:35. At/after 05:00, make the final report and pause the automation; do not restore a daily schedule without a new request. The app owns the schedule, and the overnight queue is its durable progress record.
 
-Scheduled local work needs the computer on, the app running and project files available. An isolated worktree can separate scheduled changes from active local edits. See [official scheduled-task guidance](https://learn.chatgpt.com/docs/automations). Scheduling runs the saved task; it does not give the model permanent learning. Repository decisions are the reusable memory.
+Each pass researches a distinct public component, builds original editable code in a new folder, verifies it and publishes a working comparison when ready. Root handles shared catalogue edits and release; independent research/build tasks may use bounded agents. Preserve the clarity feedback: readable input, state and outcome before optional motion. No paid services or training work.
+
+Scheduled local work needs the computer on, the app running and project files available. See [official scheduled-task guidance](https://learn.chatgpt.com/docs/automations). Saved decisions and files supply continuity; scheduling does not give the model permanent learning.
 
 ## Working links
 

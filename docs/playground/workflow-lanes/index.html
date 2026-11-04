@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex"><meta name="description" content="An original Granite Query workflow timeline study. Follow a clearly labeled illustrative query from source records to a qualified finding.">
+  <title>Granite Query · Workflow lanes</title>
+  <link rel="stylesheet" href="./studio.css?v=workflow-20261104-1"><script type="module" src="./studio.mjs?v=workflow-20261104-1"></script>
+</head>
+<body>
+  <a class="skip" href="#trace-title">Skip to the workflow</a>
+  <header><a class="brand" href="../../">Granite Query<span aria-hidden="true"> / </span><span>Design lab</span></a><a class="back" href="../experiments/">All experiments <span aria-hidden="true">↗</span></a></header>
+  <main>
+    <section class="intro" aria-labelledby="page-title"><div><p class="eyebrow">Study 02 / Workflow &amp; observability</p><h1 id="page-title">Every step,<br>accounted for.</h1></div><div class="intro-copy"><p>Follow a query from source records to a qualified finding. Select a step to inspect what goes in, what comes out and why it matters.</p><span class="demo-label"><span aria-hidden="true"></span>Illustrative browser replay</span></div></section>
+    <section class="console" aria-labelledby="trace-title">
+      <div class="console-head"><div class="run-title"><span class="route-mark" aria-hidden="true"><i></i><i></i><i></i></span><div><p class="eyebrow">Evidence route / Demo 001</p><h2 id="trace-title">Which records support this finding?</h2></div></div><span class="local-state">Local demonstration</span></div>
+      <div class="toolbar"><div class="view-heading"><span class="view-tab">Trace</span><span>6 steps · 2 parallel checks</span></div><div class="playback"><button id="play" type="button">Replay sequence <span aria-hidden="true">↗</span></button><button id="reset" type="button" aria-label="Show the complete sequence">Show all</button></div></div>
+      <div class="workspace">
+        <div class="trace-region" aria-label="Sequence timeline"><div class="axis"><div>Step <span>Sequence order</span></div><div class="ticks" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div></div><div class="rows" id="rows"></div><div class="time-rail" id="time-rail" aria-hidden="true"><div class="playhead" id="playhead"><span id="playhead-label">100%</span></div><div class="hoverhead" id="hoverhead"><span id="hover-label"></span></div></div><div class="timeline-bottom"><span><i class="complete-dot" aria-hidden="true"></i>Connected evidence</span><span>Relative position · not measured runtime</span></div></div>
+        <aside class="inspector" aria-label="Selected step"><div class="inspector-heading"><p class="eyebrow">Selected step</p><span id="step-number">00 / 05</span></div><h3 id="step-title">Evidence walkthrough</h3><p class="description" id="description">One question moves through source reading, two parallel checks, uncertainty and a qualified finding.</p><div class="io"><div><span>Input</span><p id="input">Which records support this finding?</p></div><div><span>Output</span><p id="output">A connected evidence route, with limits retained.</p></div></div><div class="record"><p class="eyebrow" id="record-title">The complete route</p><p id="excerpt">This interface is an authored example. Its positions describe replay order, not measured execution time.</p></div><dl id="fields"></dl><a class="source" id="source" href="../results-branches/">Compare with actual results <span aria-hidden="true">↗</span></a></aside>
+      </div>
+      <div class="sequence-control"><label for="progress">Replay position</label><input type="range" id="progress" min="0" max="100" step="1" value="100"><output id="position" for="progress">100%</output><span id="playback-state" role="status">Complete view · select any step</span></div>
+    </section>
+    <div class="notes"><p><strong>What you’re seeing.</strong> Horizontal bars show the relationship between steps. The two indented checks share a starting point; the route keeps uncertainty attached before showing the finding.</p><p><strong>Try it.</strong> Select a row, use ↑ / ↓ to move between steps, or replay the sequence. Hover over the timeline to compare positions. The replay uses authored examples and runs entirely in your browser.</p></div>
+    <section class="study-notes" aria-labelledby="reference-title"><p class="eyebrow" id="reference-title">What this study borrows</p><p>Trigger.dev makes task order and nested work inspectable through traces. This original study adapts that principle to research evidence: a stable timeline, explicit dependencies and a detail panel that follows your selection.</p><a href="https://trigger.dev/product/observability-and-monitoring" target="_blank" rel="noopener">Reference: Trigger.dev observability ↗</a><a href="https://github.com/triggerdotdev/trigger.dev" target="_blank" rel="noopener">Public implementation context ↗</a></section>
+  </main>
+  <footer><span>Original interface study · No training or external execution</span><a href="../experiments/">Return to all experiments ↗</a></footer>
+  <noscript><p class="no-script">The question and explanation remain available above. Enable JavaScript to inspect the illustrative sequence.</p></noscript>
+</body>
+</html>

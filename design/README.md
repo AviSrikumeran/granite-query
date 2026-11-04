@@ -6,6 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Overnight component lab](OVERNIGHT_2026-11-04.md): multiple references beyond Modal, separate working studies and a hard 05:00 Central cutoff on 4 November.
+
 - [Constellation clarity revision](reviews/2026-11-03-constellation-clarity.md): the owner found the motion confusing; the same study now opens as a paused, labeled evidence map with the question and result first.
 
 - [Evidence constellation review](reviews/2026-11-03-constellation.md): the bolder kinetic study with suspended records, curved filaments, direct pulling and a structured finding.

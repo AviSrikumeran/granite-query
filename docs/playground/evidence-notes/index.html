@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex"><meta name="description" content="An editorial evidence interface: inspect a claim and its source stays attached in the margin. An original Granite Query component study.">
+  <title>Granite Query · Evidence in the margins</title>
+  <link rel="stylesheet" href="./notes.css?v=20261104-1"><script type="module" src="./notes.mjs?v=20261104-1"></script>
+</head>
+<body>
+  <a class="skip" href="#document-title">Skip to the document</a>
+  <header class="site-header"><a class="brand" href="../../">Granite Query<span aria-hidden="true"> / </span><span>Design lab</span></a><a href="../experiments/">All experiments <span aria-hidden="true">↗</span></a></header>
+  <main>
+    <section class="intro" aria-labelledby="page-title"><p class="eyebrow">03 / Contextual evidence</p><div><h1 id="page-title">Evidence in<br>the margins.</h1><p>Keep the explanation readable.<br>Keep its sources within reach.</p></div></section>
+    <div class="study-note"><span class="demo-mark">Interface study</span><p>Illustrative document and source records. Select an underlined passage to inspect why it is there.</p><span class="local">Browser only</span></div>
+    <section class="editor" aria-label="Annotated research document">
+      <div class="toolbar"><span><span class="file-icon" aria-hidden="true">▤</span> research-note.example</span><div class="view-switch" aria-label="Document view"><button id="annotated" aria-pressed="true">With evidence</button><button id="reading" aria-pressed="false">Reading view</button></div><span class="record-count">4 source notes</span></div>
+      <div class="workspace" id="workspace">
+        <svg class="connections" aria-hidden="true"><path id="connection"/><circle id="endpoint" r="3"/></svg>
+        <article class="paper" aria-labelledby="document-title">
+          <div class="document-meta"><span>Field note / 001</span><span>Research communication</span></div>
+          <h2 id="document-title" tabindex="-1">Make every finding<br>inspectable.</h2>
+          <p class="standfirst">A concise result should invite a closer look. The evidence can stay beside the sentence, without taking over the page.</p>
+          <div class="article-rule"><span>Four habits of a readable research note</span><span aria-hidden="true">↓</span></div>
+          <section class="passage" id="passage-baseline"><span class="section-no" aria-hidden="true">01</span><div><h3>Start with the comparison.</h3><p><button class="claim" data-claim="baseline" aria-controls="source-baseline" aria-expanded="true"><span>A comparison needs a named baseline.</span><sup aria-hidden="true">1</sup></button> Say what changed and what stayed fixed. A reader should be able to identify the alternative before interpreting a result.</p><p class="supporting">A short note can carry this context in one sentence, while the full setup stays available in the margin.</p></div></section>
+          <section class="passage" id="passage-count"><span class="section-no" aria-hidden="true">02</span><div><h3>Keep the unit visible.</h3><p><button class="claim" data-claim="count" aria-controls="source-count" aria-expanded="false"><span>Every percentage should point to a denominator.</span><sup aria-hidden="true">2</sup></button> The unit might be questions, examples or runs. It should travel with the number instead of being left in a distant method section.</p></div></section>
+          <section class="passage" id="passage-uncertainty"><span class="section-no" aria-hidden="true">03</span><div><h3>Show the range, too.</h3><p><button class="claim" data-claim="uncertainty" aria-controls="source-uncertainty" aria-expanded="false"><span>An estimate needs room for uncertainty.</span><sup aria-hidden="true">3</sup></button> An interval adds context to the point estimate. Selecting the sentence should reveal how that interval was obtained and what it supports.</p><p class="supporting">The interface should give a careful result as much visual weight as an exciting one.</p></div></section>
+          <section class="passage" id="passage-boundary"><span class="section-no" aria-hidden="true">04</span><div><h3>Keep the boundary attached.</h3><p><button class="claim" data-claim="boundary" aria-controls="source-boundary" aria-expanded="false"><span>The boundary belongs beside the conclusion.</span><sup aria-hidden="true">4</sup></button> Name what the evidence can establish and what remains open. The qualification is part of the finding.</p></div></section>
+          <div class="document-end"><span aria-hidden="true">◇</span><p>This document demonstrates an interface pattern. It reports no Granite model experiment, score or outcome.</p></div>
+        </article>
+        <aside class="evidence-rail" id="evidence-rail" aria-label="Evidence notes"><div class="rail-heading"><span>Evidence notes</span><span id="selected-count">01 / 04</span></div><div id="source-list"></div><p class="rail-help">Hover or focus a marked sentence.<br>Click a note to return to its passage.</p></aside>
+      </div>
+      <div class="editor-footer"><p id="selection-status" aria-live="polite">Source 1 selected · Comparison context</p><div><button id="previous" aria-label="Previous source note">←</button><button id="next" aria-label="Next source note">Next source <span aria-hidden="true">→</span></button></div></div>
+    </section>
+    <section class="construction" aria-label="About this study"><div><p class="eyebrow">The interaction</p><h2>Read first.<br>Inspect in place.</h2></div><p>The highlighted passage and the margin note share one identity. Selecting either reveals their connection. Reading view removes the annotations when you want the document on its own.</p><div class="reference"><span>Reference principle</span><a href="https://liveblocks.io/examples/text-editor-comments/nextjs-comments-tiptap" target="_blank" rel="noopener">Liveblocks contextual comments ↗</a><a href="https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/evidence-notes" target="_blank" rel="noopener">Original implementation & notes ↗</a></div></section>
+  </main>
+  <footer><span>Granite Query / Overnight component studies</span><a href="../experiments/">Back to all experiments ↗</a></footer>
+  <noscript><p class="no-script">The document is readable without JavaScript. Enable it to connect passages to the illustrative source notes.</p></noscript>
+</body>
+</html>

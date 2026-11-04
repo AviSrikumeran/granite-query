@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="An original source-to-evidence interface study. Inspect a passage and follow its exact citation into a structured record.">
+  <title>Granite Query · Source lens</title>
+  <link rel="stylesheet" href="./style.css?v=source-lens-20261104-1">
+  <script type="module" src="./studio.mjs?v=source-lens-20261104-1"></script>
+</head>
+<body>
+  <a class="skip" href="#instrument">Skip to source lens</a>
+  <header class="site-header">
+    <a class="brand" href="../../">Granite Query <span>Design lab</span></a>
+    <nav aria-label="Study navigation"><a href="../experiments/">All experiments <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow"><span class="study-number">01</span> Source lens / Interaction study</p>
+      <div class="intro-row"><h1 id="page-title">Every claim.<br><span>Back to its source.</span></h1><p>Select a source passage.<br> See exactly what it supports.</p></div>
+      <div class="demo-notice"><span class="demo-dot" aria-hidden="true"></span><strong>Illustrative browser demo</strong><span>Authored example text. No live query or model result.</span></div>
+    </section>
+
+    <section class="instrument" id="instrument" aria-label="Source-to-evidence comparison">
+      <div class="instrument-bar"><div class="instrument-title"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 7V2h5m6 0h5v5M2 13v5h5m6 0h5v-5M6 10h8"/></svg><span>Source → evidence</span></div><div class="scan-controls"><button id="scan-state" type="button" disabled>Pointer preview</button><button id="play" type="button" aria-pressed="false"><span class="play-icon" aria-hidden="true">▷</span><span id="play-text">Play scan</span></button></div></div>
+
+      <div class="workspace">
+        <div class="source-pane">
+          <div class="pane-label"><span><i aria-hidden="true"></i> Source document</span><span>DEMO–001</span></div>
+          <article class="paper" aria-label="Illustrative protocol note">
+            <div class="paper-head"><div class="paper-mark" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 4h14l6 6v14H4V4Zm14 0v6h6M8 14h12M8 18h9"/></svg></div><p class="paper-kind">Protocol note / Review copy</p><h2>A fair comparison</h2><p class="paper-deck">What makes a comparison interpretable?</p></div>
+            <div class="passages" id="passages">
+              <div class="inspection-band" id="inspection-band" aria-hidden="true"><span class="band-edge"></span><span class="band-label">INSPECTING</span></div>
+              <button class="passage" id="source-cohort" type="button" data-index="0" aria-pressed="true"><span class="line-number">01</span><span class="passage-body"><strong>Freeze the cohort</strong><span>Both variants use the same fixed set of evaluation questions. The cohort is frozen before either result is inspected.</span></span></button>
+              <button class="passage" id="source-exposure" type="button" data-index="1" aria-pressed="false"><span class="line-number">02</span><span class="passage-body"><strong>Match the exposure</strong><span>Training exposure is matched by supervised token count and optimizer updates. Example counts may differ.</span></span></button>
+              <button class="passage" id="source-changes" type="button" data-index="2" aria-pressed="false"><span class="line-number">03</span><span class="passage-body"><strong>Keep both directions</strong><span>Question-level changes are recorded as corrections, regressions and unchanged outcomes. Aggregate accuracy is reported alongside them.</span></span></button>
+              <button class="passage" id="source-uncertainty" type="button" data-index="3" aria-pressed="false"><span class="line-number">04</span><span class="passage-body"><strong>Keep the qualification</strong><span>Uncertainty and cohort limitations accompany the reported difference. An exploratory comparison is not presented as a general result.</span></span></button>
+            </div>
+            <div class="paper-foot"><span>4 passages</span><span>Illustrative material</span><span class="paper-page">01 / 01</span></div>
+          </article>
+          <p class="source-help"><span aria-hidden="true">↕</span> Hover to preview. Click or use arrows to pin. “Follow pointer” releases it.</p>
+        </div>
+
+        <div class="transfer" aria-hidden="true"><div class="transfer-top"></div><span>→</span><div class="transfer-bottom"></div><small>LINKED</small></div>
+
+        <div class="evidence-pane" aria-label="Structured evidence output">
+          <div class="pane-label"><span><i aria-hidden="true"></i> Structured record</span><span id="record-position">01 / 04</span></div>
+          <div class="record-toolbar"><span class="record-label">EVIDENCE</span><div class="view-switch" role="group" aria-label="Evidence presentation"><button id="view-readable" type="button" aria-pressed="true">Readable</button><button id="view-json" type="button" aria-pressed="false">JSON</button></div></div>
+          <div class="output-content" id="output-content">
+            <div id="readable-view">
+              <p class="field-key" id="field-key">cohort</p>
+              <h2 id="claim-title">The questions stay the same.</h2>
+              <p class="claim-explanation" id="claim-explanation">A shared question set keeps the comparison attached to the same evaluation scope.</p>
+              <dl class="structured-fields"><div><dt>Record</dt><dd>DEMO–001 <span class="field-muted">/ Protocol note</span></dd></div><div><dt>Establishes</dt><dd id="claim-value">Same questions for both variants</dd></div><div><dt>Source</dt><dd><a id="source-link" href="#source-cohort">Passage 01 <span aria-hidden="true">↖</span></a></dd></div></dl>
+              <div class="quotation"><div class="quotation-label"><span>Exact source passage</span><span class="quotation-index" id="quote-index">01</span></div><blockquote id="source-quote">Both variants use the same fixed set of evaluation questions. The cohort is frozen before either result is inspected.</blockquote></div>
+              <div class="limitation"><span aria-hidden="true">↳</span><p id="claim-boundary">This establishes scope. It does not establish a performance gain.</p></div>
+            </div>
+            <div id="json-view" hidden><div class="json-head"><span>evidence.json</span><span>Illustrative record</span></div><pre id="json-output" tabindex="0" aria-label="Structured evidence JSON"></pre></div>
+          </div>
+          <div class="evidence-foot"><span class="connection-mark" aria-hidden="true"></span><span>One passage. One traceable record.</span><span class="foot-count" id="foot-count">1 of 4</span></div>
+        </div>
+      </div>
+      <div class="sequence" aria-label="Choose a passage"><span class="sequence-label">Inspect</span><div id="steps"><button type="button" data-step="0" aria-pressed="true"><span>01</span> Cohort</button><button type="button" data-step="1" aria-pressed="false"><span>02</span> Exposure</button><button type="button" data-step="2" aria-pressed="false"><span>03</span> Outcomes</button><button type="button" data-step="3" aria-pressed="false"><span>04</span> Limits</button></div><span class="sequence-note">The citation travels with the claim.</span></div>
+    </section>
+
+    <section class="study-note" aria-label="About this design study"><p class="eyebrow">Why this interaction</p><p>A visual transformation should reveal a relationship. Here, the inspection band and matching citation keep the source attached as prose becomes a structured record.</p><a href="https://www.firecrawl.dev/" target="_blank" rel="noopener">Reference: Firecrawl’s input / output pattern ↗</a></section>
+    <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+    <noscript><p class="noscript">JavaScript enables passage selection. The first passage and its evidence remain readable above.</p></noscript>
+  </main>
+  <footer><span>Original component study / 04 Nov 2026</span><a href="../experiments/">Back to all experiments ↗</a></footer>
+</body>
+</html>

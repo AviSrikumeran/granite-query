@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-03",
+  "updated_on": "2026-11-04",
   "purpose": "Durable owner feedback for reusable design experiments. Preferred means a visual direction to preserve, not a research-result claim or a finished site identity.",
   "experiments": [
     {
@@ -73,6 +73,30 @@
       "url": "/playground/constellation/",
       "verdict": "revise",
       "feedback": "On 3 November the owner found the constellation confusing. The automatic motion and abstract labels obscured the relationship between records, checks and conclusion. The clarity revision opens on a paused organized map with the question, actual result, plain labels and a numbered key; animation is optional. Revised clarity awaits owner review.",
+      "protected": true
+    },
+    {
+      "id": "source-lens",
+      "title": "Source lens",
+      "url": "/playground/source-lens/",
+      "verdict": "review_pending",
+      "feedback": "Built during the authorized 4 November overnight lab from Firecrawl reference principles. Original illustrative component; local desktop and narrow-screen checks completed. Provisional recommendation Adapt; owner judgment pending.",
+      "protected": true
+    },
+    {
+      "id": "workflow-lanes",
+      "title": "Workflow lanes",
+      "url": "/playground/workflow-lanes/",
+      "verdict": "review_pending",
+      "feedback": "Built during the authorized 4 November overnight lab from Trigger.dev reference principles. Original illustrative component; local desktop and narrow-screen checks completed. Provisional recommendation Adapt; owner judgment pending.",
+      "protected": true
+    },
+    {
+      "id": "evidence-notes",
+      "title": "Evidence notes",
+      "url": "/playground/evidence-notes/",
+      "verdict": "review_pending",
+      "feedback": "Built during the authorized 4 November overnight lab from Liveblocks reference principles. Original illustrative component; local desktop and narrow-screen checks completed. Provisional recommendation Adapt; owner judgment pending.",
       "protected": true
     }
   ]

@@ -1,0 +1,183 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Chicago",
+  "deadline": "2026-11-04T05:00:00-06:00",
+  "updated_at": "2026-11-04T07:45:29Z",
+  "status": "active",
+  "studies": [
+    {
+      "id": "source-lens",
+      "title": "Source lens",
+      "reference_company": "Firecrawl",
+      "reference_url": "https://www.firecrawl.dev/",
+      "purpose": "Source document → structured evidence",
+      "status": "ready",
+      "url": "../source-lens/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/source-lens",
+      "checks": [
+        "Desktop and 390px layout",
+        "Primary selection and linked detail",
+        "Keyboard access",
+        "Visible illustrative content",
+        "No document horizontal overflow",
+        "Readable/JSON identity",
+        "Explicit scan and Escape pause",
+        "Pinned citation remains stable through pointer travel and source-return scrolling"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
+    },
+    {
+      "id": "workflow-lanes",
+      "title": "Workflow lanes",
+      "reference_company": "Trigger.dev",
+      "reference_url": "https://trigger.dev/product/observability-and-monitoring",
+      "purpose": "A replayable run with named stages and linked records",
+      "status": "ready",
+      "url": "../workflow-lanes/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/workflow-lanes",
+      "checks": [
+        "Desktop and 390px layout",
+        "Primary selection and linked detail",
+        "Keyboard access",
+        "Visible illustrative content",
+        "No document horizontal overflow",
+        "Replay/pause/complete restoration",
+        "Arrow-key selection",
+        "Sequence invariants"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
+    },
+    {
+      "id": "evidence-notes",
+      "title": "Evidence notes",
+      "reference_company": "Liveblocks",
+      "reference_url": "https://liveblocks.io/examples",
+      "purpose": "Read a claim and inspect its anchored source",
+      "status": "ready",
+      "url": "../evidence-notes/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/evidence-notes",
+      "checks": [
+        "Desktop and 390px layout",
+        "Primary selection and linked detail",
+        "Keyboard access",
+        "Visible illustrative content",
+        "No document horizontal overflow",
+        "Raw record disclosure",
+        "Reading/evidence view",
+        "Mobile passage/note return"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
+    },
+    {
+      "id": "trace-inspector",
+      "title": "Trace inspector",
+      "reference_company": "Langfuse",
+      "reference_url": "https://langfuse.com/",
+      "purpose": "A trace outline synchronized with selected evidence",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "record-switcher",
+      "title": "Record switcher",
+      "reference_company": "Resend",
+      "reference_url": "https://resend.com/",
+      "purpose": "One research record across readable, protocol and JSON views",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "cohort-topology",
+      "title": "Cohort topology",
+      "reference_company": "Turso",
+      "reference_url": "https://turso.tech/",
+      "purpose": "A shared source pool separates into selected cohorts",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "code-map",
+      "title": "Code and map",
+      "reference_company": "Inngest",
+      "reference_url": "https://www.inngest.com/",
+      "purpose": "Protocol code highlights its corresponding diagram step",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "research-atlas",
+      "title": "Research atlas",
+      "reference_company": "Mintlify",
+      "reference_url": "https://www.mintlify.com/",
+      "purpose": "Searchable research navigation with a clear reading route",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "review-diff",
+      "title": "Review the change",
+      "reference_company": "Graphite",
+      "reference_url": "https://graphite.dev/",
+      "purpose": "A precise before/after diff with linked review findings",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "session-observer",
+      "title": "Session observer",
+      "reference_company": "Browserbase",
+      "reference_url": "https://www.browserbase.com/",
+      "purpose": "A replay viewport linked to a concrete event trail",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "source-search",
+      "title": "Source search",
+      "reference_company": "Exa",
+      "reference_url": "https://exa.ai/",
+      "purpose": "A query opens a source landscape with inspectable excerpts",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    },
+    {
+      "id": "result-brush",
+      "title": "Result brush",
+      "reference_company": "Orb",
+      "reference_url": "https://www.withorb.com/",
+      "purpose": "A selectable chart range reveals the exact records behind it",
+      "status": "queued",
+      "url": null,
+      "review": null,
+      "checks": [],
+      "verdict": "review_pending"
+    }
+  ]
+}
