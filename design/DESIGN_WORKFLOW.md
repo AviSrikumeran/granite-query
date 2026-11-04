@@ -12,7 +12,7 @@ The owner chooses the design direction and the result to communicate. The implem
 | Interlocking blocks | A readable physical material with meaningful joints and separation. |
 | Proof branches | Connected paths can explain selection and evidence. Scroll growth is a future specimen. |
 | Electric magenta | Deep plum recesses, saturated magenta midtones and pink-white peaks. Muted purple was rejected. This is an experimental material choice, not a finished site palette. |
-| Mineral exterior and luminous core | Original Granite Query narrative: query, select, extract, expand and connect. A separate branch-claw pickup now exists as a working prototype; the final logo remains undecided. |
+| Granite identity and luminous core | The owner clarified that the outside must be recognizably IBM Granite's nested-cube mark. The generic six-panel housing misses that identity. The magenta core is the selected value, and the branch claw represents Granite Query selecting and extracting it. This is a visual metaphor; the project's own final logo remains undecided. |
 
 Nested frames are not the direction to develop. Avoid the rejected spiral, horizontal D, stacked circles, giant dense particle masses, three identical pasted reflections and long disassembly/reassembly travel. Judge the large silhouette and its small glyph vocabulary independently. Geometry, lighting and composition should carry detail before secondary effects are added.
 
@@ -46,10 +46,11 @@ Complete relevant checks once. Broaden or repeat them only after a change, failu
 | --- | --- | --- |
 | 1 | Can the selected core be extracted clearly? | First comparison delivered at [core extraction](https://avisrikumeran.github.io/granite-query/playground/core-extraction/). See the [review](reviews/2026-11-03-core-extraction.md). User verdict pending; refinements need a specific finding or feedback. |
 | 1b | Can the proof branches grip and pull the core? | Separate [branch claw comparison](https://avisrikumeran.github.io/granite-query/playground/claw-extraction/) delivered at the owner's request. See the [review](reviews/2026-11-03-claw-extraction.md). User verdict pending. |
+| 1c | Does the outer form read as IBM Granite before extraction? | Highest priority after the owner's correction: rebuild the outer form from the [official IBM Carbon Granite icon](https://github.com/carbon-design-system/carbon/blob/main/packages/icons/src/svg/32/ibm--granite.svg). Match its nested-cube silhouette and proportions in the resting pose before adapting the shell opening, grip and pull. Keep the magenta core. Build a new comparison; preserve all existing studies and the homepage. User verdict pending. |
 | 2 | Can branches explain a query? | Scroll-revealed connections with a short evidence label per node, using clearly marked illustrative content. No implied access to a model's private reasoning. |
 | 3 | Can visitors understand a result quickly? | One result-summary component driven by existing public data, with context and a route to detailed evidence. Preserve homepage and exporter. |
 
-The daily workflow handles one ready question per run. Do not implement the whole queue in one pass or repeat a delivered experiment without a specific unresolved question.
+The next ready question is 1c: make the shell recognizably IBM Granite. Verify the resting silhouette against the official reference before polishing motion. The daily workflow handles one ready question per run. Do not implement the whole queue in one pass or repeat a delivered experiment without a specific unresolved question.
 
 The owner requested that the earlier core extraction and homepage stay unchanged while the claw was built separately. Treat all published study folders, including core-extraction and claw-extraction, as protected review baselines. Develop new directions in new folders unless the owner's active request authorizes editing an existing study.
 
