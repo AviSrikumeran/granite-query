@@ -1,12 +1,14 @@
-import {BOOT,pointerPose} from './engine/geometry.mjs?v=constellation-20261103-1';
-import {makeGPU,makeCPU} from './engine/renderer.mjs?v=constellation-20261103-1';
-import {makeAtlas} from './engine/atlas.mjs?v=constellation-20261103-1';
-import {RECORDS,POSES,PERIOD,sceneAt,phaseAt,sequenceAt,layoutFor,projectWorld,boxHull,connections,bezier,springStep} from './forms.mjs?v=constellation-20261103-1';
-import {FEEDS,deriveStudy,unavailableStudy} from './data.mjs?v=constellation-20261103-1';
+import {BOOT,pointerPose} from './engine/geometry.mjs?v=constellation-20261103-2';
+import {makeGPU,makeCPU} from './engine/renderer.mjs?v=constellation-20261103-2';
+import {makeAtlas} from './engine/atlas.mjs?v=constellation-20261103-2';
+import {RECORDS,POSES,PERIOD,sceneAt,phaseAt,sequenceAt,layoutFor,projectWorld,boxHull,connections,bezier,springStep} from './forms.mjs?v=constellation-20261103-2';
+import {FEEDS,deriveStudy,unavailableStudy} from './data.mjs?v=constellation-20261103-2';
 const review=new URLSearchParams(location.search),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const figure=document.querySelector('figure'),svg=document.querySelector('#wires'),tiles=document.querySelector('#tiles'),pause=document.querySelector('#pause'),scrub=document.querySelector('#scrub'),picker=document.querySelector('#record');
 let canvas=figure.querySelector('canvas'),renderer,layout,width=0,height=0,ratio=1,lost=false,inView=true,visible=!document.hidden;
-let time=0,paused=reduced.matches,manual=reduced.matches ? .52 : null,bootSkipped=reduced.matches,previous=0,lastPaint=0,request=0,dirty=true,chosen='auto',lastDetail='',drag=null,model=null;
+let time=4,paused=true,manual=.78,bootSkipped=true,previous=0,lastPaint=0,request=0,dirty=true,chosen='auto',lastDetail='',drag=null,model=null;
+const names={query:'Study question',evaluation:'Study setup',results:'Measured scores',run:'Run record',matched:'1. Same questions',scope:'2. Training budget',comparison:'3. Score difference',uncertainty:'4. Uncertainty',settings:'5. Saved settings',answer:'Conclusion'};
+const meanings={evaluation:'Which questions and training settings were used.',results:'The measured answers and their uncertainty.',run:'The saved records behind this experiment.',matched:'Both adapters were evaluated on the same development questions.',scope:'The adapters received matched token and update budgets.',comparison:'Skill selection is compared with random selection.',uncertainty:'How much the measured difference could vary.',settings:'The model revision and result files identify the run.'};
 const pointer={turn:0,tilt:0,strength:0,x:0,y:0},target={...pointer},offsets=RECORDS.map(()=>({x:0,y:0,vx:0,vy:0}));
 const pose=POSES.find(p=>p.id===review.get('pose'));
 if(pose){manual=pose.progress;paused=true;bootSkipped=true;time=4;}
@@ -21,7 +23,8 @@ const wires=Array.from({length:13},()=>{
 });
 const buttons=[-1,...RECORDS.map((_,i)=>i)].map(index=>{
   const button=document.createElement('button');button.className='tile'+(index<0?' core':'');button.type='button';button.dataset.index=String(index);button.setAttribute('aria-pressed',String(index<0));const span=document.createElement('span');span.textContent=index<0?'Q':RECORDS[index].tag;button.append(span);
-  button.setAttribute('aria-label',index<0?'Inspect the question or finding':'Inspect '+RECORDS[index].tag);
+  button.setAttribute('aria-label',index<0?'Read the conclusion':'Inspect '+names[RECORDS[index].id]);
+  if(index>=3)button.dataset.short=String(index-2);
   button.addEventListener('click',()=>choose(index<0?'auto':RECORDS[index].id));
   button.addEventListener('focus',()=>choose(index<0?'auto':RECORDS[index].id));
   if(index>=0)button.addEventListener('pointerdown',event=>{
@@ -46,7 +49,7 @@ function showDetail(){
   const id=activeId();if(lastDetail===id)return;lastDetail=id;
   const node=model?.nodes[id];picker.value=id;
   document.querySelector('#record-kind').textContent=node?.kind??'Published evidence';
-  document.querySelector('#record-title').textContent=node?.title??'Loading the public study…';
+  document.querySelector('#record-title').textContent=node?(id==='answer'||id==='query'?node.title:names[id]):'Loading the public study…';
   document.querySelector('#record-text').textContent=node?.text??'The choreography is a visual experiment. Linked values come from the published development study.';
   const links=document.querySelector('#record-links');links.replaceChildren();
   for(const link of node?.links??[]){const a=document.createElement('a');a.textContent=link.label+' ↗';a.href=link.href;a.target='_blank';a.rel='noopener';links.append(a);}
@@ -72,15 +75,17 @@ figure.addEventListener('keydown',event=>{
 function resetPulls(){drag=null;offsets.forEach(o=>Object.assign(o,{x:0,y:0,vx:0,vy:0}));Object.assign(target,{turn:0,tilt:0,strength:0,x:0,y:0});if(reduced.matches)Object.assign(pointer,target);dirty=true;schedule();}
 document.querySelector('#reset').addEventListener('click',resetPulls);
 function setPaused(value){paused=value;previous=0;dirty=true;updatePlayback();schedule();}
-function updatePlayback(){pause.textContent=paused?'Play':'Pause';pause.setAttribute('aria-pressed',String(paused));}
+function updatePlayback(){pause.textContent=paused?'Play animation':'Pause animation';pause.setAttribute('aria-pressed',String(paused));}
 function hold(value){manual=value;time=4;bootSkipped=true;resetPulls();choose('auto');setPaused(true);}
 for(const button of document.querySelectorAll('[data-pose]'))button.addEventListener('click',()=>hold(POSES.find(p=>p.id===button.dataset.pose).progress));
+document.querySelector('#read-map').addEventListener('click',()=>hold(.78));
 pause.addEventListener('click',()=>{if(paused){if(manual!==null){time=BOOT+manual*PERIOD;manual=null;}bootSkipped=true;}setPaused(!paused);});
 document.querySelector('#replay').addEventListener('click',()=>{time=0;manual=reduced.matches?0:null;bootSkipped=reduced.matches;resetPulls();choose('auto');setPaused(reduced.matches);});
 scrub.addEventListener('input',()=>{manual=Number(scrub.value)/1000;bootSkipped=true;setPaused(true);});
 const expand=document.querySelector('#expand');
-function setExpanded(value){document.body.classList.toggle('immersive',value);expand.textContent=value?'Exit full canvas ↙':'Full canvas ↗';expand.setAttribute('aria-pressed',String(value));resize();}
+function setExpanded(value){document.body.classList.toggle('immersive',value);expand.textContent=value?'Close expanded view ↙':'Expand diagram ↗';expand.setAttribute('aria-pressed',String(value));resize();}
 expand.addEventListener('click',()=>setExpanded(!document.body.classList.contains('immersive')));
+document.querySelector('figcaption a').addEventListener('click',()=>{if(document.body.classList.contains('immersive'))setExpanded(false);});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(document.body.classList.contains('immersive'))setExpanded(false);setPaused(true);}});
 function schedule(){if(!request&&visible&&inView)request=requestAnimationFrame(tick);}
 function drawPaths(scene){
@@ -102,12 +107,13 @@ function tick(now){
   if(dirty||now-lastPaint>=(renderer.type==='WebGL'?33:90)){
     const p=progress(),selected=indexFor(activeId()),scene=sceneAt(p,{time,selected,pointer,offsets,spreadX:width<700?.82:1.6});
     if(layout&&!lost){renderer.draw({...scene,turn:pointer.turn,tilt:pointer.tilt});drawPaths(scene);
-      buttons.forEach((button,i)=>{const pos=projectWorld(i===0?scene.core:scene.panels[i-1].center,layout,pointer.turn,pointer.tilt);button.style.left=pos[0]+'px';button.style.top=pos[1]+'px';button.setAttribute('aria-pressed',String(i===0?selected<0:selected===i-1));button.firstChild.style.opacity=String(i===0?1:scene.phase.open);if(i===0)button.firstChild.textContent=scene.phase.resolve>.5?'Finding':'Q';});
+      buttons.forEach((button,i)=>{const pos=projectWorld(i===0?scene.core:scene.panels[i-1].center,layout,pointer.turn,pointer.tilt);button.style.left=pos[0]+'px';button.style.top=pos[1]+'px';button.setAttribute('aria-pressed',String(i===0?selected<0:selected===i-1));button.style.setProperty('--label-opacity',String(i===0?1:scene.phase.open));button.firstChild.style.opacity=String(i===0?1:scene.phase.open);if(i===0)button.firstChild.textContent=scene.phase.resolve>.5?'Conclusion':'Question';});
       Object.assign(canvas.dataset,{progress:p.toFixed(4),stage:scene.phase.stage,paused:String(paused),selected:activeId(),pulls:String(offsets.filter(o=>Math.hypot(o.x,o.y)>.01).length),dragging:drag?String(drag.index):'none',turn:pointer.turn.toFixed(4),tilt:pointer.tilt.toFixed(4)});
     }
-    const titles={archive:'Archive / Packed records',scatter:'Scatter / Suspended evidence',trace:'Trace / Luminous connections',resolve:'Resolve / A structured finding',return:'Return / Magnetic reset'};
+    const titles={archive:'Animation / Collecting the same records',scatter:'Animation / Opening the same records',trace:'Animation / Showing the connections',resolve:'Read top to bottom: records → checks → conclusion',return:'Animation / Returning to the start'};
     document.querySelector('#phase-label').textContent=titles[scene.phase.stage];
-    document.querySelector('#floating-note').textContent=selected>=0?(model?.nodes[activeId()]?.title??RECORDS[selected].tag):scene.phase.resolve>.5?(model?.verdict??'A finding with its limits attached.'):'One study. Eight evidence tiles.';
+    document.querySelector('#floating-note').textContent=selected>=0?names[activeId()]+' — '+meanings[activeId()]:scene.phase.resolve>.5?'Bottom cube: '+(model?.verdict??'the study conclusion'):'Animation rearranges the same evidence. “Read the map” restores the organized view.';
+    document.querySelector('#read-map').setAttribute('aria-pressed',String(paused&&manual===.78));
     scrub.value=String(Math.round(p*1000));scrub.setAttribute('aria-valuetext',scene.phase.stage);
     for(const b of document.querySelectorAll('[data-pose]'))b.setAttribute('aria-pressed',String(paused&&manual===POSES.find(p=>p.id===b.dataset.pose).progress));
     showDetail();dirty=false;lastPaint=now;
@@ -122,9 +128,15 @@ async function loadEvidence(){
     const raw=await response.text();let digest=null;if(globalThis.crypto?.subtle)digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw)))].map(v=>v.toString(16).padStart(2,'0')).join('');
     model=deriveStudy(JSON.parse(raw),{digest});document.querySelector('#feed-status').textContent=(model.age.stale?'Stale published snapshot':'Published development snapshot')+' · '+new Date(model.age.timestamp).toISOString().replace('T',' ').slice(0,16)+' UTC · Motion is choreographed, not a live training display.';
   }catch(error){model=unavailableStudy(error.message);document.querySelector('#feed-status').textContent='Evidence unavailable. The visual remains a motion study; no result is inferred.';}
-  finally{clearTimeout(timeout);loading=false;refresh.disabled=false;refresh.textContent='Refresh evidence';lastDetail='';showDetail();canvas.dataset.dataStatus=model.status;dirty=true;schedule();}
+  finally{
+    clearTimeout(timeout);loading=false;refresh.disabled=false;refresh.textContent='Refresh evidence';lastDetail='';showDetail();canvas.dataset.dataStatus=model.status;
+    document.querySelector('#map-summary-title').textContent=model.verdict;
+    document.querySelector('#study-question').textContent=model.nodes.query.title;
+    document.querySelector('#map-summary-text').textContent=model.comparison?'Skill selection: '+model.jobs.skill.correct+'/'+model.jobs.skill.count+'. Random selection: '+model.jobs.random.correct+'/'+model.jobs.random.count+'. '+(model.comparison.includesZero?'The uncertainty includes no difference. ':'')+'This is one development study.':model.explanation;
+    dirty=true;schedule();
+  }
 }
 document.querySelector('#refresh').addEventListener('click',loadEvidence);
 document.addEventListener('visibilitychange',()=>{visible=!document.hidden;previous=0;if(!visible&&request){cancelAnimationFrame(request);request=0;}if(visible){dirty=true;schedule();}});
-reduced.addEventListener('change',event=>{if(event.matches){manual=.52;bootSkipped=true;resetPulls();setPaused(true);}});
+reduced.addEventListener('change',event=>{if(event.matches){manual=.78;bootSkipped=true;resetPulls();setPaused(true);}});
 createRenderer();new ResizeObserver(resize).observe(figure);new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;previous=0;if(inView){dirty=true;schedule();}}).observe(figure);resize();updatePlayback();loadEvidence();schedule();

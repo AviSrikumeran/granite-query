@@ -1,5 +1,5 @@
-import {BOOT,traceBoxes,smooth,rotate} from './geometry.mjs?v=constellation-20261103-1';
-import {KEY,FILL,mineralColors,TIER_GLYPHS,materialColors,materialProfile,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=constellation-20261103-1';
+import {BOOT,traceBoxes,smooth,rotate} from './geometry.mjs?v=constellation-20261103-2';
+import {KEY,FILL,mineralColors,TIER_GLYPHS,materialColors,materialProfile,ghostOffsets,sideClearance,ghostWeight,introCell,litSurface,softenedNormal,occlusionAt,viewDirection} from './material.mjs?v=constellation-20261103-2';
 
 // One scene Ã¢â€ â€™ luminance tiers Ã¢â€ â€™ glyphs Ã¢â€ â€™ camera-projected peripheral views Ã¢â€ â€™
 // highlight bloom. Peripheral samples share the finished scene, not a new trace.

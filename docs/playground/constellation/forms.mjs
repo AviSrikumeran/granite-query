@@ -1,14 +1,14 @@
-import {rotate,smooth} from './engine/geometry.mjs?v=constellation-20261103-1';
+import {rotate,smooth} from './engine/geometry.mjs?v=constellation-20261103-2';
 export const PERIOD=17,PART_COUNT=40;
 export const RECORDS=[
-  {id:'evaluation',tag:'Protocol',parent:-1,scatter:[-2.35,-1.05,-.35],resolved:[-1.65,-1.05,-.2],angles:[.55,-.25,-.60]},
-  {id:'results',tag:'Results',parent:-1,scatter:[1.35,-1.65,-.15],resolved:[0,-1.15,.25],angles:[.95,.35,.45]},
-  {id:'run',tag:'Receipts',parent:-1,scatter:[2.60,-.25,.40],resolved:[1.65,-1.05,-.2],angles:[.30,-.45,-.75]},
-  {id:'matched',tag:'E1',parent:0,scatter:[-3.00,.75,.35],resolved:[-2.05,.55,.1],angles:[.80,.10,-.35]},
-  {id:'scope',tag:'E2',parent:0,scatter:[-1.70,1.50,-.20],resolved:[-1.05,.80,-.2],angles:[.65,-.65,.85]},
-  {id:'comparison',tag:'E3',parent:1,scatter:[.15,1.75,.60],resolved:[0,.95,.15],angles:[.40,.80,-.45]},
-  {id:'uncertainty',tag:'E4',parent:1,scatter:[2.00,1.25,-.50],resolved:[1.05,.80,-.2],angles:[1.15,-.20,.50]},
-  {id:'settings',tag:'E5',parent:2,scatter:[-.75,-1.75,.55],resolved:[2.05,.55,.1],angles:[.75,.50,.65]}
+  {id:'evaluation',tag:'Setup',parent:-1,scatter:[-2.35,-1.05,-.35],resolved:[-1.65,-1.05,-.2],angles:[.55,-.25,-.60]},
+  {id:'results',tag:'Scores',parent:-1,scatter:[1.35,-1.65,-.15],resolved:[0,-1.15,.25],angles:[.95,.35,.45]},
+  {id:'run',tag:'Run record',parent:-1,scatter:[2.60,-.25,.40],resolved:[1.65,-1.05,-.2],angles:[.30,-.45,-.75]},
+  {id:'matched',tag:'1. Same questions',parent:0,scatter:[-3.00,.75,.35],resolved:[-2.05,.55,.1],angles:[.80,.10,-.35]},
+  {id:'scope',tag:'2. Training budget',parent:0,scatter:[-1.70,1.50,-.20],resolved:[-1.05,.80,-.2],angles:[.65,-.65,.85]},
+  {id:'comparison',tag:'3. Score difference',parent:1,scatter:[.15,1.75,.60],resolved:[0,.95,.15],angles:[.40,.80,-.45]},
+  {id:'uncertainty',tag:'4. Uncertainty',parent:1,scatter:[2.00,1.25,-.50],resolved:[1.05,.80,-.2],angles:[1.15,-.20,.50]},
+  {id:'settings',tag:'5. Saved settings',parent:2,scatter:[-.75,-1.75,.55],resolved:[2.05,.55,.1],angles:[.75,.50,.65]}
 ];
 export const POSES=[{id:'archive',label:'Archive',progress:.04},{id:'scatter',label:'Scatter',progress:.28},{id:'trace',label:'Trace',progress:.52},{id:'resolve',label:'Resolve',progress:.78}];
 const clamp=t=>Math.max(0,Math.min(1,t));
