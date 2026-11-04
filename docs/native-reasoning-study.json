@@ -1,37 +1,72 @@
 {
   "schema_version": 1,
-  "version": "native-reasoning-public-receipts-v1",
-  "updated_at_utc": "2026-11-04T02:05:22.131024+00:00",
-  "run_id": "native_reasoning16k_dev200_seed42_v1",
-  "stage": "student_attempt_failed_requires_review",
-  "paid_work_launched_by_reporter": false,
-  "official_test_used": false,
+  "version": "native-reasoning-mount-recovery-public-v1",
+  "run_id": "native_reasoning16k_dev200_seed42_mount_v2",
+  "updated_at_utc": "2026-11-04T02:41:03.281375+00:00",
+  "stage": "recovery_attempt_failed_requires_review",
   "current_work": {
-    "stage": "student_attempt_failed_requires_review",
-    "failed_roles": [
-      "baseline"
-    ],
-    "detail": "A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized."
+    "stage": "recovery_attempt_failed_requires_review",
+    "detail": "A new recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published."
   },
-  "protocol": {
-    "teacher_candidate_pairs": 256,
-    "teacher_output_caps": {
-      "concise": 1024,
-      "thinking": 4096
+  "original_attempt": {
+    "status": "failed_pre_model_attempt_verified",
+    "call_id": "fc-01M6J47BZT6FXBYCC55KC3S6K3",
+    "validated_evaluation_outputs": 0,
+    "accuracy_percent": null,
+    "failure_category": "artifact_mount_preflight",
+    "recovery_evidence_verified": true,
+    "training_or_evaluation_completed": false,
+    "evidence_sha256": {
+      "original_design_sha256": "e5799faa751d21b015d71ff6828c2bb07817ebd0f6044768322036f0fbcd5d61",
+      "original_manifest_sha256": "e0f2d72cdf69bcddfff97aff2b4a8dbfed0126a09d74d19d60872cade5eebf75",
+      "original_launch_sha256": "cad06220e2d92fdace32b5cbb9462de64a2ab810a93dfa24940a8147028b0b39",
+      "original_provider_terminal_sha256": "cce536d090576416dfbf9a61ba44f5dd7eb0c1b487c3c0babcb097520e901c9f",
+      "original_call_graph_sha256": "222eb4c702d7f9ff55e5cc218e96f891acb84e5a46a62b9a0e3c741d53cec417",
+      "original_error_sha256": "cb9969a5da684a5883911302628600302d6916115c118be6c3db21a19492c361"
     },
-    "loss_tokens_per_adapter": 16384,
-    "optimizer_updates": 16,
-    "tokens_per_update": 1024,
-    "context_limit": 4096,
-    "student_evaluation_count": 200,
-    "evaluation_split": "GSM8K TRAIN development",
-    "enable_thinking": true,
-    "native_generation_prefix": "OPEN",
-    "max_new_tokens": 1024,
-    "evaluation_batch_size": 8,
-    "input_limit": 1536,
-    "training_seed": 42
+    "recovery_review_sha256": "356f0588f623d887f81469173205e3f6c2000624b9eb4bf3da99548fabfae3e7",
+    "detail": "The original call failed before the reviewed remote-owner, model-loading and evaluation stages. Its original failure is retained; it produced 0 validated evaluation outputs."
   },
+  "jobs": [
+    {
+      "role": "baseline",
+      "label": "Fresh untouched Granite",
+      "status": "failed_or_incomplete",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": 0,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200,
+      "call_id": "fc-01M6J5XRZP90X3RR879RN2A0QE"
+    },
+    {
+      "role": "concise",
+      "label": "Concise supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    },
+    {
+      "role": "thinking",
+      "label": "Native reasoning supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    }
+  ],
+  "comparisons": null,
   "teacher": {
     "stage": "completed",
     "planned_questions": 256,
@@ -58,59 +93,57 @@
     "unknown_usage_attempts": 1,
     "raw_channels_public": false
   },
-  "jobs": [
-    {
-      "role": "baseline",
-      "label": "Fresh untouched Granite",
-      "status": "failed_or_incomplete",
-      "accuracy_percent": null,
-      "metrics": null,
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "retained_evaluation_count": null,
-      "planned_evaluation_count": 200,
-      "provider_terminal_receipt_verified": false,
-      "validated_evaluation_count": 0
+  "protocol": {
+    "teacher_candidate_pairs": 256,
+    "teacher_output_caps": {
+      "concise": 1024,
+      "thinking": 4096
     },
-    {
-      "role": "concise",
-      "label": "Concise supervision",
-      "status": "prepared",
-      "accuracy_percent": null,
-      "metrics": null,
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "retained_evaluation_count": null,
-      "planned_evaluation_count": 200,
-      "provider_terminal_receipt_verified": false
-    },
-    {
-      "role": "thinking",
-      "label": "Native reasoning supervision",
-      "status": "prepared",
-      "accuracy_percent": null,
-      "metrics": null,
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "retained_evaluation_count": null,
-      "planned_evaluation_count": 200,
-      "provider_terminal_receipt_verified": false
-    }
-  ],
-  "comparisons": null,
+    "loss_tokens_per_adapter": 16384,
+    "optimizer_updates": 16,
+    "tokens_per_update": 1024,
+    "context_limit": 4096,
+    "evaluation_count": 200,
+    "student_evaluation_count": 200,
+    "evaluation_split": "GSM8K TRAIN development",
+    "native_generation_prefix": "OPEN",
+    "enable_thinking": true,
+    "max_new_tokens": 1024,
+    "evaluation_batch_size": 8,
+    "input_limit": 1536,
+    "training_seed": 42
+  },
+  "budget_migration": {
+    "status": "reviewed_receipt_verified_ledger_not_queried",
+    "migrated_existing_envelope_usd": 5.25,
+    "old_failed_child_allowance_recorded_held_usd": 1.75,
+    "new_credit_reserved_by_reporter": false,
+    "migration_receipt_sha256": "5a5250c647b179f461cbbf935ead9f966250afaddbb67a0221d14ad9ee12470f",
+    "migration_sha256": "75b69bf43ebbfab9b6121d62e63e3a0fa30684ff2a0cdcf98f6f6d2bc9991049",
+    "note": "This verifies the recorded transfer, not current ledger or provider billing. The reporter performs no financial action."
+  },
   "strong_teacher_reference": {
     "status": "pending_separate_review_and_funding",
-    "proposed_thinking_output_cap": 8192,
-    "included_in_this_study": false
+    "proposed_thinking_output_cap": 8192
   },
+  "official_test_used": false,
+  "paid_work_launched_by_reporter": false,
   "limitations": [
-    "Adaptive 200-question training-split development evaluation; not official final-test evidence.",
-    "The common OPEN/1024 inference condition requires a fresh baseline; prior closed nonthinking 512-token results are separate.",
-    "Equal complete loss tokens and updates do not match examples, forwarded tokens, compute or wall time.",
-    "This compares supervision recipes, not ranking superiority or a pure causal effect of explanation depth.",
-    "Final-number/reference matches do not verify every reasoning step; common full-fit pairs are a selected intersection.",
-    "One training seed; paired intervals cover questions, not training-seed variation; exploratory comparisons are not multiplicity corrected.",
-    "Preparation, collection and a runnable implementation do not establish student improvement."
+    "The original failed call remains a separate historical attempt; recovery is a new reviewed version, not an automatic retry.",
+    "Prepared sources, migrated reservations and dispatch claims are not completed GPU work.",
+    "All metrics require the new controller source/input/manifest, actual call, provider-terminal and full raw-replay receipt bindings.",
+    "Adaptive 200-question TRAIN development and one training seed; this is separate from prior nonthinking 512-token results.",
+    "Equal complete loss tokens do not match example counts, forwarded compute or wall time. This tests a supervision recipe, not ranker superiority.",
+    "No guaranteed improvement or intermediate-reasoning correctness is implied."
   ],
-  "design_sha256": "e5799faa751d21b015d71ff6828c2bb07817ebd0f6044768322036f0fbcd5d61"
+  "design_sha256": "90528306bab2d90f83d0a86b05c3d0afa3df79e5b74e6e940b66805432373f66",
+  "report_kind": "derived_current_study_view",
+  "derived_current_study_view": true,
+  "source_report": "native-reasoning-recovery.json",
+  "source_report_sha256": "584abd5023f1f47239ab0e32ffa53709cedf01b21e98ceb2e4a142eac572f923",
+  "original_historical_report": "progress/NATIVE_REASONING_STUDY.json",
+  "original_historical_journal": "progress/NATIVE_REASONING_STUDY.md",
+  "original_historical_report_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NATIVE_REASONING_STUDY.json",
+  "provider_export": false,
+  "derivation": "Dashboard compatibility view of the canonical sanitized recovery report. The original canonical progress report and journal remain unchanged."
 }

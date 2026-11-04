@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "stage": "startup_verified_then_failed_config_check",
+  "run_id": "native_reasoning16k_dev200_seed42_mount_v2",
+  "updated_at_utc": "2026-11-04T02:53:49.249409+00:00",
+  "design_sha256": "90528306bab2d90f83d0a86b05c3d0afa3df79e5b74e6e940b66805432373f66",
+  "manifest_sha256": "dd7de4a5bcdb89a88dd688892a1b0546bce7dad2f6d2f281e284361b0bd36553",
+  "source_sha256": {
+    "budget_reconcile.py": "daeed4c45302ad6fa5d04f8091f617a2e77698ee132cb8bba4a5ae7f7f2e2df8",
+    "comparison_control.py": "08ca10bc4d5ff7fdc479f015cc9524a1825deb5594e03d34d965ca1df2916f37",
+    "comparison_metrics.py": "0139edb8289ebd2261e0120d002fedec2c40ec02139b57d0aa7018c48739ba81",
+    "final_scale_artifacts.py": "e9907ac4f6a50f6da4e9f821802515d7607d7d19e2fefcb254676045ec7cc466",
+    "granite_lora_layout.py": "83660c4ee08db7df8ed5c289a93835cffbf6fbbe102deb14cc56b3ad08baeb0f",
+    "modal_native_launch_v2.py": "59e037dba6f75e835120bea679ac7137d0b098e3f9add551f84a6a7dc35b9a0d",
+    "modal_native_reasoning_v2.py": "a49bf90f542b29a3a5e7df0a68e62453b98b50b44fad4e18fab8ac4e30384f94",
+    "modal_train.py": "3b9fe22b774ae2eeb00a9accf2dcbc40468bb36b7d5f25090f74f70768a326dc",
+    "native_reasoning_collection.py": "a360ce55a193ebba788c8cd00e50149aa71ae8a8f15d8f9d8b3e20c74caa0249",
+    "native_reasoning_contract.py": "57ab7f3d78d48a6d1fc13c88e6a9f9ad7dd97cc38ac176b50e083b3c6f3a951b",
+    "native_reasoning_control_v2.py": "2c3c958fb60552a6a9565b7732a198c4a39a179ba7b6da54ce4f6dfa9ba51c66",
+    "valuation_contract.py": "86d895cbc2afa4c12d525cbdf1c74e9655e2942c409eafab45b9ddaac16cf324"
+  },
+  "original_failed_attempt_retained": true,
+  "original_validated_evaluation_outputs": 0,
+  "existing_envelope_migrated_usd": 5.25,
+  "new_credit_reserved": false,
+  "protected_modal_usd": 5,
+  "native_focused_software_checks_passed": 49,
+  "dashboard_accomplishments_checks_passed": 21,
+  "software_checks_are_not_benchmark_questions": true,
+  "actual_remote_owner_verified": true,
+  "actual_mount_observation": {
+    "configured_kind": "symlink",
+    "validation_succeeded": true,
+    "descendant_links_allowed": false,
+    "source_or_adapter_links_allowed": false
+  },
+  "actual_source_and_tokenizer_receipts_observed": true,
+  "baseline_evaluation_count": 200,
+  "loss_tokens_per_adapter": 16384,
+  "optimizer_updates_per_adapter": 16,
+  "teaching_examples": {
+    "concise": 143,
+    "thinking": 62
+  },
+  "forwarded_input_tokens": {
+    "concise": 33638,
+    "thinking": 31556
+  },
+  "new_accuracy_available": false,
+  "training_started": false,
+  "official_test_used": false,
+  "limitations": [
+    "Actual full baseline evaluation and raw replay remain pending.",
+    "A completed baseline runtime and separate source/calibration/funding review are required before either training arm.",
+    "Same native OPEN1024 protocol and frozen TRAIN-development questions; earlier nonthinking512 results remain separate."
+  ],
+  "runtime_model_load_verified": false,
+  "baseline_evaluation_completed": false,
+  "validated_evaluation_outputs": 0,
+  "planned_next_run": "native_reasoning16k_dev200_seed42_config_v3",
+  "config_failure_local_reproduction": {
+    "official_raw_sha256": "e4f44b9c6924a283f1d1d36057a89f1a04404bf1561fc2c0b64cf98180e72915",
+    "official_bytes": 905,
+    "historical_bytes": 940,
+    "parsed_configurations_identical": true,
+    "cpu_config_and_existing_adapter_checks_passed": true
+  }
+}

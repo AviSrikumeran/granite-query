@@ -170,7 +170,7 @@ Both human-study adapters have verified nine-file private snapshots, including 1
 
 - **Matched DeepSeek versus Granite on200 development questions — completed**. DeepSeek scored 194/200 on the same development questions as original Granite179/200, random-trained174/200 and skill-trained171/200. All used the same prompt, nonthinking mode and512-token output cap. This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. No Granite accuracy improvement is established. Official test data remains sealed.
 
-- **Native reasoning transfer: concise versus thinking supervision — queued**. A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+- **Native reasoning transfer: versioned mount recovery — queued**. A new recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 - **Human-reference training with separate 200-question development evaluation — completed**. 3/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: 171/200. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
@@ -190,4 +190,4 @@ Both human-study adapters have verified nine-file private snapshots, including 1
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-04T02:06:25.230759+00:00
+Updated: 2026-11-04T02:42:03.356077+00:00

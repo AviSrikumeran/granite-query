@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-04T02:45:16.068263+00:00",
+  "project_complete": false,
+  "current_schedule_status": "ACTIVE",
+  "check_interval_minutes": 5,
+  "limits_usd": {
+    "modal": 30,
+    "deepseek": 20
+  },
+  "current_work": "Versioned official-config fix and funding review; two previous startup attempts preserved with0validatedoutputs",
+  "remaining_deliverables": [
+    "Complete the current frozen native baseline with provider terminal and full raw replay.",
+    "Train both independent adapters only after measured runtime/funding review and evaluate them on the same development questions.",
+    "Analyze paired before/after results and uncertainty, select/hash an evaluated checkpoint and complete an affordable reviewed unseen evaluation protocol.",
+    "Deliver the approved capped model API only after checkpoint/evaluation and budget checks; enforce expiry/quota and clear research GPU jobs.",
+    "Publish final reproducible report, journal, website and truthful remaining-work/budget account."
+  ],
+  "stop_when": [
+    "Agreed bounded deliverables are verified complete, including required API trial cleanup.",
+    "No feasible useful next step fits the original service ceilings after supported accounting and existing liabilities.",
+    "A genuine external blocker makes continued polling non-actionable and a durable handoff has been recorded."
+  ],
+  "on_stop": [
+    "Launch no new paid work.",
+    "Reconcile existing calls and preserve all original/unknown liabilities and artifacts.",
+    "Write and publish the final or explicitly budget-limited/incomplete report.",
+    "Delete this experiment supervision automation through automation_update so it does not keep polling."
+  ],
+  "do_not_stop_for": [
+    "One pilot or baseline finishing.",
+    "A temporary billing hold or healthy existing call.",
+    "A software fixture suite passing without actual model results."
+  ],
+  "broad_DeepSeek_parity_is_not_a_promised_completion_metric": true,
+  "new_budget_authorized_by_stop_question": false,
+  "actual_baseline_training_api_complete": false
+}

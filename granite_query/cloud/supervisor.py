@@ -200,6 +200,22 @@ def tick():
                 training_action='Preserve the original failed native baseline call, positive provider terminal and zero validated outputs. Finish the separately versioned trusted-mount recovery review and funding transfer before a new attempt; never rerun its existing claim or weaken descendant/source path checks. Training still requires a completed new baseline and measured calibration.'
             else:
                 training_action='Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch.'
+        recovery_study=ROOT/'runs/native_reasoning16k_dev200_seed42_mount_v2'
+        if (recovery_study/'design.json').exists():
+            from cloud.native_reasoning_recovery_report import build as build_recovery_report
+            recovery=build_recovery_report(recovery_study,write=True)
+            remote_status={'stage':recovery['stage']}
+            recovery_jobs={job['role']:job for job in recovery.get('jobs',[])}
+            if recovery['stage']=='recovery_all_three_completed_and_validated':
+                training_action='Analyze and publish the three validated mount-recovery development results, paired before/after outcomes and actual training exposure. Preserve the original failed call separately; review remaining funds before any further paid phase.'
+            elif recovery['stage']=='recovery_call_awaiting_terminal_validation':
+                training_action='Poll only the saved native_reasoning_control_v2 call. Require its actual provider terminal and all25 raw replay batches before metrics or calibration. Preserve its claim and pending billing liability; never launch a duplicate.'
+            elif recovery['stage']=='recovery_attempt_failed_requires_review':
+                training_action='Preserve the failed V2 call and zero validated outputs. Review the CPU-reproduced official config byte identity and separately versioned V3 source/funding plan before another baseline. No existing call may be repeated and no score or training improvement is established.'
+            elif recovery_jobs.get('baseline',{}).get('status')=='completed':
+                training_action='Calibrate the validated V2 baseline, independently review the actual forecasts and funding, and bind review_pair.json before advancing either unchanged16k-token training arm through native_reasoning_control_v2.'
+            else:
+                training_action='Complete the separately versioned mount-recovery source/manifest/terminal review and audited transfer of the existing5.25USD before one new baseline dispatch through native_reasoning_control_v2. Preserve the failed original1.75USD attempt and all liabilities; no fresh7USD reservation or blind retry.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
         allocation_full=exhausted
         exhausted=allocation_full and not open_calls

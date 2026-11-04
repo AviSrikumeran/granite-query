@@ -1,6 +1,6 @@
 {
-  "stage": "Native baseline failed before model loading; separate mount-path recovery under review",
+  "stage": "Native config byte-check failure diagnosed on CPU; versioned fix under review",
   "training_completed": true,
   "held_out_evaluation_completed": false,
-  "active_run_id": "native_reasoning16k_dev200_seed42_v1"
+  "active_run_id": "native_reasoning16k_dev200_seed42_mount_v2"
 }

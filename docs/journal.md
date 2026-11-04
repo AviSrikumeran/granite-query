@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Native reasoning transfer: concise versus thinking supervision
+Current stage: Native reasoning transfer: versioned mount recovery
 
-Next: A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: A new recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -941,3 +941,39 @@ Preparing separate worker/controller/launcher/report modules and fixtures while 
 ## 2026-11-04T02:06:19.510624+00:00 | in_progress | Research improvement cycle
 
 Preserve the original failed native baseline call, positive provider terminal and zero validated outputs. Finish the separately versioned trusted-mount recovery review and funding transfer before a new attempt; never rerun its existing claim or weaken descendant/source path checks. Training still requires a completed new baseline and measured calibration.
+
+## 2026-11-04T02:22:35.208091+00:00 | resolved | Versioned native mount fix reviewed
+
+The new worker normalizes only the fixed configured artifact-mount alias and retains strict descendant/source/adapter checks. Actual success or failure mount observations will be captured by the runtime.49focused synthetic checks and independent source/physical-plan reviews passed; these are not model benchmark results. New inputs retain the exact original143concise/62thinking whole targets and same200TRAIN development questions. Original failed call/error/terminal remain unchanged.
+
+## 2026-11-04T02:22:35.216093+00:00 | decision | Existing5.25USD moved into the reviewed recovery envelope
+
+Completed an audited one-time transfer of only the unused5.25USD from the original7USD phase. No fresh reservation or extra funding was created; the failed original1.75USD allowance remains in history with supported billing reconciliation. Fresh observations leave9.22USD free after liabilities including protected5. Only the new baseline is approved; actual baseline runtime and a separate pair review precede training.
+
+## 2026-11-04T02:26:22.640187+00:00 | in_progress | Reviewed native baseline started; actual mount fix verified
+
+The new baseline call has a matching actual remote owner. Original bytes downloaded from its persistent artifact volume verify a successful trusted-mount observation, pinned source/dependency checks and tokenizer identity. The actual configured mount is a symlink; strict descendant/source/adapter link checks remain enabled. The worker reached model loading under the unchanged200-question OPEN1024 protocol. This is a real startup milestone, not a completed evaluation or accuracy gain. Pair training still awaits full baseline receipts and runtime calibration.
+
+## 2026-11-04T02:28:54.398815+00:00 | in_progress | Research improvement cycle
+
+Poll only the saved native_reasoning_control_v2 call. Require its actual provider terminal and all25 raw replay batches before metrics or calibration. Preserve its claim and pending billing liability; never launch a duplicate.
+
+## 2026-11-04T02:37:54.254730+00:00 | failed | Mount recovery stopped at model-config byte verification
+
+The V2 worker positively verified the actual trusted mount, source/dependency and tokenizer checks, then returned a failed result after19.087607seconds with0training/evaluation outputs and no model verification. Local CPU reproduction found the reviewed config hash came from a940-byte Windows-formatted copy; the official905-byte file at the same pinned commit has a different raw hash but an identical parsed configuration. The original V2 call and receipts are preserved; no score or improvement is claimed.
+
+## 2026-11-04T02:37:54.264850+00:00 | planned | Verify official config bytes before another GPU attempt
+
+Downloaded official pinned config metadata through two independent CPU paths, verified its exact raw identity and architecture, loaded its pinned AutoConfig without model weights, and successfully inspected both existing private adapter headers with the explicit official hash. Preparing a separate V3 worker/controller with that reviewed hash, private failure diagnostics and accurate terminal progress. Funding would transfer3.50unused and reserve1.75additional from the unchanged30USD project ceiling; this is not a request for more cash. No V3 call is launched by this event.
+
+## 2026-11-04T02:41:57.722752+00:00 | in_progress | Research improvement cycle
+
+Preserve the failed V2 call and zero validated outputs. Review the CPU-reproduced official config byte identity and separately versioned V3 source/funding plan before another baseline. No existing call may be repeated and no score or training improvement is established.
+
+## 2026-11-04T02:45:16.071265+00:00 | decision | Finite supervision and explicit completion stop
+
+The supervisor remains active while concrete approved research and delivery work remains. Finishing one pilot or baseline does not complete the project. After validated comparisons, checkpoint/evaluation, the capped API and final reports are delivered—or no useful next stage fits the original budgets—it must reconcile paid work, publish an honest final or incomplete report and remove its recurring monitor. Temporary holds and normal in-progress jobs are not completion. No new funding or unbounded training is authorized.
+
+## 2026-11-04T02:55:02.190616+00:00 | planned | Recognize audited transferred envelopes without weakening accounting
+
+A fresh supported refresh blocks new launches because the generic accounting helper does not recognize a superseded zero-valued reservation envelope. Current funds are sufficient; this is a bookkeeping classification issue. A separate adapter is being reviewed to recognize only physically audited, balanced native transfers while preserving true statuses and every unknown liability. Historical accounting sources remain unchanged. No V3 reservation or model call is created by this preparation.
