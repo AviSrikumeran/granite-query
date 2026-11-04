@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict';
+import {SOURCES,discover,normalized,queryTerms} from './sources.mjs';
+assert.equal(new Set(SOURCES.map(source=>source.id)).size,6);assert.equal(discover('').length,6);assert.equal(discover('evidence').length,6);assert.equal(discover('model revision')[0].id,'protocol');assert.equal(discover('uncertainty')[0].id,'uncertainty');assert.equal(discover('electric pineapple').length,0);assert.equal(normalized(' Évidence! '),'evidence');assert.deepEqual(queryTerms('evidence evidence'),['evidence']);
+for(const query of ['evidence','sources','record','model revision','<script>','no matches',''])for(const source of discover(query)){assert.ok(SOURCES.some(original=>original.id===source.id&&original.excerpt===source.excerpt));assert.ok(source.matches.every(match=>match.fields.length));assert.ok(Number.isFinite(source.score));}
+console.log('Source discovery: unique identity, all/empty results, AND matching, title ranking, normalization and exact excerpt provenance passed.');

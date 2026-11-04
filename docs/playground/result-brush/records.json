@@ -1,0 +1,559 @@
+{
+  "kind": "illustrative-record-brush",
+  "unit": "authored example records",
+  "batches": 16,
+  "description": "Immutable authored interface fixtures. These are not Granite experiments, model accuracy, spend, revenue or live activity. Batch 07 is deliberately empty.",
+  "categories": [
+    {
+      "id": "method",
+      "label": "Method",
+      "color": "#8c5a8c"
+    },
+    {
+      "id": "measurement",
+      "label": "Measurement",
+      "color": "#b96b9f"
+    },
+    {
+      "id": "scope",
+      "label": "Scope",
+      "color": "#d8a7bd"
+    }
+  ],
+  "records": [
+    {
+      "id": "BR-001",
+      "batch": 1,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-002",
+      "batch": 1,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-003",
+      "batch": 1,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-004",
+      "batch": 1,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-005",
+      "batch": 2,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-006",
+      "batch": 2,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-007",
+      "batch": 2,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-008",
+      "batch": 2,
+      "category": "measurement",
+      "observation": "Attach the aggregation rule."
+    },
+    {
+      "id": "BR-009",
+      "batch": 3,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-010",
+      "batch": 3,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-011",
+      "batch": 3,
+      "category": "method",
+      "observation": "Identify the source cohort."
+    },
+    {
+      "id": "BR-012",
+      "batch": 3,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-013",
+      "batch": 3,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-014",
+      "batch": 3,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-015",
+      "batch": 4,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-016",
+      "batch": 4,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-017",
+      "batch": 4,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-018",
+      "batch": 4,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-019",
+      "batch": 5,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-020",
+      "batch": 5,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-021",
+      "batch": 5,
+      "category": "method",
+      "observation": "Identify the source cohort."
+    },
+    {
+      "id": "BR-022",
+      "batch": 5,
+      "category": "method",
+      "observation": "State the evaluation setting."
+    },
+    {
+      "id": "BR-023",
+      "batch": 5,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-024",
+      "batch": 5,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-025",
+      "batch": 6,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-026",
+      "batch": 6,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-027",
+      "batch": 6,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-028",
+      "batch": 6,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-029",
+      "batch": 6,
+      "category": "measurement",
+      "observation": "Attach the aggregation rule."
+    },
+    {
+      "id": "BR-030",
+      "batch": 6,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-031",
+      "batch": 6,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-032",
+      "batch": 8,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-033",
+      "batch": 8,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-034",
+      "batch": 8,
+      "category": "method",
+      "observation": "Identify the source cohort."
+    },
+    {
+      "id": "BR-035",
+      "batch": 8,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-036",
+      "batch": 8,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-037",
+      "batch": 8,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-038",
+      "batch": 9,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-039",
+      "batch": 9,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-040",
+      "batch": 9,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-041",
+      "batch": 9,
+      "category": "measurement",
+      "observation": "Attach the aggregation rule."
+    },
+    {
+      "id": "BR-042",
+      "batch": 9,
+      "category": "measurement",
+      "observation": "Preserve the record identifier."
+    },
+    {
+      "id": "BR-043",
+      "batch": 9,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-044",
+      "batch": 9,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-045",
+      "batch": 10,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-046",
+      "batch": 10,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-047",
+      "batch": 10,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-048",
+      "batch": 10,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-049",
+      "batch": 10,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-050",
+      "batch": 10,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-051",
+      "batch": 10,
+      "category": "scope",
+      "observation": "Record an open question."
+    },
+    {
+      "id": "BR-052",
+      "batch": 11,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-053",
+      "batch": 11,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-054",
+      "batch": 11,
+      "category": "method",
+      "observation": "Identify the source cohort."
+    },
+    {
+      "id": "BR-055",
+      "batch": 11,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-056",
+      "batch": 11,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-057",
+      "batch": 11,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-058",
+      "batch": 12,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-059",
+      "batch": 12,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-060",
+      "batch": 12,
+      "category": "method",
+      "observation": "Identify the source cohort."
+    },
+    {
+      "id": "BR-061",
+      "batch": 12,
+      "category": "method",
+      "observation": "State the evaluation setting."
+    },
+    {
+      "id": "BR-062",
+      "batch": 12,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-063",
+      "batch": 12,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-064",
+      "batch": 12,
+      "category": "measurement",
+      "observation": "Attach the aggregation rule."
+    },
+    {
+      "id": "BR-065",
+      "batch": 12,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-066",
+      "batch": 13,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-067",
+      "batch": 13,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-068",
+      "batch": 13,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-069",
+      "batch": 13,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-070",
+      "batch": 13,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-071",
+      "batch": 13,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-072",
+      "batch": 14,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-073",
+      "batch": 14,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-074",
+      "batch": 14,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-075",
+      "batch": 14,
+      "category": "measurement",
+      "observation": "Attach the aggregation rule."
+    },
+    {
+      "id": "BR-076",
+      "batch": 14,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-077",
+      "batch": 15,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-078",
+      "batch": 15,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-079",
+      "batch": 15,
+      "category": "method",
+      "observation": "Identify the source cohort."
+    },
+    {
+      "id": "BR-080",
+      "batch": 15,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-081",
+      "batch": 15,
+      "category": "measurement",
+      "observation": "Name the unit of measurement."
+    },
+    {
+      "id": "BR-082",
+      "batch": 15,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-083",
+      "batch": 15,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-084",
+      "batch": 16,
+      "category": "method",
+      "observation": "Name the comparison baseline."
+    },
+    {
+      "id": "BR-085",
+      "batch": 16,
+      "category": "method",
+      "observation": "Attach the protocol record."
+    },
+    {
+      "id": "BR-086",
+      "batch": 16,
+      "category": "measurement",
+      "observation": "Keep the denominator visible."
+    },
+    {
+      "id": "BR-087",
+      "batch": 16,
+      "category": "scope",
+      "observation": "Keep the qualification nearby."
+    },
+    {
+      "id": "BR-088",
+      "batch": 16,
+      "category": "scope",
+      "observation": "Name the supported inference."
+    },
+    {
+      "id": "BR-089",
+      "batch": 16,
+      "category": "scope",
+      "observation": "Record an open question."
+    }
+  ]
+}

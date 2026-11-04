@@ -6,6 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Overnight batch 04 review](reviews/2026-11-04-overnight-batch-04.md): authored replay, inspectable source discovery and exact chart-to-record aggregation from Browserbase, Exa and Orb.
+
 - [Overnight batch 03 review](reviews/2026-11-04-overnight-batch-03.md): code-to-diagram correspondence, exact reading navigation and linked change rationale from Inngest, Mintlify and Graphite.
 
 - [Overnight batch 02 review](reviews/2026-11-04-overnight-batch-02.md): hierarchical inspection, record representations and cohort architecture from Langfuse, Resend and Turso.

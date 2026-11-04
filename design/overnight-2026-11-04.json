@@ -5,7 +5,7 @@
   "deadline": "2026-11-04T05:00:00-06:00",
   "deadline_utc": "2026-11-04T11:00:00Z",
   "no_new_builds_after": "2026-11-04T04:35:00-06:00",
-  "updated_at": "2026-11-04T08:22:21Z",
+  "updated_at": "2026-11-04T08:48:47Z",
   "status": "active",
   "schedule_id": "daily-granite-query-design-lab",
   "schedule": "Every 20 minutes through 05:00 Central on 4 November 2026",
@@ -204,11 +204,19 @@
       "reference_company": "Browserbase",
       "reference_url": "https://www.browserbase.com/",
       "purpose": "A replay viewport linked to a concrete event trail",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../session-observer/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/session-observer",
+      "checks": [
+        "Desktop and 390px layout",
+        "Five frame/event/page/target identities",
+        "Saved source and scope routes",
+        "Home and Escape",
+        "Finite replay ends at frame5",
+        "Pause and reduced/hidden/offscreen handling"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "source-search",
@@ -216,11 +224,19 @@
       "reference_company": "Exa",
       "reference_url": "https://exa.ai/",
       "purpose": "A query opens a source landscape with inspectable excerpts",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../source-search/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/source-search",
+      "checks": [
+        "Desktop and 390px layout",
+        "Exact excerpt and matching-term explanation",
+        "List/landscape stable selection",
+        "AND keyword matching and empty reset",
+        "Keyboard End selection",
+        "No semantic confidence or service request"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "result-brush",
@@ -228,11 +244,20 @@
       "reference_company": "Orb",
       "reference_url": "https://www.withorb.com/",
       "purpose": "A selectable chart range reveals the exact records behind it",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../result-brush/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/result-brush",
+      "checks": [
+        "Desktop and 390px layout",
+        "Actual handle resize and interval move",
+        "89 full / 43 initial / 33 resized / 40 moved",
+        "Empty batch 07 and all categories off",
+        "Keyboard handle and native range",
+        "Mobile exact record details",
+        "All 136 interval aggregation tests"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     }
   ],
   "events": [
@@ -271,6 +296,22 @@
     {
       "at": "2026-11-04T08:22:21Z",
       "event": "Batch03 rendered QA completed: code/diagram selection, local navigation/search and tab-local diff review all passed desktop and narrow checks. Ready for focused release."
+    },
+    {
+      "at": "2026-11-04T08:27:03Z",
+      "event": "Batch03 deployed successfully. Public code-map, research-atlas and review-diff checked; refreshed hub loaded nine ready and three queued studies."
+    },
+    {
+      "at": "2026-11-04T08:30:30Z",
+      "event": "Batch04 started: Browserbase session observation, Exa source discovery and Orb range/record inspection in independent folders. Nine released studies remain protected."
+    },
+    {
+      "at": "2026-11-04T08:47:11Z",
+      "event": "Batch04 local review: replay, source search and interval/record controls checked at desktop and390px; preparing bounded corrections and release verification."
+    },
+    {
+      "at": "2026-11-04T08:48:47Z",
+      "event": "Batch04 corrections passed narrow review: all five replay target rectangles fit their paper, source text wraps, and the brush help no longer overlaps its axis caption. Module/model tests pass."
     }
   ],
   "releases": [
@@ -296,6 +337,18 @@
         "trace-inspector",
         "record-switcher",
         "cohort-topology"
+      ]
+    },
+    {
+      "batch": 3,
+      "commit": "4e7d6415a13d9ce312a2b8cd46d5dff13729cb08",
+      "pages_run": 41799128803,
+      "status": "success",
+      "verified_at": "2026-11-04T08:27:03Z",
+      "study_ids": [
+        "code-map",
+        "research-atlas",
+        "review-diff"
       ]
     }
   ]

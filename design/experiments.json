@@ -146,6 +146,30 @@
       "verdict": "review_pending",
       "feedback": "Built in overnight batch03 from Graphite reference principles. Original illustrative interface with desktop/narrow checks and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
       "protected": true
+    },
+    {
+      "id": "session-observer",
+      "title": "Session observer",
+      "url": "/playground/session-observer/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch04 from Browserbase public reference principles. Original illustrative interface with desktop/narrow checks, explicit provenance and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
+    },
+    {
+      "id": "source-search",
+      "title": "Source search",
+      "url": "/playground/source-search/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch04 from Exa public reference principles. Original illustrative interface with desktop/narrow checks, explicit provenance and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
+    },
+    {
+      "id": "result-brush",
+      "title": "Result brush",
+      "url": "/playground/result-brush/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch04 from Orb public reference principles. Original illustrative interface with desktop/narrow checks, explicit provenance and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
     }
   ]
 }

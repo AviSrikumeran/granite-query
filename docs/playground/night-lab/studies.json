@@ -2,7 +2,7 @@
   "date": "2026-11-04",
   "timezone": "America/Chicago",
   "deadline": "2026-11-04T05:00:00-06:00",
-  "updated_at": "2026-11-04T08:22:21Z",
+  "updated_at": "2026-11-04T08:48:47Z",
   "status": "active",
   "studies": [
     {
@@ -199,11 +199,19 @@
       "reference_company": "Browserbase",
       "reference_url": "https://www.browserbase.com/",
       "purpose": "A replay viewport linked to a concrete event trail",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../session-observer/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/session-observer",
+      "checks": [
+        "Desktop and 390px layout",
+        "Five frame/event/page/target identities",
+        "Saved source and scope routes",
+        "Home and Escape",
+        "Finite replay ends at frame5",
+        "Pause and reduced/hidden/offscreen handling"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "source-search",
@@ -211,11 +219,19 @@
       "reference_company": "Exa",
       "reference_url": "https://exa.ai/",
       "purpose": "A query opens a source landscape with inspectable excerpts",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../source-search/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/source-search",
+      "checks": [
+        "Desktop and 390px layout",
+        "Exact excerpt and matching-term explanation",
+        "List/landscape stable selection",
+        "AND keyword matching and empty reset",
+        "Keyboard End selection",
+        "No semantic confidence or service request"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "result-brush",
@@ -223,11 +239,20 @@
       "reference_company": "Orb",
       "reference_url": "https://www.withorb.com/",
       "purpose": "A selectable chart range reveals the exact records behind it",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../result-brush/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/result-brush",
+      "checks": [
+        "Desktop and 390px layout",
+        "Actual handle resize and interval move",
+        "89 full / 43 initial / 33 resized / 40 moved",
+        "Empty batch 07 and all categories off",
+        "Keyboard handle and native range",
+        "Mobile exact record details",
+        "All 136 interval aggregation tests"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     }
   ]
 }
