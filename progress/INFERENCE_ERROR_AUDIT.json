@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "run_id": "inference_efficiency32_modes_caps_v1",
+  "audit_kind": "posthoc_review_of_completed_uncapped_low_effort_mismatches",
+  "checkpoint_changed": false,
+  "primary_grader_changed": false,
+  "development_examples_may_enter_training": false,
+  "scope": "Three observed errors were reviewed with exact arithmetic. Two additional interpretation-sensitive questions are documented in the separate reference audit. This is a diagnostic review, not proof that a new data selector or training recipe helps.",
+  "cases": [
+    {
+      "question_id": "gsm8k:train:05709",
+      "mode": "low",
+      "cap": 2048,
+      "observed_answer": "15",
+      "reference_answer": "72",
+      "verified_calculation": "3 * (30/2 + 12/3 + 40/8) = 72",
+      "observed_mechanism": "The visible response replaced the three-clove bundle with one clove and used the largest individual requirement rather than summing the separate creature requirements.",
+      "skill_category": "unit_bundle_scaling_and_additive_resource_allocation"
+    },
+    {
+      "question_id": "gsm8k:train:03027",
+      "mode": "low",
+      "cap": 2048,
+      "observed_answer": "76",
+      "reference_answer": "81",
+      "verified_calculation": "72 + 12 + 5 + 2 + 1 + 4 - 12 - 3 = 81",
+      "observed_mechanism": "The returned final value disagrees with the complete book-accounting sum. The visible answer alone does not establish which term or arithmetic operation was mishandled.",
+      "skill_category": "multistep_quantity_accounting"
+    },
+    {
+      "question_id": "gsm8k:train:00743",
+      "mode": "low",
+      "cap": 2048,
+      "observed_answer": "98000",
+      "reference_answer": "106000",
+      "verified_calculation": "(20 + 3*(30+5) + 2*(2*(30+5))) * 400 = 106000",
+      "observed_mechanism": "The correct total includes both passengers and crew in the person and bag counts. The returned number is consistent with using 60 bags instead of 70, but that final number alone does not prove the internal mechanism.",
+      "skill_category": "entity_scope_and_unit_accounting"
+    }
+  ],
+  "next_hypothesis": "Disjoint verified training examples that exercise unit bundles, quantity bookkeeping and entity scope may address these errors. Compare any selected examples against random verified examples under matched training-token budgets; preserve the development exclusions and enterprise-retention checks."
+}

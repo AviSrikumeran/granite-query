@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "run_id": "inference_efficiency32_modes_caps_v1",
+  "audit_kind": "posthoc_interpretation_review",
+  "primary_grader_changed": false,
+  "questions_excluded": 0,
+  "scope": "Two questions were reviewed after observing reference mismatches. This is not a comprehensive reference audit and is not a new accuracy metric.",
+  "cases": [
+    {
+      "question_id": "gsm8k:train:03588",
+      "reference_answer": "30",
+      "alternative_observed_answer": "10",
+      "issue": "The reference treats the first day as the initial group and the fourth day as three tripling transitions. Reading after four days as four elapsed growth intervals gives a different initial count.",
+      "reference_calculation": "810 / 3^3 = 30",
+      "alternative_calculation": "810 / 3^4 = 10",
+      "classification": "day_count_interpretation_sensitive",
+      "primary_score_policy": "Keep numeric reference 30 and retain every original response. Do not describe every answer of 10 as an arithmetic failure."
+    },
+    {
+      "question_id": "gsm8k:train:03921",
+      "reference_answer": "4",
+      "alternative_observed_answer": "3.875",
+      "issue": "The reference averages the four per-tree branch-to-height ratios. A response instead divides combined branches by combined height, which is a height-weighted mean.",
+      "reference_calculation": "(200/50 + 180/40 + 180/60 + 153/34) / 4 = 4",
+      "alternative_calculation": "(200+180+180+153) / (50+40+60+34) = 3.875",
+      "classification": "average_definition_sensitive",
+      "primary_score_policy": "Keep numeric reference 4. Distinguish choice of averaging convention from arithmetic error."
+    }
+  ]
+}

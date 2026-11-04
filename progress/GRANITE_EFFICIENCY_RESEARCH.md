@@ -1,12 +1,12 @@
 # Granite weights and efficiency research plan
 
-**Priority: High. Reviewed November 3, 2026. Status: artifact audit complete; new performance experiments and sparse conversion are proposals.**
+**Priority: High. Reviewed November 3, 2026. Status: artifact audit and a separate 32-question inference diagnostic complete; training interventions and sparse conversion remain proposals.**
 
 Granite Query should measure whether verified, student-aware training data improves useful mathematical work per unit of training and inference cost. A universal claim that Granite is ten times less efficient is not established. The immediate research question is narrower: **Where does this exact Granite checkpoint spend resources without producing correct answers, and which affordable intervention changes that tradeoff?**
 
 ## Which Granite we have
 
-The training student is `ibm-granite/granite-4.2-3b`, revision `4e9c275e232f10211ec88644d106a1f6a1b60e06`. The earlier local Ollama demonstration used `granite4.2:8b` in Q4_K_M format. Those artifacts are different sizes and precisions; do not join their results into one baseline.
+The selected family is **Granite Language**. The training student is the post-trained text-generation and reasoning model `ibm-granite/granite-4.2-3b`, revision `4e9c275e232f10211ec88644d106a1f6a1b60e06`. This is the language checkpoint used for the math project, not a dedicated code, forecasting or geospatial checkpoint. The earlier local Ollama demonstration used the larger language model `granite4.2:8b` in Q4_K_M format. Those artifacts are different sizes and precisions; do not join their results into one baseline.
 
 The pinned 3B checkpoint is now downloaded locally: two BF16 Safetensors shards totaling **7,319,517,120 bytes**, each verified against Hugging Face's LFS SHA-256. Header inspection counts **3,659,737,600 stored parameters**, 40 transformer blocks, width 2560, MLP width 8192 and vocabulary 100352. The complete local scalar audit and download receipts are included in the downloadable evidence. No new model inference or training was required for this audit.
 
@@ -84,6 +84,35 @@ The existing separate 200-question development comparison measured untouched Gra
 | Tokenization hurts specific languages or schemas | Expand byte-normalized probes and real permitted workload text by language, numbers and code |
 
 Weight inspection can identify structure, numerical corruption and changes from a shared checkpoint. It cannot causally attribute a model's behavior to a particular training decision. That requires an intervention with controls. Hugging Face download counts are not counts of unique users, production deployments or market adoption.
+
+## Completed native-mode diagnostic
+
+A separate inference-only follow-up retained all 448 outcomes on 32 seeded TRAIN-development questions across two output caps. At cap 2048, Granite low effort and nonthinking both matched 27/32 numeric references; low effort used 6,858 versus 11,977 output tokens. Full thinking used 33,965 tokens and matched 25/32. This is a bounded-budget diagnostic, not an unconstrained reasoning ranking or proof of a training-data cause. The separate report documents paired changes, truncations, reference-sensitive cases, seeds and different provider runtime scopes. [Interactive comparison](https://avisrikumeran.github.io/granite-query/inference-efficiency.html).
+
+## What IBM's training documentation establishes
+
+[Granite 4.2 LLMs: How They're Built](https://huggingface.co/blog/ibm-granite/granite-4-2) is the primary training-method reference for this checkpoint. It describes supervised instruction/reasoning training, data filtering and deduplication, then staged reinforcement learning. This makes data validation a concrete intervention to test; disclosure of a recipe does not provide every training example or establish a causal explanation for our observed errors.
+
+Its underlying pretraining recipe is documented separately in [Granite 4.1: How They're Built](https://huggingface.co/blog/ibm-granite/granite-4-1#pre-training). Phase 1 is approximately 59% CommonCrawl, 20% code, 7% math, 10.5% technical, 2% multilingual and 1.5% domain-specific content. Later phases change the mixture, including more math, code and reasoning. These are phase-specific proportions, not percentages for the entire final checkpoint. Neither article establishes that patents dominate this model's training data. Structured conversations and output schemas also differ from training chiefly on structured business records.
+
+**Research implication:** IBM already performs data-quality checks, so adding a validator alone is not evidence of a novel improvement. Classify failures by correctness, units, scope, formatting and excessive generation; validate candidate training examples against those categories; compare selection against matched random controls. Preserve instruction following, tool validity and grounding while measuring any math improvement. Do not infer a training-data cause from tensor values or a verbose answer alone.
+
+## Enterprise behavior to preserve
+
+IBM chooses the architecture, training data and optimization objectives; training learns the individual weight values. The enterprise positioning is a set of priorities to test. IBM documents additional agentic RL for the 8B and 30B variants, while our 3B student follows the shorter foundational and alignment path. Its final alignment stage includes a reasoning-length penalty. Excessive output should therefore be investigated as an observed behavior, rather than assumed to be an intentional integration requirement. [IBM technical details](https://huggingface.co/blog/ibm-granite/granite-4-2#how-the-three-sizes-differ).
+
+Integration combines learned behavior with software interfaces. Valid tool names and arguments are model behaviors; serving protocols, authentication and connectors belong to the surrounding application. A standard API does not establish universal workflow compatibility. The model and its deployment stack need separate tests.
+
+Before selecting a retrained checkpoint or sparse conversion, add a frozen retention suite using synthetic tools and disjoint, permitted documents. These are proposed checks, not completed enterprise evaluations:
+
+| Capability to preserve | Measurement |
+| --- | --- |
+| Tool calling | Correct tool selection, schema-valid arguments and successful mocked execution |
+| Grounded document answers | Correct answers and supported citations, including cases where the document lacks an answer |
+| Instruction following | Required output format, system constraints and requested response length |
+| Deployment compatibility | Save/reload, native chat template and tool serialization, engine support and peak memory |
+
+Use unchanged inference settings and paired examples for base-versus-candidate retention checks. Predeclare acceptable regressions before candidate selection. Math gains alone do not demonstrate a better enterprise model. Mode selection keeps the original weights intact; LoRA retains the architecture while adapting behavior; sparse upcycling changes routing and therefore requires additional runtime support. Distilling teacher responses does not copy the teacher's architecture into Granite.
 
 ## Sparse upcycling proposal
 

@@ -1,0 +1,60 @@
+{
+  "automatic_retries": 0,
+  "caps": [
+    512,
+    2048
+  ],
+  "created_at_utc": "2026-11-04T00:51:29.836722+00:00",
+  "deepseek_alias": "deepseek-v4-pro",
+  "deepseek_input_token_bound": 2000,
+  "deepseek_modes": [
+    "nonthinking",
+    "low",
+    "high",
+    "max"
+  ],
+  "deepseek_peak_input_rate_per_million": 1.32,
+  "deepseek_peak_output_rate_per_million": 3.96,
+  "deepseek_workers": 1,
+  "deepseek_worst_token_cost_usd": 1.9734528,
+  "granite_batch_size": 1,
+  "granite_max_worker_seconds": 2400,
+  "granite_modes": [
+    "nonthinking",
+    "low",
+    "thinking"
+  ],
+  "granite_soft_stop_seconds": 2200,
+  "granite_temperature": 1.0,
+  "granite_top_p": 0.95,
+  "inference_only": true,
+  "max_http_seconds": 180,
+  "model": "ibm-granite/granite-4.2-3b",
+  "official_test_used": false,
+  "prefix": "Solve the math problem. Explain only the necessary calculation steps concisely. Finish with #### followed by the numeric final answer.\n\n",
+  "protected_per_service_usd": 5,
+  "question_count": 32,
+  "reservations_usd": {
+    "deepseek": 2.0,
+    "modal": 3.0
+  },
+  "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "rows_sha256": "17cfed4b739352889c3d1dba3b784b4bcd9e92649b37296b6f8d057a1bdf3f1a",
+  "run_id": "inference_efficiency32_modes_caps_v1",
+  "runtime_scope": "Granite warm batch-one GPU generation and server request times; DeepSeek serial HTTP round trips. Not equal hardware or compute. Mode names are native controls, not calibrated equal effort.",
+  "sampling_scope": "One sampled response per question/cell. Granite per-question/mode seed shared across caps; DeepSeek exposes no controlled seed. Development only.",
+  "selection_seed": 20261103,
+  "source_code_sha256": {
+    "comparison_metrics.py": "0139edb8289ebd2261e0120d002fedec2c40ec02139b57d0aa7018c48739ba81",
+    "efficiency_audit.py": "bb43835a4f5f5caace08280629d294132e8fe713a66e0122fca8ba66ee43803a",
+    "modal_efficiency_audit.py": "12b10e892df875ed1aa77a723246ec3a8a364d73e76d5c2668ddc23878fd46bf",
+    "modal_train.py": "3b9fe22b774ae2eeb00a9accf2dcbc40468bb36b7d5f25090f74f70768a326dc"
+  },
+  "source_sha256": "cccdce864d728e6b43d9d4de866e719bfd9c706cc735a3a3d429095835c767c7",
+  "version": "inference-efficiency32-modes-caps-v1",
+  "plan_sha256": "4383576cc7410ddd334492d6d346acb4ecb8e11466da8347b2fdfa93ecef6dbc",
+  "planned_outcomes": {
+    "granite": 192,
+    "deepseek": 256
+  }
+}
