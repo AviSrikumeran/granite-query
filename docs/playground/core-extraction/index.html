@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Compare the original magenta interlocking blocks with an opening mineral shell and an extracted luminous core. An editable motion prototype for Granite Query.">
+  <title>Granite Query · Magenta core extraction</title>
+  <link rel="stylesheet" href="./study.css?v=core-20261103-1">
+  <script type="module" src="./study.mjs?v=core-20261103-1"></script>
+</head>
+<body>
+  <a class="skip" href="#controls">Skip to motion controls</a>
+  <header class="site-header"><a class="brand" href="../../">Granite Query</a><nav aria-label="Study navigation"><a href="../experiments/">All experiments</a><a href="../purple/?material=magenta">Material study ↗</a></nav></header>
+  <main>
+    <div class="introduction"><p class="eyebrow">Motion study 01 / Select and extract</p><h1>Light inside the stone.</h1><p class="description">An organized shell opens to release a luminous core. Compare the new sequence against the magenta blocks, with the same lighting and mouse response.</p></div>
+    <section class="toolbar" id="controls" aria-label="Extraction controls"><div class="playback"><button id="pause" aria-pressed="false">Pause</button><button id="replay">Replay reveal</button></div><div class="stages" aria-label="Hold a stage"><button data-stage="closed" aria-pressed="true">Closed</button><button data-stage="selected" aria-pressed="false">Selected</button><button data-stage="open" aria-pressed="false">Open</button><button data-stage="extracted" aria-pressed="false">Extracted</button></div><label class="linked"><input type="checkbox" id="linked" checked>Link mouse views</label></section>
+    <div class="scrub"><label for="progress">Sequence</label><input id="progress" type="range" min="0" max="100" step="1" value="0" aria-valuetext="0 percent, Closed"><span id="stage-description">A mineral shell holds the selected volume.</span></div>
+    <p id="interaction-help">Move across either view to turn both. Choose a stage or scrub to pause. Arrow keys turn a focused view; Home resets it.</p>
+    <div id="comparison" class="comparison">
+      <article class="view" data-view="baseline"><header><p class="panel-label">Reference / Geometry preserved</p><h2 id="baseline-title">Interlocking blocks</h2><p>The current magenta material, held in its assembled pose.</p></header><figure tabindex="0" aria-labelledby="baseline-title" aria-describedby="interaction-help"><canvas role="img" aria-label="The preserved interlocking blocks, with magenta face shading and bright pink-white highlights."></canvas></figure><div class="view-caption"><span>Same material and scale</span><span>Assembled reference</span></div></article>
+      <article class="view" data-view="candidate"><header><p class="panel-label">Candidate / Editable sequence</p><h2 id="candidate-title">Magenta core extraction</h2><p>A mineral housing, sliding sections and eight core modules.</p></header><figure tabindex="0" aria-labelledby="candidate-title" aria-describedby="interaction-help"><canvas role="img" aria-label="A dark mineral cube opens its lid and one side, then an eight-module magenta core lifts out through the clear opening."></canvas></figure><div class="view-caption"><span>Shell → selection → extraction</span><span>Original motion concept</span></div></article>
+    </div>
+    <p class="status" id="motion-status" role="status">Motion is playing.</p>
+    <p class="scope">A visual metaphor for selecting useful information. The gripper, logo and connected evidence sequence remain future studies.</p>
+    <noscript><p>The proposed sequence opens the top and side of a mineral shell, then lifts a bright magenta core out. Enable JavaScript to inspect the working motion.</p></noscript>
+  </main>
+  <footer><span>Granite Query design lab</span><a href="https://github.com/AviSrikumeran/granite-query/blob/main/design/reviews/2026-11-03-core-extraction.md">Review and construction notes ↗</a></footer>
+</body>
+</html>

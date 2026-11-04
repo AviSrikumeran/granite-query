@@ -44,23 +44,24 @@ Complete relevant checks once. Broaden or repeat them only after a change, failu
 
 | Order | Question | Deliverable and boundary |
 | --- | --- | --- |
-| 1 | Can the selected core be extracted clearly? | One paused/scrubbable block-opening specimen in magenta. Settle silhouette, contact and separation before secondary glow or a full claw sequence. |
+| 1 | Can the selected core be extracted clearly? | First comparison delivered at [core extraction](https://avisrikumeran.github.io/granite-query/playground/core-extraction/). See the [review](reviews/2026-11-03-core-extraction.md). User verdict pending; refinements need a specific finding or feedback. |
 | 2 | Can branches explain a query? | Scroll-revealed connections with a short evidence label per node, using clearly marked illustrative content. No implied access to a model's private reasoning. |
 | 3 | Can visitors understand a result quickly? | One result-summary component driven by existing public data, with context and a route to detailed evidence. Preserve homepage and exporter. |
 
-These are queued ideas, not active background jobs. Choose one for a pass; do not implement the whole queue automatically.
+The daily workflow handles one ready question per run. Do not implement the whole queue in one pass or repeat a delivered experiment without a specific unresolved question.
 
 ## Scheduling
 
-No recurring run is enabled by this change. Start by exercising the bounded pass on demand; add a cadence when the owner asks for recurring work. A future scheduled run should read these decisions, handle one queued item, and stop after its review package. Avoid overlapping design runs and do not touch training infrastructure.
+The owner authorized daily background work on 3 November 2026. The app automation **Daily Granite Query design lab** is active at 9:00 AM America/Chicago, with ID `daily-granite-query-design-lab`. It returns to this design chat. Each run reads these decisions, handles one ready question and stops after its review package. Avoid overlapping design runs and do not touch training infrastructure. The app owns the schedule; this file is its durable work brief.
 
-Suggested durable task brief: Read design/DESIGN_WORKFLOW.md and design/README.md. Pick one ready question, preserve accepted studies and the homepage, reuse existing reference evidence, and complete one bounded pass. Publish isolated playground changes only within existing authorization. Update the experiment index and record findings. Report a meaningful completed comparison, blocker or required direction choice; stay quiet if there is no new work. Do not generate repeated cosmetic variants or launch paid services.
+Durable task brief: Read design/DESIGN_WORKFLOW.md, design/README.md, docs/playground/AGENTS.md and the latest review. Pick one ready question, preserve accepted studies and the homepage, reuse existing reference evidence, and complete one bounded pass. The owner authorizes publishing isolated working comparisons to GitHub. Update the experiment index and record findings. Report a meaningful completed comparison, blocker or required direction choice; stay quiet if there is no new work. Do not generate repeated cosmetic variants or launch paid services.
 
 Scheduled local work needs the computer on, the app running and project files available. An isolated worktree can separate scheduled changes from active local edits. See [official scheduled-task guidance](https://learn.chatgpt.com/docs/automations). Scheduling runs the saved task; it does not give the model permanent learning. Repository decisions are the reusable memory.
 
 ## Working links
 
 - [All experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/)
+- [Magenta core extraction](https://avisrikumeran.github.io/granite-query/playground/core-extraction/)
 - [Electric magenta](https://avisrikumeran.github.io/granite-query/playground/purple/?material=magenta)
 - [Three directions](https://avisrikumeran.github.io/granite-query/playground/directions/)
 - [Accepted green motion](https://avisrikumeran.github.io/granite-query/playground/)
