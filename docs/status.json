@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-04T01:09:20.704082+00:00",
+  "generated_at_utc": "2026-11-04T01:25:34.571049+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
@@ -17,7 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "native_baseline_waiting_shared_modal"
+    "stage": "student_baseline_waiting_for_shared_modal_capacity"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -1588,6 +1588,20 @@
       "kind": "decision",
       "title": "Native baseline queued behind existing Modal work",
       "detail": "The new200-question OPEN1024 baseline and both16k-token training plans are frozen and reviewed for the next bounded stage. The global one-task check found an existing inference-efficiency Modal app, so it launched no overlapping call or duplicate task. Its reservation is already included in the shared30USD project ledger. Reconcile that task before advancing the baseline, then calibrate before either adapter."
+    },
+    {
+      "id": "native-calibration-bridge-prototype-v1",
+      "at_utc": "2026-11-04T01:24:13.871700+00:00",
+      "kind": "completed",
+      "title": "Read-only calibration bridge prototype checked",
+      "detail": "Added a separate receipt-validation prototype with10 synthetic fixtures and independent source review, including a fix binding the physically loaded compatibility validator. It performs no provider call or model training and does not integrate the final seal, consume NativeStudy receipts or authorize test access. Reuse of future native study proof requires an explicit versioned adapter and matching inference settings. Native baseline remains queued behind the existing shared Modal task."
+    },
+    {
+      "id": "supervisor-next-Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch.",
+      "at_utc": "2026-11-04T01:25:20.830480+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch."
     }
   ],
   "latest_training_pool": {
@@ -1600,13 +1614,13 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 10.93961686,
+    "observed_metered_usd": 11.64961686,
     "collection_lag_buffer_usd": 3.0,
     "active_reservations_usd": 10.0,
     "pending_terminal_liability_usd": 0.0,
-    "budget_remaining_usd": 6.06,
-    "deepseek_peak_estimate_usd": 2.92,
-    "deepseek_observed_usage_usd": 1.87
+    "budget_remaining_usd": 5.35,
+    "deepseek_peak_estimate_usd": 3.28010392,
+    "deepseek_observed_usage_usd": 1.96
   },
   "source_imports": {
     "stage": "completed",
