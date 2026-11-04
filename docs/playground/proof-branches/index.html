@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Scroll through an illustrative query to reveal its source records, evidence requirements and qualified answer in a magenta proof-branch map.">
+  <title>Granite Query · Proof branches</title>
+  <link rel="stylesheet" href="./study.css?v=proof-20261103-1">
+  <script type="module" src="./study.mjs?v=proof-20261103-1"></script>
+</head>
+<body>
+  <a class="skip" href="#query-step">Skip to the evidence walkthrough</a>
+  <header class="site-header"><a class="brand" href="../../">Granite Query</a><nav aria-label="Study navigation"><a href="../experiments/">All experiments ↗</a></nav></header>
+  <main>
+    <div class="introduction"><p class="eyebrow">Motion study 04 / Proof branches</p><h1>Follow the evidence.</h1><div class="intro-line"><p>One query. Connected sources.<br>Every condition stays attached.</p><span class="example">Illustrative example</span></div></div>
+    <div class="story" id="story">
+      <aside class="visual" aria-label="Interactive evidence map">
+        <div class="map-heading"><span id="map-phase">Query</span><button id="show-all" aria-pressed="false">Show full map</button></div>
+        <figure tabindex="0" aria-label="Turn the proof branch map" aria-describedby="map-help">
+          <canvas role="img" aria-label="A query connects to an evaluation protocol, paired results and a run record. Five evidence requirements converge on a qualified answer."></canvas>
+          <div id="node-controls" class="node-controls" aria-label="Inspect map nodes"></div>
+          <figcaption id="scroll-cue">Scroll to grow the map <span aria-hidden="true">↓</span></figcaption>
+        </figure>
+        <div class="progress-track" aria-hidden="true"><span id="map-progress"></span></div>
+        <section class="detail" aria-label="Selected node"><div class="detail-meta"><p id="detail-kind">Query</p><span id="detail-source"></span></div><h2 id="detail-title">What would verify a reported gain?</h2><p id="detail-text">Follow the records needed to assess a claimed improvement. This example specifies the evidence to look for; it does not report a model result.</p></section>
+        <p id="map-help">Select a node to inspect it. Move your mouse to turn the map; arrow keys turn a focused view.</p>
+        <nav class="stage-nav" aria-label="Jump to a stage"><a href="#query-step" data-step="0" aria-current="step">Query</a><a href="#sources-step" data-step="1">Sources</a><a href="#evidence-step" data-step="2">Evidence</a><a href="#answer-step" data-step="3">Answer</a></nav>
+      </aside>
+      <div class="walkthrough">
+        <section class="step" id="query-step" data-section="0"><div class="step-content"><p class="step-number">01 / Ask</p><h2>Start with a question<br>that can be checked.</h2><p class="lead">What would verify a reported gain?</p><p>A result needs more than a headline score. Follow this example to see which records and conditions should travel with a claim.</p><p class="scroll-note">Scroll down to connect the sources <span aria-hidden="true">↓</span></p></div></section>
+        <section class="step" id="sources-step" data-section="1"><div class="step-content"><p class="step-number">02 / Connect</p><h2>Three records.<br>Different jobs.</h2><p>Connect the query to the records that can support an assessment. Select a record to inspect its role in the map.</p><div class="record-list"><button data-inspect="evaluation"><span>01</span><strong>Evaluation protocol</strong><small>What was tested</small><span aria-hidden="true">↗</span></button><button data-inspect="results"><span>02</span><strong>Paired results</strong><small>What was compared</small><span aria-hidden="true">↗</span></button><button data-inspect="run"><span>03</span><strong>Run record</strong><small>What produced it</small><span aria-hidden="true">↗</span></button></div></div></section>
+        <section class="step" id="evidence-step" data-section="2"><div class="step-content"><p class="step-number">03 / Inspect</p><h2>Keep the conditions<br>beside the evidence.</h2><p>The branches resolve into five evidence requirements. Each retains its source, including scope and unresolved uncertainty.</p><div class="evidence-list"><button data-inspect="matched"><span>E1</span><strong>Same held-out queries</strong><small>Evaluation protocol</small></button><button data-inspect="scope"><span>E2</span><strong>Scope and exclusions</strong><small>Evaluation protocol</small></button><button data-inspect="comparison"><span>E3</span><strong>Matched comparison</strong><small>Paired results</small></button><button data-inspect="uncertainty"><span>E4</span><strong>Uncertainty stays visible</strong><small>Paired results</small></button><button data-inspect="settings"><span>E5</span><strong>Reproducible settings</strong><small>Run record</small></button></div></div></section>
+        <section class="step" id="answer-step" data-section="3"><div class="step-content"><p class="step-number">04 / Qualify</p><h2>An answer with<br>its conditions attached.</h2><p class="lead">Assess the comparison, its scope, its uncertainty and its reproducibility together.</p><p>The evidence converges without losing the individual records behind it. Select any node to trace what belongs in the assessment.</p><div class="example-note"><span>About this example</span><p>These are illustrative evidence requirements, not published results or a live training feed. No measured gain is asserted.</p></div><a class="return-link" href="#query-step">Retrace the query <span aria-hidden="true">↑</span></a></div></section>
+      </div>
+    </div>
+    <noscript><p>The complete walkthrough above remains available without JavaScript. The interactive map requires JavaScript.</p></noscript>
+  </main>
+  <footer><span>Granite Query design lab · Original geometry</span><a href="../interlocking-reveal/">Interlocking reveal ↗</a><a href="https://github.com/AviSrikumeran/granite-query/blob/main/design/reviews/2026-11-03-proof-branches.md">Construction and review ↗</a></footer>
+</body>
+</html>
