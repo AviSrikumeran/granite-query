@@ -1,0 +1,1086 @@
+{
+  "schema_version": 1,
+  "stage": "review_complete_training_unproven",
+  "reviewed_local_date": "2026-11-03",
+  "timezone": "America/Chicago",
+  "run_id": "inference_efficiency32_modes_caps_v1",
+  "selection": "Every incorrect Granite low-effort outcome at cap 2048 in the frozen 32-question inference study. The same five outputs are identical at cap 512.",
+  "selected_misses": 5,
+  "original_low_effort_reference_matches": "27/32",
+  "process_failures": 3,
+  "reference_sensitive": 2,
+  "process_failures_solved_by_deepseek_nonthinking": 3,
+  "process_failures_solved_by_granite_nonthinking": 3,
+  "new_model_calls": 0,
+  "new_training": false,
+  "primary_grader_changed": false,
+  "official_test_accessed": false,
+  "evidence_sha256": {
+    "plan": "4383576cc7410ddd334492d6d346acb4ecb8e11466da8347b2fdfa93ecef6dbc",
+    "granite_outcomes": "6b7aa9598c32f042432918b75a186ec6dbd595427d3dabdf16effe6dc56d83d5",
+    "deepseek_outcomes": "a10737d0ab142a1b1a5efcc2c60d43e4af7c5ef21a8703ff7115aa2b47b0fb4f",
+    "curator_notes": "1871ed1b362f971437fcca34a4bdc371bda681ba5ea502083400668244950928"
+  },
+  "cases": [
+    {
+      "question_id": "gsm8k:train:05709",
+      "title": "Garlic: units and separate requirements",
+      "kind": "process_failure",
+      "granite_prediction": "15",
+      "deepseek_prediction": "72",
+      "reference": "72",
+      "granite_observation": "Replaces a three-clove batch with one clove, then treats the separate creature requirements as simultaneous coverage and takes a maximum.",
+      "deepseek_observation": "Keeps the three-clove multiplier for each group, computes 45, 12 and 15 cloves, and sums them to 72.",
+      "checks": [
+        {
+          "expression": "3*(30/2+12/3+40/8)",
+          "result": "72"
+        },
+        {
+          "expression": "30/2",
+          "result": "15"
+        }
+      ],
+      "training_family": "units_and_aggregation",
+      "data_needed": "Examples that preserve batch sizes and named units through each conversion; contrast sequential/additive requirements with explicitly shared or parallel capacity.",
+      "confidence": "The generated reasoning explicitly shows both substitutions. This describes the observed trace, not a mechanistic account of the weights.",
+      "setup": "A three-clove batch covers two vampires, eight bats, or three wights. The requested groups are 30 vampires, 40 bats and 12 wights.",
+      "granite_low": {
+        "mode": "low",
+        "cap": 2048,
+        "generated_tokens": 351,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 9.084057023000014,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "15",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_nonthinking": {
+        "mode": "nonthinking",
+        "cap": 2048,
+        "generated_tokens": 196,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 2.5789999999979045,
+        "scoring": {
+          "correct": true,
+          "extraction": "marker",
+          "prediction": "72",
+          "strict_format_correct": true,
+          "truncated": false
+        }
+      },
+      "deepseek_modes": [
+        {
+          "mode": "high",
+          "cap": 2048,
+          "generated_tokens": 410,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 4.828000000008615,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "72",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 291,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 3.812000000005355,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "72",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "max",
+          "cap": 2048,
+          "generated_tokens": 567,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 6.76500000001397,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "72",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 196,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.5789999999979045,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "72",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        }
+      ],
+      "granite_modes": [
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 351,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 9.084057023000014,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "15",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 447,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 11.449480008000023,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "72",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "thinking",
+          "cap": 2048,
+          "generated_tokens": 729,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 19.703639163999924,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "72",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        }
+      ],
+      "low_caps_identical": true,
+      "valid_final_numeric_format": true,
+      "canonical_reference_sha256": "5b32343d1a3a75968efd12e6dbc1331bf59e255174fa037d9c714cf3c01887d6",
+      "granite_trace_sha256": "7d50061f38892a4a1ad7eda1d456339fe0716a42fddef07b7123547df85cbafc",
+      "teacher_final_sha256": "b63ddf23ca61bea3811ffab8986def05c99cbdb8768bcea16d2f9cdccf548f60"
+    },
+    {
+      "question_id": "gsm8k:train:03027",
+      "title": "Books: recognized gifts disappear from the sum",
+      "kind": "process_failure",
+      "granite_prediction": "76",
+      "deepseek_prediction": "81",
+      "reference": "81",
+      "granite_observation": "Recognizes the two gifts as an additional five books, but omits that five when writing the net-change equation. The arithmetic on the incomplete equation is correct.",
+      "deepseek_observation": "Carries every addition and removal into the final signed ledger, including both gifts.",
+      "checks": [
+        {
+          "expression": "72+12+5+2+1+4-12-3",
+          "result": "81"
+        },
+        {
+          "expression": "72+12+7-12-3",
+          "result": "76"
+        }
+      ],
+      "training_family": "complete_quantity_ledger",
+      "data_needed": "Short solutions that name every incoming and outgoing quantity and include each once; include already-counted quantities so the model must avoid both omissions and double counting.",
+      "confidence": "The omitted term is directly visible in the generated reasoning. The earlier final-answer-only audit could not identify it.",
+      "setup": "Start with 72 books; add 12 monthly books, purchases of five and two, and gifts of one and four; then remove 12 donated and three sold books.",
+      "granite_low": {
+        "mode": "low",
+        "cap": 2048,
+        "generated_tokens": 108,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 2.7873315290000846,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "76",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_nonthinking": {
+        "mode": "nonthinking",
+        "cap": 2048,
+        "generated_tokens": 199,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 2.7809999999881256,
+        "scoring": {
+          "correct": true,
+          "extraction": "marker",
+          "prediction": "81",
+          "strict_format_correct": true,
+          "truncated": false
+        }
+      },
+      "deepseek_modes": [
+        {
+          "mode": "high",
+          "cap": 2048,
+          "generated_tokens": 216,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 3.0,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "81",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 221,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 3.3439999999827705,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "81",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "max",
+          "cap": 2048,
+          "generated_tokens": 227,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 3.14000000001397,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "81",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 199,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.7809999999881256,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "81",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        }
+      ],
+      "granite_modes": [
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 108,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.7873315290000846,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "76",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 179,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 4.595828368999946,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "81",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "thinking",
+          "cap": 2048,
+          "generated_tokens": 1125,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 29.08914628399998,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "81",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        }
+      ],
+      "low_caps_identical": true,
+      "valid_final_numeric_format": true,
+      "canonical_reference_sha256": "6f1e317c2168408875ffac5fbc9c6c47a3b35216c8bf6094ae9654d52b210acc",
+      "granite_trace_sha256": "1d696d7d1f0ece1159ac41a294333712c98d3fb3a27253428d3c3344fa6ca2ce",
+      "teacher_final_sha256": "64da20a012fbd9382e7c5c73bfd4ee105da712d9070b250ab4366aa5fcbeaae6"
+    },
+    {
+      "question_id": "gsm8k:train:00743",
+      "title": "Plane fuel: a corrected count is not propagated",
+      "kind": "process_failure",
+      "granite_prediction": "98000",
+      "deepseek_prediction": "106000",
+      "reference": "106000",
+      "granite_observation": "Initially computes bags for 30 passengers. It later includes five crew in the people count, but retains 60 bags rather than recomputing 70 bags for all 35 people.",
+      "deepseek_observation": "Defines 35 people first, derives 70 bags from that same set, and uses both counts consistently in the per-mile rate.",
+      "checks": [
+        {
+          "expression": "(20+3*(30+5)+2*(2*(30+5)))*400",
+          "result": "106000"
+        },
+        {
+          "expression": "(20+3*35+2*60)*400",
+          "result": "98000"
+        }
+      ],
+      "training_family": "entity_scope_and_dependencies",
+      "data_needed": "Examples that define the full entity set once and derive every dependent count from it; contrast each attendee with passengers-only or students-only wording.",
+      "confidence": "The stale bag count is explicit in the generated reasoning. Final-number agreement alone would not establish this explanation.",
+      "setup": "Fuel uses 20 gallons per mile plus three per person and two per bag. There are 30 passengers and five crew, two bags per person, and 400 miles to travel.",
+      "granite_low": {
+        "mode": "low",
+        "cap": 2048,
+        "generated_tokens": 324,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 8.732974537000018,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "98000",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_nonthinking": {
+        "mode": "nonthinking",
+        "cap": 2048,
+        "generated_tokens": 169,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 2.702999999979511,
+        "scoring": {
+          "correct": true,
+          "extraction": "marker",
+          "prediction": "106000",
+          "strict_format_correct": true,
+          "truncated": false
+        }
+      },
+      "deepseek_modes": [
+        {
+          "mode": "high",
+          "cap": 2048,
+          "generated_tokens": 621,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 7.171999999991385,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "106000",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 392,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 4.64100000000326,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "106000",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "max",
+          "cap": 2048,
+          "generated_tokens": 484,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 5.844000000011874,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "106000",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 169,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.702999999979511,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "106000",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        }
+      ],
+      "granite_modes": [
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 324,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 8.732974537000018,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "98000",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 255,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 6.733786920999819,
+          "scoring": {
+            "correct": true,
+            "extraction": "marker",
+            "prediction": "106000",
+            "strict_format_correct": true,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "thinking",
+          "cap": 2048,
+          "generated_tokens": 1417,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 36.45839562600008,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "1060000",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        }
+      ],
+      "low_caps_identical": true,
+      "valid_final_numeric_format": true,
+      "canonical_reference_sha256": "9b3f96ee2aafe681b5e605c8c68ba57f4b0503ea99b166d3fb4b42fd07046022",
+      "granite_trace_sha256": "4324a243cd6d25a5cdc674ed00b655b84d2295414d17964cc361ac878046387b",
+      "teacher_final_sha256": "d7e289522e78082253a3b2845315a59d8948aaa53bf6cfec5351388a926612a2"
+    },
+    {
+      "question_id": "gsm8k:train:03588",
+      "title": "Bedbugs: elapsed intervals versus numbered days",
+      "kind": "reference_sensitive",
+      "granite_prediction": "10",
+      "deepseek_prediction": "10",
+      "reference": "30",
+      "granite_observation": "Uses four elapsed tripling intervals, giving 810 divided by 3 to the fourth power.",
+      "deepseek_observation": "All four tested DeepSeek modes make the same interval interpretation and return 10. The source reference instead counts three transitions from day one to day four.",
+      "checks": [
+        {
+          "expression": "810/3**4",
+          "result": "10"
+        },
+        {
+          "expression": "810/3**3",
+          "result": "30"
+        }
+      ],
+      "training_family": null,
+      "data_needed": "Quarantine this wording from corrective supervision. If teaching interval counting, write separate explicit day-zero/four-interval and day-one/three-interval problems with independently checked labels.",
+      "confidence": "Both arithmetic results are exact. A reference mismatch is not sufficient evidence that the model's interval arithmetic is wrong.",
+      "setup": "The population triples daily and reaches 810 after four days. The wording does not explicitly distinguish day zero from day one as the starting observation.",
+      "granite_low": {
+        "mode": "low",
+        "cap": 2048,
+        "generated_tokens": 54,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 1.373846622999963,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "10",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_nonthinking": {
+        "mode": "nonthinking",
+        "cap": 2048,
+        "generated_tokens": 106,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 1.639999999984866,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "10",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_modes": [
+        {
+          "mode": "high",
+          "cap": 2048,
+          "generated_tokens": 122,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.26500000001397,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 111,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 1.9839999999967404,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "max",
+          "cap": 2048,
+          "generated_tokens": 140,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.7660000000032596,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 106,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 1.639999999984866,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        }
+      ],
+      "granite_modes": [
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 54,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 1.373846622999963,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 176,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 4.4779225170000245,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "thinking",
+          "cap": 2048,
+          "generated_tokens": 399,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 10.331690028999901,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "10",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        }
+      ],
+      "low_caps_identical": true,
+      "valid_final_numeric_format": true,
+      "canonical_reference_sha256": "f1c27c40d017fc74354cf6c8b8ab6a9c57ce93db259f8d24f4b8f872032f9e9e",
+      "granite_trace_sha256": "bffcb4d7d169172b2af68526671b2eb1ec05ec50b42670fcc4c24853efad77e6",
+      "teacher_final_sha256": "792eff2d33f01de16a300f88fea38f8b7a1140a9bc40cc3b33686846b9dfcf61"
+    },
+    {
+      "question_id": "gsm8k:train:03921",
+      "title": "Trees: mean of rates versus pooled rate",
+      "kind": "reference_sensitive",
+      "granite_prediction": "3.875",
+      "deepseek_prediction": "3.875",
+      "reference": "4",
+      "granite_observation": "Computes total branches divided by total height, a height-weighted rate. Its arithmetic is exact for that interpretation.",
+      "deepseek_observation": "Nonthinking uses the same pooled rate. All three thinking modes reach the 2048-token cap discussing the two interpretations and produce no completed final answer.",
+      "checks": [
+        {
+          "expression": "(200+180+180+153)/(50+40+60+34)",
+          "result": "3.875"
+        },
+        {
+          "expression": "(200/50+180/40+180/60+153/34)/4",
+          "result": "4"
+        }
+      ],
+      "training_family": null,
+      "data_needed": "Quarantine the ambiguous original. Teach explicitly equal-weight averages and pooled rates as contrasting tasks, rather than forcing one answer for unspecified weighting.",
+      "confidence": "The source reference averages four per-tree rates equally. Both models' completed low/nonthinking outputs use a different defensible convention.",
+      "setup": "The four height/branch pairs are 50/200, 40/180, 60/180 and 34/153. The question asks for average branches per foot without specifying the weighting convention.",
+      "granite_low": {
+        "mode": "low",
+        "cap": 2048,
+        "generated_tokens": 324,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 8.877702947999978,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "3.875",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_nonthinking": {
+        "mode": "nonthinking",
+        "cap": 2048,
+        "generated_tokens": 91,
+        "truncated": false,
+        "failed": false,
+        "elapsed_seconds": 1.937999999994645,
+        "scoring": {
+          "correct": false,
+          "extraction": "marker",
+          "prediction": "3.875",
+          "strict_format_correct": false,
+          "truncated": false
+        }
+      },
+      "deepseek_modes": [
+        {
+          "mode": "high",
+          "cap": 2048,
+          "generated_tokens": 2048,
+          "truncated": true,
+          "failed": false,
+          "elapsed_seconds": 22.905999999988126,
+          "scoring": {
+            "correct": false,
+            "extraction": "last_nonempty_line",
+            "prediction": null,
+            "strict_format_correct": false,
+            "truncated": true
+          }
+        },
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 2048,
+          "truncated": true,
+          "failed": false,
+          "elapsed_seconds": 28.82799999997951,
+          "scoring": {
+            "correct": false,
+            "extraction": "last_nonempty_line",
+            "prediction": null,
+            "strict_format_correct": false,
+            "truncated": true
+          }
+        },
+        {
+          "mode": "max",
+          "cap": 2048,
+          "generated_tokens": 2048,
+          "truncated": true,
+          "failed": false,
+          "elapsed_seconds": 26.0,
+          "scoring": {
+            "correct": false,
+            "extraction": "last_nonempty_line",
+            "prediction": null,
+            "strict_format_correct": false,
+            "truncated": true
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 91,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 1.937999999994645,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "3.875",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        }
+      ],
+      "granite_modes": [
+        {
+          "mode": "low",
+          "cap": 2048,
+          "generated_tokens": 324,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 8.877702947999978,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "3.875",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "nonthinking",
+          "cap": 2048,
+          "generated_tokens": 106,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 2.806703890000108,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "3.857",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        },
+        {
+          "mode": "thinking",
+          "cap": 2048,
+          "generated_tokens": 1548,
+          "truncated": false,
+          "failed": false,
+          "elapsed_seconds": 42.10529672400003,
+          "scoring": {
+            "correct": false,
+            "extraction": "marker",
+            "prediction": "3.875",
+            "strict_format_correct": false,
+            "truncated": false
+          }
+        }
+      ],
+      "low_caps_identical": true,
+      "valid_final_numeric_format": true,
+      "canonical_reference_sha256": "a5ad7e2f15a2e09890838ade9c1fb6f8da492785d8a8285ec41bc2de8a3278c6",
+      "granite_trace_sha256": "84e8892e767ab7c3694cfd52c88daea3149a04af478776639b97180480aa3269",
+      "teacher_final_sha256": "0e5cb8d62f1fb9890455289c2f8a0ad062a83dd582e40b7985d1b11011ad5841"
+    }
+  ],
+  "candidate_reference_rejections": [
+    {
+      "id": "gsm8k:train:03273",
+      "issue": "The reference final answer and annotated arithmetic give 0.08 dollars profit per ear, but one prose sentence says 0.098. It also mixes dollar and cent wording.",
+      "decision": "Exclude this reference explanation pending a separate semantic repair and review.",
+      "arithmetic_annotation_check_passed": true,
+      "changed_existing_training_pool": false
+    },
+    {
+      "id": "gsm8k:train:04624",
+      "issue": "One prose sentence describes five tractor teams for four days while its adjoining computation and the question require seven tractors for three days.",
+      "decision": "Exclude this reference explanation pending a separate semantic repair and review.",
+      "arithmetic_annotation_check_passed": true,
+      "changed_existing_training_pool": false
+    }
+  ],
+  "curriculum": {
+    "schema_version": 1,
+    "stage": "untrained_review_seed",
+    "candidate_count": 15,
+    "human_train_questions": 9,
+    "authored_counterfactual_examples": 6,
+    "families": {
+      "complete_quantity_ledger": 5,
+      "entity_scope_and_dependencies": 5,
+      "units_and_aggregation": 5
+    },
+    "candidate_curriculum_sha256": "82fe2b352627a83e180a44441279bce1833d92234a00464b38cbcb2a0e70453f",
+    "approved_training_cohort_sha256": "36a508f957e0d244d9ac6529370c9cc1ce36339e5e7e1e8fa47d2b0ccf9e1c94",
+    "development_source_sha256": "cccdce864d728e6b43d9d4de866e719bfd9c706cc735a3a3d429095835c767c7",
+    "development_count_checked": 200,
+    "exact_id_or_normalized_prompt_overlap": 0,
+    "number_masked_fivegram_jaccard_rejection_threshold": 0.7,
+    "maximum_observed_jaccard": 0.05660377358490566,
+    "total_target_granite_tokens": 905,
+    "maximum_target_granite_tokens": 81,
+    "target_token_scope": "Raw assistant worked-solution text under the pinned Granite tokenizer, excluding chat prefix and EOS. This is not a supervised-token budget.",
+    "new_model_calls": 0,
+    "new_training": false,
+    "official_test_accessed": false,
+    "added_to_live_training_manifests": false,
+    "limitations": [
+      "Small posthoc seed set; usefulness is a hypothesis, not a demonstrated training gain.",
+      "Exact arithmetic does not certify question semantics; each selected example also received a manual semantic review.",
+      "Lexical checks detect only some overlap. These examples deliberately share skills with development errors and are not independent evaluation data.",
+      "The nine human questions are from an existing training pool and may have appeared in earlier project runs. No claim of globally novel training data.",
+      "Native low-effort training serialization, masks, EOS and save/reload still require a separate trainer preflight."
+    ]
+  },
+  "candidate_sources": [
+    {
+      "id": "gsm8k:train:04233",
+      "family": "units_and_aggregation",
+      "title": "Meal quantities to bags to cost",
+      "target_granite_tokens": 47
+    },
+    {
+      "id": "gsm8k:train:03612",
+      "family": "units_and_aggregation",
+      "title": "Cards through students, packs and cost",
+      "target_granite_tokens": 56
+    },
+    {
+      "id": "gsm8k:train:04326",
+      "family": "units_and_aggregation",
+      "title": "Two sellers with different price units",
+      "target_granite_tokens": 63
+    },
+    {
+      "id": "gsm8k:train:03019",
+      "family": "complete_quantity_ledger",
+      "title": "Inventory with a mixed-color outgoing gift",
+      "target_granite_tokens": 61
+    },
+    {
+      "id": "gsm8k:train:05346",
+      "family": "complete_quantity_ledger",
+      "title": "Donations from multiple locations and a later addition",
+      "target_granite_tokens": 62
+    },
+    {
+      "id": "gsm8k:train:01306",
+      "family": "complete_quantity_ledger",
+      "title": "Carry all three spending categories into the balance",
+      "target_granite_tokens": 77
+    },
+    {
+      "id": "gsm8k:train:02606",
+      "family": "entity_scope_and_dependencies",
+      "title": "Students and adults have different fees",
+      "target_granite_tokens": 43
+    },
+    {
+      "id": "gsm8k:train:05541",
+      "family": "entity_scope_and_dependencies",
+      "title": "Separate adult tickets, child tickets and concessions",
+      "target_granite_tokens": 60
+    },
+    {
+      "id": "gsm8k:train:04040",
+      "family": "entity_scope_and_dependencies",
+      "title": "Different consuming and sharing groups",
+      "target_granite_tokens": 45
+    },
+    {
+      "id": "authored:units-sequential",
+      "family": "units_and_aggregation",
+      "title": "sequential",
+      "target_granite_tokens": 61
+    },
+    {
+      "id": "authored:units-parallel",
+      "family": "units_and_aggregation",
+      "title": "parallel",
+      "target_granite_tokens": 81
+    },
+    {
+      "id": "authored:ledger-new-gifts",
+      "family": "complete_quantity_ledger",
+      "title": "new_gifts",
+      "target_granite_tokens": 50
+    },
+    {
+      "id": "authored:ledger-counted-gifts",
+      "family": "complete_quantity_ledger",
+      "title": "already_counted",
+      "target_granite_tokens": 62
+    },
+    {
+      "id": "authored:scope-all",
+      "family": "entity_scope_and_dependencies",
+      "title": "all_attendees",
+      "target_granite_tokens": 68
+    },
+    {
+      "id": "authored:scope-subset",
+      "family": "entity_scope_and_dependencies",
+      "title": "apprentices_only",
+      "target_granite_tokens": 69
+    }
+  ],
+  "authored_counterfactuals": [
+    {
+      "id": "authored:units-sequential",
+      "family": "units_and_aggregation",
+      "contrast_group": "printer-semantics",
+      "variant": "sequential",
+      "prompt": "A print station takes 5 minutes per batch. A batch prints either 3 A-labels, 4 B-labels, or 6 C-labels. The order needs 6 A-labels, 12 B-labels, and 18 C-labels. One station prints all batches sequentially. How many minutes does it take?",
+      "target": "A batches: 6/3 = 2 batches.\nB batches: 12/4 = 3 batches.\nC batches: 18/6 = 3 batches.\nTotal time: 5*(2+3+3) = 40 minutes.\n\n#### 40",
+      "gold_answer": "40",
+      "training_ready": false
+    },
+    {
+      "id": "authored:units-parallel",
+      "family": "units_and_aggregation",
+      "contrast_group": "printer-semantics",
+      "variant": "parallel",
+      "prompt": "A print station takes 5 minutes per batch. A batch prints either 3 A-labels, 4 B-labels, or 6 C-labels. The order needs 6 A-labels, 12 B-labels, and 18 C-labels. Three identical stations start together, with one assigned to each label type and no shared work. How many minutes until the entire order is finished?",
+      "target": "Parallel completion uses the largest station time, rather than adding station times.\nA station time: 5*(6/3) = 10 minutes.\nB station time: 5*(12/4) = 15 minutes.\nC station time: 5*(18/6) = 15 minutes.\nCompletion time: 15 = 15 minutes.\n\n#### 15",
+      "gold_answer": "15",
+      "training_ready": false
+    },
+    {
+      "id": "authored:ledger-new-gifts",
+      "family": "complete_quantity_ledger",
+      "contrast_group": "gift-timing",
+      "variant": "new_gifts",
+      "prompt": "A club has 48 tokens. It then receives 7 membership tokens, buys 5 more, spends 8, and donates 2. After that, it receives two gifts of 4 and 3 tokens. How many tokens does it now have?",
+      "target": "All additions: 7+5+4+3 = 19 tokens.\nAll removals: 8+2 = 10 tokens.\nEnding balance: 48+19-10 = 57 tokens.\n\n#### 57",
+      "gold_answer": "57",
+      "training_ready": false
+    },
+    {
+      "id": "authored:ledger-counted-gifts",
+      "family": "complete_quantity_ledger",
+      "contrast_group": "gift-timing",
+      "variant": "already_counted",
+      "prompt": "A club has 48 tokens. It then receives 7 membership tokens, buys 5 more, spends 8, and donates 2. The original 48-token count already included two gifts of 4 and 3 tokens. Those gifts are not received again. How many tokens does it now have?",
+      "target": "The two earlier gifts are already in the starting balance and are counted once.\nNew additions: 7+5 = 12 tokens.\nAll removals: 8+2 = 10 tokens.\nEnding balance: 48+12-10 = 50 tokens.\n\n#### 50",
+      "gold_answer": "50",
+      "training_ready": false
+    },
+    {
+      "id": "authored:scope-all",
+      "family": "entity_scope_and_dependencies",
+      "contrast_group": "brush-recipients",
+      "variant": "all_attendees",
+      "prompt": "A workshop has 18 apprentices and 3 mentors. Admission costs 5 dollars for each attendee. Brushes cost 4 dollars each. Every attendee receives 2 brushes. How much do admission and brushes cost altogether?",
+      "target": "Attendees: 18+3 = 21 people.\nBrushes: 21*2 = 42 brushes.\nAdmission: 21*5 = 105 dollars.\nBrush cost: 42*4 = 168 dollars.\nTotal: 105+168 = 273 dollars.\n\n#### 273",
+      "gold_answer": "273",
+      "training_ready": false
+    },
+    {
+      "id": "authored:scope-subset",
+      "family": "entity_scope_and_dependencies",
+      "contrast_group": "brush-recipients",
+      "variant": "apprentices_only",
+      "prompt": "A workshop has 18 apprentices and 3 mentors. Admission costs 5 dollars for each attendee. Brushes cost 4 dollars each. Only apprentices receive 2 brushes each; mentors bring their own and buy none. How much do admission and purchased brushes cost altogether?",
+      "target": "Attendees: 18+3 = 21 people.\nPurchased brushes: 18*2 = 36 brushes.\nAdmission: 21*5 = 105 dollars.\nBrush cost: 36*4 = 144 dollars.\nTotal: 105+144 = 249 dollars.\n\n#### 249",
+      "gold_answer": "249",
+      "training_ready": false
+    }
+  ],
+  "training_plan": [
+    "Treat these three process failures as development-informed hypotheses. First expand manual error review to more development questions before choosing category weights.",
+    "Before retraining, compare a short entity-and-quantity-ledger prompt with the current prompt on separate transfer-development questions, using repeated decoding and total-token accounting. A prompt or mode change may improve reliability with the original weights.",
+    "Build a larger semantically reviewed training pool with varied contexts. Use these 15 examples to establish quality criteria; do not fill the pool with numerical clones of the five missed questions.",
+    "Compare targeted selection with random selection from the same reviewed pool. Apply the same concise worked-solution style and validation rules to both arms, and match actual supervised tokens and optimizer updates.",
+    "Use fresh copies of the same base checkpoint and identical adapter/optimizer settings. Validate native low-effort serialization, role masks, target completeness and EOS before any run. Include an untouched-base comparison.",
+    "Freeze a new transfer-development set from untouched TRAIN questions or independently authored families. Keep all original 200 development questions excluded from training. These five reviewed cases are diagnostic, not independent confirmation.",
+    "Report paired corrections/regressions, accuracy, total tokens, truncation and runtime in low-effort mode; also check nonthinking and instruction/tool/grounding retention. Repeat decoding or training seeds before stronger claims.",
+    "Keep the two ambiguous references out of corrective supervision. A separate clarification/interval/averaging task can teach explicit conventions with verified labels.",
+    "Launch training only through a separately reviewed and funded protocol. This review adds no jobs, reservations, live manifests or official-test access."
+  ],
+  "limitations": [
+    "Five selected misses from one sampled 32-question study. This diagnoses observed text, not hidden model internals or the causal effect of training.",
+    "All three process failures were solved by Granite in sampled nonthinking responses, but mode and random decoding differ; this does not prove a deterministic mode effect.",
+    "DeepSeek is an evidence source, not an automatic ground-truth oracle. Reference-sensitive items preserve their original grades.",
+    "Semantic review was performed by this assistant and is not an independent second-rater study. Candidate checks and examples are a starter specification, not evidence of improved model performance."
+  ]
+}

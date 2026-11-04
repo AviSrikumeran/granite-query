@@ -27,5 +27,16 @@
     "questions": 32,
     "outcomes": 448,
     "official_test_used": false
+  },
+  "error_review": {
+    "priority": "high",
+    "page": "https://avisrikumeran.github.io/granite-query/low-effort-error-review.html",
+    "all_low_effort_misses_reviewed": 5,
+    "supported_process_failures": 3,
+    "reference_sensitive": 2,
+    "candidate_examples": 15,
+    "new_model_calls": 0,
+    "new_training": false,
+    "training_benefit_demonstrated": false
   }
 }
