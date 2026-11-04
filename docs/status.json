@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-04T02:06:33.121760+00:00",
+  "generated_at_utc": "2026-11-04T02:55:02.198724+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Native reasoning transfer: concise versus thinking supervision",
-  "next_action": "A recorded student attempt failed. Its original call and failure remain preserved, with 0 validated evaluation outputs and no accuracy. A separately versioned implementation and reviewed recovery are required before another dispatch; no automatic retry is authorized. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.",
+  "stage": "Native reasoning transfer: versioned mount recovery",
+  "next_action": "A new recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,7 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "student_attempt_failed_requires_review"
+    "stage": "recovery_attempt_failed_requires_review"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -1651,6 +1651,69 @@
       "kind": "in_progress",
       "title": "Research improvement cycle",
       "detail": "Preserve the original failed native baseline call, positive provider terminal and zero validated outputs. Finish the separately versioned trusted-mount recovery review and funding transfer before a new attempt; never rerun its existing claim or weaken descendant/source path checks. Training still requires a completed new baseline and measured calibration."
+    },
+    {
+      "id": "native-mount-v2-engineering-reviewed",
+      "at_utc": "2026-11-04T02:22:35.208091+00:00",
+      "kind": "resolved",
+      "title": "Versioned native mount fix reviewed",
+      "detail": "The new worker normalizes only the fixed configured artifact-mount alias and retains strict descendant/source/adapter checks. Actual success or failure mount observations will be captured by the runtime.49focused synthetic checks and independent source/physical-plan reviews passed; these are not model benchmark results. New inputs retain the exact original143concise/62thinking whole targets and same200TRAIN development questions. Original failed call/error/terminal remain unchanged."
+    },
+    {
+      "id": "native-mount-v2-envelope-migrated",
+      "at_utc": "2026-11-04T02:22:35.216093+00:00",
+      "kind": "decision",
+      "title": "Existing5.25USD moved into the reviewed recovery envelope",
+      "detail": "Completed an audited one-time transfer of only the unused5.25USD from the original7USD phase. No fresh reservation or extra funding was created; the failed original1.75USD allowance remains in history with supported billing reconciliation. Fresh observations leave9.22USD free after liabilities including protected5. Only the new baseline is approved; actual baseline runtime and a separate pair review precede training."
+    },
+    {
+      "id": "native-mount-v2-baseline-started-verified",
+      "at_utc": "2026-11-04T02:26:22.640187+00:00",
+      "kind": "in_progress",
+      "title": "Reviewed native baseline started; actual mount fix verified",
+      "detail": "The new baseline call has a matching actual remote owner. Original bytes downloaded from its persistent artifact volume verify a successful trusted-mount observation, pinned source/dependency checks and tokenizer identity. The actual configured mount is a symlink; strict descendant/source/adapter link checks remain enabled. The worker reached model loading under the unchanged200-question OPEN1024 protocol. This is a real startup milestone, not a completed evaluation or accuracy gain. Pair training still awaits full baseline receipts and runtime calibration."
+    },
+    {
+      "id": "supervisor-next-Poll only the saved native_reasoning_control_v2 call. Require its actual provider terminal and all25 raw replay batches before metrics or calibration. Preserve its claim and pending billing liability; never launch a duplicate.",
+      "at_utc": "2026-11-04T02:28:54.398815+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Poll only the saved native_reasoning_control_v2 call. Require its actual provider terminal and all25 raw replay batches before metrics or calibration. Preserve its claim and pending billing liability; never launch a duplicate."
+    },
+    {
+      "id": "native-v2-config-byte-failure",
+      "at_utc": "2026-11-04T02:37:54.254730+00:00",
+      "kind": "failed",
+      "title": "Mount recovery stopped at model-config byte verification",
+      "detail": "The V2 worker positively verified the actual trusted mount, source/dependency and tokenizer checks, then returned a failed result after19.087607seconds with0training/evaluation outputs and no model verification. Local CPU reproduction found the reviewed config hash came from a940-byte Windows-formatted copy; the official905-byte file at the same pinned commit has a different raw hash but an identical parsed configuration. The original V2 call and receipts are preserved; no score or improvement is claimed."
+    },
+    {
+      "id": "native-v3-official-config-cpu-plan",
+      "at_utc": "2026-11-04T02:37:54.264850+00:00",
+      "kind": "planned",
+      "title": "Verify official config bytes before another GPU attempt",
+      "detail": "Downloaded official pinned config metadata through two independent CPU paths, verified its exact raw identity and architecture, loaded its pinned AutoConfig without model weights, and successfully inspected both existing private adapter headers with the explicit official hash. Preparing a separate V3 worker/controller with that reviewed hash, private failure diagnostics and accurate terminal progress. Funding would transfer3.50unused and reserve1.75additional from the unchanged30USD project ceiling; this is not a request for more cash. No V3 call is launched by this event."
+    },
+    {
+      "id": "supervisor-next-Preserve the failed V2 call and zero validated outputs. Review the CPU-reproduced official config byte identity and separately versioned V3 source/funding plan before another baseline. No existing call may be repeated and no score or training improvement is established.",
+      "at_utc": "2026-11-04T02:41:57.722752+00:00",
+      "kind": "in_progress",
+      "title": "Research improvement cycle",
+      "detail": "Preserve the failed V2 call and zero validated outputs. Review the CPU-reproduced official config byte identity and separately versioned V3 source/funding plan before another baseline. No existing call may be repeated and no score or training improvement is established."
+    },
+    {
+      "id": "finite-supervision-stop-rule-v1",
+      "at_utc": "2026-11-04T02:45:16.071265+00:00",
+      "kind": "decision",
+      "title": "Finite supervision and explicit completion stop",
+      "detail": "The supervisor remains active while concrete approved research and delivery work remains. Finishing one pilot or baseline does not complete the project. After validated comparisons, checkpoint/evaluation, the capped API and final reports are delivered—or no useful next stage fits the original budgets—it must reconcile paid work, publish an honest final or incomplete report and remove its recurring monitor. Temporary holds and normal in-progress jobs are not completion. No new funding or unbounded training is authorized."
+    },
+    {
+      "id": "native-v3-accounting-adapter-plan",
+      "at_utc": "2026-11-04T02:55:02.190616+00:00",
+      "kind": "planned",
+      "title": "Recognize audited transferred envelopes without weakening accounting",
+      "detail": "A fresh supported refresh blocks new launches because the generic accounting helper does not recognize a superseded zero-valued reservation envelope. Current funds are sufficient; this is a bookkeeping classification issue. A separate adapter is being reviewed to recognize only physically audited, balanced native transfers while preserving true statuses and every unknown liability. Historical accounting sources remain unchanged. No V3 reservation or model call is created by this preparation."
     }
   ],
   "latest_training_pool": {
@@ -1663,11 +1726,11 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 12.37988935,
+    "observed_metered_usd": 12.38989044,
     "collection_lag_buffer_usd": 3.0,
-    "active_reservations_usd": 5.25,
-    "pending_terminal_liability_usd": 2.65,
-    "budget_remaining_usd": 6.57,
+    "active_reservations_usd": 3.5,
+    "pending_terminal_liability_usd": 0.0,
+    "budget_remaining_usd": 10.97,
     "deepseek_peak_estimate_usd": 3.28010392,
     "deepseek_observed_usage_usd": 2.0
   },
