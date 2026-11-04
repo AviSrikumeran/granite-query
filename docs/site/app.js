@@ -1,6 +1,8 @@
 import {FEEDS,buildStudy} from './data.js?v=20261104-1';
 
 const $=selector=>document.querySelector(selector);
+const rootURL=new URL('../',import.meta.url);
+const fromRoot=path=>new URL(path,rootURL).href;
 const element=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const number=value=>Number.isFinite(value)?new Intl.NumberFormat('en-US',{maximumFractionDigits:3}).format(value):'Not reported';
 const percent=value=>new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(value)+'%';
@@ -15,9 +17,6 @@ menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded'
 navigation?.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu?.getAttribute('aria-expanded')==='true')closeMenu(true);});
 matchMedia('(min-width:651px)').addEventListener('change',event=>{if(event.matches)closeMenu();});
-
-// Artwork failure must never prevent access to the research.
-import('./hero.js?v=20261104-1').then(({initHero})=>initHero($('#hero-material'))).catch(()=>{$('#hero-material').setAttribute('aria-label','Static magenta material illustration. Interactive artwork unavailable.');});
 
 function selected(){const study=studies[studyId],split=study?.splits.find(item=>item.id===splitId);return{study,split,row:split?.rows.find(item=>item.id===selectedId)};}
 function chooseRow(id,{focus=false}={}){selectedId=id;renderResults({focusRow:focus?id:null});}
@@ -38,7 +37,7 @@ function renderEvidence(study,split,row){
   const provenance=row.evidence.filter(item=>/scoring|sha|paired|strict|output|revision/i.test(item.label));
   if(provenance.length){const details=element('details',undefined,'provenance-details'),summary=element('summary','Scoring and provenance'),list=element('dl');for(const item of provenance)addField(list,item.label,item.value);details.append(summary,list);fields.append(details);}
   $('#evidence-note').textContent=(row.note?row.note+' ':'')+'Question-bootstrap intervals do not measure training-seed uncertainty. Numeric matches do not verify every reasoning step.';
-  $('#source-data-link').href=row.sourcePath;$('#source-data-link').textContent='Open original evidence ↗';
+  $('#source-data-link').href=fromRoot(row.sourcePath);$('#source-data-link').textContent='Open original evidence ↗';
   $('#evidence-json').textContent=JSON.stringify({representation:'Derived display record; original source linked below',study:study.id,partition:split.id,published_at_utc:study.updatedAt,...row},null,2);
   $('#evidence-details').hidden=evidenceView!=='details';$('#evidence-json').hidden=evidenceView!=='json';for(const button of document.querySelectorAll('button[data-evidence-view]'))button.setAttribute('aria-pressed',String(button.dataset.evidenceView===evidenceView));
 }
@@ -49,7 +48,7 @@ function renderResults({focusRow=null}={}){
   if(!split.rows.some(row=>row.id===selectedId))selectedId=studyId==='overnight'?'large-error':studyId==='matched-200'?'skill':'skill-42';
   if(!split.rows.some(row=>row.id===selectedId))selectedId=split.rows[0].id;
   const row=split.rows.find(item=>item.id===selectedId);
-  $('#study-date').textContent=date(study.updatedAt);$('#study-label').textContent=study.label;$('#study-title').textContent=study.title;$('#study-summary').textContent=study.summary;$('#study-limitation').textContent=study.limitation;$('#chart-measure').textContent='Numeric answer accuracy · '+split.label;$('#records-caption').textContent=split.label+'. Counts and output caps from the original evidence.';$('#study-report-link').href=reportLinks[studyId];
+  $('#study-date').textContent=date(study.updatedAt);$('#study-label').textContent=study.label;$('#study-title').textContent=study.title;$('#study-summary').textContent=study.summary;$('#study-limitation').textContent=study.limitation;$('#chart-measure').textContent='Numeric answer accuracy · '+split.label;$('#records-caption').textContent=split.label+'. Counts and output caps from the original evidence.';$('#study-report-link').href=fromRoot(reportLinks[studyId]);
   for(const button of document.querySelectorAll('button[data-study]'))button.setAttribute('aria-pressed',String(button.dataset.study===studyId));
   const splitControls=$('#split-controls');splitControls.replaceChildren();for(const item of study.splits){const button=element('button',item.id==='retention'?'Same-task retention':'Development');button.type='button';button.dataset.split=item.id;button.setAttribute('aria-pressed',String(item.id===splitId));splitControls.append(button);}splitControls.hidden=study.splits.length===1;
   $('#result-chart').replaceChildren(...split.rows.map(item=>chartButton(item,split)));$('#result-records').replaceChildren(...split.rows.map(tableRow));
@@ -66,7 +65,7 @@ document.querySelectorAll('button[data-evidence-view]').forEach(button=>button.a
 async function loadEvidence(){
   const generation=++loadNumber,button=$('#reload-evidence');button.disabled=true;$('#data-status').textContent='Loading published evidence files…';
   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
-  const entries=Object.entries(FEEDS),responses=await Promise.allSettled(entries.map(async([key,path])=>{const response=await fetch(path,{cache:'no-store',signal:controller.signal});if(!response.ok)throw new Error(path+' unavailable');return[key,await response.json()];}));clearTimeout(timeout);if(generation!==loadNumber)return;
+  const entries=Object.entries(FEEDS),responses=await Promise.allSettled(entries.map(async([key,path])=>{const response=await fetch(fromRoot(path),{cache:'no-store',signal:controller.signal});if(!response.ok)throw new Error(path+' unavailable');return[key,await response.json()];}));clearTimeout(timeout);if(generation!==loadNumber)return;
   payloads=Object.fromEntries(responses.filter(result=>result.status==='fulfilled').map(result=>result.value));const previousStudies=studies,next={},errors=[];
   for(const id of ['overnight','matched-200','token-64'])try{next[id]=buildStudy(id,payloads);}catch{errors.push(id);}
   studies=Object.keys(next).length?next:previousStudies;for(const tab of document.querySelectorAll('button[data-study]')){tab.disabled=!studies[tab.dataset.study];tab.setAttribute('aria-label',tab.textContent.trim().replace(/\s+/g,' ')+(tab.disabled?' · evidence unavailable':''));}
@@ -84,5 +83,5 @@ const method={
   evaluate:{kicker:'04 / Separate questions',title:'The held-apart questions decide.',text:'The latest correction study measured 32 development and 32 same-task retention questions, under the same nonthinking greedy 512-token inference protocol. No adapter improved separate development accuracy. The official test split remained unopened.',path:'overnight-capacity-results.json'}
 };
 const methodButtons=[...document.querySelectorAll('[data-method]')];
-function selectMethod(id){const record=method[id];for(const button of methodButtons)button.setAttribute('aria-pressed',String(button.dataset.method===id));$('#method-kicker').textContent=record.kicker;$('#method-detail-title').textContent=record.title;$('#method-detail-text').textContent=record.text;$('#method-detail-link').href=record.path;}
+function selectMethod(id){const record=method[id];for(const button of methodButtons)button.setAttribute('aria-pressed',String(button.dataset.method===id));$('#method-kicker').textContent=record.kicker;$('#method-detail-title').textContent=record.title;$('#method-detail-text').textContent=record.text;$('#method-detail-link').href=fromRoot(record.path);}
 methodButtons.forEach((button,index)=>{button.addEventListener('click',()=>selectMethod(button.dataset.method));button.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight'||event.key==='ArrowDown')next=Math.min(methodButtons.length-1,index+1);else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=Math.max(0,index-1);else if(event.key==='Home')next=0;else if(event.key==='End')next=methodButtons.length-1;else return;event.preventDefault();selectMethod(methodButtons[next].dataset.method);methodButtons[next].focus();});});

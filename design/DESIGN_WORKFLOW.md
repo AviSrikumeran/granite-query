@@ -6,6 +6,8 @@ The owner chooses the design direction and the result to communicate. The implem
 
 ## Current website integration
 
+Latest owner correction: the first integration was too dense and used the wrong magenta specimen. The homepage now uses the exact earlier Electric Magenta interlocking block from `docs/playground/purple/`, without visible Pause/Reset/turn controls. Keep reduced-motion and lifecycle handling in code. Keep the homepage short; detailed comparisons, methods and accounting belong on the separate Results route. This explicit instruction overrides earlier specimen-control guidance for the public homepage. Existing study toolbars stay unchanged. See [the simplification review](reviews/2026-11-04-home-simplification.md).
+
 On 4 November the owner explicitly authorized remaking the entire research website using the accumulated component work. For this integration, the earlier homepage-preservation restriction is superseded. Use the text name Granite Query without a graphic logo, bring original electric magenta material into the opening, and present the actual current research including failed and inconclusive outcomes. The separate published playgrounds, raw research data, exporters and training infrastructure remain protected. See [the integration review](reviews/2026-11-04-site-remake.md). This request does not restart an overnight automation or authorize new model spending.
 
 ## Current design decisions

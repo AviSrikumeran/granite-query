@@ -6,6 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Homepage simplification](reviews/2026-11-04-home-simplification.md): owner rejected the extraction sculpture and dense landing page. Use the exact earlier Electric Magenta interlocking block, no visible specimen controls, and a short homepage with details on Results.
+
 - [Integrated website refresh](reviews/2026-11-04-site-remake.md): the owner authorized rebuilding the homepage and research reading pages around current evidence, original magenta artwork and a searchable report library.
 
 - [Overnight final record](reviews/2026-11-04-overnight-final.md): twelve published studies, three saved local drafts, verification limits and deletion of the one-night automation.

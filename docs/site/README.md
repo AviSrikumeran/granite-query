@@ -4,10 +4,11 @@ The owner authorized the complete site refresh on 4 November 2026. The name is a
 
 ## Content and presentation
 
-- `../index.html` and `site.css`: the main narrative, measured results, method, limitations and dated accounting.
+- `../index.html`, `home.css` and `home.js`: a short public introduction using the original Electric Magenta block, one qualified finding and three reading routes. No specimen toolbar or research dashboard is mounted on the homepage.
+- `../results/index.html` and `site.css`: the detailed measured comparisons, method, limitations and dated accounting, moved off the homepage at the owner's request.
 - `data.js`: protocol-aware adapters for three separately evaluated studies. It validates cohort identity, denominators, completion, paired arithmetic and source echoes. Missing metrics remain unknown; unknown study versions fail closed.
-- `app.js`: one fetch per evidence file on load, plus the reader's explicit Reload evidence action. There is no homepage polling, model request or experiment control.
-- `hero.js`: the accepted interlocking renderer adapted into an original magenta opening. See `HERO.md` for geometry, material and controls. Pause, keyboard view controls, reduced motion, hidden/offscreen handling and cleanup are built in.
+- `app.js`: one fetch per evidence file on the Results page, plus the reader's explicit Reload evidence action. Asset, evidence and report links resolve from the public documentation root. The homepage loads no research feeds.
+- `hero.js`: the exact earlier Electric Magenta interlocking block, with its unchanged material, pose cycle and renderer. See `HERO.md`. There are no visible testing controls; reduced motion, keyboard input, hidden/offscreen handling and cleanup remain built in.
 - `../research/index.html`, `library.js`, `catalogue.json`: a metadata-driven research library. Reports use their original published Markdown; JSON evidence and existing HTML pages retain direct links.
 - `markdown.js`: dependency-free, escaped Markdown rendering, including safe images and source-relative links. It does not execute source HTML. The original source remains visible if a document cannot load. Reload report explicitly revalidates a session-cached document.
 - `research.css`: the common reading shell for the five retained research pages. Their existing research content, IDs and scripts are preserved. The historical dashboard is labeled an archive; its older saved-file polling remains separate from the new homepage.
@@ -29,6 +30,6 @@ node --check docs/site/library.js
 node --check docs/site/hero.js
 ```
 
-Render the homepage, library and five existing research routes at desktop and narrow widths. Check study/partition separation, explicit row selection, chart/record/JSON identity, original report navigation, source figures, report reload, mobile navigation and the artwork's controls. The full review is in `design/reviews/2026-11-04-site-remake.md` at the repository root.
+Render the homepage, Results page, library and retained research routes at desktop and narrow widths. Check study/partition separation, explicit row selection, chart/record/JSON identity, original report navigation, source figures, report reload, mobile navigation and the artwork's pointer/keyboard response. Old homepage result, method and cost anchors route to their section on Results. The original integration review is in `design/reviews/2026-11-04-site-remake.md`; the owner's correction and simplified composition are in `design/reviews/2026-11-04-home-simplification.md`.
 
 Publish only the explicit site/research/design paths from a fresh GitHub main tree with a non-force expected-head update. Never include the shared workspace wholesale. Screenshots live in the design chat's artifact directory, rather than research data or model artifacts.
