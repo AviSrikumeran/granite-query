@@ -167,7 +167,17 @@ def build(output=control.DEFAULT, *, write=False):
             result['teacher'] = _teacher(collection)
             result['stage'] = 'collecting_or_awaiting_teacher_pool'
             result['current_work'] = {'stage': result['stage'], 'detail': 'Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable.'}
-            if (output / 'study_manifest.json').exists():
+            halted = result['teacher']['stage'] in ('halted', 'failed_requires_reconciliation')
+            if halted:
+                teacher = result['teacher']
+                retained = teacher['retained_original_outcomes']
+                unknown = teacher['unknown_usage_attempts']
+                outcome_text = f'{retained}/512 original outcomes retained' if retained is not None else 'Incomplete original outcomes retained'
+                unknown_text = f'{unknown} unknown-usage attempt' + ('' if unknown == 1 else 's') if unknown is not None else 'Unknown usage needs reconciliation'
+                result['stage'] = 'teacher_collection_halted_requires_reconciliation'
+                result['current_work'] = {'stage': result['stage'],
+                    'detail': f'Teacher collection halted: {outcome_text}; {unknown_text}. The original failed request must not be resent. Reconciliation and a reviewed continuation are required; student metrics are unavailable.'}
+            if (output / 'study_manifest.json').exists() and not halted:
                 jobs = control.load_jobs(output)
                 controller = control.Controller(output)
                 public, rows = [], {}

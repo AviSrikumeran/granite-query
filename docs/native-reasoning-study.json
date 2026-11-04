@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "native-reasoning-public-receipts-v1",
-  "updated_at_utc": "2026-11-04T00:35:54.520052+00:00",
+  "updated_at_utc": "2026-11-04T00:54:04.848299+00:00",
   "run_id": "native_reasoning16k_dev200_seed42_v1",
   "stage": "collecting_or_awaiting_teacher_pool",
   "paid_work_launched_by_reporter": false,
@@ -36,17 +36,23 @@
     "conditions": {
       "concise": {
         "thinking": false,
-        "teacher_output_cap": 1024
+        "teacher_output_cap": 1024,
+        "retained_original_outcomes": 88,
+        "individually_eligible": 85,
+        "paired_eligible_supervised_tokens": 9449
       },
       "thinking": {
         "thinking": true,
         "reasoning_effort": "high",
-        "teacher_output_cap": 4096
+        "teacher_output_cap": 4096,
+        "retained_original_outcomes": 89,
+        "individually_eligible": 85,
+        "paired_eligible_supervised_tokens": 22286
       }
     },
-    "retained_original_outcomes": 152,
-    "eligible_question_pairs": null,
-    "unknown_usage_attempts": null,
+    "retained_original_outcomes": 444,
+    "eligible_question_pairs": 83,
+    "unknown_usage_attempts": 1,
     "raw_channels_public": false,
     "live_counts_note": "Complete append-only outcome records; final raw receipt validation is pending."
   },

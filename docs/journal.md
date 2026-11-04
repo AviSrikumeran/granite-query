@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: Native reasoning transfer: concise versus thinking supervision
 
-Next: Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable. Paired teacher outcomes retained: 152/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable. Paired teacher outcomes retained: 444/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -877,3 +877,19 @@ After the verified zero-request startup recovery, the exact reviewedV4 collector
 ## 2026-11-04T00:35:54.567462+00:00 | in_progress | Research improvement cycle
 
 Monitor the existing paired256 teacher collector and keep supported DeepSeek funding observation fresh. Do not start a second collector. After all512 outcomes finalize and the process exits, validate original receipts, complete-target capacity and prepare the three frozen student plans. Student training has not started merely because collection is running.
+
+## 2026-11-04T00:44:08.233700+00:00 | failed | Paired teacher collector halted on an ambiguous timeout
+
+The collector preserved177original outcomes before one concise request timed out without returned wire/usage. It halted and drained; host processes10112/16248 exited and its lease is absent. Independent reconciliation finds177unique attempted IDs and335original requests with no intent or receipt. The timed-out request will never be resent, full7USD liability remains held and83eligiblepairs supply9449concise tokens, below the16384training gate. No GPU training has launched.
+
+## 2026-11-04T00:44:08.241785+00:00 | planned | Review a continuation for never-attempted originals only
+
+Preparing a separate incident-bounded continuation driver and independent fixtures. It must bind the exact timeout error, preserved receipt inventory,335untouched request identities, original session deadline and unchanged frozen payload/source/review. It may send only never-attempted requests; the failed original remains in the512outcome denominator and its pair stays ineligible. No retry of the ambiguous request or budget release is authorized by this preparation.
+
+## 2026-11-04T00:50:01.246707+00:00 | decision | Continuation approved for335never-attempted originals
+
+Independent audit and8new synthetic checks validate a separate continuation bound to the177preserved outcomes,707original files, one permanent timeout and335requests with no prior artifact. Only never-attempted requests may transmit, within the original01:03:49UTC deadline and existing7USD liability. The timed-out request remains failed/unknown and is never retried; no allowance is released. Student training remains pending full paired capacity and a fresh baseline.
+
+## 2026-11-04T00:51:49.505057+00:00 | in_progress | Reviewed continuation is processing only previously unsent requests
+
+The separate incident-bounded continuation now owns the collector lease. It may process only335original requests that had no prior intent or receipt; the original177outcomes and timed-out request are preserved. No new reservation, deadline extension or retry of the ambiguous request is performed. Full7USD teacher liability remains held, and student GPU work remains pending complete paired capacity.

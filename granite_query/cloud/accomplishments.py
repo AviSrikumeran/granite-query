@@ -588,7 +588,7 @@ def build(workspace=None):
             teacher=native.get('teacher') or {}; jobs=native.get('jobs',[])
             running=(teacher.get('stage')=='collecting' or any(j.get('status')=='running_or_awaiting_terminal' for j in jobs))
             state=('completed' if native['stage']=='all_three_completed_and_locally_validated' else
-                   'blocked' if native['stage']=='design_or_source_validation_failed' else 'running' if running else 'queued')
+                   'blocked' if native['stage'] in ('design_or_source_validation_failed','teacher_collection_halted_requires_reconciliation') else 'running' if running else 'queued')
             count=teacher.get('retained_original_outcomes')
             detail=native.get('current_work',{}).get('detail','Native study preparation.')
             detail+=(f' Paired teacher outcomes retained: {count}/512.' if isinstance(count,int) else '')

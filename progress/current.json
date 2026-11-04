@@ -1,5 +1,5 @@
 {
-  "stage": "Paired native reasoning teacher collection running; student baseline and training pending",
+  "stage": "Reviewed continuation of never-attempted teacher requests running; Granite GPU training pending",
   "training_completed": true,
   "held_out_evaluation_completed": false,
   "active_run_id": "native_reasoning256_v4"

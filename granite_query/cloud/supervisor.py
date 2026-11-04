@@ -192,6 +192,8 @@ def tick():
                 training_action='Reconcile the frozen native design/source receipt before further paid work. Preserve original collections, plans, claims and liabilities; never regenerate blindly.'
             elif teacher.get('stage')=='collecting':
                 training_action='Monitor the existing paired256 teacher collector and keep supported DeepSeek funding observation fresh. Do not start a second collector. After all512 outcomes finalize and the process exits, validate original receipts, complete-target capacity and prepare the three frozen student plans. Student training has not started merely because collection is running.'
+            elif teacher.get('stage')=='halted':
+                training_action='Reconcile the stopped native collector and preserved original outcomes. Keep unknown usage reserved and never resend an attempted request. A separately reviewed continuation may schedule only original requests with no intent or receipt, within the original deadline and reservation. Student training remains pending complete-target capacity and baseline calibration.'
             elif native['stage']=='all_three_completed_and_locally_validated':
                 training_action='Analyze native baseline/concise/thinking paired outcomes, actual exposures and saved weights. Keep earlier512 results separate, preserve negative results and review fresh remaining resources before any stronger teacher reference, frozen final evaluation or API.'
             else:

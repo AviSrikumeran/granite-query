@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "stage": "teacher_collection_active_student_jobs_pending",
+  "stage": "reviewed_never_attempted_continuation_active",
   "study_run_id": "native_reasoning16k_dev200_seed42_v1",
   "collection_run_id": "native_reasoning256_v4",
   "design_sha256": "e5799faa751d21b015d71ff6828c2bb07817ebd0f6044768322036f0fbcd5d61",
@@ -82,5 +82,9 @@
     "All200development questions are excluded from teaching; repeated adaptive development is not official-test evidence.",
     "Exact whole-target capacity and fresh baseline runtime must pass before either adapter. No guaranteed gain.",
     "Superseded unpaid preparation versions remain preserved. First local launch failed before any request due to equivalent JSON byte formatting; exact semantic review and sources were retained for a recorded recovery."
-  ]
+  ],
+  "teacher_continuation_source_sha256": "4270f3597ad9fe62bcf959b2c0e347b922cdeab2634b29d2810b682c70b59cf5",
+  "teacher_continuation_max_new_requests": 335,
+  "original_timeout_permanently_excluded_from_dispatch": true,
+  "unknown_usage_liability_released": false
 }

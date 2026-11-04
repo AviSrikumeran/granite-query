@@ -92,6 +92,28 @@ class NativeReportTests(unittest.TestCase):
         self.assertIsNone(value['jobs'][1]['accuracy_percent']); self.assertIsNone(value['jobs'][1]['metrics'])
         self.assertNotIn('DO NOT PUBLISH', str(value)); self.assertIsNone(value['comparisons'])
 
+    def test_current_teacher_halted_is_explicit_until_a_new_collector_owner_exists(self):
+        control.write(self.collection / 'teacher_summary.json', {'stage': 'halted', 'run_id': self.collection.name,
+            'plan_sha256': 'b' * 64, 'requested_questions': 256, 'requested_original_calls': 512,
+            'retained_original_outcomes': 177, 'eligible_question_pairs': 83, 'unknown_usage_attempts': 1,
+            'conditions': {'concise': {'paired_eligible_supervised_tokens': 9449}}})
+        self.prepare_jobs()
+        value = report.build(self.output)
+        self.assertEqual(value['stage'], 'teacher_collection_halted_requires_reconciliation')
+        self.assertEqual(value['current_work']['stage'], value['stage'])
+        self.assertIn('177/512', value['current_work']['detail'])
+        self.assertIn('1 unknown-usage attempt.', value['current_work']['detail'])
+        self.assertNotIn('Preparing or collecting', value['current_work']['detail'])
+        self.assertEqual(value['teacher']['eligible_question_pairs'], 83)
+        self.assertEqual(value['teacher']['conditions']['concise']['paired_eligible_supervised_tokens'], 9449)
+        self.assertTrue(all(job['accuracy_percent'] is None for job in value['jobs']))
+        self.assertIsNone(value['comparisons'])
+        self.assertFalse((self.root / 'public').exists())
+        control.write(self.collection / 'collector.lock', {'pid': 12345, 'fixture': True})
+        value = report.build(self.output)
+        self.assertEqual(value['teacher']['stage'], 'collecting')
+        self.assertNotEqual(value['stage'], 'teacher_collection_halted_requires_reconciliation')
+
     def test_completed_metrics_need_each_full_receipt_and_hash_chain(self):
         self.prepare_jobs(complete=True)
         with patch.object(report, 'paired', return_value={'count': 200, 'difference_percentage_points': 0}):
