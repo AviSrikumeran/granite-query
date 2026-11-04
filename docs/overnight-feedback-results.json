@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-04T08:37:41.101179+00:00",
+  "stage": "completed",
+  "role_states": {
+    "baseline": "validated_completed",
+    "error": "validated_completed",
+    "random": "validated_completed"
+  },
+  "metrics": {
+    "baseline": {
+      "development": {
+        "count": 32,
+        "generated_tokens": 4516,
+        "latency_seconds_total": 180.4539999999979,
+        "numeric_correct": 30,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 30,
+        "truncated": 0
+      },
+      "retention": {
+        "count": 32,
+        "generated_tokens": 5378,
+        "latency_seconds_total": 206.73500000001513,
+        "numeric_correct": 29,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 29,
+        "truncated": 1
+      },
+      "updates": 0,
+      "elapsed_seconds": 391.0,
+      "planned_actual_loss_tokens": 0,
+      "adapter_weight_sha256": null
+    },
+    "error": {
+      "development": {
+        "count": 32,
+        "generated_tokens": 4323,
+        "latency_seconds_total": 206.84500000000116,
+        "numeric_correct": 30,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 30,
+        "truncated": 0
+      },
+      "retention": {
+        "count": 32,
+        "generated_tokens": 5516,
+        "latency_seconds_total": 265.5789999999979,
+        "numeric_correct": 26,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 26,
+        "truncated": 3
+      },
+      "updates": 8,
+      "elapsed_seconds": 498.36000000001513,
+      "planned_actual_loss_tokens": 5888,
+      "adapter_weight_sha256": "2d2783afcbeee1dda97c79a68072eb0c90a819dfe7efb6063f789b9df7d72825"
+    },
+    "random": {
+      "development": {
+        "count": 32,
+        "generated_tokens": 4555,
+        "latency_seconds_total": 216.39100000000326,
+        "numeric_correct": 30,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 30,
+        "truncated": 0
+      },
+      "retention": {
+        "count": 32,
+        "generated_tokens": 5363,
+        "latency_seconds_total": 257.9539999999979,
+        "numeric_correct": 28,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 28,
+        "truncated": 1
+      },
+      "updates": 8,
+      "elapsed_seconds": 499.7969999999914,
+      "planned_actual_loss_tokens": 5136,
+      "adapter_weight_sha256": "4ffe190f84e8c6e17881758564c2a6582205d77772a2e7732432cce08b66b969"
+    }
+  },
+  "comparisons": {
+    "error_vs_base": {
+      "development": {
+        "before_correct": 30,
+        "after_correct": 30,
+        "delta_percentage_points": 0.0,
+        "corrected": 0,
+        "regressed": 0,
+        "paired_question_bootstrap95_pp": [
+          0.0,
+          0.0
+        ],
+        "before_capped": 0,
+        "after_capped": 0,
+        "question_count": 32
+      },
+      "retention": {
+        "before_correct": 29,
+        "after_correct": 26,
+        "delta_percentage_points": -9.375,
+        "corrected": 0,
+        "regressed": 3,
+        "paired_question_bootstrap95_pp": [
+          -21.875,
+          0.0
+        ],
+        "before_capped": 1,
+        "after_capped": 3,
+        "question_count": 32
+      }
+    },
+    "random_vs_base": {
+      "development": {
+        "before_correct": 30,
+        "after_correct": 30,
+        "delta_percentage_points": 0.0,
+        "corrected": 0,
+        "regressed": 0,
+        "paired_question_bootstrap95_pp": [
+          0.0,
+          0.0
+        ],
+        "before_capped": 0,
+        "after_capped": 0,
+        "question_count": 32
+      },
+      "retention": {
+        "before_correct": 29,
+        "after_correct": 28,
+        "delta_percentage_points": -3.125,
+        "corrected": 1,
+        "regressed": 2,
+        "paired_question_bootstrap95_pp": [
+          -15.625,
+          6.25
+        ],
+        "before_capped": 1,
+        "after_capped": 1,
+        "question_count": 32
+      }
+    },
+    "error_vs_random": {
+      "development": {
+        "before_correct": 30,
+        "after_correct": 30,
+        "delta_percentage_points": 0.0,
+        "corrected": 0,
+        "regressed": 0,
+        "paired_question_bootstrap95_pp": [
+          0.0,
+          0.0
+        ],
+        "before_capped": 0,
+        "after_capped": 0,
+        "question_count": 32
+      },
+      "retention": {
+        "before_correct": 28,
+        "after_correct": 26,
+        "delta_percentage_points": -6.25,
+        "corrected": 1,
+        "regressed": 3,
+        "paired_question_bootstrap95_pp": [
+          -18.75,
+          6.25
+        ],
+        "before_capped": 1,
+        "after_capped": 3,
+        "question_count": 32
+      }
+    }
+  },
+  "teacher_requests": 32,
+  "teacher_qualified": 27,
+  "teacher_peak_token_estimate_usd": 0.23698488,
+  "teacher_estimate_not_invoice": true,
+  "new_modal_calls": 0,
+  "official_test_used": false,
+  "plan_sha256": "238a889108de842c3ba5399b1e739fa90b1999edee0915074ad2f9810194628d",
+  "limitations": [
+    "Single seed; both32-question partitions are adaptive TRAIN-development, not final test.",
+    "Retention set measures same-task retention, not broad ability.",
+    "Error/random receive equal examples and updates with common replay, but unequal full-target tokens5888/5136.",
+    "Teacher final number and supplied arithmetic were checked; all semantic steps were not independently verified.",
+    "Question bootstrap does not cover training-seed uncertainty; comparisons exploratory without multiplicity correction.",
+    "Loss reduction, feedback qualification and software tests are not established accuracy gains.",
+    "All-identical outcomes can yield a zero bootstrap interval without establishing model equivalence."
+  ],
+  "observed_error_branch_dev_gain": false,
+  "observed_error_branch_retention_loss": true,
+  "robust_improvement_established": false,
+  "interpretation": "Report observed development and retention deltas together. A single small adaptive run cannot establish robust generalization or causal data value."
+}

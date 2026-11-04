@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-04T09:25:42.969679+00:00",
+  "stage": "completed",
+  "role_states": {
+    "error": "validated_completed",
+    "random": "validated_completed"
+  },
+  "metrics": {
+    "baseline": {
+      "development": {
+        "count": 32,
+        "generated_tokens": 4516,
+        "latency_seconds_total": 180.4539999999979,
+        "numeric_correct": 30,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 30,
+        "truncated": 0
+      },
+      "retention": {
+        "count": 32,
+        "generated_tokens": 5378,
+        "latency_seconds_total": 206.73500000001513,
+        "numeric_correct": 29,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 29,
+        "truncated": 1
+      },
+      "updates": 0,
+      "elapsed_seconds": 391.0,
+      "full_target_loss_tokens_from_validated_updates": 0,
+      "adapter_sha256": null
+    },
+    "error": {
+      "development": {
+        "count": 32,
+        "generated_tokens": 2856,
+        "latency_seconds_total": 200.45700000005309,
+        "numeric_correct": 28,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 28,
+        "truncated": 0
+      },
+      "retention": {
+        "count": 32,
+        "generated_tokens": 3816,
+        "latency_seconds_total": 270.9210000000312,
+        "numeric_correct": 27,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 27,
+        "truncated": 1
+      },
+      "updates": 64,
+      "elapsed_seconds": 713.2350000000151,
+      "full_target_loss_tokens_from_validated_updates": 47104,
+      "adapter_sha256": "97961241b09944ba8e6f69b844100e57f24b984bf351d910c78e6535c5f0b749"
+    },
+    "random": {
+      "development": {
+        "count": 32,
+        "generated_tokens": 2859,
+        "latency_seconds_total": 208.1720000000205,
+        "numeric_correct": 29,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 29,
+        "truncated": 0
+      },
+      "retention": {
+        "count": 32,
+        "generated_tokens": 3094,
+        "latency_seconds_total": 220.73199999998906,
+        "numeric_correct": 25,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification.",
+        "strict_format_correct": 25,
+        "truncated": 0
+      },
+      "updates": 64,
+      "elapsed_seconds": 660.3909999999742,
+      "full_target_loss_tokens_from_validated_updates": 41088,
+      "adapter_sha256": "d5677a30a52da7b08ca506ade926a759e045a4452c86b076dba653188c268bb7"
+    }
+  },
+  "comparisons": {
+    "error_vs_base": {
+      "development": {
+        "before_correct": 30,
+        "after_correct": 28,
+        "delta_percentage_points": -6.25,
+        "corrected": 0,
+        "regressed": 2,
+        "paired_question_bootstrap95_pp": [
+          -15.625,
+          0.0
+        ],
+        "before_capped": 0,
+        "after_capped": 0,
+        "question_count": 32
+      },
+      "retention": {
+        "before_correct": 29,
+        "after_correct": 27,
+        "delta_percentage_points": -6.25,
+        "corrected": 0,
+        "regressed": 2,
+        "paired_question_bootstrap95_pp": [
+          -15.625,
+          0.0
+        ],
+        "before_capped": 1,
+        "after_capped": 1,
+        "question_count": 32
+      }
+    },
+    "random_vs_base": {
+      "development": {
+        "before_correct": 30,
+        "after_correct": 29,
+        "delta_percentage_points": -3.125,
+        "corrected": 0,
+        "regressed": 1,
+        "paired_question_bootstrap95_pp": [
+          -9.375,
+          0.0
+        ],
+        "before_capped": 0,
+        "after_capped": 0,
+        "question_count": 32
+      },
+      "retention": {
+        "before_correct": 29,
+        "after_correct": 25,
+        "delta_percentage_points": -12.5,
+        "corrected": 0,
+        "regressed": 4,
+        "paired_question_bootstrap95_pp": [
+          -25.0,
+          -3.125
+        ],
+        "before_capped": 1,
+        "after_capped": 0,
+        "question_count": 32
+      }
+    },
+    "error_vs_random": {
+      "development": {
+        "before_correct": 29,
+        "after_correct": 28,
+        "delta_percentage_points": -3.125,
+        "corrected": 0,
+        "regressed": 1,
+        "paired_question_bootstrap95_pp": [
+          -9.375,
+          0.0
+        ],
+        "before_capped": 0,
+        "after_capped": 0,
+        "question_count": 32
+      },
+      "retention": {
+        "before_correct": 25,
+        "after_correct": 27,
+        "delta_percentage_points": 6.25,
+        "corrected": 3,
+        "regressed": 1,
+        "paired_question_bootstrap95_pp": [
+          -6.25,
+          18.75
+        ],
+        "before_capped": 0,
+        "after_capped": 1,
+        "question_count": 32
+      }
+    }
+  },
+  "plan_sha256": "c86af5a17840abbb7087e207df1444deffd4aa14a3868c64d2f6e755c2eab950",
+  "new_teacher_calls": 0,
+  "new_modal_calls": 0,
+  "official_test_used": false,
+  "limitations": [
+    "Capacity, dose and learning rate changed together; no isolated causal attribution.",
+    "Same small adaptive development and retention partitions as earlier study.",
+    "One training seed; question bootstrap does not measure seed uncertainty; exploratory comparisons uncorrected for multiplicity.",
+    "Complete targets cause unequal token exposure47104/41088 despite equal examples/updates.",
+    "Historical baseline reused with physical hash-bound unchanged data/model/inference receipts; no baseline rerun or fabricated terminal.",
+    "Same-task retention does not measure broad ability.",
+    "No robust generalization or data-value claim from a favorable small development score."
+  ],
+  "observed_development_gain": false,
+  "observed_retention_loss": true,
+  "robust_improvement_established": false
+}
