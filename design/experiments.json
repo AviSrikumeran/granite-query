@@ -66,6 +66,14 @@
       "verdict": "review_pending",
       "feedback": "User requested a separate real-data comparison. Research interpretation comes from the public feeds, independently of the visual verdict.",
       "protected": true
+    },
+    {
+      "id": "constellation",
+      "title": "Evidence constellation",
+      "url": "/playground/constellation/",
+      "verdict": "review_pending",
+      "feedback": "Owner requested a much more adventurous visual experiment. This separate sculpture adds burst/snap choreography, filaments and direct record pulling; the new result awaits review.",
+      "protected": true
     }
   ]
 }

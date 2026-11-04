@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="A kinetic evidence sculpture: pull apart suspended records, trace luminous connections and watch them resolve into a finding. An original Granite Query design experiment."><title>Granite Query · Evidence constellation</title><link rel="stylesheet" href="./studio.css?v=constellation-20261103-1"><script type="module" src="./studio.mjs?v=constellation-20261103-1"></script></head>
+<body>
+  <a class="skip" href="#controls">Skip to motion controls</a>
+  <header class="site-header"><a class="brand" href="../../">Granite Query</a><nav aria-label="Study navigation"><a href="../results-branches/">Branch baseline ↗</a><a href="../experiments/">All experiments ↗</a></nav></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">Spatial study 06 / Experimental motion</p><h1>Evidence, unbound.</h1></div><p>Pull a record out of the field.<br>Follow what holds the finding together.</p></div>
+    <section class="stage-shell" aria-label="Evidence constellation studio">
+      <div class="stage-heading"><span id="phase-label">Archive / Packed records</span><span class="gesture">Drag a tile. Release to return.</span></div>
+      <figure tabindex="0" aria-label="Interactive evidence constellation" aria-describedby="interaction-help"><canvas role="img" aria-label="Eight sculptural evidence tiles explode from a packed archive, hang in a luminous network and snap into a structured finding."></canvas><svg id="wires" aria-hidden="true"><defs><filter id="wire-glow"><feGaussianBlur stdDeviation="2"/></filter><mask id="wire-mask" maskUnits="userSpaceOnUse"><rect id="mask-area" fill="white"/><g id="occluders" fill="black" stroke="black" stroke-width="3"/></mask></defs><g id="paths" mask="url(#wire-mask)"/></svg><div id="tiles" class="tiles"></div><figcaption id="floating-note">One study. Eight evidence tiles.</figcaption></figure>
+      <div class="controls" id="controls"><div class="playback"><button id="pause" aria-pressed="false">Pause</button><button id="replay">Replay</button></div><div class="poses" aria-label="Hold a scene"><button data-pose="archive">Archive</button><button data-pose="scatter">Scatter</button><button data-pose="trace">Trace</button><button data-pose="resolve">Resolve</button></div><label class="scrub"><span class="sr-only">Sequence</span><input id="scrub" aria-label="Sequence" type="range" min="0" max="1000" value="0"></label><button id="expand" aria-pressed="false">Full canvas ↗</button></div>
+    </section>
+    <p id="interaction-help">Drag a tile to pull it from the field. Select the core to restore all paths. Move through empty space to turn the sculpture. Focus a tile and use arrows to nudge it; Home resets.</p>
+    <section class="dock" aria-label="Selected evidence">
+      <div class="record-choice"><label for="record">Inspect a record</label><select id="record"><option value="query">The question</option><option value="evaluation">Study protocol</option><option value="results">Observed results</option><option value="run">Verified receipts</option><option value="matched">E1 · Development cohort</option><option value="scope">E2 · Training exposure</option><option value="comparison">E3 · Skill versus random</option><option value="uncertainty">E4 · Uncertainty</option><option value="settings">E5 · Receipt fingerprints</option><option value="answer">The finding</option></select><button id="reset">Reset pulls</button></div>
+      <div class="record-detail"><p id="record-kind" class="eyebrow">Published evidence</p><h2 id="record-title">Loading the public study…</h2><p id="record-text">The choreography is a visual experiment. The values and evidence links come from the published development study.</p><div id="record-links" class="source-links"></div></div>
+    </section>
+    <div class="provenance"><p id="feed-status" role="status">Reading the public study snapshot.</p><button id="refresh">Refresh evidence</button></div>
+    <noscript><p>Enable JavaScript to explore the sculpture, or open the <a href="../results-branches/">results and evidence comparison</a>.</p></noscript>
+  </main>
+  <footer><span>Choreographed motion · Published research evidence</span><a href="https://github.com/AviSrikumeran/granite-query/blob/main/design/reviews/2026-11-03-constellation.md">Construction and review ↗</a></footer>
+</body></html>

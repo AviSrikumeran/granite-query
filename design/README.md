@@ -6,6 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Evidence constellation review](reviews/2026-11-03-constellation.md): the bolder kinetic study with suspended records, curved filaments, direct pulling and a structured finding.
+
 - [Results and evidence review](reviews/2026-11-03-results-branches.md): the actual human-reference comparison attached to the proof branches, with source links, uncertainty and receipt fingerprints.
 - [Experiment feedback registry](experiments.json): structured Keep / Preferred / Revise / Pending feedback for future design work.
 
