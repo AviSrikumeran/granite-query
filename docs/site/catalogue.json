@@ -345,24 +345,6 @@
       "source": "research-log.html"
     },
     {
-      "id": "design-lab",
-      "title": "All design experiments",
-      "category": "Design",
-      "description": "The original motion, material and evidence-presentation studies.",
-      "path": "playground/experiments/",
-      "mode": "link",
-      "source": "playground/experiments/"
-    },
-    {
-      "id": "night-lab",
-      "title": "Overnight component comparisons",
-      "category": "Design",
-      "description": "Twelve separate public-reference interaction studies.",
-      "path": "playground/night-lab/",
-      "mode": "link",
-      "source": "playground/night-lab/"
-    },
-    {
       "id": "repository",
       "title": "Repository, code and methods",
       "category": "History",
