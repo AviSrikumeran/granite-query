@@ -6,6 +6,9 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Results and evidence review](reviews/2026-11-03-results-branches.md): the actual human-reference comparison attached to the proof branches, with source links, uncertainty and receipt fingerprints.
+- [Experiment feedback registry](experiments.json): structured Keep / Preferred / Revise / Pending feedback for future design work.
+
 - [All live experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/): scroll-driven proof branches, the large interlocking reveal, earlier magenta comparisons and accepted green motion.
 - [Proof branches review](reviews/2026-11-03-proof-branches.md): scroll-revealed sources and evidence, selectable nodes and a qualified answer in magenta.
 - [Interlocking reveal review](reviews/2026-11-03-interlocking-reveal.md): one large original sculpture, two keyed pieces and a magenta core; simpler motion with mouse inspection.
@@ -25,7 +28,7 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 | Cubes, boxes, modular geometry | Explicit user interest; explore original geometry, not another company's mark |
 | Interlocking blocks and proof branches | Preferred by the user; pursue readable joints, extraction and connected evidence |
 | Large three-piece reveal | Authorized as a separate prototype: two interlocking mineral pieces and one magenta core. One dominant view; final identity and user verdict remain pending |
-| Scroll proof branches | Authorized as a separate prototype connecting an illustrative query to source records, evidence requirements and a qualified answer; user verdict pending |
+| Scroll proof branches | Preferred: the owner praised the interaction on 3 November and asked to preserve it while building a library of what works. The original remains illustrative |
 | Nested frames | Retain as a comparison; not the next direction to develop |
 | Accepted green motion study | Preserve as the reference for shading, reveal, selective flash, surrounding fragments and mouse response |
 | Motion that runs on its own | Required candidate; specify pause, offscreen suspension, and reduced-motion states from the start |

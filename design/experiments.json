@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-11-03",
+  "purpose": "Durable owner feedback for reusable design experiments. Preferred means a visual direction to preserve, not a research-result claim or a finished site identity.",
+  "experiments": [
+    {
+      "id": "green",
+      "title": "Green light and form",
+      "url": "/playground/",
+      "verdict": "accepted",
+      "feedback": "Accepted reference for light, silhouette, reveal, selective flash and pointer response.",
+      "protected": true
+    },
+    {
+      "id": "directions",
+      "title": "Three directions",
+      "url": "/playground/directions/",
+      "verdict": "mixed",
+      "feedback": "Interlocking blocks and proof branches preferred. Nested frames not the direction to pursue.",
+      "protected": true
+    },
+    {
+      "id": "magenta",
+      "title": "Electric magenta",
+      "url": "/playground/purple/?material=magenta",
+      "verdict": "preferred",
+      "feedback": "Bright magenta with depth and pink-white peaks preferred over muted purple.",
+      "protected": true
+    },
+    {
+      "id": "core-extraction",
+      "title": "Core extraction",
+      "url": "/playground/core-extraction/",
+      "verdict": "retained",
+      "feedback": "Preserved earlier extraction comparison.",
+      "protected": true
+    },
+    {
+      "id": "claw-extraction",
+      "title": "Branch claw extraction",
+      "url": "/playground/claw-extraction/",
+      "verdict": "revise",
+      "feedback": "The mechanism became overcrowded and too small. Keep it as history; simplify the main action.",
+      "protected": true
+    },
+    {
+      "id": "interlocking-reveal",
+      "title": "Interlocking reveal",
+      "url": "/playground/interlocking-reveal/",
+      "verdict": "review_pending",
+      "feedback": "User authorized the three-piece prototype; no explicit final verdict recorded.",
+      "protected": true
+    },
+    {
+      "id": "proof-branches",
+      "title": "Illustrative proof branches",
+      "url": "/playground/proof-branches/",
+      "verdict": "preferred",
+      "feedback": "On 3 November the owner called this really good and asked to keep exploring and record what works. Preserve this interaction as a preferred baseline.",
+      "protected": true
+    },
+    {
+      "id": "results-branches",
+      "title": "Results and evidence",
+      "url": "/playground/results-branches/",
+      "verdict": "review_pending",
+      "feedback": "User requested a separate real-data comparison. Research interpretation comes from the public feeds, independently of the visual verdict.",
+      "protected": true
+    }
+  ]
+}

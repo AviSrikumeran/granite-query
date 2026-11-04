@@ -10,7 +10,7 @@ The owner chooses the design direction and the result to communicate. The implem
 | --- | --- |
 | Accepted green motion study | Baseline for compact silhouettes, dead space, face shading, startup reveal, selective bright-pixel flash and subtle mouse response. Preserve its renderer and geometry. |
 | Interlocking blocks | A readable physical material with meaningful joints and separation. |
-| Proof branches | Connected paths can explain selection and evidence. The separate scroll specimen is delivered for review; preserve it while gathering feedback. |
+| Proof branches | The owner praised the separate scroll specimen on 3 November and asked to keep exploring and record what works. Preserve it as a preferred interaction baseline. The real-data version is a separate comparison. |
 | Electric magenta | Deep plum recesses, saturated magenta midtones and pink-white peaks. Muted purple was rejected. This is an experimental material choice, not a finished site palette. |
 | Original identity and visual focus | The owner now prefers an original Granite Query symbol over using IBM logos. The claw scene is overcrowded and its main action reads too small. Preserve the magenta material and interlocking-block interest; prioritize one large coherent form and a simpler gesture. The exact new design remains a candidate, not a finished identity. |
 
@@ -49,9 +49,10 @@ Complete relevant checks once. Broaden or repeat them only after a change, failu
 | 1c | Which exact website artwork should define the outer Granite form? | Superseded by the owner's move toward an original project identity. The green-outer/blue-inner IBM artwork is a reference only. Do not keep searching for or reconstructing an IBM logo for the next study. |
 | 1d | Can one large original form communicate selection and reveal? | Authorized prototype delivered at [interlocking reveal](https://avisrikumeran.github.io/granite-query/playground/interlocking-reveal/). Two keyed mineral pieces, one magenta core and a select/unlock/reveal/return sequence in one large view. See the [review](reviews/2026-11-03-interlocking-reveal.md). User verdict and final identity remain pending. Preserve all published studies and the homepage. |
 | 2 | Can branches explain a query? | Authorized [proof branches specimen](https://avisrikumeran.github.io/granite-query/playground/proof-branches/) delivered: scroll from query to three source records, five evidence requirements and a qualified answer. Selectable node details, magenta material and an accessible full-map view. See the [review](reviews/2026-11-03-proof-branches.md). Clearly illustrative content; user verdict pending. |
-| 3 | Can visitors understand a result quickly? | One result-summary component driven by existing public data, with context and a route to detailed evidence. Preserve homepage and exporter. |
+| 3 | Can visitors understand a result quickly? | Separate [results and evidence comparison](https://avisrikumeran.github.io/granite-query/playground/results-branches/) delivered at the owner's request. The preferred branches read actual public human-reference results, paired uncertainty and provenance; native OPEN/1024 status stays separate. See the [review](reviews/2026-11-03-results-branches.md). User verdict pending. |
+| 4 | Can one evidence route be followed without losing the whole map? | Next bounded experiment: compare a focused path with the full-map context, using the same public data contract and magenta material. Keep this as a separate specimen, preserve existing studies and collect a specific interaction verdict. |
 
-Questions 1d and 2 now have separate working prototypes for review. Do not add more hero components or repeat either without specific feedback. The next independent ready question is 3: a bounded result-summary component using existing public data, including pending, missing and inconclusive states. The IBM logo reconstruction is superseded. The daily workflow handles one ready question per run. Do not implement the whole queue in one pass.
+Questions 1d, 2 and 3 now have separate working prototypes. Read the owner's verdicts in [the experiment registry](experiments.json) before another pass. The proof-branch interaction is preferred; its real-data comparison and the interlocking reveal still need specific review. Do not repeat a delivered experiment or add hero components without a concrete unresolved question. When no ready question exists, the daily workflow stays quiet instead of producing arbitrary variants. The IBM logo reconstruction is superseded.
 
 The owner requested that the earlier core extraction and homepage stay unchanged while the claw was built separately. Treat all published study folders, including core-extraction and claw-extraction, as protected review baselines. Develop new directions in new folders unless the owner's active request authorizes editing an existing study.
 
@@ -68,6 +69,7 @@ Scheduled local work needs the computer on, the app running and project files av
 ## Working links
 
 - [All experiments](https://avisrikumeran.github.io/granite-query/playground/experiments/)
+- [Results and evidence](https://avisrikumeran.github.io/granite-query/playground/results-branches/)
 - [Proof branches](https://avisrikumeran.github.io/granite-query/playground/proof-branches/)
 - [Interlocking reveal](https://avisrikumeran.github.io/granite-query/playground/interlocking-reveal/)
 - [Branch claw extraction](https://avisrikumeran.github.io/granite-query/playground/claw-extraction/)

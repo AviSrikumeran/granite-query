@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "version": "native-reasoning-public-receipts-v1",
+  "updated_at_utc": "2026-11-04T01:08:08.230536+00:00",
+  "run_id": "native_reasoning16k_dev200_seed42_v1",
+  "stage": "student_baseline_waiting_for_shared_modal_capacity",
+  "paid_work_launched_by_reporter": false,
+  "official_test_used": false,
+  "current_work": {
+    "stage": "student_baseline_waiting_for_shared_modal_capacity",
+    "detail": "Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration."
+  },
+  "protocol": {
+    "teacher_candidate_pairs": 256,
+    "teacher_output_caps": {
+      "concise": 1024,
+      "thinking": 4096
+    },
+    "loss_tokens_per_adapter": 16384,
+    "optimizer_updates": 16,
+    "tokens_per_update": 1024,
+    "context_limit": 4096,
+    "student_evaluation_count": 200,
+    "evaluation_split": "GSM8K TRAIN development",
+    "enable_thinking": true,
+    "native_generation_prefix": "OPEN",
+    "max_new_tokens": 1024,
+    "evaluation_batch_size": 8,
+    "input_limit": 1536,
+    "training_seed": 42
+  },
+  "teacher": {
+    "stage": "completed",
+    "planned_questions": 256,
+    "planned_original_calls": 512,
+    "conditions": {
+      "concise": {
+        "thinking": false,
+        "teacher_output_cap": 1024,
+        "retained_original_outcomes": 256,
+        "individually_eligible": 251,
+        "paired_eligible_supervised_tokens": 27887
+      },
+      "thinking": {
+        "thinking": true,
+        "reasoning_effort": "high",
+        "teacher_output_cap": 4096,
+        "retained_original_outcomes": 256,
+        "individually_eligible": 249,
+        "paired_eligible_supervised_tokens": 68885
+      }
+    },
+    "retained_original_outcomes": 512,
+    "eligible_question_pairs": 246,
+    "unknown_usage_attempts": 1,
+    "raw_channels_public": false
+  },
+  "jobs": [
+    {
+      "role": "baseline",
+      "label": "Fresh untouched Granite",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "retained_evaluation_count": null,
+      "planned_evaluation_count": 200,
+      "provider_terminal_receipt_verified": false
+    },
+    {
+      "role": "concise",
+      "label": "Concise supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "retained_evaluation_count": null,
+      "planned_evaluation_count": 200,
+      "provider_terminal_receipt_verified": false
+    },
+    {
+      "role": "thinking",
+      "label": "Native reasoning supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "retained_evaluation_count": null,
+      "planned_evaluation_count": 200,
+      "provider_terminal_receipt_verified": false
+    }
+  ],
+  "comparisons": null,
+  "strong_teacher_reference": {
+    "status": "pending_separate_review_and_funding",
+    "proposed_thinking_output_cap": 8192,
+    "included_in_this_study": false
+  },
+  "limitations": [
+    "Adaptive 200-question training-split development evaluation; not official final-test evidence.",
+    "The common OPEN/1024 inference condition requires a fresh baseline; prior closed nonthinking 512-token results are separate.",
+    "Equal complete loss tokens and updates do not match examples, forwarded tokens, compute or wall time.",
+    "This compares supervision recipes, not ranking superiority or a pure causal effect of explanation depth.",
+    "Final-number/reference matches do not verify every reasoning step; common full-fit pairs are a selected intersection.",
+    "One training seed; paired intervals cover questions, not training-seed variation; exploratory comparisons are not multiplicity corrected.",
+    "Preparation, collection and a runnable implementation do not establish student improvement."
+  ],
+  "design_sha256": "e5799faa751d21b015d71ff6828c2bb07817ebd0f6044768322036f0fbcd5d61"
+}
