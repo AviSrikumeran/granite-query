@@ -122,6 +122,30 @@
       "verdict": "review_pending",
       "feedback": "Built in overnight batch02 from Turso reference principles. Original illustrative component with desktop/narrow rendered checks. Provisional Adapt recommendation; owner verdict pending.",
       "protected": true
+    },
+    {
+      "id": "code-map",
+      "title": "Code and map",
+      "url": "/playground/code-map/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch03 from Inngest reference principles. Original illustrative interface with desktop/narrow checks and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
+    },
+    {
+      "id": "research-atlas",
+      "title": "Research atlas",
+      "url": "/playground/research-atlas/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch03 from Mintlify reference principles. Original illustrative interface with desktop/narrow checks and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
+    },
+    {
+      "id": "review-diff",
+      "title": "Review the change",
+      "url": "/playground/review-diff/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch03 from Graphite reference principles. Original illustrative interface with desktop/narrow checks and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
     }
   ]
 }

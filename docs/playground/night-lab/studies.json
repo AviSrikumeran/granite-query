@@ -2,7 +2,7 @@
   "date": "2026-11-04",
   "timezone": "America/Chicago",
   "deadline": "2026-11-04T05:00:00-06:00",
-  "updated_at": "2026-11-04T08:02:43Z",
+  "updated_at": "2026-11-04T08:22:21Z",
   "status": "active",
   "studies": [
     {
@@ -136,11 +136,19 @@
       "reference_company": "Inngest",
       "reference_url": "https://www.inngest.com/",
       "purpose": "Protocol code highlights its corresponding diagram step",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../code-map/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/code-map",
+      "checks": [
+        "Desktop and 390px visual layout",
+        "Bidirectional code/diagram selection",
+        "Keyboard Home and explicit next selection",
+        "Guided view starts and manual action stops it",
+        "Mobile vertical dependencies preserve endpoints",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "research-atlas",
@@ -148,11 +156,20 @@
       "reference_company": "Mintlify",
       "reference_url": "https://www.mintlify.com/",
       "purpose": "Searchable research navigation with a clear reading route",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../research-atlas/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/research-atlas",
+      "checks": [
+        "Desktop and 390px visual layout",
+        "Exact section hash and focused heading",
+        "Browser Back restores previous chosen section hash",
+        "Uncertainty search selects Finding and focuses heading",
+        "No-match state and Escape opener restoration",
+        "Mobile section picker preserves exact destination",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "review-diff",
@@ -160,11 +177,21 @@
       "reference_company": "Graphite",
       "reference_url": "https://graphite.dev/",
       "purpose": "A precise before/after diff with linked review findings",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../review-diff/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/review-diff",
+      "checks": [
+        "Desktop and 390px visual layout",
+        "Change3 identity and review mark persist in split/unified",
+        "Keyboard K selects previous change",
+        "Mobile rationale and edit round trip",
+        "Reload resets tab-local review marks",
+        "Narrow unified default and labeled stacked split",
+        "Three patch model reconstruction/mapping tests",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "session-observer",

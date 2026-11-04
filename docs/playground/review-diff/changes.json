@@ -1,0 +1,12 @@
+{
+  "kind": "illustrative-change-review",
+  "file": "research-note.example.md",
+  "context": ["# Measurement note", "", "This authored note demonstrates research communication.", "It reports no experiment, score or model outcome.", ""],
+  "changes": [
+    {"id":"comparison-context","title":"Name the baseline","category":"Comparison","before":["This note compares the candidate result."],"after":["This note compares the candidate result with a named baseline."],"why":"The previous sentence names a candidate but leaves the alternative unstated. The revision makes the comparison explicit before a reader interprets a difference.","protects":"A result should identify what it is being compared with."},
+    {"id":"measurement-unit","title":"Attach the denominator","category":"Measurement","before":["The aggregate is reported as a percentage."],"after":["The aggregate includes the numerator, denominator and unit.","The evaluation cohort is named alongside the measurement."],"why":"A percentage alone hides the amount and kind of evidence. The revision requires the count, unit and cohort to travel with the reported value.","protects":"The reader can distinguish questions, examples and runs."},
+    {"id":"uncertainty-scope","title":"Qualify the estimate","category":"Interpretation","before":["A higher point estimate establishes improvement."],"after":["The point estimate is read alongside its uncertainty interval.","The interval method and its scope are recorded."],"why":"The original wording turns a point estimate into an unsupported conclusion. The revision asks for uncertainty context before interpreting the estimate. No actual estimate or interval is supplied in this fixture.","protects":"A stronger-sounding sentence must not outrun its evidence."},
+    {"id":"provenance-boundary","title":"Keep scope and provenance","category":"Provenance","before":["The finding generalizes beyond this evaluation."],"after":["The finding is limited to this study and its recorded conditions.","Source: authored example record; no measured outcome is reported."],"why":"The previous sentence asserts generalization without supporting evidence. The revised wording carries the boundary and source identity beside the finding, and states that this document is illustrative.","protects":"A qualification and source remain attached to the conclusion."}
+  ],
+  "ending": ["", "End of illustrative note."]
+}

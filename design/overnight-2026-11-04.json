@@ -5,7 +5,7 @@
   "deadline": "2026-11-04T05:00:00-06:00",
   "deadline_utc": "2026-11-04T11:00:00Z",
   "no_new_builds_after": "2026-11-04T04:35:00-06:00",
-  "updated_at": "2026-11-04T08:02:43Z",
+  "updated_at": "2026-11-04T08:22:21Z",
   "status": "active",
   "schedule_id": "daily-granite-query-design-lab",
   "schedule": "Every 20 minutes through 05:00 Central on 4 November 2026",
@@ -141,11 +141,19 @@
       "reference_company": "Inngest",
       "reference_url": "https://www.inngest.com/",
       "purpose": "Protocol code highlights its corresponding diagram step",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../code-map/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/code-map",
+      "checks": [
+        "Desktop and 390px visual layout",
+        "Bidirectional code/diagram selection",
+        "Keyboard Home and explicit next selection",
+        "Guided view starts and manual action stops it",
+        "Mobile vertical dependencies preserve endpoints",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "research-atlas",
@@ -153,11 +161,20 @@
       "reference_company": "Mintlify",
       "reference_url": "https://www.mintlify.com/",
       "purpose": "Searchable research navigation with a clear reading route",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../research-atlas/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/research-atlas",
+      "checks": [
+        "Desktop and 390px visual layout",
+        "Exact section hash and focused heading",
+        "Browser Back restores previous chosen section hash",
+        "Uncertainty search selects Finding and focuses heading",
+        "No-match state and Escape opener restoration",
+        "Mobile section picker preserves exact destination",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "review-diff",
@@ -165,11 +182,21 @@
       "reference_company": "Graphite",
       "reference_url": "https://graphite.dev/",
       "purpose": "A precise before/after diff with linked review findings",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../review-diff/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/review-diff",
+      "checks": [
+        "Desktop and 390px visual layout",
+        "Change3 identity and review mark persist in split/unified",
+        "Keyboard K selects previous change",
+        "Mobile rationale and edit round trip",
+        "Reload resets tab-local review marks",
+        "Narrow unified default and labeled stacked split",
+        "Three patch model reconstruction/mapping tests",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "session-observer",
@@ -232,6 +259,18 @@
     {
       "at": "2026-11-04T08:02:43Z",
       "event": "Batch02 local rendered checks completed. Trace filtering preserves selected context; record representations preserve selected field. Cohort focus correction and tighter mobile framing passed recheck. Ready for focused release."
+    },
+    {
+      "at": "2026-11-04T08:07:07Z",
+      "event": "Batch02 deployed and all three public pages verified. Public hub loaded six ready studies and six queued. Next: Inngest, Mintlify and Graphite."
+    },
+    {
+      "at": "2026-11-04T08:09:42Z",
+      "event": "Batch03 started: Inngest code-map, Mintlify research-atlas and Graphite review-diff in separate folders. Six delivered studies remain protected."
+    },
+    {
+      "at": "2026-11-04T08:22:21Z",
+      "event": "Batch03 rendered QA completed: code/diagram selection, local navigation/search and tab-local diff review all passed desktop and narrow checks. Ready for focused release."
     }
   ],
   "releases": [
@@ -245,6 +284,18 @@
         "source-lens",
         "workflow-lanes",
         "evidence-notes"
+      ]
+    },
+    {
+      "batch": 2,
+      "commit": "ce35ddc9a89482e86dff8ba8441f02c82c8206ba",
+      "pages_run": 41796736756,
+      "status": "success",
+      "verified_at": "2026-11-04T08:07:07Z",
+      "study_ids": [
+        "trace-inspector",
+        "record-switcher",
+        "cohort-topology"
       ]
     }
   ]

@@ -6,6 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Overnight batch 03 review](reviews/2026-11-04-overnight-batch-03.md): code-to-diagram correspondence, exact reading navigation and linked change rationale from Inngest, Mintlify and Graphite.
+
 - [Overnight batch 02 review](reviews/2026-11-04-overnight-batch-02.md): hierarchical inspection, record representations and cohort architecture from Langfuse, Resend and Turso.
 
 - [Overnight component lab](OVERNIGHT_2026-11-04.md): multiple references beyond Modal, separate working studies and a hard 05:00 Central cutoff on 4 November.
