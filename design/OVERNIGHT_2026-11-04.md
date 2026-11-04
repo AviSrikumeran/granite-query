@@ -4,13 +4,13 @@
 
 ## Current state
 
-The app heartbeat `daily-granite-query-design-lab` is repurposed as **Overnight Granite Query design lab — ends 5 a.m.** It wakes this chat every 20 minutes, expires at 11:00 UTC, and must be paused after the final report. The earlier daily schedule was already paused; do not reactivate it automatically. This is one night, not a new permanent daily schedule.
+The app heartbeat `daily-granite-query-design-lab` is repurposed as **Overnight Granite Query design lab — ends 5 a.m.** It wakes this chat every 20 minutes, expires at 11:00 UTC, and must be deleted after the final report. The earlier daily schedule was already paused; do not reactivate it automatically. This is one night, not a new permanent daily schedule.
 
 The machine-readable queue and release record is [overnight-2026-11-04.json](overnight-2026-11-04.json). Update it and the [live comparison hub](https://avisrikumeran.github.io/granite-query/playground/night-lab/) as work is verified. The hub only links working released studies. Keep pending work clearly marked.
 
 ## Execution
 
-1. Read the actual clock before each pass. Resume the earliest in-progress item before taking another. No new builds after 04:35; use the remaining time for verification, release and a final index. At/after 05:00 do no new design work, report actual outcomes and pause this automation.
+1. Read the actual clock before each pass. Resume the earliest in-progress item before taking another. No new builds after 04:35; use the remaining time for verification, release and a final index. At/after 05:00 do no new design work, report actual outcomes and delete this one-night automation.
 2. Use the queue for variety, rather than making another Modal field or repeating a color variant. At most two official source references per study. Record the specific observed component and distinguish observation from proposed motion. Inspect a matching public repository when useful; verify its file/package license before reusing code. Original code is the default.
 3. Build each study under its own new playground folder. Use bounded agents for independent folders when useful; the root owns shared files, browser QA and publishing. No concurrent edits to catalogue, registry or reviews by workers. Do not launch duplicate work after a queued heartbeat.
 4. Keep a clear static reading state and one dominant interaction. Give the visitor an obvious input, state change and outcome. Pointer actions need tap/keyboard access. Autonomous motion needs pause, reduced-motion and offscreen handling. Retain the accepted magenta material where relevant, but vary composition and component behavior.

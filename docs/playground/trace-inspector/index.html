@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="Explore an illustrative research packet through a hierarchical record inspector. Search its sources and keep every selected record in context."><title>Granite Query · Trace inspector</title><link rel="stylesheet" href="./style.css?v=trace-inspector-20261104-1"><script type="module" src="./inspector.mjs?v=trace-inspector-20261104-1"></script></head>
+<body>
+  <a class="skip" href="#record-search">Skip to record inspector</a>
+  <header class="topbar"><a class="brand" href="../../">Granite Query<span>Lab</span></a><nav aria-label="Study navigation"><a href="../experiments/">All experiments ↗</a></nav></header>
+  <main>
+    <section class="intro"><p class="eyebrow">04 / Trace inspector</p><div class="intro-line"><h1>Context stays attached.</h1><p>Search the packet. Open a record.<br> Follow its parent and exact source.</p></div><p class="demo-note"><span aria-hidden="true"></span><strong>Illustrative research packet</strong> Authored records, not live telemetry or model reasoning.</p></section>
+    <section class="app" id="inspector" aria-label="Research record inspector">
+      <div class="app-heading"><div class="packet-title"><span class="packet-icon" aria-hidden="true">⌘</span><strong>Research packet</strong><span class="packet-id">P–017</span><span class="demo-tag">DEMO</span></div><div class="packet-meta"><span>11 records</span><span>3 source documents</span></div></div>
+      <div class="app-layout">
+        <aside class="navigation" aria-label="Packet records">
+          <div class="nav-title"><h2>Records</h2><button id="expand-all" type="button">Expand all</button></div>
+          <div class="search-wrap"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4"/><path d="m9.5 9.5 4 4"/></svg><input id="record-search" type="search" placeholder="Find a record…" aria-label="Find a record" autocomplete="off"><kbd aria-hidden="true">/</kbd></div>
+          <div class="filters"><label for="kind">Type</label><select id="kind"><option value="all">All record types</option><option value="Source">Sources</option><option value="Check">Checks</option><option value="Qualification">Qualifications</option><option value="Reference">References</option><option value="Finding">Findings</option></select></div>
+          <div class="tree-heading"><span>Record</span><span>Type</span></div>
+          <div class="tree-scroll"><div id="tree" role="tree" aria-label="Research packet hierarchy"></div><div id="empty-state" hidden><h3>No matching record</h3><p>Try a broader phrase or another record type.</p><button id="clear-empty" type="button">Clear filters</button></div></div>
+          <div class="tree-status"><span id="match-count">11 records</span><button id="clear-filters" type="button" hidden>Clear filters</button></div>
+          <p class="tree-help">↑ ↓ move · → open · ← close<br>Selection keeps its parent and source.</p>
+        </aside>
+
+        <section class="detail" aria-label="Selected record">
+          <div class="detail-breadcrumb" id="breadcrumbs" aria-label="Record path"></div>
+          <div class="outside-filter" id="outside-filter" hidden><span>The selected record is hidden in the current tree view.</span><button id="reveal-record" type="button">Show in tree ↖</button></div>
+          <div class="record-heading"><div><p class="eyebrow" id="record-kind">Qualification / Q–01</p><h2 id="record-title">Uncertainty note</h2></div><span class="identity-pill" id="record-id">Q–01</span></div>
+          <p class="record-summary" id="record-summary">Keep the interval with the claim.</p>
+          <div class="record-relations"><div><span>Parent</span><button type="button" id="parent-link">Interpretation note ↖</button></div><div><span>Contents</span><span id="child-count">Leaf record</span></div><div><span>Source links</span><span id="source-count">1</span></div></div>
+          <div class="tabs" role="tablist" aria-label="Record view"><button type="button" id="tab-overview" role="tab" data-view="overview" aria-selected="true" aria-controls="panel-overview">Overview</button><button type="button" id="tab-input" role="tab" data-view="input" aria-selected="false" aria-controls="panel-input" tabindex="-1">Input</button><button type="button" id="tab-output" role="tab" data-view="output" aria-selected="false" aria-controls="panel-output" tabindex="-1">Output</button><button type="button" id="tab-source" role="tab" data-view="source" aria-selected="false" aria-controls="panel-source" tabindex="-1">Source <span id="source-tab-count">1</span></button></div>
+          <div class="tab-content">
+            <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview"><div class="io-summary"><section><p class="section-label"><span aria-hidden="true">↘</span> Input context</p><p id="overview-input"></p></section><section><p class="section-label"><span aria-hidden="true">↗</span> Record statement</p><p id="overview-output"></p></section></div><div class="source-preview"><div class="section-heading"><h3>Attached source</h3><button id="open-sources" type="button">Read source ↗</button></div><p id="preview-document" class="document-name"></p><blockquote id="preview-quote"></blockquote></div><section class="child-records" id="child-records" hidden><h3>Child records</h3><div id="child-links"></div></section><div class="record-boundary"><span aria-hidden="true">i</span><p>This packet demonstrates record relationships. It contains no measured score, generated reasoning or verified run receipt.</p></div></div>
+            <div id="panel-input" role="tabpanel" aria-labelledby="tab-input" hidden><p class="section-label">Input context / authored record</p><h3>What this record receives</h3><p id="input-text" class="large-text"></p><div class="context-callout"><span>Context source</span><button id="input-parent" type="button"></button></div></div>
+            <div id="panel-output" role="tabpanel" aria-labelledby="tab-output" hidden><p class="section-label">Record statement / authored example</p><h3>What this record establishes</h3><p id="output-text" class="large-text"></p><div class="context-callout"><span>Read alongside</span><button id="output-source" type="button">Its exact source passage ↗</button></div></div>
+            <div id="panel-source" role="tabpanel" aria-labelledby="tab-source" hidden><div class="source-intro"><p class="section-label">Source material / authored example</p><h3>Read the words behind the record.</h3><p>Every excerpt below belongs to the selected record. These are interface fixtures, not published experiment evidence.</p></div><div id="source-documents"></div></div>
+          </div>
+          <div class="detail-footer"><span class="small-square" aria-hidden="true"></span><span id="selection-status">Selected: Q–01 / Uncertainty note</span><span>Browser-local demonstration</span></div>
+        </section>
+      </div>
+    </section>
+    <section class="study-footer"><p>Dense information, clear relationships.</p><p>The tree is a navigation structure. The selected record stays stable while you search, collapse branches or change views.</p><a href="https://langfuse.com/" target="_blank" rel="noopener">Reference: Langfuse ↗</a></section>
+    <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+    <noscript><p class="noscript">JavaScript enables the record inspector. This page is an illustrative interface study; open the other experiments from the navigation above.</p></noscript>
+  </main>
+  <footer><span>Original component study / 04 Nov 2026</span><a href="../experiments/">All experiments ↗</a></footer>
+</body>
+</html>

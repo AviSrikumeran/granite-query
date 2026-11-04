@@ -98,6 +98,30 @@
       "verdict": "review_pending",
       "feedback": "Built during the authorized 4 November overnight lab from Liveblocks reference principles. Original illustrative component; local desktop and narrow-screen checks completed. Provisional recommendation Adapt; owner judgment pending.",
       "protected": true
+    },
+    {
+      "id": "trace-inspector",
+      "title": "Trace inspector",
+      "url": "/playground/trace-inspector/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch02 from Langfuse reference principles. Original illustrative component with desktop/narrow rendered checks. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
+    },
+    {
+      "id": "record-switcher",
+      "title": "Record switcher",
+      "url": "/playground/record-switcher/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch02 from Resend reference principles. Original illustrative component with desktop/narrow rendered checks. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
+    },
+    {
+      "id": "cohort-topology",
+      "title": "Cohort topology",
+      "url": "/playground/cohort-topology/",
+      "verdict": "review_pending",
+      "feedback": "Built in overnight batch02 from Turso reference principles. Original illustrative component with desktop/narrow rendered checks. Provisional Adapt recommendation; owner verdict pending.",
+      "protected": true
     }
   ]
 }

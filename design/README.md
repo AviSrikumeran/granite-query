@@ -6,6 +6,8 @@ The goal is a distinctive, enterprise-quality public research website: readable 
 
 ## Start here
 
+- [Overnight batch 02 review](reviews/2026-11-04-overnight-batch-02.md): hierarchical inspection, record representations and cohort architecture from Langfuse, Resend and Turso.
+
 - [Overnight component lab](OVERNIGHT_2026-11-04.md): multiple references beyond Modal, separate working studies and a hard 05:00 Central cutoff on 4 November.
 
 - [Constellation clarity revision](reviews/2026-11-03-constellation-clarity.md): the owner found the motion confusing; the same study now opens as a paused, labeled evidence map with the question and result first.

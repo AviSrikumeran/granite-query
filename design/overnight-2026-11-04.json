@@ -5,7 +5,7 @@
   "deadline": "2026-11-04T05:00:00-06:00",
   "deadline_utc": "2026-11-04T11:00:00Z",
   "no_new_builds_after": "2026-11-04T04:35:00-06:00",
-  "updated_at": "2026-11-04T07:45:29Z",
+  "updated_at": "2026-11-04T08:02:43Z",
   "status": "active",
   "schedule_id": "daily-granite-query-design-lab",
   "schedule": "Every 20 minutes through 05:00 Central on 4 November 2026",
@@ -82,11 +82,18 @@
       "reference_company": "Langfuse",
       "reference_url": "https://langfuse.com/",
       "purpose": "A trace outline synchronized with selected evidence",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../trace-inspector/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/trace-inspector",
+      "checks": [
+        "Desktop and 390px layout",
+        "Type filter and no-match state preserve selection",
+        "Show in tree clears filters and restores ancestry",
+        "Arrow-key selection opens matching source",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "record-switcher",
@@ -94,11 +101,18 @@
       "reference_company": "Resend",
       "reference_url": "https://resend.com/",
       "purpose": "One research record across readable, protocol and JSON views",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../record-switcher/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/record-switcher",
+      "checks": [
+        "Desktop and 390px layout",
+        "Sources retains identity across Readable/Protocol/JSON",
+        "Tab and field arrow-key navigation",
+        "Exact JSON roundtrip and field ownership",
+        "Contained JSON scrolling with no document overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "cohort-topology",
@@ -106,11 +120,20 @@
       "reference_company": "Turso",
       "reference_url": "https://turso.tech/",
       "purpose": "A shared source pool separates into selected cohorts",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../cohort-topology/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/cohort-topology",
+      "checks": [
+        "Desktop and 390px layout",
+        "Finite replay ends at full separation",
+        "Replay/pause/resume controls",
+        "Record13 identity retained across separation endpoints",
+        "Selecting outside focused cohort restores all records",
+        "Shorter mobile labels and 300px scene",
+        "Four geometry/conservation/framing tests"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "code-map",
@@ -197,6 +220,32 @@
     {
       "at": "2026-11-04T07:45:29Z",
       "event": "Final citation regression caught and corrected before release: explicit source choices now pin identity; rendered Exposure→Passage 02 and JSON retention pass."
+    },
+    {
+      "at": "2026-11-04T07:48:30Z",
+      "event": "Pages deployment completed successfully; all three public pages and hub verified. Heartbeat updated with current progress, preserved 05:00 expiry."
+    },
+    {
+      "at": "2026-11-04T07:50:44Z",
+      "event": "Batch 02 started: Langfuse trace inspector, Resend record switcher and Turso cohort topology in independent new folders. No previous study changes."
+    },
+    {
+      "at": "2026-11-04T08:02:43Z",
+      "event": "Batch02 local rendered checks completed. Trace filtering preserves selected context; record representations preserve selected field. Cohort focus correction and tighter mobile framing passed recheck. Ready for focused release."
+    }
+  ],
+  "releases": [
+    {
+      "batch": 1,
+      "commit": "bf7eed10092c78d5b02cc72b35bf12c278eae1ff",
+      "pages_run": 41794545011,
+      "status": "success",
+      "verified_at": "2026-11-04T07:48:30Z",
+      "study_ids": [
+        "source-lens",
+        "workflow-lanes",
+        "evidence-notes"
+      ]
     }
   ]
 }

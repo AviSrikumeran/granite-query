@@ -2,7 +2,7 @@
   "date": "2026-11-04",
   "timezone": "America/Chicago",
   "deadline": "2026-11-04T05:00:00-06:00",
-  "updated_at": "2026-11-04T07:45:29Z",
+  "updated_at": "2026-11-04T08:02:43Z",
   "status": "active",
   "studies": [
     {
@@ -77,11 +77,18 @@
       "reference_company": "Langfuse",
       "reference_url": "https://langfuse.com/",
       "purpose": "A trace outline synchronized with selected evidence",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../trace-inspector/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/trace-inspector",
+      "checks": [
+        "Desktop and 390px layout",
+        "Type filter and no-match state preserve selection",
+        "Show in tree clears filters and restores ancestry",
+        "Arrow-key selection opens matching source",
+        "No document horizontal overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "record-switcher",
@@ -89,11 +96,18 @@
       "reference_company": "Resend",
       "reference_url": "https://resend.com/",
       "purpose": "One research record across readable, protocol and JSON views",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../record-switcher/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/record-switcher",
+      "checks": [
+        "Desktop and 390px layout",
+        "Sources retains identity across Readable/Protocol/JSON",
+        "Tab and field arrow-key navigation",
+        "Exact JSON roundtrip and field ownership",
+        "Contained JSON scrolling with no document overflow"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "cohort-topology",
@@ -101,11 +115,20 @@
       "reference_company": "Turso",
       "reference_url": "https://turso.tech/",
       "purpose": "A shared source pool separates into selected cohorts",
-      "status": "queued",
-      "url": null,
-      "review": null,
-      "checks": [],
-      "verdict": "review_pending"
+      "status": "ready",
+      "url": "../cohort-topology/",
+      "review": "https://github.com/AviSrikumeran/granite-query/tree/main/docs/playground/cohort-topology",
+      "checks": [
+        "Desktop and 390px layout",
+        "Finite replay ends at full separation",
+        "Replay/pause/resume controls",
+        "Record13 identity retained across separation endpoints",
+        "Selecting outside focused cohort restores all records",
+        "Shorter mobile labels and 300px scene",
+        "Four geometry/conservation/framing tests"
+      ],
+      "verdict": "review_pending",
+      "recommendation": "Adapt, owner review pending"
     },
     {
       "id": "code-map",
