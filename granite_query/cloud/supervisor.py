@@ -182,6 +182,20 @@ def tick():
             human_summary=json.loads((human_teacher/'teacher_summary.json').read_text(encoding='utf-8'))
             if human_summary.get('stage')=='collecting':
                 training_action+=' Monitor the existing separately funded human-reference teacher chunk; do not overlap collectors. Each later512-request chunk requires its own fresh funding check and reservation.'
+        native_study=ROOT/'runs/native_reasoning16k_dev200_seed42_v1'
+        if (native_study/'design.json').exists():
+            from cloud.native_reasoning_report import build as build_native_report
+            native=build_native_report(native_study,write=True)
+            teacher=native.get('teacher') or {}
+            remote_status={'stage':native['stage']}
+            if native['stage']=='design_or_source_validation_failed':
+                training_action='Reconcile the frozen native design/source receipt before further paid work. Preserve original collections, plans, claims and liabilities; never regenerate blindly.'
+            elif teacher.get('stage')=='collecting':
+                training_action='Monitor the existing paired256 teacher collector and keep supported DeepSeek funding observation fresh. Do not start a second collector. After all512 outcomes finalize and the process exits, validate original receipts, complete-target capacity and prepare the three frozen student plans. Student training has not started merely because collection is running.'
+            elif native['stage']=='all_three_completed_and_locally_validated':
+                training_action='Analyze native baseline/concise/thinking paired outcomes, actual exposures and saved weights. Keep earlier512 results separate, preserve negative results and review fresh remaining resources before any stronger teacher reference, frozen final evaluation or API.'
+            else:
+                training_action='Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
         allocation_full=exhausted
         exhausted=allocation_full and not open_calls

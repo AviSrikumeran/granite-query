@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Reasoning transfer and learning-curve study design
+Current stage: Native reasoning transfer: concise versus thinking supervision
 
-Next: Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.
+Next: Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable. Paired teacher outcomes retained: 152/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -845,3 +845,35 @@ The user clarified that strongest-practical DeepSeek is the target; matched outp
 ## 2026-11-03T23:58:16.471432+00:00 | in_progress | Research improvement cycle
 
 Prioritize a separately versioned, reviewed and funded reasoning-transfer study before bulk final-benchmark spending. Preserve negative concise-training results and random controls. Strongest-practical DeepSeek remains the target; matched512 is a diagnostic. Finish physical reload/calibration integration before any actual final choice or official-test access. No paid launch is made by this checkpoint.
+
+## 2026-11-04T00:26:12.340976+00:00 | in_progress | Native reasoning transfer is being implemented as a separate study
+
+Preparing a separately versioned paired256 TRAIN cohort, complete native-channel encoder and bounded student controller. Planned fresh base/concise/thinking evaluations share the same200 development questions with OPEN thinking/1024output cap; these differ from the completed nonthinking512 comparisons. Planned arms use16384 complete supervised tokens/16updates. No gain or ranker advantage is claimed, and official test remains sealed.
+
+## 2026-11-04T00:31:28.918318+00:00 | resolved | Native reasoning review failures fixed before paid work
+
+Offline review caught malformed/unknown provider-response recovery, missing dependency binding, concurrent first-directory creation and GPU terminal/ledger recovery issues. New separate sources now pass74 synthetic checks; the finalV4 cohort, requests, source hashes and TRAIN/development isolation were independently audited. Superseded unpaid V1–V3 plans are preserved without calls; no historical pipeline is rewritten.
+
+## 2026-11-04T00:31:28.923319+00:00 | decision | Bounded native reasoning phase funded prospectively
+
+Reserved7Modal dollars for fresh baseline plus two whole-target16384token adapters and one held recovery allowance, with5Modal dollars protected. Reserved7DeepSeek dollars for at most512 original requests on256 unused TRAIN questions; its peak-token bound is6.5421312USD. These are allowances, not charges. BaselineOPEN1024 and actual runtime review precede both adapters; insufficient complete-target capacity stops paid GPU advancement. Strong8192teacher reference and official final test remain separately pending.
+
+## 2026-11-04T00:32:38.999863+00:00 | in_progress | Paired native reasoning teacher collection started
+
+Started the reviewed256-question/512-original-request collection with four bounded workers, concise1024 versus thinking4096, raw channels preserved privately and no automatic retries. A separate7USD DeepSeek reservation and7USD student envelope are held;5Modal dollars remain protected. Student GPU training has not started. Complete paired-target capacity and a fresh common OPEN1024 baseline/runtime gate precede the two planned16384-token adapters.
+
+## 2026-11-04T00:33:40.522874+00:00 | failed | Native collector startup stopped before any requests
+
+The first local process exited before creating a collection session or original request intent. Its immutable review file had equivalent JSON in a different byte format than the collector expects. Host exit and zero attempted requests were verified; no teacher or GPU work ran. Original process/log/review records are preserved.
+
+## 2026-11-04T00:33:40.538984+00:00 | resolved | Equivalent approval bytes reconciled without changing the experiment
+
+Preserved the original controller-formatted approval and wrote the same reviewed object using the frozen collector canonical format. Semantic review hash, exact plan/source, existing7USD reservation and all request identities are unchanged. A uniquely recorded local recovery may restart this zero-request session; no ambiguous API request is resent.
+
+## 2026-11-04T00:35:20.056743+00:00 | resolved | Paired native collection is now receiving original responses
+
+After the verified zero-request startup recovery, the exact reviewedV4 collector is active and append-only original outcomes are arriving. The frozen request/source/review bindings and existing allowances are unchanged. Public progress counts are recorded receipts pending final raw validation; no student accuracy or GPU training result is available yet.
+
+## 2026-11-04T00:35:54.567462+00:00 | in_progress | Research improvement cycle
+
+Monitor the existing paired256 teacher collector and keep supported DeepSeek funding observation fresh. Do not start a second collector. After all512 outcomes finalize and the process exits, validate original receipts, complete-target capacity and prepare the three frozen student plans. Student training has not started merely because collection is running.

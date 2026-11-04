@@ -1,6 +1,6 @@
 {
-  "stage": "Teacher gap measured; design useful reasoning-transfer training before bulk final benchmark",
+  "stage": "Paired native reasoning teacher collection running; student baseline and training pending",
   "training_completed": true,
   "held_out_evaluation_completed": false,
-  "active_run_id": null
+  "active_run_id": "native_reasoning256_v4"
 }

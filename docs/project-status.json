@@ -230,9 +230,9 @@
       "detail": "DeepSeek scored 194/200 on the same development questions as original Granite179/200, random-trained174/200 and skill-trained171/200. All used the same prompt, nonthinking mode and512-token output cap. This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. No Granite accuracy improvement is established. Official test data remains sealed."
     },
     {
-      "title": "Reasoning transfer and learning-curve study design",
-      "status": "queued",
-      "detail": "Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API."
+      "title": "Native reasoning transfer: concise versus thinking supervision",
+      "status": "running",
+      "detail": "Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable. Paired teacher outcomes retained: 152/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result."
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
@@ -268,5 +268,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-03T23:58:22.067411+00:00"
+  "updated_at_utc": "2026-11-04T00:36:00.309150+00:00"
 }

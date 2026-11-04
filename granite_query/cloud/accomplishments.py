@@ -583,8 +583,20 @@ def build(workspace=None):
         current.append({'title':'Matched DeepSeek versus Granite on200 development questions','status':'completed','detail':detail})
         add('Matched200-question teacher reference measured',detail,
             'https://github.com/AviSrikumeran/granite-query/blob/main/progress/DEVELOPMENT_TEACHER200.md')
-        current.append({'title':'Reasoning transfer and learning-curve study design','status':'queued',
-            'detail':'Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.'})
+        native=_read(workspace/'progress/NATIVE_REASONING_STUDY.json')
+        if native.get('stage') and native['stage']!='unprepared':
+            teacher=native.get('teacher') or {}; jobs=native.get('jobs',[])
+            running=(teacher.get('stage')=='collecting' or any(j.get('status')=='running_or_awaiting_terminal' for j in jobs))
+            state=('completed' if native['stage']=='all_three_completed_and_locally_validated' else
+                   'blocked' if native['stage']=='design_or_source_validation_failed' else 'running' if running else 'queued')
+            count=teacher.get('retained_original_outcomes')
+            detail=native.get('current_work',{}).get('detail','Native study preparation.')
+            detail+=(f' Paired teacher outcomes retained: {count}/512.' if isinstance(count,int) else '')
+            detail+=' Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.'
+            current.append({'title':'Native reasoning transfer: concise versus thinking supervision','status':state,'detail':detail})
+        else:
+            current.append({'title':'Reasoning transfer and learning-curve study design','status':'queued',
+                'detail':'Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.'})
     if (human_study/'study_manifest.json').exists():
         human_study_state,human_study_detail,human_gains=_human_study_phase(human_study,workspace)
         current.append({'title':'Human-reference training with separate 200-question development evaluation',
