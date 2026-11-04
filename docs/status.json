@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-04T05:46:43.692644+00:00",
+  "generated_at_utc": "2026-11-04T10:41:55.867Z",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Stopped at user request; no running GPU tasks",
-  "next_action": "Stopped at user request. No further scheduled or paid work; review the concise results before deciding on any future experiment.",
+  "stage": "Overnight local study ended: no demonstrated transfer gain",
+  "next_action": "No new paid work. Review overnight-results.html before designing another experiment.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -1902,12 +1902,12 @@
   },
   "budget": {
     "observed_metered_usd": 14.49040674,
-    "collection_lag_buffer_usd": 3.0,
+    "collection_lag_buffer_usd": 3,
     "active_reservations_usd": 3.4,
     "pending_terminal_liability_usd": 1.2,
     "budget_remaining_usd": 7.9,
     "deepseek_peak_estimate_usd": 3.28010392,
-    "deepseek_observed_usage_usd": 2.0
+    "deepseek_observed_usage_usd": 2
   },
   "source_imports": {
     "stage": "completed",
@@ -1982,5 +1982,38 @@
       "Latency is exploratory: sequential evaluation without repeated randomized timing."
     ],
     "official_test_used": false
+  },
+  "overnight_feedback": {
+    "stage": "completed_no_improvement",
+    "development": {
+      "base": 30,
+      "error_small": 30,
+      "random_small": 30,
+      "error_large": 28,
+      "random_large": 29,
+      "denominator": 32
+    },
+    "retention": {
+      "base": 29,
+      "error_small": 26,
+      "random_small": 28,
+      "error_large": 27,
+      "random_large": 25,
+      "denominator": 32
+    },
+    "seen_training_errors": {
+      "before": 0,
+      "after": 8,
+      "denominator": 8,
+      "independent_generalization": false
+    },
+    "teacher_requests": 32,
+    "teacher_eligible": 27,
+    "peak_rate_estimate_usd": 0.23698488,
+    "estimate_is_invoice": false,
+    "older_unknown_hold_usd": 7,
+    "modal_calls": 0,
+    "report": "overnight-results.html",
+    "no_improved_checkpoint": true
   }
 }
