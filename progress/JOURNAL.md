@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: Native reasoning transfer: concise versus thinking supervision
 
-Next: Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable. Paired teacher outcomes retained: 444/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -893,3 +893,15 @@ Independent audit and8new synthetic checks validate a separate continuation boun
 ## 2026-11-04T00:51:49.505057+00:00 | in_progress | Reviewed continuation is processing only previously unsent requests
 
 The separate incident-bounded continuation now owns the collector lease. It may process only335original requests that had no prior intent or receipt; the original177outcomes and timed-out request are preserved. No new reservation, deadline extension or retry of the ambiguous request is performed. Full7USD teacher liability remains held, and student GPU work remains pending complete paired capacity.
+
+## 2026-11-04T01:01:55.498036+00:00 | completed | Paired teacher collection finalized with one retained timeout
+
+All512original outcomes are preserved and independently audited.246question pairs meet both-condition complete/reference-match/context checks, providing27887concise and68885thinking supervised tokens. The335continuation outcomes exactly match never-attempted requests; the original177files/history and ambiguous timeout are unchanged. Its usage remains unknown, full7USD reservation staysheld. No originalrequest was retried; allintents stayed within the originaldeadline.
+
+## 2026-11-04T01:01:55.505429+00:00 | completed | Complete native training plans frozen before GPU work
+
+Both exact16384-token whole-target subsets exist:143concise examples/33638forwardedtokens versus62thinking/31556. Each planned adapter has16effectiveupdates, fullsuffixandfinalanswer/EOS exposure and a fresh pinned base. The separate200development questions remain excluded. Only the new untouchedOPEN1024baseline is engineering-reviewed; pairtraining requires actualbaselinecalibration and its own boundreview.
+
+## 2026-11-04T01:07:07.202437+00:00 | decision | Native baseline queued behind existing Modal work
+
+The new200-question OPEN1024 baseline and both16k-token training plans are frozen and reviewed for the next bounded stage. The global one-task check found an existing inference-efficiency Modal app, so it launched no overlapping call or duplicate task. Its reservation is already included in the shared30USD project ledger. Reconcile that task before advancing the baseline, then calibrate before either adapter.

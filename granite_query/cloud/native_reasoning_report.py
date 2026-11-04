@@ -191,6 +191,12 @@ def build(output=control.DEFAULT, *, write=False):
                 result['jobs'] = public
                 result['stage'] = 'student_study_active_or_prepared'
                 result['current_work'] = {'stage': result['stage'], 'detail': 'Fresh baseline, concise and native reasoning arms share the OPEN/1024 development protocol. Pending or failed attempts have no accuracy.'}
+                wait_path=output/'dispatch_wait.json'
+                if wait_path.exists() and all(job['status']=='prepared' for job in public):
+                    waiting=control.read(wait_path)
+                    if waiting.get('reason')=='external_modal_tasks_active':
+                        result['stage']='student_baseline_waiting_for_shared_modal_capacity'
+                        result['current_work']={'stage':result['stage'],'detail':'Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration.'}
                 if len(rows) == 3 and set(rows) == set(control.ROLES):
                     result['comparisons'] = {
                         'concise_minus_baseline': paired(rows['baseline'], rows['concise']),

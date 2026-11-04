@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "version": "native-reasoning-public-receipts-v1",
-  "updated_at_utc": "2026-11-04T00:54:04.848299+00:00",
+  "updated_at_utc": "2026-11-04T01:08:08.230536+00:00",
   "run_id": "native_reasoning16k_dev200_seed42_v1",
-  "stage": "collecting_or_awaiting_teacher_pool",
+  "stage": "student_baseline_waiting_for_shared_modal_capacity",
   "paid_work_launched_by_reporter": false,
   "official_test_used": false,
   "current_work": {
-    "stage": "collecting_or_awaiting_teacher_pool",
-    "detail": "Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable."
+    "stage": "student_baseline_waiting_for_shared_modal_capacity",
+    "detail": "Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration."
   },
   "protocol": {
     "teacher_candidate_pairs": 256,
@@ -30,37 +30,36 @@
     "training_seed": 42
   },
   "teacher": {
-    "stage": "collecting",
+    "stage": "completed",
     "planned_questions": 256,
     "planned_original_calls": 512,
     "conditions": {
       "concise": {
         "thinking": false,
         "teacher_output_cap": 1024,
-        "retained_original_outcomes": 88,
-        "individually_eligible": 85,
-        "paired_eligible_supervised_tokens": 9449
+        "retained_original_outcomes": 256,
+        "individually_eligible": 251,
+        "paired_eligible_supervised_tokens": 27887
       },
       "thinking": {
         "thinking": true,
         "reasoning_effort": "high",
         "teacher_output_cap": 4096,
-        "retained_original_outcomes": 89,
-        "individually_eligible": 85,
-        "paired_eligible_supervised_tokens": 22286
+        "retained_original_outcomes": 256,
+        "individually_eligible": 249,
+        "paired_eligible_supervised_tokens": 68885
       }
     },
-    "retained_original_outcomes": 444,
-    "eligible_question_pairs": 83,
+    "retained_original_outcomes": 512,
+    "eligible_question_pairs": 246,
     "unknown_usage_attempts": 1,
-    "raw_channels_public": false,
-    "live_counts_note": "Complete append-only outcome records; final raw receipt validation is pending."
+    "raw_channels_public": false
   },
   "jobs": [
     {
       "role": "baseline",
       "label": "Fresh untouched Granite",
-      "status": "not_prepared",
+      "status": "prepared",
       "accuracy_percent": null,
       "metrics": null,
       "actual_supervised_tokens": null,
@@ -72,7 +71,7 @@
     {
       "role": "concise",
       "label": "Concise supervision",
-      "status": "not_prepared",
+      "status": "prepared",
       "accuracy_percent": null,
       "metrics": null,
       "actual_supervised_tokens": null,
@@ -84,7 +83,7 @@
     {
       "role": "thinking",
       "label": "Native reasoning supervision",
-      "status": "not_prepared",
+      "status": "prepared",
       "accuracy_percent": null,
       "metrics": null,
       "actual_supervised_tokens": null,

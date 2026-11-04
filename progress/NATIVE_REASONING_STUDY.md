@@ -1,14 +1,14 @@
 # Native reasoning study
 
-Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable.
+Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration.
 
 This study uses 256 planned paired TRAIN questions and three fresh student conditions. Each adapter receives 16,384 complete supervised tokens over 16 updates. Evaluation uses the same adaptive 200 TRAIN-development questions with native OPEN thinking and a 1024-token generation cap.
 
 | Condition | State | Accuracy |
 |---|---|---|
-| Fresh untouched Granite | not_prepared | Unavailable |
-| Concise supervision | not_prepared | Unavailable |
-| Native reasoning supervision | not_prepared | Unavailable |
+| Fresh untouched Granite | prepared | Unavailable |
+| Concise supervision | prepared | Unavailable |
+| Native reasoning supervision | prepared | Unavailable |
 
 The stronger 8192-token teacher reference is pending separate review and funding.
 

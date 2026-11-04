@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "stage": "reviewed_never_attempted_continuation_active",
+  "stage": "teacher_complete_student_baseline_waiting_shared_modal",
   "study_run_id": "native_reasoning16k_dev200_seed42_v1",
   "collection_run_id": "native_reasoning256_v4",
   "design_sha256": "e5799faa751d21b015d71ff6828c2bb07817ebd0f6044768322036f0fbcd5d61",
@@ -86,5 +86,20 @@
   "teacher_continuation_source_sha256": "4270f3597ad9fe62bcf959b2c0e347b922cdeab2634b29d2810b682c70b59cf5",
   "teacher_continuation_max_new_requests": 335,
   "original_timeout_permanently_excluded_from_dispatch": true,
-  "unknown_usage_liability_released": false
+  "unknown_usage_liability_released": false,
+  "teacher_original_outcomes": 512,
+  "eligible_question_pairs": 246,
+  "complete_token_capacity": {
+    "concise": 27887,
+    "thinking": 68885
+  },
+  "selected_examples": {
+    "concise": 143,
+    "thinking": 62
+  },
+  "selected_forwarded_tokens": {
+    "concise": 33638,
+    "thinking": 31556
+  },
+  "unknown_usage_attempts": 1
 }

@@ -1,6 +1,6 @@
 {
-  "stage": "Reviewed continuation of never-attempted teacher requests running; Granite GPU training pending",
+  "stage": "Native teacher pool finalized; fresh baseline queued behind existing Modal task",
   "training_completed": true,
   "held_out_evaluation_completed": false,
-  "active_run_id": "native_reasoning256_v4"
+  "active_run_id": "native_reasoning16k_dev200_seed42_v1"
 }
