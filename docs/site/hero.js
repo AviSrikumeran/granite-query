@@ -1,12 +1,12 @@
 import {BOOT,pointerPose} from '../playground/purple/engine/geometry.mjs?v=magenta-20261103-2';
-import {makeGPU,makeCPU} from '../playground/purple/engine/renderer.mjs?v=magenta-20261103-2';
+import {makeGPU,makeCPU} from './material-renderer.mjs?v=20261104-4';
 import {makeAtlas} from '../playground/purple/engine/atlas.mjs?v=magenta-20261103-2';
 import {PERIOD,formationAt} from '../playground/purple/forms.mjs?v=magenta-20261103-2';
 
 // The accepted Electric magenta specimen, rather than the later extraction
 // sculpture. Geometry, material tiers, pose timing and selective flashes come
 // directly from its unchanged modules. The wrapper only owns page lifecycle.
-export const HERO_CONFIG=Object.freeze({startProgress:0,speed:1,pixelRatio:1.5,maxFPS:30,turnLimit:.105,tiltLimit:.065});
+export const HERO_CONFIG=Object.freeze({startProgress:0,speed:1,pixelRatio:1.5,maxFPS:30,turnLimit:.105,tiltLimit:.065,ghostDistance:.80});
 const instances=new WeakMap();let serial=0;
 const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 export function heroLayout(width,height){const unit=Math.max(1,Math.min((width-20)/3.8,(height-20)/3.8));return{unit,center:[width*.5,height*.5],pitch:unit*6.4/95,glyphSize:unit*7.4/95,footprint:unit*11/95,left:0,right:width,top:0,bottom:height};}
@@ -30,7 +30,7 @@ export function initHero(container,{autoplay=true,intro=false,pixelRatio=HERO_CO
   const pointer={turn:0,tilt:0,strength:0},target={...pointer};
   const hash=(x,y)=>{const n=Math.sin(x*127.1+y*311.7)*43758.5453;return n-Math.floor(n);};
   function cellsFor(pitch){const cells=[],[cx,cy]=layout.center;for(let row=Math.ceil(-cy/pitch),y=cy+row*pitch;y<height;row++,y=cy+row*pitch){const stagger=row%2?.75:.25;for(let col=Math.ceil(-cx/pitch-stagger),x=cx+(col+stagger)*pitch;x<width;col++,x=cx+(col+stagger)*pitch)cells.push(x,y);}return new Float32Array(cells);}
-  const options={get:()=>({width,height,ratio,layout,pointer,time,bootSkipped,color:'#ff63ed',material:'magenta',ghosts:true}),makeCells:cellsFor,makeAtlas,hash};
+  const options={get:()=>({width,height,ratio,layout,pointer,time,bootSkipped,color:'#ff63ed',material:'magenta',ghosts:true,ghostDistance:HERO_CONFIG.ghostDistance}),makeCells:cellsFor,makeAtlas,hash};
   function updateStatus(message){if(message)status.textContent=message;}
   function cancelFrame(){if(request)win.cancelAnimationFrame(request);request=0;previous=0;}
   function refreshVisibility(){if(destroyed)return false;const wasActive=visible&&inView,rect=root.getBoundingClientRect(),viewportWidth=win.innerWidth||owner.documentElement.clientWidth,viewportHeight=win.innerHeight||owner.documentElement.clientHeight;visible=!owner.hidden;inView=rect.width>0&&rect.height>0&&rect.bottom>0&&rect.right>0&&rect.top<viewportHeight&&rect.left<viewportWidth;if(visible&&inView&&!wasActive)dirty=true;return visible&&inView;}
@@ -56,7 +56,7 @@ export function initHero(container,{autoplay=true,intro=false,pixelRatio=HERO_CO
   function tick(now){request=0;if(destroyed||!refreshVisibility()||lost){previous=0;return;}const delta=previous?Math.min(.05,Math.max(0,(now-previous)/1000)):0;previous=now;if(!paused)time+=delta;const response=reduced.matches?1:1-Math.exp(-delta*7.5);let changing=false;for(const key of ['turn','tilt','strength']){pointer[key]+=(target[key]-pointer[key])*response;if(Math.abs(target[key]-pointer[key])>.0001)changing=true;else pointer[key]=target[key];}
     const interval=renderer.type==='WebGL'?1000/HERO_CONFIG.maxFPS:110;if(dirty||now-lastPaint>=interval)paint(now);if(!paused||changing)schedule();else previous=0;
   }
-  function paint(now){if(destroyed||lost||!renderer||!layout)return;const scene=heroScene(progress());renderer.draw({...scene,turn:pointer.turn,tilt:pointer.tilt});Object.assign(canvas.dataset,{progress:scene.progress.toFixed(4),stage:scene.stage.id,pose:scene.state.focus,blend:scene.state.blend.toFixed(3),flash:scene.state.flash.toFixed(3),source:'electric-magenta',spacing:'clear',ghosts:'true',paused:String(paused),turn:pointer.turn.toFixed(4),tilt:pointer.tilt.toFixed(4),material:'magenta',time:time.toFixed(3)});dirty=false;lastPaint=now;}
+  function paint(now){if(destroyed||lost||!renderer||!layout)return;const scene=heroScene(progress());renderer.draw({...scene,turn:pointer.turn,tilt:pointer.tilt});Object.assign(canvas.dataset,{progress:scene.progress.toFixed(4),stage:scene.stage.id,pose:scene.state.focus,blend:scene.state.blend.toFixed(3),flash:scene.state.flash.toFixed(3),source:'electric-magenta',spacing:'clear',ghosts:'true',ghostDistance:String(HERO_CONFIG.ghostDistance),paused:String(paused),turn:pointer.turn.toFixed(4),tilt:pointer.tilt.toFixed(4),material:'magenta',time:time.toFixed(3)});dirty=false;lastPaint=now;}
   owner.addEventListener('visibilitychange',()=>{visible=!owner.hidden;cancelFrame();if(visible){dirty=true;schedule();}},{signal});
   reduced.addEventListener('change',event=>{if(event.matches){manual=HERO_CONFIG.startProgress;Object.assign(pointer,{turn:0,tilt:0,strength:0});Object.assign(target,pointer);setPaused(true);}},{signal});
   const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(root);const intersectionObserver=new IntersectionObserver(()=>{cancelFrame();if(refreshVisibility()){dirty=true;schedule();}},{threshold:.01});intersectionObserver.observe(root);win.addEventListener('resize',resize,{signal});win.addEventListener('scroll',()=>{if(refreshVisibility()){dirty=true;schedule();}else cancelFrame();},{signal,passive:true,capture:true});

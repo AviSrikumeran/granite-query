@@ -1,12 +1,12 @@
 # Electric magenta homepage artwork
 
-4 November 2026. The owner chose the earlier **Electric magenta** moving block over the extraction sculpture used in the first integrated homepage. The production wrapper now imports that exact study's unchanged geometry, renderer, material and glyph atlas from `playground/purple/`. The named `initHero` API is retained.
+4 November 2026. The owner chose the earlier **Electric magenta** moving block over the extraction sculpture used in the first integrated homepage. The production wrapper imports that study's unchanged geometry, material and glyph atlas from `playground/purple/`. `material-renderer.mjs` is a homepage-only adapter of its renderer; the only rendering change is configurable peripheral offset distance. The named `initHero` API is retained.
 
 ## What is shown
 
 The accepted clear-joint interlocking form contains eighteen notched beam volumes. It cycles through **Locked → Open → Offset** on the original 15-second clock: 4.5-second holds and 0.5-second selective-flash transitions. Original magenta tiers, face shading, AO, six-level bloom, brightness rolloff and pointer easing remain in the source renderer. This is the full luminous material, without the mineral blend or extracted core added in the first homepage.
 
-One primary view fills the hero. At the owner's request, the study's existing peripheral shadow/reflection effect is enabled: three dim, cropped projections follow the same frame, transition and pointer angles. This is the renderer's original `ghosts` option, not a new floor-shadow animation. The main geometry, scale, material and layout are unchanged. No green comparison, testing labels or visible Pause/Reset/turn controls are mounted. The code-defined artwork depicts no logo, model activity or research result. Existing playgrounds remain unchanged.
+One primary view fills the hero. At the owner's request, the study's existing peripheral shadow/reflection effect is enabled: three dim, cropped projections follow the same frame, transition and pointer angles. This is the renderer's original `ghosts` option, not a new floor-shadow animation. `HERO_CONFIG.ghostDistance` is 0.80, bringing those three offsets 20% closer so their fragments remain visible inside the existing crop. Both WebGL and Canvas apply the same multiplier after the original pointer transform. Shadow brightness and the main geometry, scale, material and layout are unchanged. No green comparison, testing labels or visible Pause/Reset/turn controls are mounted. The code-defined artwork depicts no logo, model activity or research result. Existing playgrounds remain unchanged.
 
 ## Mounting and lifecycle
 
