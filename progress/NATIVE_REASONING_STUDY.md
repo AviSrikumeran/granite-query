@@ -1,6 +1,6 @@
 # Native reasoning study
 
-At the last recorded check, the prior shared call had stopped, its remaining audit was queued, and no shared GPU task was active. Billing protection and queued reservations still needed reconciliation before the native baseline could launch. No native-study claim or call was recorded; the baseline remained unlaunched and training still required measured baseline calibration.
+Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration.
 
 This study uses 256 planned paired TRAIN questions and three fresh student conditions. Each adapter receives 16,384 complete supervised tokens over 16 updates. Evaluation uses the same adaptive 200 TRAIN-development questions with native OPEN thinking and a 1024-token generation cap.
 

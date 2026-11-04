@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: Native reasoning transfer: concise versus thinking supervision
 
-Next: At the last recorded check, the prior shared call had stopped, its remaining audit was queued, and no shared GPU task was active. Billing protection and queued reservations still needed reconciliation before the native baseline could launch. No native-study claim or call was recorded; the baseline remained unlaunched and training still required measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -921,3 +921,7 @@ The other inference audit preserved178of192 cases and stopped at its time guard.
 ## 2026-11-04T01:35:09.501672+00:00 | resolved | Dashboard distinguishes idle GPUs from an uncleared shared queue
 
 Added a report-only waiting reason that describes the last observed billing/queue hold, keeps all student metrics unavailable and stops showing the wait once a native dispatch claim exists. All7 focused synthetic report checks pass. Frozen training/controller/source hashes remain unchanged.
+
+## 2026-11-04T01:47:04.507689+00:00 | in_progress | Shared billing hold cleared; remaining14audit cases launched
+
+Supported reconciliation cleared the prior2.1USD terminal hold while retaining the3USD collection buffer and existing reservations. The other chat launched only its14never-attempted audit cases under the original0.9USD continuation allocation. The native Granite baseline remains unclaimed and waits for that actual call to terminate/reconcile. Current conservative free allowance is6.83USD including the protected5; this is not an invoice or an increased project budget.

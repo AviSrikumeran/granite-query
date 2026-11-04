@@ -1,5 +1,5 @@
 {
-  "stage": "Native baseline prepared; awaiting shared billing and14-case audit continuation",
+  "stage": "Native baseline prepared; waiting for the running14-case shared audit continuation",
   "training_completed": true,
   "held_out_evaluation_completed": false,
   "active_run_id": "native_reasoning16k_dev200_seed42_v1"
