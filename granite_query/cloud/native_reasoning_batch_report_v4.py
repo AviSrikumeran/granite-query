@@ -130,6 +130,17 @@ def _job(api, controller, job, parent_call):
     return public, result['evaluations'][role]
 
 
+def _calibration(api, output, jobs):
+    """Read/recompute the recorded gate, after the exact-seven-batch baseline."""
+    from cloud.native_reasoning_config_report import _calibration as verified_runtime_gate
+    recorded = api.read(output / 'calibration.json')
+    formula = '80+1.25*baseline_generation_seconds+0.0032*forwarded_input_tokens'
+    if (recorded.get('formula') != formula
+            or any(type(job.get('forwarded_input_tokens')) is not int or job['forwarded_input_tokens'] <= 0 for job in jobs[1:])):
+        raise ValueError('Frozen calibration formula or actual exposure forecast counts differ')
+    return dict(verified_runtime_gate(api, output, jobs), formula=formula)
+
+
 def build(output=DEFAULT, *, write=False, control_api=None):
     value = {'schema_version': 1, 'version': VERSION, 'run_id': Path(output).name,
         'updated_at_utc': datetime.now(timezone.utc).isoformat(), 'stage': 'batch32_unprepared',
@@ -137,7 +148,7 @@ def build(output=DEFAULT, *, write=False, control_api=None):
         'completed_parent': {'status': 'not_yet_verified_by_reporter', 'accuracy_percent': None,
             'evaluation_completed': None, 'runtime_gate_passed': None, 'execution_failed': None},
         'protocol': public_protocol(), 'teacher': None,
-        'jobs': [common._empty(role) for role in common.ROLES], 'comparisons': None,
+        'jobs': [common._empty(role) for role in common.ROLES], 'comparisons': None, 'calibration': None,
         'funding': {'status': 'planned_not_verified', 'planned_transferred_existing_unused_usd': 3.5,
             'planned_additional_new_reservation_usd': 1.75, 'planned_envelope_usd': 5.25,
             'existing_modal_ceiling_usd': 30, 'additional_cash_claimed': False, 'financial_action_by_reporter': False},
@@ -179,6 +190,17 @@ def build(output=DEFAULT, *, write=False, control_api=None):
                     ('failed_or_incomplete', 'batch32_attempt_failed_requires_review', 'A new batch32 attempt failed or remained incomplete. Preserve its original receipts and review before further dispatch; no partial score is published.')):
                     if any(item['status'] == status for item in public):
                         value['stage'] = stage; value['current_work'] = {'stage': stage, 'detail': detail}
+                if public[0]['status'] == 'completed' and (output / 'calibration.json').exists():
+                    value['calibration'] = _calibration(api, output, jobs)
+                    if all(item['status'] == 'prepared' for item in public[1:]):
+                        if value['calibration']['pair_runtime_feasible'] is False:
+                            value['stage'] = 'batch32_baseline_complete_pair_runtime_infeasible'
+                            value['current_work'] = {'stage': value['stage'],
+                                'detail': f"The full 200-question OPEN/{value['protocol']['max_new_tokens']} baseline and seven raw batches validate. Its measured runtime fails the training-pair forecast gate. Accuracy does not override this gate; preserve the completed baseline and review before any new dispatch."}
+                        else:
+                            value['stage'] = 'batch32_baseline_completed_awaiting_pair_review'
+                            value['current_work'] = {'stage': value['stage'],
+                                'detail': 'The complete baseline and measured runtime gate validate. Both adapters still require an exact source, funding and calibration review before dispatch.'}
                 if set(rows) == set(common.ROLES):
                     value['comparisons'] = {'concise_minus_baseline': paired(rows['baseline'], rows['concise']),
                         'thinking_minus_baseline': paired(rows['baseline'], rows['thinking']),
@@ -190,7 +212,7 @@ def build(output=DEFAULT, *, write=False, control_api=None):
     except (ValueError, KeyError, TypeError, AttributeError, OSError):
         value['stage'] = 'batch32_evidence_requires_reconciliation'
         value['current_work'] = {'stage': value['stage'], 'detail': 'The new source, completed-parent or funding bindings need reconciliation; no new metrics are established.'}
-        value['jobs'] = [common._empty(role) for role in common.ROLES]; value['comparisons'] = None
+        value['jobs'] = [common._empty(role) for role in common.ROLES]; value['comparisons'] = None; value['calibration'] = None
     if write: _publish(value)
     return value
 

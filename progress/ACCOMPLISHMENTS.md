@@ -178,7 +178,9 @@ Both human-study adapters have verified nine-file private snapshots, including 1
 
 - **Native OPEN1024 baseline and runtime calibration — completed**. Validated untouched OPEN/1024 baseline: 138/200, with 59 truncated outputs counted as failures. All25physical raw batches and the provider terminal validate. The training-pair runtime forecast failed, so neither V3adapter launched. The earlier nonthinking512 baseline179/200 remains a separate, stronger practical reference.
 
-- **Native reasoning transfer: batch32 and2048output tokens — queued**. A new dispatch intent exists; it does not establish completed GPU work or accuracy. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/2048 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+- **Native reasoning transfer: batch32 and2048output tokens — blocked**. The full 200-question OPEN/2048 baseline and seven raw batches validate. Its measured runtime fails the training-pair forecast gate. Accuracy does not override this gate; preserve the completed baseline and review before any new dispatch. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/2048 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+
+- **Split training/evaluation implementation; GPU idle at last check — queued**. Local code and review work is preparing four smaller jobs using the existing175/200 baseline. Each adapter trains unchanged16k tokens and evaluates96 questions, then its exact checkpoint evaluates104 more. No new baseline or teacher generation is planned. The proposed4.60 allowance is not yet reserved; full source, runtime and fresh funding review must pass before any GPU launch. No training improvement is established.
 
 - **Human-reference training with separate 200-question development evaluation — completed**. 3/3 validated jobs completed on 200 separate training-split development questions. baseline: 179/200; random: 174/200; skill: 171/200. Each training arm uses 65,536 supervised tokens and 64 updates from the same 1,930-example human-reference pool. Baseline runtime calibration: validated. Pair review: reviewed. These 200 questions are separate from the earlier 64-question monitoring set. One training seed does not establish robust selection benefit.
 
@@ -198,4 +200,4 @@ Both human-study adapters have verified nine-file private snapshots, including 1
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-04T04:12:32.911687+00:00
+Updated: 2026-11-04T05:23:39.236276+00:00

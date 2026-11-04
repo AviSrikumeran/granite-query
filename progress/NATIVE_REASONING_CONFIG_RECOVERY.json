@@ -2,7 +2,7 @@
   "schema_version": 1,
   "version": "native-reasoning-config-recovery-public-v1",
   "run_id": "native_reasoning16k_dev200_seed42_config_v3_final",
-  "updated_at_utc": "2026-11-04T04:06:52.528612+00:00",
+  "updated_at_utc": "2026-11-04T04:39:21.394037+00:00",
   "stage": "config_recovery_baseline_complete_pair_runtime_infeasible",
   "current_work": {
     "stage": "config_recovery_baseline_complete_pair_runtime_infeasible",

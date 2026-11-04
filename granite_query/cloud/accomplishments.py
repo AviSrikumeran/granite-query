@@ -606,13 +606,16 @@ def build(workspace=None):
             teacher=native.get('teacher') or {}; jobs=native.get('jobs',[])
             running=(teacher.get('stage')=='collecting' or any(j.get('status')=='running_or_awaiting_terminal' for j in jobs))
             state=('completed' if native['stage'] in ('all_three_completed_and_locally_validated','recovery_all_three_completed_and_validated','config_recovery_all_three_completed_and_validated','batch32_all_three_completed_and_validated') else
-                   'blocked' if native['stage'] in ('design_or_source_validation_failed','teacher_collection_halted_requires_reconciliation') else 'running' if running else 'queued')
+                   'blocked' if native['stage'] in ('design_or_source_validation_failed','teacher_collection_halted_requires_reconciliation','batch32_baseline_complete_pair_runtime_infeasible') else 'running' if running else 'queued')
             count=teacher.get('retained_original_outcomes')
             detail=native.get('current_work',{}).get('detail','Native study preparation.')
             detail+=(f' Paired teacher outcomes retained: {count}/512.' if isinstance(count,int) else '')
             cap=native.get('protocol',{}).get('max_new_tokens',1024)
             detail+=f' Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/{cap} on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.'
             current.append({'title':('Native reasoning transfer: batch32 and2048output tokens' if is_batch else 'Native reasoning transfer: official config recovery' if is_config else 'Native reasoning transfer: versioned mount recovery' if is_recovery else 'Native reasoning transfer: concise versus thinking supervision'),'status':state,'detail':detail})
+            if native['stage']=='batch32_baseline_complete_pair_runtime_infeasible':
+                current.append({'title':'Split training/evaluation implementation; GPU idle at last check','status':'queued',
+                    'detail':'Local code and review work is preparing four smaller jobs using the existing175/200 baseline. Each adapter trains unchanged16k tokens and evaluates96 questions, then its exact checkpoint evaluates104 more. No new baseline or teacher generation is planned. The proposed4.60 allowance is not yet reserved; full source, runtime and fresh funding review must pass before any GPU launch. No training improvement is established.'})
         else:
             current.append({'title':'Reasoning transfer and learning-curve study design','status':'queued',
                 'detail':'Prioritize a separately reviewed, funded experiment that tests learning from useful reasoning examples. Current concise-answer training regressed. More examples or a larger final benchmark cannot guarantee improvement. Keep random controls, measure actual training tokens and protect an honest final evaluation and capped API.'})

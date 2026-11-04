@@ -2,11 +2,11 @@
   "schema_version": 1,
   "version": "native-reasoning-batch32-public-v4",
   "run_id": "native_reasoning16k_dev200_seed42_batch32_v4",
-  "updated_at_utc": "2026-11-04T04:07:47.202457+00:00",
-  "stage": "batch32_dispatch_awaiting_call_receipt",
+  "updated_at_utc": "2026-11-04T05:10:48.037249+00:00",
+  "stage": "batch32_baseline_complete_pair_runtime_infeasible",
   "current_work": {
-    "stage": "batch32_dispatch_awaiting_call_receipt",
-    "detail": "A new dispatch intent exists; it does not establish completed GPU work or accuracy."
+    "stage": "batch32_baseline_complete_pair_runtime_infeasible",
+    "detail": "The full 200-question OPEN/2048 baseline and seven raw batches validate. Its measured runtime fails the training-pair forecast gate. Accuracy does not override this gate; preserve the completed baseline and review before any new dispatch."
   },
   "completed_parent": {
     "status": "completed_evaluation_runtime_gate_failed",
@@ -103,14 +103,28 @@
     {
       "role": "baseline",
       "label": "Fresh untouched Granite",
-      "status": "dispatch_claimed",
-      "accuracy_percent": null,
-      "metrics": null,
-      "validated_evaluation_outputs": 0,
-      "retained_evaluation_count": null,
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "planned_evaluation_count": 200
+      "status": "completed",
+      "accuracy_percent": 87.5,
+      "metrics": {
+        "count": 200,
+        "numeric_correct": 175,
+        "strict_format_correct": 175,
+        "truncated": 17,
+        "latency_seconds_total": 1019.759406653,
+        "generated_tokens": 175977,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "validated_evaluation_outputs": 200,
+      "retained_evaluation_count": 200,
+      "actual_supervised_tokens": 0,
+      "actual_optimizer_updates": 0,
+      "planned_evaluation_count": 200,
+      "call_id": "fc-01M6JD6CWWG4HBWCVYPWKN5WRN",
+      "unique_teaching_questions": 0,
+      "result_sha256": "26a7c7d75918eea322d18251ed731cd4f17ef00a8ead04372335b5f7f9be2155",
+      "raw_validation_sha256": "8d9156b036072732ace8663063a5ab2a8d4f3578d90f3baeac5778304f6f8cac",
+      "raw_batches_verified": 7,
+      "provider_terminal_receipt_verified": true
     },
     {
       "role": "concise",
@@ -138,6 +152,28 @@
     }
   ],
   "comparisons": null,
+  "calibration": {
+    "design_sha256": "e7d0b9e3dd2580382e250350831d18c354399d1814fcd57e3262afb87b0069f1",
+    "baseline_call_id": "fc-01M6JD6CWWG4HBWCVYPWKN5WRN",
+    "baseline_result_sha256": "26a7c7d75918eea322d18251ed731cd4f17ef00a8ead04372335b5f7f9be2155",
+    "raw_validation_sha256": "8d9156b036072732ace8663063a5ab2a8d4f3578d90f3baeac5778304f6f8cac",
+    "baseline_elapsed_seconds": 1095.767865,
+    "baseline_generation_seconds": 1019.759406653,
+    "baseline_truncated": 17,
+    "forecast_seconds": {
+      "concise": 1462.341,
+      "thinking": 1455.678
+    },
+    "pair_runtime_feasible": false,
+    "guards": {
+      "training": 1400,
+      "evaluation": 1600,
+      "hard": 1800
+    },
+    "calibration_sha256": "b9eb2b43f1e6d8929bebc46674f91a0a4dbdbc169e5c4aab008e232fb86b5351",
+    "gate_seconds": 1250,
+    "formula": "80+1.25*baseline_generation_seconds+0.0032*forwarded_input_tokens"
+  },
   "funding": {
     "status": "actual_receipt_verified_ledger_not_queried",
     "transferred_existing_unused_usd": 3.5,

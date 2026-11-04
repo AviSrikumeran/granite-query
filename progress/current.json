@@ -1,8 +1,8 @@
 {
-  "stage": "Baseline validated; local V4 launcher route repair in progress",
+  "stage": "GPU idle; preparing the actual training comparison",
   "training_completed": true,
   "held_out_evaluation_completed": false,
   "active_run_id": "native_reasoning16k_dev200_seed42_batch32_v4",
   "current_native_training_completed": false,
-  "current_native_baseline_completed": false
+  "current_native_baseline_completed": true
 }

@@ -245,10 +245,12 @@ def tick():
             batch_jobs={job['role']:job for job in batch_report.get('jobs',[])}
             if batch_report['stage']=='batch32_all_three_completed_and_validated':
                 training_action='Analyze the validated batch32/2048 before-and-after results and uncertainty. Preserve the separate138/200 OPEN1024 and179/200 nonthinking512 baselines; review actual checkpoint utility, final evaluation and API funding.'
+            elif batch_report['stage']=='batch32_baseline_complete_pair_runtime_infeasible':
+                training_action='The complete batch32/2048 baseline is validated, but its monolithic training-pair runtime gate failed. Preserve those unlaunched arms. Review a separately funded split of training/first96 and exact-checkpoint/last104 evaluation using the same existing baseline and global batches; no new baseline, silent gate change or partial accuracy.'
             elif batch_report['stage']=='batch32_dispatch_awaiting_call_receipt':
                 training_action='The original local launcher route was rejected before GPU execution. Preserve its saved dispatch and1.75allowance; use only the separately reviewed native_v4_transport repair after fresh positive provider/process/funding reconciliation. Never rerun the frozen default Backend or duplicate an unknown transmission.'
             elif any(job.get('status')=='running_or_awaiting_terminal' for job in batch_jobs.values()):
-                training_action='Poll only the saved batch32/2048 call through native_v4_transport. Require its actual provider terminal and all7physical raw batches including the8-question tail before metrics. No duplicate dispatch.'
+                training_action='Poll only the saved batch32/2048 call through native_v4_transport_wait_v2. Require its actual provider terminal and all7physical raw batches including the8-question tail before metrics. No duplicate dispatch.'
             elif batch_jobs.get('baseline',{}).get('status')=='completed':
                 training_action='Calibrate actual batch32/2048 baseline timing, then independently review exact source/manifest/funding/calibration before either unchanged16k training arm. Preserve the1250second gate regardless of accuracy.'
             else:

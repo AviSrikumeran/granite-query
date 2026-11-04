@@ -1,4 +1,4 @@
-"""Plot two validated, explicitly different Granite inference conditions."""
+"""Plot validated, explicitly different Granite inference conditions."""
 import json
 import os
 from pathlib import Path
@@ -18,15 +18,20 @@ def build():
     if old['status'] != 'completed' or new['status'] != 'completed':
         raise ValueError('Both actual baselines must validate before plotting')
     metrics = [old['metrics'], new['metrics']]
+    labels = ['Nonthinking\n512-token cap\nBatch 8', 'Native thinking\n1,024-token cap\nBatch 8']
+    latest_path = ROOT / 'progress/NATIVE_REASONING_BATCH32_V4.json'
+    if latest_path.exists():
+        latest = json.loads(latest_path.read_text(encoding='utf-8'))['jobs'][0]
+        if latest['status'] == 'completed' and latest.get('validated_evaluation_outputs') == 200:
+            metrics.append(latest['metrics']); labels.append('Native thinking\n2,048-token cap\nBatch 32')
     if any(row['count'] != 200 for row in metrics):
         raise ValueError('Require the same fixed 200-question development denominator')
     correct = [row['numeric_correct'] for row in metrics]
     capped = [row['truncated'] for row in metrics]
     incorrect = [200 - good - cap for good, cap in zip(correct, capped)]
     if min(incorrect) < 0: raise ValueError('Outcome categories overlap')
-    labels = ['Nonthinking\n512-token cap', 'Native thinking\n1,024-token cap']
     plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 11, 'svg.hashsalt': 'granite-completion-v1'})
-    fig, axes = plt.subplots(1, 2, figsize=(10.8, 5.6), gridspec_kw={'width_ratios': [1.35, 1]})
+    fig, axes = plt.subplots(1, 2, figsize=(12.5, 5.8), gridspec_kw={'width_ratios': [1.35, 1]})
     fig.patch.set_facecolor('#f7f9fc')
     for ax in axes:
         ax.set_facecolor('#f7f9fc')
@@ -41,14 +46,14 @@ def build():
     axes[0].set_ylabel('Questions'); axes[0].set_ylim(0, 219)
     fig.legend(*axes[0].get_legend_handles_labels(), loc='lower left', bbox_to_anchor=(.07, .12), ncol=3, frameon=False, fontsize=9)
     token_counts = [row['generated_tokens'] for row in metrics]
-    axes[1].bar(labels, [n/1000 for n in token_counts], color=['#456b9a', '#7198bf'])
+    axes[1].bar(labels, [n/1000 for n in token_counts], color=['#456b9a', '#7198bf', '#4f7caa'][:len(labels)])
     for index, (count, row) in enumerate(zip(token_counts, metrics)):
         axes[1].text(index, count/1000 + 4, f'{count:,} tokens\n{row["latency_seconds_total"]:.1f}s generation', ha='center', fontsize=9)
     axes[1].set_ylabel('Generated tokens (thousands)'); axes[1].set_ylim(0, max(token_counts)/1000*1.25)
-    fig.suptitle('Completion limits in two Granite inference conditions', x=.07, ha='left', fontsize=16, weight='bold')
-    fig.text(.07, .89, 'Same 200 TRAIN-development questions; untouched pinned Granite 4.2 3B; batch 8.', fontsize=10)
-    fig.text(.07, .045, 'Different thinking modes and output caps. This is not a training improvement curve.\nAll truncated cases stay in the denominator as failures; batched GPU timing is not API latency.', fontsize=9, color='#42526a')
-    fig.subplots_adjust(left=.08, right=.98, top=.81, bottom=.28, wspace=.36)
+    fig.suptitle('Completion limits across Granite inference conditions', x=.07, ha='left', fontsize=16, weight='bold')
+    fig.text(.07, .89, 'Same 200 TRAIN-development questions; untouched pinned Granite 4.2 3B; no adapters.', fontsize=10)
+    fig.text(.07, .045, 'Thinking mode, output cap and batch size differ. This is not a training improvement curve.\nAll truncated cases stay in the denominator as failures; batched GPU timing is not API latency.', fontsize=9, color='#42526a')
+    fig.subplots_adjust(left=.08, right=.98, top=.81, bottom=.30, wspace=.36)
     target = ROOT / 'docs/figures/native-completion-budget.svg'; target.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(target, metadata={'Date': None})
     preview = ROOT / 'granite_query/cloud/runs/supervisor/native-completion-budget.png'

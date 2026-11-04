@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Native reasoning transfer: batch32 and2048output tokens
+Current stage: Split training/evaluation implementation; GPU idle at last check
 
-Next: A new dispatch intent exists; it does not establish completed GPU work or accuracy. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/2048 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: Local code and review work is preparing four smaller jobs using the existing175/200 baseline. Each adapter trains unchanged16k tokens and evaluates96 questions, then its exact checkpoint evaluates104 more. No new baseline or teacher generation is planned. The proposed4.60 allowance is not yet reserved; full source, runtime and fresh funding review must pass before any GPU launch. No training improvement is established.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -1033,3 +1033,27 @@ The separately versioned launcher repair passed14software checks, including actu
 ## 2026-11-04T04:19:28.517976+00:00 | decision | Move fresh launch checks after slow local validation
 
 An unpaid timing review found that repeated physical validation could outlast the local CLI waiting and freshness windows. A separate transport V2 is being reviewed to perform fresh provider/process checks immediately before its one allowed transmission and allow bounded local waiting. The model hardlimit1800seconds, frozen21sources, inputdata, claim and existing1.75allowance stay unchanged. No repair intent or GPU model call has been sent.
+
+## 2026-11-04T04:37:27.259552+00:00 | resolved | Transport repair acknowledged on the original funded claim
+
+The reviewed transport V2 returned an actual Modal call and a matching remote owner after fresh process/provider/funding checks. The same original claim and1.75allowance were retained; the failed old route, all21frozen study sources and prior reviews/logs remain unchanged. No new reservation or repeated model request was introduced.
+
+## 2026-11-04T04:37:27.267979+00:00 | in_progress | Fresh OPEN2048 Granite baseline is evaluating on Modal
+
+Actual remote receipts verify all21frozen sources, pinned tokenizer, official905-byte config and fresh Granite4.2-3B runtime. The same200excluded TRAIN-development questions now use batch32 and2048outputtokens. This is baseline evaluation with zero training; complete accuracy and before-and-after results remain unavailable until actual terminal/all7raw batches validate. Existing3.50allowance remains held for both adapters, gated on measured runtime and review.
+
+## 2026-11-04T04:41:27.484372+00:00 | in_progress | Research improvement cycle
+
+Poll only the saved batch32/2048 call through native_v4_transport. Require its actual provider terminal and all7physical raw batches including the8-question tail before metrics. No duplicate dispatch.
+
+## 2026-11-04T05:10:47.995370+00:00 | completed | OPEN2048 baseline validated on all200 questions
+
+Actual provider terminal and all7raw-token batches validate: untouched Granite175/200(87.5%),17truncated cases counted as failures,175977generatedtokens,1019.759generationseconds and1095.768worker seconds. This is zero-training evaluation. The earlier nonthinking512 result179/200 remains stronger; the OPEN1024 result138/200 is a separate condition. No improved checkpoint or training gain is claimed.
+
+## 2026-11-04T05:10:48.005951+00:00 | decision | Preserve the failed monolithic runtime gate and split the work
+
+The original full training/evaluation forecasts1462.341/1455.678s exceed1250, so both original adapters remain unlaunched. A new four-job development design is under implementation: each arm trains unchanged16k then evaluates0–95; a second call loads that exact checkpoint and evaluates96–199, preserving all7global batches. It reuses this actual baseline and keeps per-job runtime/budget gates. Proposed4.60allowance would transferunused3.50 and reserveNEW1.10within30, only after source and fresh funding review. No new plan, funding or training call exists yet.
+
+## 2026-11-04T05:18:42.281673+00:00 | decision | GPU idle while training-job implementation is reviewed
+
+Supported account/task inspection found zero active Modal tasks. Observed metered Modal usage is14.4104USD; conditional DeepSeek wallet use is2.00USD. The teacher answers are already stored and reused; new teacher calls are unnecessary for this comparison. The current3.50Modal allowance is unused reservation, not a new charge. Next paid work is the source-reviewed split training/evaluation comparison using the existing175/200baseline; no new baseline or teacher generation is planned. No model improvement is established.

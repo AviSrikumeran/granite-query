@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-04T04:05:00.704402+00:00",
+  "updated_at_utc": "2026-11-04T05:10:47.995370+00:00",
   "run_id": "native_reasoning16k_dev200_seed42_batch32_v4",
-  "stage": "funded_local_transport_repair_pending",
+  "stage": "baseline_complete_monolithic_pair_runtime_infeasible",
   "design_sha256": "e7d0b9e3dd2580382e250350831d18c354399d1814fcd57e3262afb87b0069f1",
   "study_manifest_sha256": "bac1fe4da2e51d2dc523ce770c667a85e34c0478ad9ac15e1328aa64bb52e3af",
   "source_sha256": {
@@ -73,9 +73,16 @@
     "funding_sha256": "6f56fd1ef2939847a60df6ab3a414ce3538c2f0d97b0917cb56fefd83ad88de4"
   },
   "official_test_used": false,
-  "new_accuracy": null,
+  "new_accuracy": 87.5,
   "new_adapter_training_completed": false,
   "interpretation": "Both inference batching and output cap change. Fresh matched baseline required; a gain over weaker OPEN1024 does not establish overall utility or ranker superiority.",
-  "transport_status": "wrong_previous_cli_rejected_before_model_dispatch",
-  "new_gpu_call_present": false
+  "transport_status": "reviewed_v2_repair_acknowledged",
+  "new_gpu_call_present": true,
+  "baseline_call_id": "fc-01M6JD6CWWG4HBWCVYPWKN5WRN",
+  "actual_startup_verified": true,
+  "actual_startup_receipt_sha256": "b1fd195632c7011fd753f2a5b9e03341a7bfa988daa1de76a07a0b7aff7e098e",
+  "baseline_correct": 175,
+  "baseline_count": 200,
+  "baseline_truncated": 17,
+  "monolithic_pair_runtime_feasible": false
 }

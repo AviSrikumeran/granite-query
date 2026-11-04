@@ -209,7 +209,7 @@ def _publish(value):
         accuracy = f"{job['accuracy_percent']:.1f}%" if job['accuracy_percent'] is not None else 'Unavailable'
         lines.append(f"| {job['label']} | {job['status']} | {accuracy} |")
     if value['jobs'][0]['status'] == 'completed':
-        lines.extend(['', '![Two inference conditions, not a training improvement curve](../docs/figures/native-completion-budget.svg)', ''])
+        lines.extend(['', '![Different inference conditions, not a training improvement curve](../docs/figures/native-completion-budget.svg)', ''])
     lines.extend([''] + ['- ' + item for item in value['limitations']])
     _replace(PUBLIC / 'NATIVE_REASONING_CONFIG_RECOVERY.md', ('\n'.join(lines) + '\n').encode('utf-8'))
 

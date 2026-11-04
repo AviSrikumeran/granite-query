@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at_utc": "2026-11-04T03:46:41.034053+00:00",
+  "updated_at_utc": "2026-11-04T05:10:47.995370+00:00",
   "project_complete": false,
   "current_schedule_status": "ACTIVE",
   "check_interval_minutes": 5,
@@ -8,7 +8,7 @@
     "modal": 30,
     "deepseek": 20
   },
-  "current_work": "V3baseline validated138/200with59caps. Runtime blocks its training pair; separately versionedbatch32/2048 study under source/fundingreview. No improved checkpoint/API yet.",
+  "current_work": "OPEN2048 baseline175/20017caps validated; monolithic trainingforecast fails. Newfour-job development split under implementation/review. No newcheckpoint gain/API/finaltest yet.",
   "remaining_deliverables": [
     "Complete the current frozen native baseline with provider terminal and full raw replay.",
     "Train both independent adapters only after measured runtime/funding review and evaluate them on the same development questions.",

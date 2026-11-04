@@ -31,6 +31,7 @@ class BatchReportTests(unittest.TestCase):
     def prepare(self, completed=()):
         self.fixture.prepare_original(); self.fixture.prepare_jobs(completed=completed)
         for job in self.fixture.jobs:
+            job['forwarded_input_tokens']=0 if job['role']=='baseline' else 400000
             plan = job['plan']; settings = contract.protocol()
             plan.update({key:settings[key] for key in ('evaluation_batch_size','evaluation_batch_count','evaluation_partition',
                 'max_new_tokens','enable_thinking','input_limit')})
@@ -116,6 +117,59 @@ class BatchReportTests(unittest.TestCase):
         self.assertTrue(all(job['accuracy_percent'] is None for job in value['jobs'][1:]))
         self.assertIsNone(value['comparisons'])
         self.assertTrue(value['protocol']['memory_telemetry_optional'])
+        self.assertIsNone(value['calibration'])
+
+    def save_calibration(self, *, feasible=False):
+        jobs=self.fixture.jobs; base=jobs[0]; folder=base['folder_path']
+        if feasible:
+            for job in jobs[1:]: job['forwarded_input_tokens']=10000
+        result=local.read(folder/'result.json'); metrics=local.validate_result(base,result)
+        terminal=local.read(folder/'provider_terminal.json')
+        forecasts={job['role']:round(80+1.25*metrics['latency_seconds_total']+.0032*job['forwarded_input_tokens'],3) for job in jobs[1:]}
+        value={'design_sha256':local.sha(self.output/'design.json'),'baseline_call_id':terminal['call_id'],
+            'baseline_result_sha256':local.sha(folder/'result.json'),'raw_validation_sha256':local.sha(folder/'raw_validation.json'),
+            'baseline_elapsed_seconds':result['elapsed_seconds'],'baseline_generation_seconds':metrics['latency_seconds_total'],
+            'baseline_truncated':metrics['truncated'],'forecast_seconds':forecasts,
+            'pair_runtime_feasible':result['elapsed_seconds']<1550 and max(forecasts.values())<=1250,
+            'formula':'80+1.25*baseline_generation_seconds+0.0032*forwarded_input_tokens',
+            'guards':{'training':1400,'evaluation':1600,'hard':1800}}
+        local.write(self.output/'calibration.json',value)
+        return value
+
+    def test_perfect200_accuracy_cannot_override_false_runtime_gate(self):
+        self.prepare(completed=('baseline',)); self.save_calibration()
+        before={path:path.read_bytes() for path in self.root.rglob('*') if path.is_file()}
+        value=report.build(self.output,control_api=self.api)
+        self.assertEqual(value['jobs'][0]['accuracy_percent'],100)
+        self.assertEqual(value['stage'],'batch32_baseline_complete_pair_runtime_infeasible')
+        self.assertIs(value['calibration']['pair_runtime_feasible'],False)
+        self.assertIn('Accuracy does not override',value['current_work']['detail'])
+        self.assertTrue(all(job['accuracy_percent'] is None for job in value['jobs'][1:]))
+        self.assertEqual(before,{path:path.read_bytes() for path in self.root.rglob('*') if path.is_file()})
+
+    def test_valid_true_runtime_gate_waits_for_pair_review_and_all3_override_remains(self):
+        self.prepare(completed=('baseline',)); self.save_calibration(feasible=True)
+        value=report.build(self.output,control_api=self.api)
+        self.assertEqual(value['stage'],'batch32_baseline_completed_awaiting_pair_review')
+        self.assertTrue(value['calibration']['pair_runtime_feasible'])
+
+    def test_calibration_tampered_forecast_call_or_hash_cannot_publish_metrics(self):
+        self.prepare(completed=('baseline',)); good=self.save_calibration()
+        for field,wrong in (('forecast_seconds',{'concise':1,'thinking':1}),('baseline_call_id','fc-FOREIGN'),
+                ('baseline_result_sha256','0'*64),('formula','Invented formula')):
+            changed=deepcopy(good); changed[field]=wrong
+            local.write(self.output/'calibration.json',changed)
+            value=report.build(self.output,control_api=self.api)
+            self.assertEqual(value['stage'],'batch32_evidence_requires_reconciliation')
+            self.assertTrue(all(job['accuracy_percent'] is None for job in value['jobs']))
+            self.assertIsNone(value['calibration'])
+
+    def test_all_three_completed_stage_overrides_baseline_calibration_stage(self):
+        self.prepare(completed=report.common.ROLES); self.save_calibration()
+        value=report.build(self.output,control_api=self.api)
+        self.assertEqual(value['stage'],'batch32_all_three_completed_and_validated')
+        self.assertIs(value['calibration']['pair_runtime_feasible'],False)
+        self.assertEqual(len(value['comparisons']),3)
 
     def test_explicit_four_outputs_preserve_all_canonical_history(self):
         self.prepare()

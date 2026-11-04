@@ -1,12 +1,12 @@
 # Native reasoning batch32 study
 
-A new dispatch intent exists; it does not establish completed GPU work or accuracy.
+The full 200-question OPEN/2048 baseline and seven raw batches validate. Its measured runtime fails the training-pair forecast gate. Accuracy does not override this gate; preserve the completed baseline and review before any new dispatch.
 
 The prior V3 baseline completed evaluation; its runtime planning gate failed. This is not an execution failure or a model-quality improvement claim.
 
 | New condition | State | Accuracy |
 |---|---|---|
-| Fresh untouched Granite | dispatch_claimed | Unavailable |
+| Fresh untouched Granite | completed | 87.5% |
 | Concise supervision | prepared | Unavailable |
 | Native reasoning supervision | prepared | Unavailable |
 
