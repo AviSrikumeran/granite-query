@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "native-reasoning-public-receipts-v1",
-  "updated_at_utc": "2026-11-04T01:08:08.230536+00:00",
+  "updated_at_utc": "2026-11-04T01:24:21.604690+00:00",
   "run_id": "native_reasoning16k_dev200_seed42_v1",
   "stage": "student_baseline_waiting_for_shared_modal_capacity",
   "paid_work_launched_by_reporter": false,

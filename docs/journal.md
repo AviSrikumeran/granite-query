@@ -905,3 +905,11 @@ Both exact16384-token whole-target subsets exist:143concise examples/33638forwar
 ## 2026-11-04T01:07:07.202437+00:00 | decision | Native baseline queued behind existing Modal work
 
 The new200-question OPEN1024 baseline and both16k-token training plans are frozen and reviewed for the next bounded stage. The global one-task check found an existing inference-efficiency Modal app, so it launched no overlapping call or duplicate task. Its reservation is already included in the shared30USD project ledger. Reconcile that task before advancing the baseline, then calibrate before either adapter.
+
+## 2026-11-04T01:24:13.871700+00:00 | completed | Read-only calibration bridge prototype checked
+
+Added a separate receipt-validation prototype with10 synthetic fixtures and independent source review, including a fix binding the physically loaded compatibility validator. It performs no provider call or model training and does not integrate the final seal, consume NativeStudy receipts or authorize test access. Reuse of future native study proof requires an explicit versioned adapter and matching inference settings. Native baseline remains queued behind the existing shared Modal task.
+
+## 2026-11-04T01:25:20.830480+00:00 | in_progress | Research improvement cycle
+
+Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch.

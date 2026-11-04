@@ -130,3 +130,10 @@ This compares supervision recipes at equal loss tokens, with seeded whole-target
 
 
 Continuation update: the first teacher phase halted after177outcomes on one ambiguous network timeout. Independent reconciliation verified177unique intents/707preserved files and335wholly unattempted originals. A new separately reviewed `native_reasoning_continuation.py` (8synthetic checks) now schedules only those335 under the original01:03:49UTC deadline and existing7USD hold. The timed-out request is never resent and its usage remains unknown; do not settle/release that liability blindly. The frozen original collector and student design sources are unchanged. Student GPU work is still pending.
+
+
+## Current native study checkpoint
+
+The paired teacher collection and its reviewed continuation are COMPLETE; never restart either. All512original outcomes and2047receipt files were independently audited, including246eligible pairs and one retained usage-unknown timeout that was never resent. Both full16,384-token subsets exist:143concise examples/33,638forwarded tokens and62thinking examples/31,556forwarded tokens. Each adapter has16planned effective updates. The full7USD DeepSeek liability remains held.
+
+All three student plans and the baseline-only engineering review are frozen. No native student GPU call or dispatch claim exists yet. The last advancement check found the separate inference-efficiency Modal task active, so the shared one-task guard deferred the baseline without launching overlapping work. Inspect its actual saved call and shared ledger, refresh supported accounting and wait for capacity/protection gates before calling native_reasoning_control.advance once. Do not stop or duplicate the other owner's task, reserve the7USD envelope again, or release unknown liabilities. The pending new OPEN-thinking/1024 baseline is distinct from the old nonthinking/512 result; measured runtime and a separate pair review are still required before training.

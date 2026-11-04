@@ -190,4 +190,4 @@ Both human-study adapters have verified nine-file private snapshots, including 1
 - Official GSM8K test evaluation of a final frozen checkpoint.
 - Public Granite model-serving API and Vercel deployment.
 
-Updated: 2026-11-04T01:09:13.134957+00:00
+Updated: 2026-11-04T01:25:26.545026+00:00
