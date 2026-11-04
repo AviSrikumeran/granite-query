@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "protocol_id": "granite42_targeted_random_verified_proposal_v1",
+  "status": "planning_only_no_execution_scheduled",
+  "priority": "high",
+  "reviewed_local_date": "2026-11-03",
+  "timezone": "America/Chicago",
+  "model_decision": {
+    "accepted": true,
+    "student": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "family": "language",
+    "type": "post-trained dense reasoning and instruction model",
+    "teacher_api_alias": "deepseek-v4-pro",
+    "coding_model_math_advantage_established": false
+  },
+  "long_term_goal": "Improve a small general-purpose model's reasoning reliability per unit of training and inference cost through verified, student-targeted data, while preserving its other capabilities.",
+  "estimand": "Targeted example selection versus random example selection from the same semantically verified pool, under matched assistant-loss tokens and optimizer updates. Prompt, target style, checkpoint and training settings are held fixed.",
+  "pretraining_gates": {
+    "prompt_control": {
+      "status": "proposed_not_run",
+      "data": "Existing 32 diagnostic questions from the 200-question TRAIN-development cohort",
+      "conditions": [
+        "existing concise prompt",
+        "short entity-and-quantity-ledger prompt"
+      ],
+      "mode": "low",
+      "total_output_cap": 2048,
+      "decoding_seeds": [
+        17,
+        29,
+        43
+      ],
+      "planned_generations": 192,
+      "interpretation": "Diagnostic prompt selection only. Freeze the chosen prompt before selecting the new transfer-development set; do not claim independent confirmation from these familiar questions."
+    },
+    "common_pool": {
+      "status": "not_frozen",
+      "minimum_complete_serialized_assistant_loss_tokens": 32768,
+      "source_policy": "Permitted TRAIN questions with reviewed concise worked solutions, or explicitly authored training examples. Apply identical correctness, semantic, ambiguity and deduplication rules to both arms.",
+      "excluded_from_training": [
+        "all existing 200 development questions",
+        "the new 100-question transfer-development set",
+        "official test and detected source/template relatives"
+      ],
+      "seed_examples": 15,
+      "seed_examples_training_ready": false,
+      "seed_raw_target_tokens_excluding_template_eos": 905,
+      "quality_checks": [
+        "exact intermediate arithmetic and final answer",
+        "quantity coverage and signs",
+        "unit and batch conversions",
+        "entity membership and dependent counts",
+        "prose-equation consistency",
+        "explicit timing and averaging conventions",
+        "source/license and ancestry review",
+        "native template, masks, boundaries, completeness and one EOS"
+      ]
+    },
+    "transfer_development": {
+      "status": "not_selected",
+      "target_questions": 100,
+      "source_split": "train",
+      "policy": "Freeze after prompt selection and before training-data ranking. Exclude every training source ID, exact/near prompt, detected template relative and authored seed-pair variant. Do not use outcomes for selecting the training examples.",
+      "shortfall_policy": "If 100 eligible reviewed questions cannot be obtained, revise and publish the count and protocol before any training launch; do not silently shrink or substitute the set.",
+      "pretraining_contamination_limit": "Project-disjoint TRAIN questions are not guaranteed to be absent from the base model pretraining corpus."
+    },
+    "retention": {
+      "status": "not_authored",
+      "planned_cases": {
+        "tool_selection_and_argument_schema": 10,
+        "grounded_document_answers": 10,
+        "instruction_and_output_format": 10
+      },
+      "pilot_gate": "No new critical tool/schema or unsupported-grounding failures; no lower observed correct count than the untouched base in any category. These 30 cases are a small regression screen, not enterprise certification."
+    },
+    "funding": "Estimate bounded training, selection, evaluation and model-load costs against available shared credits before dispatch. This proposal creates no allocation, reservation, API request or GPU job."
+  },
+  "arms": {
+    "untouched_base": "Evaluation reference; no updates",
+    "targeted": {
+      "skill_families": [
+        "units_and_aggregation",
+        "complete_quantity_ledger",
+        "entity_scope_and_dependencies"
+      ],
+      "selection": "Assign a reviewed primary family and rank matching examples first, aiming for one third of selected loss tokens per family within five percentage points. Break ties by a seeded question-ID permutation. Freeze IDs and report the actual mix before training."
+    },
+    "random": {
+      "selection": "Use a seeded random question-priority order over the same eligible pool. Use the same whole-target budget-fitting rule as the targeted arm, without the skill priorities."
+    },
+    "both_training_arms": {
+      "selection_seed": 42,
+      "assistant_loss_tokens": 16384,
+      "optimizer_updates": 16,
+      "assistant_loss_tokens_per_update": 1024,
+      "training_seed": 42,
+      "fresh_base_start": true,
+      "target_style": "The same concise, complete, checkable worked-solution rule and native low-effort serialization in both arms",
+      "budget_fitting": "Choose complete targets without repeating examples. Prove an exact shared loss-token budget after serialization; if that cannot be constructed, revise the proposal before launch. Preserve complete causal inputs and valid boundaries when constructing loss windows.",
+      "proposal_training_settings": {
+        "method": "LoRA",
+        "target_modules": [
+          "q_proj",
+          "v_proj"
+        ],
+        "rank": 8,
+        "alpha": 16,
+        "dropout": 0.0,
+        "learning_rate": 2e-05,
+        "optimizer": "AdamW",
+        "weight_decay": 0.01,
+        "context_limit": 4096,
+        "base_dtype": "bfloat16",
+        "adapter_dtype": "float32",
+        "requirement": "Complete and hash the exact runnable configuration, source and packing receipts before dispatch; these are proposal defaults, not a launched run."
+      }
+    }
+  },
+  "evaluation": {
+    "primary": {
+      "mode": "low",
+      "total_output_cap": 2048,
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "decoding_seed": 17
+    },
+    "comparison": "Untouched base, random-trained and targeted-trained checkpoints on the identical frozen 100 transfer-development questions, with common per-question decoding seeds and the same warm device/engine/precision/batch settings",
+    "secondary": "Existing 200 development questions remain diagnostic. Check low-effort at cap 512 and nonthinking at cap 2048 when included in the bounded evaluation plan; keep secondary findings labeled separately.",
+    "metrics": [
+      "numeric reference-match accuracy after reference QA",
+      "paired corrections and regressions",
+      "paired question-bootstrap 95 percent intervals",
+      "all generated tokens including wrong and truncated answers",
+      "tokens per correct answer",
+      "truncation and failure counts",
+      "warm request and GPU-generation time",
+      "training and selection GPU time, forwarded tokens and dollars",
+      "retention counts by category"
+    ],
+    "interpretation": "Equal assistant-loss tokens do not imply equal forwarded compute. Report selection and verification overhead. Question-bootstrap intervals do not cover training-seed uncertainty."
+  },
+  "decision": {
+    "separate_claims": [
+      "Training helps versus untouched base",
+      "Targeted selection helps versus random verified data"
+    ],
+    "proposed_practical_screen": "At least three percentage points of accuracy improvement at comparable measured inference cost, or at least 20 percent fewer generated tokens per correct answer with at most one percentage point accuracy loss; compare against both reference conditions and pass retention checks.",
+    "evidence_gate": "Practical screens are not statistical proof. Publish all pilot outcomes. Replicate the full paired comparison with training seed 43 in a separately budgeted phase before claiming a robust selection advantage; interpret uncertainty and all regressions.",
+    "no_advantage": "Keep the best-supported base/prompt configuration and report the null or negative selection result. Do not treat training activity itself as progress.",
+    "official_test": "Keep the existing official-test protocol sealed until the final candidate and inference rules are frozen; this preparation does not access or redesign it.",
+    "sparse_upcycling": "A later conditional architectural experiment, after a measurable dense-data benefit and a funded conversion/runtime comparison."
+  },
+  "new_model_calls": 0,
+  "new_training_jobs": 0,
+  "live_training_manifests_changed": false,
+  "official_test_accessed": false
+}

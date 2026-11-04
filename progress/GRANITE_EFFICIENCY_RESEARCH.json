@@ -18,7 +18,7 @@
   "official_test_accessed": false,
   "page": "https://avisrikumeran.github.io/granite-query/granite-efficiency.html",
   "report": "progress/GRANITE_EFFICIENCY_RESEARCH.md",
-  "next_research_step": "Use mode-cost and error diagnostics to design a disjoint verified-data experiment with matched random controls and capability-retention checks.",
+  "next_research_step": "Complete prompt-control, common-pool, transfer-development, retention, serialization and funding gates before the proposed matched targeted-versus-random pilot.",
   "budget_note": "Existing project ceilings are shared; this research audit creates no additional compute allocation.",
   "followup": {
     "page": "https://avisrikumeran.github.io/granite-query/inference-efficiency.html",
@@ -38,5 +38,19 @@
     "new_model_calls": 0,
     "new_training": false,
     "training_benefit_demonstrated": false
+  },
+  "accepted_model_choice": {
+    "student": "ibm-granite/granite-4.2-3b",
+    "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+    "reason": "Fixed small open reasoning student; affordable controlled adaptation and baseline continuity",
+    "coding_model_math_advantage_established": false
+  },
+  "long_term_goal": "Improve a small general-purpose model's reasoning reliability per unit of training and inference cost through verified, student-targeted data, while preserving its other capabilities.",
+  "next_experiment_proposal": {
+    "protocol_id": "granite42_targeted_random_verified_proposal_v1",
+    "status": "planning_only_no_execution_scheduled",
+    "page": "https://avisrikumeran.github.io/granite-query/granite-efficiency.html#targeted-random",
+    "source": "progress/TARGETED_RANDOM_VERIFIED_PLAN.json",
+    "new_training_jobs": 0
   }
 }
