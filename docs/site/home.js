@@ -11,4 +11,4 @@ if(detailAnchors.has(location.hash))location.replace(new URL('results/'+location
 
 // The artwork is isolated from research loading and has no testing toolbar.
 const container=document.querySelector('#hero-material');
-import('./hero.js?v=20261104-2').then(({initHero})=>initHero(container)).catch(()=>container.setAttribute('aria-label','Electric magenta material illustration.'));
+import('./hero.js?v=20261104-3').then(({initHero})=>initHero(container)).catch(()=>container.setAttribute('aria-label','Electric magenta material illustration.'));

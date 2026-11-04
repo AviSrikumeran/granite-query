@@ -170,6 +170,14 @@
       "verdict": "review_pending",
       "feedback": "Built in overnight batch04 from Orb public reference principles. Original illustrative interface with desktop/narrow checks, explicit provenance and meaningful keyboard interaction. Provisional Adapt recommendation; owner verdict pending.",
       "protected": true
+    },
+    {
+      "id": "research-homepage",
+      "title": "Electric Magenta research homepage",
+      "url": "/",
+      "verdict": "accepted",
+      "feedback": "On 4 November the owner called the simplified website great, selected the exact earlier Electric Magenta block, and asked to enable its existing peripheral shadow/reflection effect. Preserve the short layout, main block, material, motion and absence of visible testing controls.",
+      "protected": true
     }
   ]
 }
