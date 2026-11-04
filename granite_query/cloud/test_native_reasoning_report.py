@@ -114,6 +114,36 @@ class NativeReportTests(unittest.TestCase):
         self.assertEqual(value['teacher']['stage'], 'collecting')
         self.assertNotEqual(value['stage'], 'teacher_collection_halted_requires_reconciliation')
 
+    def test_shared_billing_and_queued_audit_wait_is_sanitized_and_ignored_after_native_claim(self):
+        self.prepare_jobs()
+        control.write(self.output/'dispatch_wait.json', {
+            'reason':'shared_billing_and_queue_reconciliation',
+            'detail':'PRIVATE_ACCOUNT_AND_RUNTIME_DETAIL', 'account_balance':4.73,
+            'prior_call_id':'fc-PRIVATE', 'queued_questions':14})
+        before = {path.relative_to(self.root):path.read_bytes() for path in self.root.rglob('*') if path.is_file()}
+        with patch.object(control.Backend,'apps',side_effect=AssertionError('Reporter must not query providers')):
+            value = report.build(self.output)
+        self.assertEqual(value['stage'],'student_baseline_waiting_for_shared_billing_and_queue_reconciliation')
+        self.assertEqual(value['current_work']['reason'],'shared_billing_and_queue_reconciliation')
+        self.assertIn('last recorded check',value['current_work']['detail'])
+        self.assertIn('prior shared call had stopped',value['current_work']['detail'])
+        self.assertIn('remaining audit was queued',value['current_work']['detail'])
+        self.assertIn('Billing protection',value['current_work']['detail'])
+        self.assertIn('baseline remained unlaunched',value['current_work']['detail'])
+        self.assertFalse(any(char.isdigit() for char in value['current_work']['detail']))
+        self.assertTrue(all(job['accuracy_percent'] is None and job['metrics'] is None for job in value['jobs']))
+        self.assertIsNone(value['comparisons'])
+        self.assertNotIn('PRIVATE',str(value));self.assertNotIn('4.73',str(value))
+        self.assertEqual(before,{path.relative_to(self.root):path.read_bytes() for path in self.root.rglob('*') if path.is_file()})
+        # A saved wait cannot override a later actual native dispatch claim.
+        control.write(self.jobs[0]['folder_path']/'dispatch.json', {'fixture_claim':'PRIVATE_CLAIM'})
+        value = report.build(self.output)
+        self.assertEqual(value['jobs'][0]['status'],'dispatch_claimed')
+        self.assertEqual(value['stage'],'student_study_active_or_prepared')
+        self.assertNotIn('reason',value['current_work'])
+        self.assertTrue(all(job['accuracy_percent'] is None and job['metrics'] is None for job in value['jobs']))
+        self.assertIsNone(value['comparisons'])
+
     def test_completed_metrics_need_each_full_receipt_and_hash_chain(self):
         self.prepare_jobs(complete=True)
         with patch.object(report, 'paired', return_value={'count': 200, 'difference_percentage_points': 0}):

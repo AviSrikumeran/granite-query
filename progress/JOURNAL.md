@@ -6,7 +6,7 @@ This is a generated, append-only history. Corrections are new events, not edits 
 
 Current stage: Native reasoning transfer: concise versus thinking supervision
 
-Next: Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: At the last recorded check, the prior shared call had stopped, its remaining audit was queued, and no shared GPU task was active. Billing protection and queued reservations still needed reconciliation before the native baseline could launch. No native-study claim or call was recorded; the baseline remained unlaunched and training still required measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -913,3 +913,11 @@ Added a separate receipt-validation prototype with10 synthetic fixtures and inde
 ## 2026-11-04T01:25:20.830480+00:00 | in_progress | Research improvement cycle
 
 Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch.
+
+## 2026-11-04T01:35:09.500674+00:00 | decision | Shared Modal call stopped; baseline waits for billing and remaining audit
+
+The other inference audit preserved178of192 cases and stopped at its time guard. Its owner prepared14never-attempted cases within the original envelope; that continuation is queued without a call. Current app inventory has no active GPU, but pending billing and queued reservations leave4.73USD after liabilities, below the protected5USD by0.27. No Granite native baseline dispatch was created. Preserve the billing hold and existing7USD native envelope; resume only after shared queue and fresh funding checks clear. No additional cash or lower protection is requested.
+
+## 2026-11-04T01:35:09.501672+00:00 | resolved | Dashboard distinguishes idle GPUs from an uncleared shared queue
+
+Added a report-only waiting reason that describes the last observed billing/queue hold, keeps all student metrics unavailable and stops showing the wait once a native dispatch claim exists. All7 focused synthetic report checks pass. Frozen training/controller/source hashes remain unchanged.

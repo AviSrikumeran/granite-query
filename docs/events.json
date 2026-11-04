@@ -1580,5 +1580,19 @@
     "kind": "in_progress",
     "title": "Research improvement cycle",
     "detail": "Advance the native study through native_reasoning_control only after original teacher receipts and complete-target capacity validate, fresh whole-phase funding and exact reviews. Run the new untouched OPEN1024 baseline before calibrating and separately reviewing both adapters. Never duplicate a saved or ambiguous dispatch."
+  },
+  {
+    "id": "native-wait-shared-billing-remaining14-v1",
+    "at_utc": "2026-11-04T01:35:09.500674+00:00",
+    "kind": "decision",
+    "title": "Shared Modal call stopped; baseline waits for billing and remaining audit",
+    "detail": "The other inference audit preserved178of192 cases and stopped at its time guard. Its owner prepared14never-attempted cases within the original envelope; that continuation is queued without a call. Current app inventory has no active GPU, but pending billing and queued reservations leave4.73USD after liabilities, below the protected5USD by0.27. No Granite native baseline dispatch was created. Preserve the billing hold and existing7USD native envelope; resume only after shared queue and fresh funding checks clear. No additional cash or lower protection is requested."
+  },
+  {
+    "id": "native-report-shared-billing-wait-v1",
+    "at_utc": "2026-11-04T01:35:09.501672+00:00",
+    "kind": "resolved",
+    "title": "Dashboard distinguishes idle GPUs from an uncleared shared queue",
+    "detail": "Added a report-only waiting reason that describes the last observed billing/queue hold, keeps all student metrics unavailable and stops showing the wait once a native dispatch claim exists. All7 focused synthetic report checks pass. Frozen training/controller/source hashes remain unchanged."
   }
 ]

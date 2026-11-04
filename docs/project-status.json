@@ -232,7 +232,7 @@
     {
       "title": "Native reasoning transfer: concise versus thinking supervision",
       "status": "queued",
-      "detail": "Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result."
+      "detail": "At the last recorded check, the prior shared call had stopped, its remaining audit was queued, and no shared GPU task was active. Billing protection and queued reservations still needed reconciliation before the native baseline could launch. No native-study claim or call was recorded; the baseline remained unlaunched and training still required measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result."
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
@@ -268,5 +268,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-04T01:25:26.545026+00:00"
+  "updated_at_utc": "2026-11-04T01:36:13.927333+00:00"
 }

@@ -194,9 +194,14 @@ def build(output=control.DEFAULT, *, write=False):
                 wait_path=output/'dispatch_wait.json'
                 if wait_path.exists() and all(job['status']=='prepared' for job in public):
                     waiting=control.read(wait_path)
-                    if waiting.get('reason')=='external_modal_tasks_active':
+                    reason=waiting.get('reason') if isinstance(waiting,dict) else None
+                    if reason=='external_modal_tasks_active':
                         result['stage']='student_baseline_waiting_for_shared_modal_capacity'
                         result['current_work']={'stage':result['stage'],'detail':'Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration.'}
+                    elif reason=='shared_billing_and_queue_reconciliation':
+                        result['stage']='student_baseline_waiting_for_shared_billing_and_queue_reconciliation'
+                        result['current_work']={'stage':result['stage'],'reason':reason,
+                            'detail':'At the last recorded check, the prior shared call had stopped, its remaining audit was queued, and no shared GPU task was active. Billing protection and queued reservations still needed reconciliation before the native baseline could launch. No native-study claim or call was recorded; the baseline remained unlaunched and training still required measured baseline calibration.'}
                 if len(rows) == 3 and set(rows) == set(control.ROLES):
                     result['comparisons'] = {
                         'concise_minus_baseline': paired(rows['baseline'], rows['concise']),
