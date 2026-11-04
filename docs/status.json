@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-04T00:54:10.877759+00:00",
+  "generated_at_utc": "2026-11-04T01:09:20.704082+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
   "stage": "Native reasoning transfer: concise versus thinking supervision",
-  "next_action": "Preparing or collecting 256 paired TRAIN teaching questions; student metrics are unavailable. Paired teacher outcomes retained: 444/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.",
+  "next_action": "Teacher collection and both complete16k-token subsets validate. At the last dispatch check another Modal task was active, so the one-task safeguard queued the new baseline. No native-study GPU call has launched; training still requires measured baseline calibration. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,7 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "collecting_or_awaiting_teacher_pool"
+    "stage": "native_baseline_waiting_shared_modal"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -1567,6 +1567,27 @@
       "kind": "in_progress",
       "title": "Reviewed continuation is processing only previously unsent requests",
       "detail": "The separate incident-bounded continuation now owns the collector lease. It may process only335original requests that had no prior intent or receipt; the original177outcomes and timed-out request are preserved. No new reservation, deadline extension or retry of the ambiguous request is performed. Full7USD teacher liability remains held, and student GPU work remains pending complete paired capacity."
+    },
+    {
+      "id": "native-reasoning256-v4-finalized",
+      "at_utc": "2026-11-04T01:01:55.498036+00:00",
+      "kind": "completed",
+      "title": "Paired teacher collection finalized with one retained timeout",
+      "detail": "All512original outcomes are preserved and independently audited.246question pairs meet both-condition complete/reference-match/context checks, providing27887concise and68885thinking supervised tokens. The335continuation outcomes exactly match never-attempted requests; the original177files/history and ambiguous timeout are unchanged. Its usage remains unknown, full7USD reservation staysheld. No originalrequest was retried; allintents stayed within the originaldeadline."
+    },
+    {
+      "id": "native-reasoning16k-plans-frozen",
+      "at_utc": "2026-11-04T01:01:55.505429+00:00",
+      "kind": "completed",
+      "title": "Complete native training plans frozen before GPU work",
+      "detail": "Both exact16384-token whole-target subsets exist:143concise examples/33638forwardedtokens versus62thinking/31556. Each planned adapter has16effectiveupdates, fullsuffixandfinalanswer/EOS exposure and a fresh pinned base. The separate200development questions remain excluded. Only the new untouchedOPEN1024baseline is engineering-reviewed; pairtraining requires actualbaselinecalibration and its own boundreview."
+    },
+    {
+      "id": "native-reasoning-baseline-waits-shared-modal",
+      "at_utc": "2026-11-04T01:07:07.202437+00:00",
+      "kind": "decision",
+      "title": "Native baseline queued behind existing Modal work",
+      "detail": "The new200-question OPEN1024 baseline and both16k-token training plans are frozen and reviewed for the next bounded stage. The global one-task check found an existing inference-efficiency Modal app, so it launched no overlapping call or duplicate task. Its reservation is already included in the shared30USD project ledger. Reconcile that task before advancing the baseline, then calibrate before either adapter."
     }
   ],
   "latest_training_pool": {
@@ -1579,13 +1600,13 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "observed_metered_usd": 10.22518791,
+    "observed_metered_usd": 10.93961686,
     "collection_lag_buffer_usd": 3.0,
-    "active_reservations_usd": 7.0,
+    "active_reservations_usd": 10.0,
     "pending_terminal_liability_usd": 0.0,
-    "budget_remaining_usd": 9.71,
+    "budget_remaining_usd": 6.06,
     "deepseek_peak_estimate_usd": 2.92,
-    "deepseek_observed_usage_usd": 1.52
+    "deepseek_observed_usage_usd": 1.87
   },
   "source_imports": {
     "stage": "completed",
