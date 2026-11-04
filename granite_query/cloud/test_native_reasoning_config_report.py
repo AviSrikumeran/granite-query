@@ -109,5 +109,31 @@ class ConfigReportTests(unittest.TestCase):
         for private in ('PRIVATE ERROR TEXT', 'PRIVATE QUESTION', 'PRIVATE TEACHER REASONING', str(self.root)):
             self.assertNotIn(private, str(view))
 
+    def test_completed_perfect_score_does_not_override_infeasible_runtime(self):
+        self.fixture.prepare_original(); self.fixture.prepare_jobs(completed=('baseline',))
+        for job in self.fixture.jobs: job['forwarded_input_tokens'] = 0 if job['role'] == 'baseline' else 33638
+        folder = self.fixture.jobs[0]['folder_path']
+        result = local.read(folder / 'result.json'); result['elapsed_seconds'] = 1600
+        local.write(folder / 'result.json', result)
+        terminal = local.read(folder / 'provider_terminal.json'); terminal['result_sha256'] = local.sha(folder / 'result.json')
+        local.write(folder / 'provider_terminal.json', terminal)
+        metrics = self.api.validate_result(self.fixture.jobs[0], result)
+        calibration = {'design_sha256': local.sha(self.output / 'design.json'), 'baseline_call_id': terminal['call_id'],
+            'baseline_result_sha256': terminal['result_sha256'], 'raw_validation_sha256': terminal['raw_validation_sha256'],
+            'baseline_elapsed_seconds': 1600, 'baseline_generation_seconds': metrics['latency_seconds_total'],
+            'baseline_truncated': metrics['truncated'], 'forecast_seconds': {role: round(80 + 1.25 * metrics['latency_seconds_total'] + .0032 * 33638, 3) for role in ('concise', 'thinking')},
+            'pair_runtime_feasible': False, 'guards': {'training': 1400, 'evaluation': 1600, 'hard': 1800}}
+        local.write(self.output / 'calibration.json', calibration)
+        value = report.build(self.output, control_api=self.api)
+        self.assertEqual(value['stage'], 'config_recovery_baseline_complete_pair_runtime_infeasible')
+        self.assertEqual(value['jobs'][0]['accuracy_percent'], 100)
+        self.assertFalse(value['calibration']['pair_runtime_feasible'])
+        self.assertIsNone(value['comparisons'])
+        calibration['forecast_seconds']['thinking'] += .001
+        local.write(self.output / 'calibration.json', calibration)
+        value = report.build(self.output, control_api=self.api)
+        self.assertEqual(value['stage'], 'config_recovery_evidence_requires_reconciliation')
+        self.assertTrue(all(job['accuracy_percent'] is None for job in value['jobs']))
+
 
 if __name__ == '__main__': unittest.main()

@@ -143,6 +143,11 @@
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/DEVELOPMENT_TEACHER200.md"
     },
     {
+      "title": "Native OPEN1024 baseline measured",
+      "detail": "Validated untouched OPEN/1024 baseline: 138/200, with 59 truncated outputs counted as failures. All25physical raw batches and the provider terminal validate. The training-pair runtime forecast failed, so neither V3adapter launched. The earlier nonthinking512 baseline179/200 remains a separate, stronger practical reference.",
+      "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/NATIVE_REASONING_CONFIG_RECOVERY.md"
+    },
+    {
       "title": "Human-reference DeepSeek teaching pool completed",
       "detail": "2,048/2,048 human-reference teaching responses saved; 1,930 passed complete-response/reference-match/token checks, supplying 223,827 answer tokens. Each invocation is limited to one separately funded 512-request chunk. The separate 200-question development holdout is withheld from teacher requests and training selection; it is not the official test. Arithmetic annotations were checked exactly, while semantic sufficiency and complete ancestry decontamination remain unproven. Teacher collection is not evidence that Granite used these questions or improved.",
       "evidence_url": "https://github.com/AviSrikumeran/granite-query/blob/main/progress/HUMAN_MATH_TEACHER.json"
@@ -230,9 +235,14 @@
       "detail": "DeepSeek scored 194/200 on the same development questions as original Granite179/200, random-trained174/200 and skill-trained171/200. All used the same prompt, nonthinking mode and512-token output cap. This diagnostic controls output budget; strongest-practical DeepSeek remains a separate target. No Granite accuracy improvement is established. Official test data remains sealed."
     },
     {
-      "title": "Native reasoning transfer: official config recovery",
-      "status": "running",
-      "detail": "A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result."
+      "title": "Native OPEN1024 baseline and runtime calibration",
+      "status": "completed",
+      "detail": "Validated untouched OPEN/1024 baseline: 138/200, with 59 truncated outputs counted as failures. All25physical raw batches and the provider terminal validate. The training-pair runtime forecast failed, so neither V3adapter launched. The earlier nonthinking512 baseline179/200 remains a separate, stronger practical reference."
+    },
+    {
+      "title": "Native reasoning transfer: batch32 and2048output tokens",
+      "status": "queued",
+      "detail": "A new dispatch intent exists; it does not establish completed GPU work or accuracy. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/2048 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result."
     },
     {
       "title": "Human-reference training with separate 200-question development evaluation",
@@ -268,5 +278,5 @@
     "Public Granite model-serving API and Vercel deployment."
   ],
   "accuracy_improved": false,
-  "updated_at_utc": "2026-11-04T03:26:57.928889+00:00"
+  "updated_at_utc": "2026-11-04T04:12:32.911687+00:00"
 }

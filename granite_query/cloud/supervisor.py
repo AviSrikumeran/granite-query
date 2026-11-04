@@ -228,10 +228,31 @@ def tick():
                 training_action='Poll only the saved native_reasoning_control_v3 call in native_reasoning16k_dev200_seed42_config_v3_final. Require its actual terminal and all25 physical raw replay batches; never duplicate a saved or ambiguous call.'
             elif config_report['stage']=='config_recovery_attempt_failed_requires_review':
                 training_action='Preserve the failed V3 result, actual config bytes and private diagnostics. No partial accuracy or further automatic recovery is allowed; inspect concrete evidence and resources before any separately reviewed next work.'
+            elif config_report['stage']=='config_recovery_baseline_complete_pair_runtime_infeasible':
+                training_action='The OPEN1024 baseline completed200 questions, but measured runtime rejects the original training pair. Preserve its validated results/caps and both unlaunched adapters; review a separately versioned efficient inference protocol before new funding or dispatch. No gate weakening, automatic retry or accuracy-gated continuation.'
             elif config_jobs.get('baseline',{}).get('status')=='completed':
                 training_action='Calibrate the validated V3 baseline and independently bind review_pair.json to its actual call/result/raw proof, source/manifest and current funding before either unchanged16k training arm. Runtime/funding gates do not depend on favorable accuracy.'
             else:
                 training_action='Complete the final-namespace V3 config/source/input/funding review, then use its controller for one baseline. Funding explicitly combines3.50USD transferred and1.75USD newly reserved inside the original30USD ceiling with5USD protected; both failed histories remain preserved.'
+            if config_jobs.get('baseline',{}).get('status')=='completed':
+                from cloud.native_completion_chart import build as build_completion_chart
+                build_completion_chart()
+        batch_study=ROOT/'runs/native_reasoning16k_dev200_seed42_batch32_v4'
+        if (batch_study/'design.json').exists():
+            from cloud.native_reasoning_batch_report_v4 import build as build_batch_report
+            batch_report=build_batch_report(batch_study,write=True)
+            remote_status={'stage':batch_report['stage']}
+            batch_jobs={job['role']:job for job in batch_report.get('jobs',[])}
+            if batch_report['stage']=='batch32_all_three_completed_and_validated':
+                training_action='Analyze the validated batch32/2048 before-and-after results and uncertainty. Preserve the separate138/200 OPEN1024 and179/200 nonthinking512 baselines; review actual checkpoint utility, final evaluation and API funding.'
+            elif batch_report['stage']=='batch32_dispatch_awaiting_call_receipt':
+                training_action='The original local launcher route was rejected before GPU execution. Preserve its saved dispatch and1.75allowance; use only the separately reviewed native_v4_transport repair after fresh positive provider/process/funding reconciliation. Never rerun the frozen default Backend or duplicate an unknown transmission.'
+            elif any(job.get('status')=='running_or_awaiting_terminal' for job in batch_jobs.values()):
+                training_action='Poll only the saved batch32/2048 call through native_v4_transport. Require its actual provider terminal and all7physical raw batches including the8-question tail before metrics. No duplicate dispatch.'
+            elif batch_jobs.get('baseline',{}).get('status')=='completed':
+                training_action='Calibrate actual batch32/2048 baseline timing, then independently review exact source/manifest/funding/calibration before either unchanged16k training arm. Preserve the1250second gate regardless of accuracy.'
+            else:
+                training_action='Review the actual prepared batch32/2048 design and source closure. Fresh supported accounting, a conserved3.50transfer plus NEW1.75reservation within30, protected5 and zerootherGPUowners precede one new matched baseline. The V3baseline completed; its runtimegate failed, not its execution.'
         open_calls=any(job.get('status') in ('spawned','running','spawning','queued') for job in ledger.get('jobs',[]))
         allocation_full=exhausted
         exhausted=allocation_full and not open_calls

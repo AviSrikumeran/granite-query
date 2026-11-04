@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "updated_at_utc": "2026-11-04T04:05:00.704402+00:00",
+  "run_id": "native_reasoning16k_dev200_seed42_batch32_v4",
+  "stage": "funded_local_transport_repair_pending",
+  "design_sha256": "e7d0b9e3dd2580382e250350831d18c354399d1814fcd57e3262afb87b0069f1",
+  "study_manifest_sha256": "bac1fe4da2e51d2dc523ce770c667a85e34c0478ad9ac15e1328aa64bb52e3af",
+  "source_sha256": {
+    "budget_reconcile.py": "daeed4c45302ad6fa5d04f8091f617a2e77698ee132cb8bba4a5ae7f7f2e2df8",
+    "comparison_control.py": "08ca10bc4d5ff7fdc479f015cc9524a1825deb5594e03d34d965ca1df2916f37",
+    "comparison_metrics.py": "0139edb8289ebd2261e0120d002fedec2c40ec02139b57d0aa7018c48739ba81",
+    "final_scale_artifacts.py": "e9907ac4f6a50f6da4e9f821802515d7607d7d19e2fefcb254676045ec7cc466",
+    "granite_lora_layout.py": "83660c4ee08db7df8ed5c289a93835cffbf6fbbe102deb14cc56b3ad08baeb0f",
+    "modal_native_batch_launch_v4.py": "030d06a9b356a052d26d82ae459072182fa47beaa3c4331857c4d4d18ec3bf77",
+    "modal_native_reasoning_batch_v4.py": "4f2a0a6fa6fa0ad3657afc892e0d1726352ec1adc852bd9ca8d57d8e15ba5c15",
+    "modal_native_reasoning_v2.py": "a49bf90f542b29a3a5e7df0a68e62453b98b50b44fad4e18fab8ac4e30384f94",
+    "modal_native_reasoning_v3.py": "3b1b301ee29345096ffb1901b174fef3c9e17263fa8ef2a21b02d121bb1894f5",
+    "modal_train.py": "3b9fe22b774ae2eeb00a9accf2dcbc40468bb36b7d5f25090f74f70768a326dc",
+    "native_batch_budget_reconcile_v4.py": "3f40a85f9de572810a9e43ef8277174fe74b6c2531081d1b785de13ee63f0ddc",
+    "native_budget_reconcile.py": "f9e51e1e5f12d0c5a8c250f9cb79e8405e5ae4427c3daaa187ea1588ec1cd94d",
+    "native_reasoning_batch_contract_v4.py": "d0f6ecc244e7b9eae8e5d3a05dfd0d1ff78f6b108efa7c81f566765cebcd7da4",
+    "native_reasoning_batch_control_v4.py": "12981be50efca8ea5fa1e063081abd7a9a94827543189b08d863466b3d29f9b1",
+    "native_reasoning_collection.py": "a360ce55a193ebba788c8cd00e50149aa71ae8a8f15d8f9d8b3e20c74caa0249",
+    "native_reasoning_contract.py": "57ab7f3d78d48a6d1fc13c88e6a9f9ad7dd97cc38ac176b50e083b3c6f3a951b",
+    "native_reasoning_control.py": "bbdab21280d46885b7aa6b0549b8de3ca460bfd319e1f07b46e3b6aae3ad67b4",
+    "native_reasoning_control_v2.py": "2c3c958fb60552a6a9565b7732a198c4a39a179ba7b6da54ce4f6dfa9ba51c66",
+    "native_reasoning_control_v3.py": "7d77f85762dd66b68dda58184e1fcb4ca1fd41a0712bd5de2a776861e55e48c0",
+    "student_valuation.py": "650cb76b9ee4da5fd0075b9b53116b0e01f8a54173eb30784684cf5cb740782f",
+    "valuation_contract.py": "86d895cbc2afa4c12d525cbdf1c74e9655e2942c409eafab45b9ddaac16cf324"
+  },
+  "model": "ibm-granite/granite-4.2-3b",
+  "revision": "4e9c275e232f10211ec88644d106a1f6a1b60e06",
+  "inference": {
+    "thinking": true,
+    "output_cap": 2048,
+    "batch_size": 32,
+    "input_limit": 1536,
+    "raw_batches_required": 7,
+    "tail_questions": 8
+  },
+  "training": {
+    "loss_tokens_per_arm": 16384,
+    "effective_updates": 16,
+    "tokens_per_update": 1024,
+    "concise_examples": 143,
+    "thinking_examples": 62,
+    "concise_forwarded_tokens": 33638,
+    "thinking_forwarded_tokens": 31556
+  },
+  "parent": {
+    "status": "completed_runtime_gate_infeasible",
+    "call_id": "fc-01M6J8VCFC8ABNCMESZ30FS9ZZ",
+    "count": 200,
+    "correct": 138,
+    "truncated": 59,
+    "raw_batches_verified": 25,
+    "new_training_launched": false
+  },
+  "practical_reference": {
+    "mode": "nonthinking",
+    "cap": 512,
+    "correct": 179,
+    "count": 200,
+    "same_inference_condition": false
+  },
+  "funding": {
+    "transferred_existing_unused_usd": 3.5,
+    "additional_new_reservation_usd": 1.75,
+    "funded_envelope_usd": 5.25,
+    "modal_total_ceiling_usd": 30,
+    "protected_modal_usd": 5,
+    "additional_cash": false,
+    "funding_sha256": "6f56fd1ef2939847a60df6ab3a414ce3538c2f0d97b0917cb56fefd83ad88de4"
+  },
+  "official_test_used": false,
+  "new_accuracy": null,
+  "new_adapter_training_completed": false,
+  "interpretation": "Both inference batching and output cap change. Fresh matched baseline required; a gain over weaker OPEN1024 does not establish overall utility or ranker superiority.",
+  "transport_status": "wrong_previous_cli_rejected_before_model_dispatch",
+  "new_gpu_call_present": false
+}

@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "version": "native-reasoning-batch32-public-v4",
+  "run_id": "native_reasoning16k_dev200_seed42_batch32_v4",
+  "updated_at_utc": "2026-11-04T04:07:47.202457+00:00",
+  "stage": "batch32_dispatch_awaiting_call_receipt",
+  "current_work": {
+    "stage": "batch32_dispatch_awaiting_call_receipt",
+    "detail": "A new dispatch intent exists; it does not establish completed GPU work or accuracy."
+  },
+  "completed_parent": {
+    "status": "completed_evaluation_runtime_gate_failed",
+    "call_id": "fc-01M6J8VCFC8ABNCMESZ30FS9ZZ",
+    "validated_evaluation_outputs": 200,
+    "evaluation_completed": true,
+    "execution_failed": false,
+    "runtime_gate_passed": false,
+    "accuracy_used_as_gate": false,
+    "result_sha256": "5bd22e5a1af35aa68999f4f2cbdfd193f4fd45a0ff40315db0bd36028c365022",
+    "calibration_sha256": "a594e0bdc65e56ae5d24a997c72fe4e2f54b229323bf3d03eb55c99d62c49b83",
+    "model_quality_gain_claimed": false,
+    "detail": "The prior V3 baseline validly completed all 200 questions. Its measured runtime failed the planning gate for the subsequent training pair. This does not mean the evaluation failed or that batching improves model quality."
+  },
+  "protocol": {
+    "teacher_candidate_pairs": 256,
+    "teacher_output_caps": {
+      "concise": 1024,
+      "thinking": 4096
+    },
+    "loss_tokens_per_adapter": 16384,
+    "optimizer_updates": 16,
+    "tokens_per_update": 1024,
+    "context_limit": 4096,
+    "evaluation_count": 200,
+    "student_evaluation_count": 200,
+    "evaluation_split": "GSM8K TRAIN development",
+    "native_generation_prefix": "OPEN",
+    "enable_thinking": true,
+    "max_new_tokens": 2048,
+    "evaluation_batch_size": 32,
+    "evaluation_batch_count": 7,
+    "evaluation_partition": [
+      [
+        0,
+        32
+      ],
+      [
+        32,
+        64
+      ],
+      [
+        64,
+        96
+      ],
+      [
+        96,
+        128
+      ],
+      [
+        128,
+        160
+      ],
+      [
+        160,
+        192
+      ],
+      [
+        192,
+        200
+      ]
+    ],
+    "input_limit": 1536,
+    "training_seed": 42,
+    "memory_telemetry_optional": true
+  },
+  "teacher": {
+    "stage": "completed",
+    "planned_questions": 256,
+    "planned_original_calls": 512,
+    "conditions": {
+      "concise": {
+        "thinking": false,
+        "teacher_output_cap": 1024,
+        "retained_original_outcomes": 256,
+        "individually_eligible": 251,
+        "paired_eligible_supervised_tokens": 27887
+      },
+      "thinking": {
+        "thinking": true,
+        "reasoning_effort": "high",
+        "teacher_output_cap": 4096,
+        "retained_original_outcomes": 256,
+        "individually_eligible": 249,
+        "paired_eligible_supervised_tokens": 68885
+      }
+    },
+    "retained_original_outcomes": 512,
+    "eligible_question_pairs": 246,
+    "unknown_usage_attempts": 1,
+    "raw_channels_public": false
+  },
+  "jobs": [
+    {
+      "role": "baseline",
+      "label": "Fresh untouched Granite",
+      "status": "dispatch_claimed",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    },
+    {
+      "role": "concise",
+      "label": "Concise supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    },
+    {
+      "role": "thinking",
+      "label": "Native reasoning supervision",
+      "status": "prepared",
+      "accuracy_percent": null,
+      "metrics": null,
+      "validated_evaluation_outputs": 0,
+      "retained_evaluation_count": null,
+      "actual_supervised_tokens": null,
+      "actual_optimizer_updates": null,
+      "planned_evaluation_count": 200
+    }
+  ],
+  "comparisons": null,
+  "funding": {
+    "status": "actual_receipt_verified_ledger_not_queried",
+    "transferred_existing_unused_usd": 3.5,
+    "additional_new_reservation_usd": 1.75,
+    "funded_envelope_usd": 5.25,
+    "new_reservation_created": true,
+    "total_commitment_increase_usd": 1.75,
+    "new_max_new_tokens": 2048,
+    "existing_modal_ceiling_usd": 30,
+    "additional_cash_claimed": false,
+    "financial_action_by_reporter": false,
+    "funding_receipt_sha256": "b840aca6dec8712198ffa96ce6ed0e6cd5970c2f1dfd1d5e9c9e0b8769107c1f",
+    "funding_sha256": "6f56fd1ef2939847a60df6ab3a414ce3538c2f0d97b0917cb56fefd83ad88de4"
+  },
+  "official_test_used": false,
+  "paid_work_launched_by_reporter": false,
+  "limitations": [
+    "The prior V3 evaluation completed successfully; its runtime planning gate failed. Batching changes do not establish a quality gain.",
+    "The new condition changes both batching and the generation cap to 2048 tokens. A fresh untouched baseline must share that same inference condition with both adapters; the prior V3 score is not its matched baseline.",
+    "The new baseline and both adapters must use the same newly frozen inference protocol and exact 200 TRAIN-development questions.",
+    "Pending, failed or receipt-mismatched attempts have no published accuracy; no partial-denominator score is substituted.",
+    "Adaptive development and one training seed; paired intervals do not cover training-seed variation or correct for multiple comparisons.",
+    "Equal complete loss tokens do not match unique examples or forwarded compute. This compares supervision recipes, not ranker superiority.",
+    "CUDA memory telemetry is optional; unavailable measurements remain None and do not invalidate otherwise valid answers or timing.",
+    "The new $1.75 reservation is within the existing $30 ceiling, alongside $3.50 of transferred allowance; it is not additional cash."
+  ],
+  "design_sha256": "e7d0b9e3dd2580382e250350831d18c354399d1814fcd57e3262afb87b0069f1"
+}

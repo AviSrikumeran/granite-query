@@ -2,11 +2,11 @@
   "schema_version": 1,
   "version": "native-reasoning-config-recovery-public-v1",
   "run_id": "native_reasoning16k_dev200_seed42_config_v3_final",
-  "updated_at_utc": "2026-11-04T03:25:56.500257+00:00",
-  "stage": "config_recovery_call_awaiting_terminal_validation",
+  "updated_at_utc": "2026-11-04T04:06:52.528612+00:00",
+  "stage": "config_recovery_baseline_complete_pair_runtime_infeasible",
   "current_work": {
-    "stage": "config_recovery_call_awaiting_terminal_validation",
-    "detail": "A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published."
+    "stage": "config_recovery_baseline_complete_pair_runtime_infeasible",
+    "detail": "The full 200-question OPEN/1024 baseline and raw replay validate. Its measured runtime exceeds the training-pair forecast gate; neither adapter was launched. Preserve this completed baseline and review a separately versioned protocol within the original budget."
   },
   "prior_attempts": [
     {
@@ -38,14 +38,27 @@
     {
       "role": "baseline",
       "label": "Fresh untouched Granite",
-      "status": "running_or_awaiting_terminal",
-      "accuracy_percent": null,
-      "metrics": null,
-      "validated_evaluation_outputs": 0,
-      "retained_evaluation_count": null,
-      "actual_supervised_tokens": null,
-      "actual_optimizer_updates": null,
-      "planned_evaluation_count": 200
+      "status": "completed",
+      "accuracy_percent": 69.0,
+      "metrics": {
+        "count": 200,
+        "numeric_correct": 138,
+        "strict_format_correct": 138,
+        "truncated": 59,
+        "latency_seconds_total": 1252.7619494,
+        "generated_tokens": 144263,
+        "scoring_policy": "Last number after ####, else last number on final nonempty line; truncated generations never counted correct. Heuristic numeric scoring, not reasoning-step verification."
+      },
+      "validated_evaluation_outputs": 200,
+      "retained_evaluation_count": 200,
+      "actual_supervised_tokens": 0,
+      "actual_optimizer_updates": 0,
+      "planned_evaluation_count": 200,
+      "call_id": "fc-01M6J8VCFC8ABNCMESZ30FS9ZZ",
+      "unique_teaching_questions": 0,
+      "result_sha256": "5bd22e5a1af35aa68999f4f2cbdfd193f4fd45a0ff40315db0bd36028c365022",
+      "raw_validation_sha256": "ddcf6858fa97fda6896cef8001572832dc63e0473c077b0ca5de0962f157c811",
+      "provider_terminal_receipt_verified": true
     },
     {
       "role": "concise",
@@ -178,5 +191,26 @@
     "source_verified": true,
     "tokenizer_verified": true,
     "elapsed_seconds": 19.087607
+  },
+  "calibration": {
+    "design_sha256": "50d92e3d35dcdd28cde4867b99e1b6485adefc57cac1bb92291fbdfffba9fae9",
+    "baseline_call_id": "fc-01M6J8VCFC8ABNCMESZ30FS9ZZ",
+    "baseline_result_sha256": "5bd22e5a1af35aa68999f4f2cbdfd193f4fd45a0ff40315db0bd36028c365022",
+    "raw_validation_sha256": "ddcf6858fa97fda6896cef8001572832dc63e0473c077b0ca5de0962f157c811",
+    "baseline_elapsed_seconds": 1402.671322,
+    "baseline_generation_seconds": 1252.7619494,
+    "baseline_truncated": 59,
+    "forecast_seconds": {
+      "concise": 1753.594,
+      "thinking": 1746.932
+    },
+    "pair_runtime_feasible": false,
+    "guards": {
+      "training": 1400,
+      "evaluation": 1600,
+      "hard": 1800
+    },
+    "calibration_sha256": "a594e0bdc65e56ae5d24a997c72fe4e2f54b229323bf3d03eb55c99d62c49b83",
+    "gate_seconds": 1250
   }
 }

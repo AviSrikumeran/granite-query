@@ -75,6 +75,26 @@ def _funding(api, output, design):
         'note': 'A new $1.75 reservation uses the existing $30 Modal ceiling, alongside $3.50 of transferred unused allowance. This is not additional cash or a fresh budget ceiling. The reporter does not query current billing or ledger balances.'}
 
 
+def _calibration(api, output, jobs):
+    """Recompute the recorded runtime gate without writing or polling anything."""
+    base = jobs[0]; folder = base['folder_path']
+    result = api.read(folder / 'result.json'); terminal = api.read(folder / 'provider_terminal.json')
+    metrics = api.validate_result(base, result); value = api.read(output / 'calibration.json')
+    forecasts = {job['role']: round(80 + 1.25 * metrics['latency_seconds_total'] + .0032 * job['forwarded_input_tokens'], 3) for job in jobs[1:]}
+    feasible = result['elapsed_seconds'] < 1550 and max(forecasts.values()) <= 1250
+    expected = {'design_sha256': api.sha(output / 'design.json'), 'baseline_call_id': terminal['call_id'],
+        'baseline_result_sha256': api.sha(folder / 'result.json'), 'raw_validation_sha256': api.sha(folder / 'raw_validation.json'),
+        'baseline_elapsed_seconds': result['elapsed_seconds'], 'baseline_generation_seconds': metrics['latency_seconds_total'],
+        'baseline_truncated': metrics['truncated'], 'forecast_seconds': forecasts, 'pair_runtime_feasible': feasible,
+        'guards': {'training': 1400, 'evaluation': 1600, 'hard': 1800}}
+    if (any(value.get(key) != item for key, item in expected.items())
+            or type(value.get('pair_runtime_feasible')) is not bool
+            or terminal.get('kind') != 'completed' or terminal.get('result_sha256') != expected['baseline_result_sha256']
+            or terminal.get('raw_validation_sha256') != expected['raw_validation_sha256']):
+        raise ValueError('Recorded calibration is not the actual completed baseline runtime gate')
+    return dict(expected, calibration_sha256=api.sha(output / 'calibration.json'), gate_seconds=1250)
+
+
 def build(output=DEFAULT, *, write=False, control_api=None):
     value = {'schema_version': 1, 'version': VERSION, 'run_id': Path(output).name,
         'updated_at_utc': datetime.now(timezone.utc).isoformat(), 'stage': 'config_recovery_unprepared',
@@ -146,6 +166,14 @@ def build(output=DEFAULT, *, write=False, control_api=None):
                 if any(item['status'] == 'failed_or_incomplete' for item in public):
                     value['stage'] = 'config_recovery_attempt_failed_requires_review'
                     value['current_work'] = {'stage': value['stage'], 'detail': 'A new config-recovery attempt failed or remained incomplete. Preserve its receipts and review before any further dispatch; no partial-denominator accuracy is published.'}
+                if public[0]['status'] == 'completed' and (output / 'calibration.json').exists():
+                    value['calibration'] = _calibration(api, output, jobs)
+                    if value['calibration']['pair_runtime_feasible'] is False:
+                        value['stage'] = 'config_recovery_baseline_complete_pair_runtime_infeasible'
+                        value['current_work'] = {'stage': value['stage'], 'detail': 'The full 200-question OPEN/1024 baseline and raw replay validate. Its measured runtime exceeds the training-pair forecast gate; neither adapter was launched. Preserve this completed baseline and review a separately versioned protocol within the original budget.'}
+                    else:
+                        value['stage'] = 'config_recovery_baseline_completed_awaiting_pair_review'
+                        value['current_work'] = {'stage': value['stage'], 'detail': 'The complete baseline and measured runtime gate validate. Both adapters still require an exact source, funding and calibration review before dispatch.'}
                 if set(rows) == set(ROLES):
                     value['comparisons'] = {'concise_minus_baseline': paired(rows['baseline'], rows['concise']),
                         'thinking_minus_baseline': paired(rows['baseline'], rows['thinking']),
@@ -180,6 +208,8 @@ def _publish(value):
     for job in value['jobs']:
         accuracy = f"{job['accuracy_percent']:.1f}%" if job['accuracy_percent'] is not None else 'Unavailable'
         lines.append(f"| {job['label']} | {job['status']} | {accuracy} |")
+    if value['jobs'][0]['status'] == 'completed':
+        lines.extend(['', '![Two inference conditions, not a training improvement curve](../docs/figures/native-completion-budget.svg)', ''])
     lines.extend([''] + ['- ' + item for item in value['limitations']])
     _replace(PUBLIC / 'NATIVE_REASONING_CONFIG_RECOVERY.md', ('\n'.join(lines) + '\n').encode('utf-8'))
 

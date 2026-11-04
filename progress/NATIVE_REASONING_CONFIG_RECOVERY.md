@@ -1,6 +1,6 @@
 # Native reasoning configuration recovery
 
-A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published.
+The full 200-question OPEN/1024 baseline and raw replay validate. Its measured runtime exceeds the training-pair forecast gate; neither adapter was launched. Preserve this completed baseline and review a separately versioned protocol within the original budget.
 
 Both prior attempts remain failed with 0 validated evaluation outputs and no accuracy.
 
@@ -8,9 +8,12 @@ Planned funding: $3.50 transferred unused allowance plus a NEW $1.75 reservation
 
 | New condition | Status | Accuracy |
 |---|---|---|
-| Fresh untouched Granite | running_or_awaiting_terminal | Unavailable |
+| Fresh untouched Granite | completed | 69.0% |
 | Concise supervision | prepared | Unavailable |
 | Native reasoning supervision | prepared | Unavailable |
+
+![Two inference conditions, not a training improvement curve](../docs/figures/native-completion-budget.svg)
+
 
 - Two earlier failed attempts remain separately preserved; this is a new reviewed version, not an automatic retry.
 - Prepared code and funding reservations do not establish GPU completion or model improvement.

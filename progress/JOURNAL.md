@@ -4,9 +4,9 @@ Can student aware data selection help Granite learn mathematical reasoning from 
 
 This is a generated, append-only history. Corrections are new events, not edits to earlier evidence.
 
-Current stage: Native reasoning transfer: official config recovery
+Current stage: Native reasoning transfer: batch32 and2048output tokens
 
-Next: A new call acknowledgement exists. Its terminal and complete evaluation receipts are pending, so no pending-run accuracy is published. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/1024 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
+Next: A new dispatch intent exists; it does not establish completed GPU work or accuracy. Paired teacher outcomes retained: 512/512. Two planned adapters each receive16,384 complete loss tokens/16updates. The fresh baseline and both adapters use native OPEN/2048 on the same200 TRAIN development questions. This is a supervision-recipe comparison, not a ranking benefit or final-test result.
 
 > Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.
 
@@ -997,3 +997,39 @@ A single saved final V3 call is evaluating the same200excluded TRAIN-development
 ## 2026-11-04T03:26:52.189228+00:00 | in_progress | Research improvement cycle
 
 Poll only the saved native_reasoning_control_v3 call in native_reasoning16k_dev200_seed42_config_v3_final. Require its actual terminal and all25 physical raw replay batches; never duplicate a saved or ambiguous call.
+
+## 2026-11-04T03:46:41.040558+00:00 | completed | Native OPEN1024 baseline validated on all200 questions
+
+Actual provider terminal and all25original raw-token batches replayed under the pinned tokenizer. Untouched Granite scored138/200(69%), with59truncated cases counted as failures,144263generatedtokens and zero training. This OPEN/1024 condition is separate from the stronger earlier CLOSED/512 result179/200; it is not an improved checkpoint.
+
+## 2026-11-04T03:46:41.046212+00:00 | decision | Measured runtime blocks the original training pair
+
+Actual generation1252.762s and totalworker1402.671s produce frozen concise/thinking forecasts1753.594/1746.932s, above1250. Both adapters remain unlaunched; the completed baseline and unused allowance are preserved. No accuracy-dependent approval, weakened runtime gate or automatic retry was used.
+
+## 2026-11-04T03:46:41.055230+00:00 | planned | Review one efficient longer-thinking configuration
+
+A new batch32/2048 condition is being reviewed on the same200developmentquestions and unchanged16k training recipes. The actual59caps were checked against native EOS tokens; no termination-ID bug was found. Larger batches may offset a longer cap, but a new matched baseline must measure runtime before training. Any transfer/new1.75allowance stays within30; no new plan, reservation or call exists yet.
+
+## 2026-11-04T03:49:44.312326+00:00 | in_progress | Research improvement cycle
+
+The OPEN1024 baseline completed200 questions, but measured runtime rejects the original training pair. Preserve its validated results/caps and both unlaunched adapters; review a separately versioned efficient inference protocol before new funding or dispatch. No gate weakening, automatic retry or accuracy-gated continuation.
+
+## 2026-11-04T03:58:07.282549+00:00 | decision | Efficient longer-thinking study funded within30USD
+
+Independent actual-plan review validated the same200developmentquestions and complete16k teaching targets. The new condition changes batch8 to32 and outputcap1024 to2048, with a new matched baseline before either adapter. The existing3.50USD unused allowance was transferred and a NEW1.75USD reserved within the original30Modal ceiling; protected5 remains. This is not additional cash or a measured improvement.
+
+## 2026-11-04T04:02:02.068599+00:00 | failed | Local V4 launcher route rejected before GPU dispatch
+
+The frozen controller selected the previous V3CLI, whose local preflight correctly rejected the new V4design. Original stdout/stderr, nonzero exit and dispatch remain preserved. Supported provider inspection found no new remote owner, progress or artifacts and zero active tasks; host controller exited. No new baseline score or model failure is inferred. A reviewed transport-only repair will retain the same inputs, claim and reserved1.75allowance.
+
+## 2026-11-04T04:08:55.821917+00:00 | in_progress | Research improvement cycle
+
+Review the actual prepared batch32/2048 design and source closure. Fresh supported accounting, a conserved3.50transfer plus NEW1.75reservation within30, protected5 and zerootherGPUowners precede one new matched baseline. The V3baseline completed; its runtimegate failed, not its execution.
+
+## 2026-11-04T04:12:27.220083+00:00 | resolved | Transport-only repair passed independent review
+
+The separately versioned launcher repair passed14software checks, including actual command-route composition, Windows process ancestry and the CLI own-app zero-task case. It preserves all21frozen study sources, the original failed attempt and the same claim/1.75allowance. Actual transmission still requires fresh supported accounting and two positive provider/process absence checks; no new model result is claimed.
+
+## 2026-11-04T04:19:28.517976+00:00 | decision | Move fresh launch checks after slow local validation
+
+An unpaid timing review found that repeated physical validation could outlast the local CLI waiting and freshness windows. A separate transport V2 is being reviewed to perform fresh provider/process checks immediately before its one allowed transmission and allow bounded local waiting. The model hardlimit1800seconds, frozen21sources, inputdata, claim and existing1.75allowance stay unchanged. No repair intent or GPU model call has been sent.
