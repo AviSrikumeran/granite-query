@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-04T05:23:39.236978+00:00",
+  "generated_at_utc": "2026-11-04T05:46:43.692644+00:00",
   "title": "Granite Query",
   "subtitle": "Learning More from Less",
   "research_question": "Can student aware data selection help Granite learn mathematical reasoning from DeepSeek more efficiently than random selection?",
-  "stage": "Split training/evaluation implementation; GPU idle at last check",
-  "next_action": "Local code and review work is preparing four smaller jobs using the existing175/200 baseline. Each adapter trains unchanged16k tokens and evaluates96 questions, then its exact checkpoint evaluates104 more. No new baseline or teacher generation is planned. The proposed4.60 allowance is not yet reserved; full source, runtime and fresh funding review must pass before any GPU launch. No training improvement is established.",
+  "stage": "Stopped at user request; no running GPU tasks",
+  "next_action": "Stopped at user request. No further scheduled or paid work; review the concise results before deciding on any future experiment.",
   "metrics": {
     "teacher_responses": 16,
     "strict_answer_passes": 15,
@@ -17,7 +17,7 @@
     "deepseek_usd": 20
   },
   "training_progress": {
-    "stage": "four_job_dev_split_implementation"
+    "stage": "stopped_at_user_request"
   },
   "caveat": "Development monitoring only. Numeric reference matches do not establish reasoning quality or final-test gains; dataset references can also be incorrect.",
   "events": [
@@ -1854,6 +1854,41 @@
       "kind": "decision",
       "title": "GPU idle while training-job implementation is reviewed",
       "detail": "Supported account/task inspection found zero active Modal tasks. Observed metered Modal usage is14.4104USD; conditional DeepSeek wallet use is2.00USD. The teacher answers are already stored and reused; new teacher calls are unnecessary for this comparison. The current3.50Modal allowance is unused reservation, not a new charge. Next paid work is the source-reviewed split training/evaluation comparison using the existing175/200baseline; no new baseline or teacher generation is planned. No model improvement is established."
+    },
+    {
+      "id": "native-sharded-v1-phase-funded",
+      "at_utc": "2026-11-04T05:40:23.673049+00:00",
+      "kind": "decision",
+      "title": "Funded actual Granite training comparison",
+      "detail": "Reserved a $4.60 four-job phase within the $30 Modal ceiling: transferred $3.50 unused allowance and added $1.10. Both recipes train on saved DeepSeek answers; no additional teacher or baseline generation. Same 200 development questions and exact 16,384 training tokens per adapter. No result or improvement yet."
+    },
+    {
+      "id": "native-dev-shard-controller-v1-native_reasoning16k_dev200_seed42_sharded_v1-concise_A-in_progress",
+      "at_utc": "2026-11-04T05:40:42.303075+00:00",
+      "kind": "in_progress",
+      "title": "Development shard dispatch prepared",
+      "detail": "Bounded development shard concise_A; no official test data or partial accuracy."
+    },
+    {
+      "id": "user-stop-autonomous-research-20261104",
+      "at_utc": "2026-11-04T05:41:27.607774+00:00",
+      "kind": "decision",
+      "title": "Stopped autonomous experiments at user request",
+      "detail": "The user requested an end to continuous compute and scheduled AI work. The schedule was deleted. The just-dispatched training app is being stopped; existing results will be reorganized into a short results-first page. No new paid experiment is authorized."
+    },
+    {
+      "id": "user-stop-confirmed-20261104",
+      "at_utc": "2026-11-04T05:44:09.514883+00:00",
+      "kind": "completed",
+      "title": "Confirmed experiment shutdown",
+      "detail": "The experiment schedule has been deleted. Modal reports the exact dispatched app stopped and zero running tasks across the workspace. Its last saved progress was source verification; no completed training result is claimed. Prior data and negative results remain available."
+    },
+    {
+      "id": "user-stop-design-schedule-paused",
+      "at_utc": "2026-11-04T05:46:43.666744+00:00",
+      "kind": "decision",
+      "title": "Paused remaining Granite background design schedule",
+      "detail": "A separate daily Granite design automation was also paused to stop recurring project-related AI work. The experiment supervisor is deleted, no GPU tasks remain, and no autonomous continuation is authorized."
     }
   ],
   "latest_training_pool": {
@@ -1866,13 +1901,13 @@
     "supervised_tokens_available": 55738
   },
   "budget": {
-    "active_reservations_usd": 3.5,
-    "budget_remaining_usd": 9.08,
+    "observed_metered_usd": 14.49040674,
     "collection_lag_buffer_usd": 3.0,
-    "deepseek_observed_usage_usd": 2.0,
+    "active_reservations_usd": 3.4,
+    "pending_terminal_liability_usd": 1.2,
+    "budget_remaining_usd": 7.9,
     "deepseek_peak_estimate_usd": 3.28010392,
-    "observed_metered_usd": 14.41040674,
-    "pending_terminal_liability_usd": 0.0
+    "deepseek_observed_usage_usd": 2.0
   },
   "source_imports": {
     "stage": "completed",
