@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A limited, experimental interface to the original IBM Granite checkpoint. Interactive output is not evidence of improved accuracy.">
+  <meta name="robots" content="noindex">
+  <title>Try original Granite — Granite Query</title>
+  <link rel="stylesheet" href="try.css?v=20261105-1">
+  <script type="module" src="try.js?v=20261105-1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#question">Skip to the question</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="../">Granite Query</a>
+    <nav aria-label="Research navigation"><a href="../results/">Results</a><a href="../research/">Research library</a></nav>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Experimental access / Original checkpoint</p>
+      <h1 id="page-title">Try original Granite.</h1>
+      <p class="lede">Ask a short math question. This uses the original IBM Granite model, with no correction adapter. Its answer may be wrong.</p>
+      <p class="research-note">A working connection is not an accuracy result. <a href="../results/">Read the measured research →</a></p>
+    </section>
+    <div class="workspace">
+      <section class="question-panel" aria-labelledby="question-title">
+        <div class="panel-heading"><p class="eyebrow">Your question</p><h2 id="question-title">One problem at a time.</h2></div>
+        <form id="question" aria-describedby="question-help">
+          <label for="prompt">Math question</label>
+          <textarea id="prompt" name="prompt" rows="6" maxlength="2400" required disabled placeholder="A box holds 24 pencils. If 9 are given away, how many remain?" aria-describedby="question-help character-count"></textarea>
+          <div class="input-notes"><p id="question-help">Do not include personal or confidential information.</p><p id="character-count">0 / 2400 characters</p></div>
+          <div class="submit-row"><button id="generate" type="submit" disabled>Ask original Granite <span aria-hidden="true">→</span></button><p id="generation-limit">Up to 128 output tokens.</p></div>
+          <p id="attempt-status" class="attempt-status" role="status" aria-live="polite">Checking whether this host has an inference connection…</p>
+        </form>
+        <section id="unknown-attempt" class="unknown-attempt" aria-labelledby="unknown-title" hidden>
+          <h3 id="unknown-title">Completion could not be verified.</h3>
+          <p>The request may have reached the model and consumed a trial slot. It will not be sent again. Its request ID is retained below, including after a reload in this tab.</p>
+          <label class="acknowledgement"><input id="new-question-ack" type="checkbox"><span>I understand the earlier attempt may have consumed a slot, and I want to ask a different question.</span></label>
+          <button id="new-question" class="secondary-button" type="button" disabled>Start a different question</button>
+        </section>
+      </section>
+      <aside class="connection-panel" aria-labelledby="connection-title">
+        <p class="eyebrow">Connection</p><h2 id="connection-title">Checking availability</h2>
+        <p id="connection-status" role="status">Reading the gateway metadata once. No model generation is requested.</p>
+        <button id="refresh-metadata" class="secondary-button" type="button" disabled>Refresh availability</button>
+        <dl class="connection-details"><div><dt>Checkpoint</dt><dd id="checkpoint">Not connected</dd></div><div><dt>Shared trial</dt><dd id="trial-quota">Not verified</dd></div><div><dt>Expires</dt><dd id="trial-expiry">Not verified</dd></div><div><dt>Output limit</dt><dd id="output-limit">128 tokens maximum on this page</dd></div></dl>
+        <p class="small-note">Availability is a snapshot. Other visitors can consume the shared quota. Failed or cancelled attempts can consume a slot.</p>
+        <p class="small-note">Cold startup may take several minutes. There is no automatic generation retry.</p>
+      </aside>
+    </div>
+    <section class="answer-panel" aria-labelledby="answer-title">
+      <div class="answer-heading"><h2 id="answer-title">Model answer</h2><span id="answer-state">No request sent</span></div>
+      <pre id="response" aria-label="Original Granite response">Your answer will appear here after an explicit submission.</pre>
+      <p id="response-meta" class="response-meta"></p>
+      <p class="request-receipt">Request ID <code id="request-id">None</code></p>
+    </section>
+    <details class="model-details"><summary>What this interface does</summary><div><p>This is a bounded research trial of <code>ibm-granite/granite-4.2-3b</code>. The server advertises one pinned original checkpoint. This page requests greedy, non-thinking output with a short output limit; it does not train, improve or evaluate the model.</p><p>Questions travel through this website’s gateway to its authenticated backend. Provider credentials stay on the server. Only the last request ID and completion state are retained in this tab’s session storage; question text and model output are not stored there by this page.</p><p>A cancelled browser request does not prove the backend stopped. An uncertain attempt is never automatically replayed.</p></div></details>
+  </main>
+  <footer class="wrap"><p>Granite Query · Experimental inference, separate from the published research results.</p><a href="../">Back to the research website ↗</a></footer>
+  <noscript><p class="wrap noscript-note">JavaScript is required to check availability and submit a question. Read the <a href="../results/">research results</a> without running inference.</p></noscript>
+</body>
+</html>
