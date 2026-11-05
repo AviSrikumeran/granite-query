@@ -118,8 +118,10 @@ function send(res,status,payload,extra={}){
   res.end(status===204?'':JSON.stringify(payload));
 }
 
-export function createInferenceGateway({env=process.env,fetchImpl=globalThis.fetch,now=()=>Date.now(),timeoutMs=85000}={}){
-  if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>90000)throw new TypeError('Gateway timeout must be between 1 and 90000 milliseconds');
+// Allow cold GPU startup and execution inside the outer hosting-function window.
+// This is a deadline, not a measured serving-latency promise or a retry policy.
+export function createInferenceGateway({env=process.env,fetchImpl=globalThis.fetch,now=()=>Date.now(),timeoutMs=170000}={}){
+  if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>200000)throw new TypeError('Gateway timeout must be between 1 and 200000 milliseconds');
   async function upstream(route,config,body){
     const controller=new AbortController();let timer;
     const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(failure(504,'upstream_timeout','The backend did not finish within the gateway deadline. Completion is unknown; do not automatically retry.','unknown'));},timeoutMs);});

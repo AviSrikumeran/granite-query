@@ -97,36 +97,64 @@ def generate_once(body: dict, ticket: dict):
     body = validate_request(body, variant=current['artifact']['variant'])
     gate.mark_worker(ticket, body)  # permanent once-only marker before model load
     selected = current['artifact']
+    phase_started = time.monotonic()
     verify_files('/models', selected['base']['files_sha256'])
     if selected['variant'] == 'correction':
         verify_adapter('/serving/adapter', selected)
+    hashes_seconds = time.monotonic() - phase_started
     gate.ready()
+    phase_started = time.monotonic()
+    import resource
     import torch
+    import transformers
     from transformers import AutoModelForCausalLM, AutoTokenizer
+    torch.cuda.reset_peak_memory_stats()
+    runtime_setup_seconds = time.monotonic() - phase_started
+    phase_started = time.monotonic()
     tokenizer = AutoTokenizer.from_pretrained('/models', local_files_only=True, trust_remote_code=False)
     rendered = tokenizer.apply_chat_template([{'role': 'user', 'content': PREFIX + body['prompt']}],
                     tokenize=False, add_generation_prompt=True, enable_thinking=False)
     encoded = tokenizer(rendered, return_tensors='pt', add_special_tokens=False)
+    tokenizer_seconds = time.monotonic() - phase_started
     if encoded['input_ids'].shape[1] > LIMITS['max_input_tokens']:
         raise DemoRefused('Input token limit exceeded', 422)
-    if time.monotonic() - started > 35:
-        raise TimeoutError('Cold bundle validation exceeded the load deadline; permit remains consumed')
+    preparation_elapsed = time.monotonic() - started
+    # Offline-only adjustment; the 60s cold-preparation guard is unverified on L4.
+    # The overall 80s generation budget and 90s function timeout remain unchanged.
+    if preparation_elapsed > 60:
+        raise TimeoutError(json.dumps({
+            'error': 'cold_preparation_deadline_exceeded',
+            'phase': 'before_model_load', 'guard_seconds': 60,
+            'permit_consumed': True,
+            'phase_timings_seconds': {
+                'hashes': round(hashes_seconds, 3),
+                'runtime_setup': round(runtime_setup_seconds, 3),
+                'tokenizer': round(tokenizer_seconds, 3),
+                'current_elapsed': round(preparation_elapsed, 3),
+            },
+        }, sort_keys=True, allow_nan=False))
+    phase_started = time.monotonic()
     model = AutoModelForCausalLM.from_pretrained('/models', local_files_only=True,
                 trust_remote_code=False, use_safetensors=True,
-                torch_dtype=torch.bfloat16, attn_implementation='sdpa').to('cuda')
+                torch_dtype=torch.bfloat16, attn_implementation='sdpa', device_map={'': 'cuda'})
     if selected['variant'] == 'correction':
         from peft import PeftModel
         model = PeftModel.from_pretrained(model, '/serving/adapter', local_files_only=True)
     model.eval()
+    torch.cuda.synchronize()
+    model_load_seconds = time.monotonic() - phase_started
     gate.ready()
     remaining = min(60, 80 - (time.monotonic() - started),
                     (parse_time(current['expires_at_utc']) - utcnow()).total_seconds())
     if remaining <= 0:
         raise TimeoutError('No inference time remains; permit remains consumed')
+    phase_started = time.monotonic()
     with torch.inference_mode():
         output = model.generate(**encoded.to('cuda'), max_new_tokens=body['max_new_tokens'],
                     do_sample=False, max_time=remaining, use_cache=True,
                     pad_token_id=tokenizer.eos_token_id)
+    torch.cuda.synchronize()
+    generation_seconds = time.monotonic() - phase_started
     generated = output[0, encoded['input_ids'].shape[1]:]
     eos = model.generation_config.eos_token_id
     eos_ids = set(eos if isinstance(eos, (list, tuple)) else [eos]) | {tokenizer.eos_token_id}
@@ -139,6 +167,18 @@ def generate_once(body: dict, ticket: dict):
                 checkpoint_id=selected['checkpoint_id'], variant=selected['variant'],
                 request_id=body['request_id'],
                 settings={'enable_thinking': False, 'do_sample': False, 'max_new_tokens': body['max_new_tokens']},
+                diagnostics={
+                    'phase_seconds': {'hashes': round(hashes_seconds, 3),
+                                      'runtime_setup': round(runtime_setup_seconds, 3),
+                                      'tokenizer': round(tokenizer_seconds, 3),
+                                      'model_load': round(model_load_seconds, 3),
+                                      'generation': round(generation_seconds, 3)},
+                    'cuda_peak_allocated_bytes': int(torch.cuda.max_memory_allocated()),
+                    # Linux ru_maxrss is KiB; the prepared image is Debian Linux.
+                    'host_peak_rss_bytes': int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024),
+                    'torch_version': str(torch.__version__),
+                    'transformers_version': str(transformers.__version__),
+                    'gpu_name': torch.cuda.get_device_name(0)},
                 checkpoint_improvement_established=False)
 
 

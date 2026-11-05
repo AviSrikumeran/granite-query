@@ -122,6 +122,10 @@ test('timeout aborts once, does not retry, and marks completion unknown',async()
   let signal;const {gateway,calls}=fixture({timeoutMs:5,response:(_url,options)=>{signal=options.signal;return new Promise(()=>{});}});
   const result=await invoke(gateway.generate,request());assert.equal(result.status,504);assert.equal(result.body.error.code,'upstream_timeout');assert.equal(result.body.error.completion,'unknown');assert.equal(result.body.error.retryable,false);assert.equal(signal.aborted,true);assert.equal(calls.length,1);
 });
+test('cold-start deadline configuration is bounded independently of execution latency',()=>{
+  for(const timeoutMs of [0,-1,1.5,200001,Infinity])assert.throws(()=>createInferenceGateway({env:{},timeoutMs}),/between 1 and 200000/);
+  for(const timeoutMs of [170000,200000])assert.doesNotThrow(()=>createInferenceGateway({env:{},timeoutMs}));
+});
 test('connection failures never expose exception details or retry',async()=>{
   const {gateway,calls}=fixture({response:()=>{throw new Error(ENV.MODAL_PROXY_TOKEN_SECRET+' /private/path');}});const result=await invoke(gateway.generate,request());assert.equal(result.status,502);assert.equal(result.body.error.completion,'unknown');assert.equal(result.raw.includes(ENV.MODAL_PROXY_TOKEN_SECRET),false);assert.equal(calls.length,1);
 });

@@ -6,7 +6,7 @@
   "outputDirectory": "docs",
   "functions": {
     "api/*.mjs": {
-      "maxDuration": 120
+      "maxDuration": 240
     }
   },
   "headers": [

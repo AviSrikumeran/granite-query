@@ -16,7 +16,7 @@ Visitors do not receive provider credentials or need a Modal account. The browse
 
 ## Deployment source
 
-Use the reviewed GitHub branch, with **Project Root at the repository root**, `outputDirectory: docs`, no framework and no install/build command. Root `api/*.mjs` files are Vercel Node functions; shared logic stays in `server/`. The project targets Node 24. The Vercel configuration gives functions 120 seconds; the gateway stops waiting after 85 seconds by default. A cold backend may exceed that wait, so a timeout means completion is unknown, not that no GPU work happened.
+Use the reviewed GitHub branch, with **Project Root at the repository root**, `outputDirectory: docs`, no framework and no install/build command. Root `api/*.mjs` files are Vercel Node functions; shared logic stays in `server/`. The project targets Node 24. The Vercel configuration gives functions 240 seconds; the gateway stops waiting after 170 seconds by default, with a 200-second maximum. These bounds accommodate the prepared backend's 60-second startup and 90-second execution envelope plus web preflight; they are not measured serving latency. A timeout means completion is unknown, not that no GPU work happened.
 
 Do not deploy this shared local working directory wholesale. It contains concurrent unpublished research outputs and demo drafts. `.vercelignore` excludes private research and the unverified demo, but GitHub source and a focused release whitelist remain the authoritative deployment boundary. Never upload model weights, private run records or environment files as website assets.
 
@@ -59,7 +59,11 @@ npm run test:site
 
 Offline tests use explicit mock responses, not live generation. They check disabled configuration, input bounds, origin, private headers, identity validation, response bounds, safe failures, expiry and no retries.
 
-The current foundation passes 17 Node gateway tests and 19 Python contract/admission tests, plus an offline cross-language metadata check. The Modal declaration was checked by parsing its source; it has not been imported, built or launched as part of these tests.
+The current foundation passes 18 Node gateway tests and 20 Python contract/admission tests, plus an offline cross-language metadata check. These tests do not dispatch inference.
+
+One separate private original-Granite verification was attempted on November 5. The nine-file private bundle passed its hashes, the tokenizer/template path ran, and unauthenticated HTTP access was rejected with 401. The worker then exceeded its original 35-second cold-preparation guard before model loading or generation. No answer was produced, the permit remains consumed, no GPU retry was made, and both ephemeral preparation/test apps were verified stopped. This is a failed runtime check, not a working model service or an accuracy result.
+
+The code now includes the explicitly hashed `chat_template.jinja`, omits an SDK-incompatible retry option on the CPU webhook, loads model weights directly onto CUDA, and records phase/memory diagnostics. The pre-model cold-preparation guard is now 60 seconds within the unchanged 80-second work budget and 90-second function timeout, and errors include partial phase timings. The revised guard and longer gateway deadline remain unverified in a further GPU run. Vercel workspace authorization, deployment, DNS and the visitor-facing inference form also remain unfinished.
 
 The separate experimental backend lives in `granite_query/cloud/demo_serving_v1.py` and `modal_demo_api_v1.py`. Run its offline checks with `python -B -m unittest granite_query.cloud.test_demo_serving_v1` from the repository root. Future Modal execution must use `granite_query` as the working directory and `cloud.modal_demo_api_v1` as the module path. Its private base bundle and explicit variant/allowance manifest must exist before deployment; nothing is auto-selected or auto-funded.
 
