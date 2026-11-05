@@ -177,6 +177,22 @@ class ContractTests(unittest.TestCase):
             with self.assertRaises(DemoRefused):
                 verify_files(root, inventory)
 
+    def test_only_named_chat_template_is_allowed_and_its_hash_is_checked(self):
+        candidate = artifact('base')
+        candidate['base']['files_sha256']['chat_template.jinja'] = 'a' * 64
+        validate_artifact(candidate)
+        candidate['base']['files_sha256']['other.jinja'] = 'b' * 64
+        with self.assertRaises(DemoRefused):
+            validate_artifact(candidate)
+        with tempfile.TemporaryDirectory(dir=Path(__file__).parent / '.test_work') as directory:
+            template = Path(directory) / 'chat_template.jinja'
+            template.write_bytes(b'OFFLINE TEST TEMPLATE')
+            inventory = {template.name: hashlib.sha256(template.read_bytes()).hexdigest()}
+            verify_files(template.parent, inventory)
+            template.write_bytes(b'CHANGED TEMPLATE')
+            with self.assertRaises(DemoRefused):
+                verify_files(template.parent, inventory)
+
 
 class AdmissionTests(unittest.TestCase):
     def setUp(self):
@@ -279,6 +295,8 @@ class ModalSourceTests(unittest.TestCase):
             'scaledown_window': 2, 'single_use_containers': True}.items():
             self.assertEqual(gpu[key], expected)
         self.assertEqual(keywords('web', 'asgi_app'), [{'requires_proxy_auth': True}])
+        # Modal webhooks reject even an explicit zero RetryPolicy; GPU RPC uses 0.
+        self.assertNotIn('retries', keywords('web', 'function')[0])
         source_loop = next(item for item in ast.walk(functions['attach_source']) if isinstance(item, ast.For))
         self.assertEqual(ast.literal_eval(source_loop.iter), ('demo_serving_v1.py', 'modal_demo_api_v1.py'))
         package_creation = [item for item in ast.walk(tree) if isinstance(item, ast.Call)

@@ -143,7 +143,7 @@ def generate_once(body: dict, ticket: dict):
 
 
 @app.function(image=cpu_image, cpu=(0.125, 1), memory=(512, 2048),
-              timeout=180, startup_timeout=60, retries=0, max_containers=1,
+              timeout=180, startup_timeout=60, max_containers=1,
               min_containers=0, buffer_containers=0, scaledown_window=2,
               volumes={'/models': base_volume})
 @modal.concurrent(max_inputs=1)

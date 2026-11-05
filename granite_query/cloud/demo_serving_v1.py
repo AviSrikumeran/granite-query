@@ -133,7 +133,8 @@ def validate_artifact(artifact):
             or not {'tokenizer.json', 'tokenizer_config.json'} <= set(files)
             or not {'model.safetensors', 'model.safetensors.index.json'} & set(files)
             or not any(name.endswith('.safetensors') for name in files)
-            or any(not (name.endswith(('.json', '.safetensors', '.txt')) or name == 'tokenizer.model') for name in files)):
+            or any(not (name.endswith(('.json', '.safetensors', '.txt'))
+                        or name in {'tokenizer.model', 'chat_template.jinja'}) for name in files)):
         raise DemoRefused('Base bundle requires pinned config, tokenizer and safetensors hashes')
     adapter = artifact['adapter']
     if artifact['variant'] == 'base':
