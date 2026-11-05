@@ -6,6 +6,7 @@ const MODEL = 'ibm-granite/granite-4.2-3b';
 const REVISION = '4e9c275e232f10211ec88644d106a1f6a1b60e06';
 const ATTEMPT_KEY = 'granite-query.try.last-attempt.v1';
 const OUTPUT_CAP = 128;
+const IS_RESEARCH_MIRROR = globalThis.location?.hostname === 'avisrikumeran.github.io';
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const $ = id => document.getElementById(id);
 let metadata = null, checking = false, pending = false, unknown = null;
@@ -41,13 +42,13 @@ function remaining() {
 }
 function expired() { return !metadata || Date.now() >= metadata.expiresAt; }
 function usable() {
-  return metadata !== null && metadata.status === 'ready' && !expired() && remaining() > 0 && storageUsable && typeof globalThis.crypto?.randomUUID === 'function';
+  return !IS_RESEARCH_MIRROR && metadata !== null && metadata.status === 'ready' && !expired() && remaining() > 0 && storageUsable && typeof globalThis.crypto?.randomUUID === 'function';
 }
 function updateControls() {
   const allowed = usable() && !checking && !pending && !unknown;
   $('prompt').disabled = !allowed;
   $('generate').disabled = !allowed || !$('prompt').value.trim();
-  $('refresh-metadata').disabled = checking || pending;
+  $('refresh-metadata').disabled = IS_RESEARCH_MIRROR || checking || pending;
   $('question').setAttribute('aria-busy', String(pending));
   $('generate').textContent = pending ? 'Waiting for the model…' : 'Ask original Granite →';
   $('unknown-attempt').hidden = unknown === null;
@@ -87,6 +88,13 @@ async function gatewayJSON(response) {
   return JSON.parse(text);
 }
 async function checkAvailability() {
+  if (IS_RESEARCH_MIRROR) {
+    $('mirror-notice').hidden = false;
+    unavailable('Continue on GraniteQuery.live', 'Open the interactive trial using the link above. This copy keeps the published research available.');
+    $('attempt-status').textContent = 'This research copy does not submit questions. Continue on the live site to use the trial.';
+    updateControls();
+    return;
+  }
   if (checking || pending) return;
   checking = true;
   metadata = null;
