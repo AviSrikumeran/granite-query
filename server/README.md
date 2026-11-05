@@ -1,6 +1,6 @@
 # Granite Query website API foundation
 
-The public GitHub Pages design is unchanged. This is a separate Vercel/Modal integration, disabled by default. No successful public generation, GPU serving deployment, latency measurement or serving-cost benchmark has been established.
+The public GitHub Pages design is unchanged. This separate Vercel/Modal integration is disabled by default. One private original-Granite request succeeded on A10G. A bounded private Modal trial is deployed, and the protected Vercel preview renders the new `/try/` interface with inference disabled. Authenticated website generation, production release and custom-domain DNS are not yet verified. The source remains in a draft PR.
 
 ## Intended path
 
@@ -20,7 +20,7 @@ Use the reviewed GitHub branch, with **Project Root at the repository root**, `o
 
 Do not deploy this shared local working directory wholesale. It contains concurrent unpublished research outputs and demo drafts. `.vercelignore` excludes private research and the unverified demo, but GitHub source and a focused release whitelist remain the authoritative deployment boundary. Never upload model weights, private run records or environment files as website assets.
 
-Squarespace can remain the registrar and DNS provider. Add `granitequery.live` to the verified Vercel project, read Vercel's exact DNS/verification requirements, and apply only those hosting records in Squarespace. Do not guess an A/CNAME target or replace unrelated email records. Do not buy or transfer the domain again.
+The Vercel project is accessible. Its protected preview renders the unchanged homepage, Results, library and journal, plus the disabled trial form. The unconfigured `/api/model` returned the expected `not_configured` error. A temporary preview share link was revoked. `granitequery.live` is assigned to this project, but the inspected Squarespace hosting records remain unchanged. Vercel supplied the exact apex A-record target **76.76.21.21**. Verify production release before changing hosting DNS; preserve unrelated email records. Domain assignment is not proof that DNS or public serving is connected. Do not buy or transfer the domain again.
 
 ## Gateway contract
 
@@ -30,7 +30,7 @@ Squarespace can remain the registrar and DNS provider. Add `granitequery.live` t
 - Success includes actual output, checkpoint and request identity, token counts, elapsed time and truncation. Errors use `error.code`, `message`, `retryable: false` and `completion: not_started | unknown`. No raw provider exception or private path is forwarded.
 - The interface must generate one UUID per deliberate submission and retain it on ambiguous failure. It must not automatically resubmit. Choosing to try another prompt is a new request, not recovery of the earlier result.
 
-The earlier local `docs/demo/demo.js` prototype uses a different service identity and variant contract. It remains excluded from deployment. A visitor-facing form still needs to be integrated and verified against this contract after the read-only design review.
+The earlier local `docs/demo/demo.js` prototype uses a different service identity and variant contract. It remains excluded from deployment. The separate `docs/try/` interface checks metadata once, supports the advertised original checkpoint, retains a UUID receipt before submission and never automatically retries a generation. An uncertain completion stays locked across a tab reload until explicitly acknowledged. Existing public navigation is unchanged.
 
 ## Private configuration
 
@@ -59,14 +59,24 @@ npm run test:site
 
 Offline tests use explicit mock responses, not live generation. They check disabled configuration, input bounds, origin, private headers, identity validation, response bounds, safe failures, expiry and no retries.
 
-The current foundation passes 18 Node gateway tests and 20 Python contract/admission tests, plus an offline cross-language metadata check. These tests do not dispatch inference.
+The current foundation passes **40 offline checks: 18 Node gateway tests and 22 Python contract/admission tests**, plus an offline cross-language metadata check. These checks do not dispatch inference.
 
-One separate private original-Granite verification was attempted on November 5. The nine-file private bundle passed its hashes, the tokenizer/template path ran, and unauthenticated HTTP access was rejected with 401. The worker then exceeded its original 35-second cold-preparation guard before model loading or generation. No answer was produced, the permit remains consumed, no GPU retry was made, and both ephemeral preparation/test apps were verified stopped. This is a failed runtime check, not a working model service or an accuracy result.
+The owner selected original Granite first and authorized an initial **$30 serving ceiling**. This is a spending authorization, not a provider balance, observed charge or recurring budget. Private receipts record three distinct dispatches on November 5; none was an automatic retry:
 
-The code now includes the explicitly hashed `chat_template.jinja`, omits an SDK-incompatible retry option on the CPU webhook, loads model weights directly onto CUDA, and records phase/memory diagnostics. The pre-model cold-preparation guard is now 60 seconds within the unchanged 80-second work budget and 90-second function timeout, and errors include partial phase timings. The revised guard and longer gateway deadline remain unverified in a further GPU run. Vercel workspace authorization, deployment, DNS and the visitor-facing inference form also remain unfinished.
+1. The first L4 worker passed bundle hashes and tokenization, then failed its original 35-second preparation guard before model loading or generation. Its permit remains consumed.
+2. The second L4 dispatch never entered the worker; provider evidence confirmed unavailable capacity. It produced no answer and remains separate from the first failure.
+3. The third dispatch succeeded on **NVIDIA A10G**, serving the pinned original checkpoint. It returned the expected numeric answer **37**, generated **62 tokens**, and reported **24.012 seconds inside the worker**, including **2.393 seconds loading the model** and **3.104 seconds generating**. The saved diagnostics also report 10.852 seconds hashing, 7.053 seconds runtime setup and 0.355 seconds tokenization.
+
+An earlier UTF-8 preparation attempt ended with empty input and dispatched **zero GPU requests**; it is not a fourth model execution. Unauthenticated HTTP requests during the private tests were rejected with 401. The ephemeral verification app contexts were closed, and the earlier stopped-app observations remain in the private receipts.
+
+The A10G result verifies one private runtime request, not benchmark accuracy, end-to-end website latency, a warm-request measurement or a clean storage-cold baseline. The private model files had already been read for hash verification; storage caching may have affected timing. Worker elapsed time excludes image build, provider queue/container startup and the Vercel/browser path. No request cost is inferred from this timing, and no actual serving-charge total is claimed.
+
+The code includes the explicitly hashed `chat_template.jinja`, omits the SDK-incompatible CPU-webhook retry option, loads weights directly onto CUDA, and records phase/memory diagnostics. The 60-second preparation guard succeeded in the private A10G check within the 80-second work budget and 90-second function timeout. This does not establish L4 feasibility or the longer gateway's HTTP behavior. Live duplicate-claim, dispatch and worker-entry checks each rejected the already-consumed successful request with 409; its used-permit count stayed at one and no new GPU dispatch occurred.
+
+A separate private A10G deployment has a fresh, explicit 20-request namespace and four-hour expiry. It uses proxy authentication and no warm GPU pool. On Modal Starter, proxy tokens are workspace-wide unless RBAC is enabled; they cannot be assumed to be limited to one environment. An unused token from a failed environment-association step was deleted before configuring Vercel. A workspace-wide HTTP credential requires the owner's explicit scope approval. Production release is a separate approval from preview preparation. No server secret has yet been configured, and no authenticated HTTP generation is claimed.
 
 The separate experimental backend lives in `granite_query/cloud/demo_serving_v1.py` and `modal_demo_api_v1.py`. Run its offline checks with `python -B -m unittest granite_query.cloud.test_demo_serving_v1` from the repository root. Future Modal execution must use `granite_query` as the working directory and `cloud.modal_demo_api_v1` as the module path. Its private base bundle and explicit variant/allowance manifest must exist before deployment; nothing is auto-selected or auto-funded.
 
-Before live serving: verify Vercel workspace access and deployment routes; resolve the experimental checkpoint selection and fresh serving allowance; verify private artifact hashes and actual runtime reload; initialize a new durable quota without resetting old permits; test unauthenticated denial; connect server secrets; perform one explicitly authorized end-to-end generation; measure cold/warm behavior and resource usage; then integrate the visitor form. DNS and public inference are not considered connected until verified.
+Before live serving: verify the protected Vercel deployment routes; finish the bounded private Modal deployment with its explicit original-checkpoint manifest; initialize its deliberate quota namespace without resetting prior permits; confirm unauthenticated denial on that deployment; connect server secrets; and perform an explicitly authorized HTTP request through the gateway and `/try/` form. Keep cold/warm measurements and any later cost reconciliation distinct from the one private result. DNS and public inference are not considered connected until verified.
 
 Official references checked November 5, 2026: [Vercel Node functions](https://vercel.com/docs/functions/runtimes/node-js), [Vercel configuration](https://vercel.com/docs/project-configuration/vercel-json), [Modal proxy authentication](https://modal.com/docs/guide/webhook-proxy-auth), [Squarespace hosting DNS](https://support.squarespace.com/hc/en-us/articles/31119879125645-DNS-records-for-web-hosting).

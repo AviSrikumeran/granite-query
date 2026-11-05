@@ -1,4 +1,4 @@
-"""Undeployed experimental Modal backend; one explicit variant per app.
+"""Experimental Modal backend; one explicit variant per bounded deployment.
 
 Requires GRANITE_DEMO_MANIFEST pointing to an offline-prepared private contract.
 For correction, GRANITE_DEMO_ADAPTER_DIR must contain its two inspected files.
@@ -8,12 +8,16 @@ only and performs no model download. The durable Dict must be provisioned
 separately; `initialize` explicitly binds its namespace without resetting quota.
 
 Importing this module is NOT an offline verification method: it defines Modal
-resources. Tests parse its AST instead. No deployment, upload, resource creation,
-or GPU verification has been performed. Cold/warm latency and L4 behavior remain
-unverified. A 20-request envelope is not a provider-enforced invoice cap; denied
-authenticated CPU traffic can also cost money. Stop the deployment after expiry.
+resources. Offline tests parse its AST instead. Private bundle upload and one
+original-checkpoint A10G request have been verified: expected answer 37, 62 output
+tokens and 24.012 worker seconds. This is neither a benchmark nor a warm-request
+measurement; prior hash reads may have warmed storage. Two earlier L4 dispatches
+failed separately: a 35-second setup guard, then unavailable provider capacity
+before worker entry. Authenticated website HTTP generation remains unverified.
+A 20-request envelope is not a provider-enforced invoice cap; denied authenticated
+CPU traffic can also cost money. Stop the deployment after expiry.
 
-For a later authorized deployment, work from the granite_query directory and
+For an authorized deployment, work from the granite_query directory and
 use the module path cloud.modal_demo_api_v1. Offline contract CLI commands use
 python -m cloud.demo_serving_v1 from that same directory. This keeps serialized
 module paths aligned with /root/cloud inside the prepared images. Do not import
@@ -119,7 +123,7 @@ def generate_once(body: dict, ticket: dict):
     if encoded['input_ids'].shape[1] > LIMITS['max_input_tokens']:
         raise DemoRefused('Input token limit exceeded', 422)
     preparation_elapsed = time.monotonic() - started
-    # Offline-only adjustment; the 60s cold-preparation guard is unverified on the selected GPU.
+    # The 60s guard passed one private A10G request; this is not an L4/warm benchmark.
     # The overall 80s generation budget and 90s function timeout remain unchanged.
     if preparation_elapsed > 60:
         raise TimeoutError(json.dumps({
