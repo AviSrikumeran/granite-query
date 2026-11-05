@@ -1,4 +1,5 @@
 import {FEEDS,buildStudy} from './data.js?v=20261104-1';
+import {readResultState,normalizeResultState,resultStateURL} from './results-state.mjs?v=20261105-1';
 
 const $=selector=>document.querySelector(selector);
 const rootURL=new URL('../',import.meta.url);
@@ -10,6 +11,15 @@ const signed=value=>(value<0?'−':value>0?'+':'')+number(Math.abs(value));
 const date=value=>new Intl.DateTimeFormat('en-US',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value));
 const reportLinks={overnight:'research/?report=overnight','matched-200':'research/?report=human-study','token-64':'research/?report=valuation'};
 let studies={},payloads={},studyId='overnight',splitId='development',selectedId='large-error',view='chart',evidenceView='details',loadNumber=0;
+function applyState(state){studyId=state.study;splitId=state.split;selectedId=state.row;view=state.view;evidenceView=state.evidence;}
+function currentState(){return {study:studyId,split:splitId,row:selectedId,view,evidence:evidenceView};}
+function syncURL(mode='replace'){
+  const url=resultStateURL(location.href,currentState());
+  if(url.href!==location.href)history[mode==='push'?'pushState':'replaceState'](null,'',url);
+  $('#result-share-link').href=url.href;
+}
+applyState(readResultState(location.href));
+window.addEventListener('popstate',()=>{applyState(readResultState(location.href));if(Object.keys(studies).length)renderResults();});
 
 const menu=$('.menu-toggle'),navigation=$('#main-nav');
 function closeMenu(focus=false){menu?.setAttribute('aria-expanded','false');navigation?.classList.remove('is-open');if(focus)menu?.focus();}
@@ -19,7 +29,7 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu?.getAt
 matchMedia('(min-width:651px)').addEventListener('change',event=>{if(event.matches)closeMenu();});
 
 function selected(){const study=studies[studyId],split=study?.splits.find(item=>item.id===splitId);return{study,split,row:split?.rows.find(item=>item.id===selectedId)};}
-function chooseRow(id,{focus=false}={}){selectedId=id;renderResults({focusRow:focus?id:null});}
+function chooseRow(id,{focus=false}={}){selectedId=id;renderResults({focusRow:focus?id:null,historyMode:'push'});}
 function bindRows(container){container.addEventListener('click',event=>{const button=event.target.closest('[data-row]');if(button)chooseRow(button.dataset.row,{focus:true});});container.addEventListener('keydown',event=>{const button=event.target.closest('[data-row]');if(!button)return;const{split}=selected();if(!split)return;let index=split.rows.findIndex(row=>row.id===button.dataset.row);if(event.key==='ArrowDown'||event.key==='ArrowRight')index=Math.min(split.rows.length-1,index+1);else if(event.key==='ArrowUp'||event.key==='ArrowLeft')index=Math.max(0,index-1);else if(event.key==='Home')index=0;else if(event.key==='End')index=split.rows.length-1;else return;event.preventDefault();chooseRow(split.rows[index].id,{focus:true});});}
 bindRows($('#result-chart'));bindRows($('#result-records'));
 
@@ -27,6 +37,22 @@ function rowSubtitle(row){if(row.role==='baseline')return'Untouched baseline';if
 function chartButton(row,split){const button=element('button',undefined,'result-row '+row.role+(row.id===selectedId?' selected':''));button.type='button';button.dataset.row=row.id;button.setAttribute('aria-pressed',String(row.id===selectedId));button.setAttribute('aria-label',row.label+', '+row.correct+' of '+row.total+' '+split.id+' questions, '+percent(row.accuracy));const name=element('span',undefined,'row-name');name.append(document.createTextNode(row.label),element('small',rowSubtitle(row)));const track=element('span',undefined,'row-track'),bar=element('span');track.setAttribute('aria-hidden','true');bar.style.width=row.accuracy+'%';track.append(bar);const value=element('span',undefined,'row-value');value.setAttribute('aria-hidden','true');value.append(document.createTextNode(row.correct),element('small','/'+row.total),element('b',percent(row.accuracy)));button.append(name,track,value);return button;}
 function tableRow(row){const tr=element('tr'),th=element('th'),button=element('button',row.label,'table-row-button');th.scope='row';button.type='button';button.dataset.row=row.id;button.setAttribute('aria-pressed',String(row.id===selectedId));th.append(button);tr.append(th,element('td',row.correct+' / '+row.total),element('td',percent(row.accuracy)),element('td',row.truncated===null?'Not reported':String(row.truncated)));return tr;}
 function addField(list,label,value){const wrapper=element('div');wrapper.append(element('dt',label),element('dd',value));list.append(wrapper);}
+
+function renderSelection(study,split,row){
+  $('#selection-name').textContent=row.label;
+  $('#selection-score').textContent=row.correct+' / '+row.total;
+  $('#selection-partition').textContent=split.label;
+  const reference=row.comparison?(study.id==='matched-200'&&row.id==='skill'?split.rows.find(item=>item.id==='random'):split.rows.find(item=>item.role==='baseline')):null;
+  if(reference){
+    const difference=row.correct-reference.correct;
+    $('#selection-difference').textContent=difference===0?'Same number correct as '+reference.label:Math.abs(difference)+' '+(difference>0?'more':'fewer')+' correct than '+reference.label;
+    $('#selection-comparator').textContent='Reference: '+reference.correct+' / '+reference.total+' · '+signed(row.comparison.delta)+' percentage points'+(row.comparison.interval?' · paired interval below':' · descriptive difference');
+  }else{
+    $('#selection-difference').textContent='Reference condition';
+    $('#selection-comparator').textContent='Other arms name their comparison explicitly. No change or interval is assigned to the baseline.';
+  }
+  $('#selection-inspect-link').textContent='Inspect '+row.label+' ↓';
+}
 
 function renderEvidence(study,split,row){
   $('#evidence-title').textContent=row.label;$('#evidence-subtitle').textContent=split.label+' · '+rowSubtitle(row);$('#evidence-score').textContent=row.correct+' / '+row.total;
@@ -42,25 +68,26 @@ function renderEvidence(study,split,row){
   $('#evidence-details').hidden=evidenceView!=='details';$('#evidence-json').hidden=evidenceView!=='json';for(const button of document.querySelectorAll('button[data-evidence-view]'))button.setAttribute('aria-pressed',String(button.dataset.evidenceView===evidenceView));
 }
 
-function renderResults({focusRow=null}={}){
+function renderResults({focusRow=null,historyMode='replace'}={}){
+  applyState(normalizeResultState(currentState(),studies));
   const study=studies[studyId];if(!study)return;
   let split=study.splits.find(item=>item.id===splitId);if(!split){split=study.splits[0];splitId=split.id;}
   if(!split.rows.some(row=>row.id===selectedId))selectedId=studyId==='overnight'?'large-error':studyId==='matched-200'?'skill':'skill-42';
   if(!split.rows.some(row=>row.id===selectedId))selectedId=split.rows[0].id;
   const row=split.rows.find(item=>item.id===selectedId);
-  $('#study-date').textContent=date(study.updatedAt);$('#study-label').textContent=study.label;$('#study-title').textContent=study.title;$('#study-summary').textContent=study.summary;$('#study-limitation').textContent=study.limitation;$('#chart-measure').textContent='Numeric answer accuracy · '+split.label;$('#records-caption').textContent=split.label+'. Counts and output caps from the original evidence.';$('#study-report-link').href=fromRoot(reportLinks[studyId]);
+  $('#study-date').textContent=date(study.updatedAt);$('#study-label').textContent=study.label;$('#study-question').textContent=study.question;$('#study-title').textContent=study.title;$('#study-summary').textContent=study.summary;$('#study-limitation').textContent=study.limitation;$('#chart-measure').textContent='Numeric answer accuracy · '+split.label;$('#records-caption').textContent=split.label+'. Counts and output caps from the original evidence.';$('#study-report-link').href=fromRoot(reportLinks[studyId]);
   for(const button of document.querySelectorAll('button[data-study]'))button.setAttribute('aria-pressed',String(button.dataset.study===studyId));
   const splitControls=$('#split-controls');splitControls.replaceChildren();for(const item of study.splits){const button=element('button',item.id==='retention'?'Same-task retention':'Development');button.type='button';button.dataset.split=item.id;button.setAttribute('aria-pressed',String(item.id===splitId));splitControls.append(button);}splitControls.hidden=study.splits.length===1;
   $('#result-chart').replaceChildren(...split.rows.map(item=>chartButton(item,split)));$('#result-records').replaceChildren(...split.rows.map(tableRow));
   $('#chart-view').hidden=view!=='chart';$('#records-view').hidden=view!=='records';for(const button of document.querySelectorAll('button[data-view]'))button.setAttribute('aria-pressed',String(button.dataset.view===view));
-  renderEvidence(study,split,row);$('#chart-selection-link').textContent='Inspect '+row.label+' ↓';Object.assign($('.result-workspace').dataset,{study:studyId,split:splitId,selected:selectedId,view});
+  renderEvidence(study,split,row);renderSelection(study,split,row);$('#chart-selection-link').textContent='Inspect '+row.label+' ↓';Object.assign($('.result-workspace').dataset,{study:studyId,split:splitId,selected:selectedId,view});syncURL(historyMode);
   if(focusRow){const container=view==='chart'?$('#result-chart'):$('#result-records');container.querySelector('[data-row="'+CSS.escape(focusRow)+'"]')?.focus({preventScroll:true});}
 }
 
-document.querySelectorAll('button[data-study]').forEach(button=>button.addEventListener('click',()=>{studyId=button.dataset.study;splitId='development';selectedId='';renderResults();}));
-$('#split-controls').addEventListener('click',event=>{const button=event.target.closest('button[data-split]');if(button){splitId=button.dataset.split;renderResults();}});
-document.querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>{view=button.dataset.view;renderResults();}));
-document.querySelectorAll('button[data-evidence-view]').forEach(button=>button.addEventListener('click',()=>{evidenceView=button.dataset.evidenceView;const{study,split,row}=selected();if(row)renderEvidence(study,split,row);}));
+document.querySelectorAll('button[data-study]').forEach(button=>button.addEventListener('click',()=>{studyId=button.dataset.study;splitId='development';selectedId='';renderResults({historyMode:'push'});}));
+$('#split-controls').addEventListener('click',event=>{const button=event.target.closest('button[data-split]');if(button){splitId=button.dataset.split;renderResults({historyMode:'push'});}});
+document.querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>{view=button.dataset.view;renderResults({historyMode:'push'});}));
+document.querySelectorAll('button[data-evidence-view]').forEach(button=>button.addEventListener('click',()=>{evidenceView=button.dataset.evidenceView;const{study,split,row}=selected();if(row){renderEvidence(study,split,row);syncURL('push');}}));
 
 async function loadEvidence(){
   const generation=++loadNumber,button=$('#reload-evidence');button.disabled=true;$('#data-status').textContent='Loading published evidence files…';

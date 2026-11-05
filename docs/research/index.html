@@ -1,6 +1,78 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Read the Granite Query research reports, negative findings, methods, original evidence and historical record."><title>Research library — Granite Query</title><link rel="stylesheet" href="../site/site.css?v=20261104-1"><script type="module" src="../site/library.js?v=20261104-1"></script></head>
-<body class="library-page"><a class="skip-link" href="#reader">Skip to the selected report</a><header class="site-nav"><a class="wordmark" href="../">Granite Query</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <span aria-hidden="true">+</span></button><nav id="main-nav" aria-label="Main navigation"><a href="../#results">Results</a><a href="../#method">Method</a><a href="./" aria-current="page">Research library</a><a class="nav-repository" href="https://github.com/AviSrikumeran/granite-query">GitHub ↗</a></nav></header>
-<main class="page-width"><section class="library-intro"><p class="eyebrow">Reports / Methods / Original evidence</p><h1>Research, in the open.</h1><p>The measured findings, the methods behind them, and the limits that belong beside them. Read a report or follow its original source.</p></section><div class="library-layout"><aside class="library-sidebar" aria-label="Research library"><label class="library-search" for="library-query">Find a report or evidence file<input id="library-query" type="search" placeholder="Search research" autocomplete="off"></label><label class="library-search" for="library-category">Collection<select id="library-category"><option value="all">All research</option><option>Reports</option><option>Methods</option><option>Data</option><option>History</option></select></label><p class="library-results-count" id="library-count" aria-live="polite">Loading the research index…</p><ul class="library-list" id="library-list"></ul><p class="library-empty" id="library-empty" hidden>No matching records. The selected report stays open.</p></aside><section class="reader-shell" id="reader" aria-label="Selected research document"><div class="reader-toolbar"><span id="reader-label">Latest report / 4 November 2026</span><button class="quiet-button" id="reload-report" type="button">Reload report ↻</button><a id="reader-source" href="../overnight-results.md">Open original source ↗</a></div><p class="reader-status" id="reader-status" role="status">Loading the published report…</p><nav class="reader-toc" id="reader-toc" aria-label="Report sections"></nav><article class="research-article" id="research-article"><h2>Correction training: fitting without transfer.</h2><p>No improved Granite checkpoint was established. Local training worked technically; learning did not transfer to the separate evaluation questions.</p><p><a href="../overnight-results.html">Read the dedicated results report ↗</a></p></article></section></div></main><footer class="site-footer page-width"><div><a class="wordmark" href="../">Granite Query</a><p>Original reports and evidence.<br>Separate studies, clearly named boundaries.</p></div><nav aria-label="Footer navigation"><a href="../#results">Results</a><a href="../research-log.html">Historical archive</a><a href="../journal.md">Journal</a><a href="https://github.com/AviSrikumeran/granite-query">GitHub ↗</a></nav><p class="footer-meta">Published snapshots, not live experiment telemetry. Official-test evaluation and a public model API remain unfinished.</p></footer><noscript><p class="noscript-note page-width">Read the <a href="../overnight-results.html">latest report</a>, <a href="../research-log.html">full historical archive</a>, <a href="../journal.md">journal</a> and <a href="https://github.com/AviSrikumeran/granite-query/tree/main/progress">source reports</a>. JavaScript enables library search and the embedded reader.</p><style>.site-nav nav{display:flex!important}.menu-toggle{display:none}</style></noscript></body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Read Granite Query findings, methods, original evidence and the dated research history.">
+  <title>Research library — Granite Query</title>
+  <link rel="stylesheet" href="../site/site.css?v=20261104-1">
+  <link rel="stylesheet" href="../site/flow.css?v=20261105-1">
+  <link rel="stylesheet" href="../site/library.css?v=20261105-1">
+  <script type="module" src="../site/library.js?v=20261105-1"></script>
+</head>
+<body class="library-page">
+  <a class="skip-link" href="#reader">Skip to the selected report</a>
+  <header class="site-nav">
+    <a class="wordmark" href="../">Granite Query</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <span aria-hidden="true">+</span></button>
+    <nav id="main-nav" aria-label="Main navigation">
+      <a href="../results/">Results</a>
+      <a href="./" aria-current="page">Research library</a>
+      <a href="./?report=journal">History</a>
+      <a class="nav-repository" href="https://github.com/AviSrikumeran/granite-query">GitHub ↗</a>
+    </nav>
+  </header>
+  <main class="page-width">
+    <section class="library-intro">
+      <p class="eyebrow">Reports / Methods / Original evidence</p>
+      <h1>Research library.</h1>
+      <p>Read the finding, inspect its method, or follow the original evidence. Each report keeps its own dates and limits.</p>
+      <nav class="reading-routes" aria-label="Suggested reading routes">
+        <a href="?report=overnight&amp;collection=Reports" data-reading-report="overnight"><span>Start here</span><strong>Latest finding</strong><small>Correction training →</small></a>
+        <a href="?report=human-study&amp;collection=Reports" data-reading-report="human-study"><span>Earlier comparison</span><strong>Matched 200 study</strong><small>Students and baseline →</small></a>
+        <a href="?collection=Methods" data-reading-collection="Methods"><span>Understand the setup</span><strong>Methods</strong><small>Models and evaluation →</small></a>
+        <a href="?report=journal&amp;collection=History" data-reading-report="journal"><span>Follow the record</span><strong>Research history</strong><small>Dated event journal →</small></a>
+      </nav>
+    </section>
+    <div class="library-layout">
+      <aside class="library-sidebar" aria-label="Research catalogue">
+        <details class="library-catalogue" id="library-catalogue" open>
+          <summary><span>Browse research</span><span id="catalogue-summary-count">39 records</span></summary>
+          <div class="catalogue-content">
+            <label class="library-search" for="library-query">Search titles and descriptions
+              <input id="library-query" type="search" placeholder="Find a report or evidence file" autocomplete="off" maxlength="200">
+            </label>
+            <label class="library-search" for="library-category">Collection
+              <select id="library-category"><option value="Reports" selected>Reports</option><option value="Methods">Methods</option><option value="Data">Original data</option><option value="History">History</option><option value="all">All research</option></select>
+            </label>
+            <div class="catalogue-shortcuts"><button type="button" data-browse="all">Browse all</button><button type="button" data-browse="Data">Original data</button></div>
+            <p class="library-results-count" id="library-count" aria-live="polite">Loading the research index…</p>
+            <ul class="library-list" id="library-list"></ul>
+            <p class="library-empty" id="library-empty" hidden>No matching records. The selected report stays open.</p>
+            <p class="catalogue-note">Reports open here. Original data and standalone pages open in a new tab.</p>
+          </div>
+        </details>
+      </aside>
+      <section class="reader-shell" id="reader" aria-label="Selected research document" tabindex="-1">
+        <div class="reader-toolbar">
+          <span id="reader-label">Reports / Latest finding</span>
+          <div class="reader-actions"><a id="reader-source" href="../overnight-results.md">Original Markdown ↗</a><button class="quiet-button" id="reload-report" type="button">Reload source ↻</button></div>
+        </div>
+        <p class="reader-status" id="reader-status" role="status">Loading the published report…</p>
+        <nav class="reader-toc" id="reader-toc" aria-label="Report sections" hidden></nav>
+        <article class="research-article" id="research-article">
+          <h2>Correction training: fitting without transfer.</h2>
+          <p>No improved Granite checkpoint was established. Local training worked technically; learning did not transfer to the separate evaluation questions.</p>
+          <p><a href="../overnight-results.html">Read the standalone report ↗</a></p>
+        </article>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer page-width">
+    <div><a class="wordmark" href="../">Granite Query</a><p>Original reports and evidence.<br>Separate studies, clearly named boundaries.</p></div>
+    <nav aria-label="Footer navigation"><a href="../results/">Results</a><a href="./">Research library</a><a href="./?report=journal">History</a><a href="https://github.com/AviSrikumeran/granite-query">GitHub ↗</a></nav>
+    <p class="footer-meta">Published snapshots, not live experiment telemetry. Official-test evaluation and a public model API remain unfinished.</p>
+  </footer>
+  <noscript><p class="noscript-note page-width">Read the <a href="../overnight-results.html">latest report</a>, <a href="../research-log.html">historical archive</a>, <a href="../journal.md">original journal</a> and <a href="https://github.com/AviSrikumeran/granite-query/tree/main/progress">source reports</a>. JavaScript enables the searchable catalogue and embedded reader.</p><style>.site-nav nav{display:flex!important}.menu-toggle{display:none}</style></noscript>
+</body>
 </html>

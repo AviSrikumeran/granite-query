@@ -13,6 +13,16 @@ The owner authorized the complete site refresh on 4 November 2026. The name is a
 - `markdown.js`: dependency-free, escaped Markdown rendering, including safe images and source-relative links. It does not execute source HTML. The original source remains visible if a document cannot load. Reload report explicitly revalidates a session-cached document.
 - `research.css`: the common reading shell for the five retained research pages. Their existing research content, IDs and scripts are preserved. The historical dashboard is labeled an archive; its older saved-file polling remains separate from the new homepage.
 
+## Reading flow update — 5 November 2026
+
+Public navigation is consistently Results, Research library, History and GitHub. History opens the formatted original journal. Design Lab stays unlisted; bookmarked playground URLs still work. An unverified demo draft is excluded from this release.
+
+`flow.css` improves navigation, text sizes and the retained report shell without changing the accepted magenta artwork. Results uses `results.css` and a compact question → selected count → named comparator → original evidence flow. Longer context, terms and provenance stay available in native disclosures. `results-state.mjs` validates study, partition, row, chart/records and details/JSON URL state; links, reload and browser history retain that view.
+
+The library defaults to its 11 reports, with reading routes and all 39 records still searchable. `library.css` keeps the mobile catalogue collapsed above the selected report and contains wide tables with explicit scroll guidance. `journal.mjs` preserves all 267 original events and the introduction exactly while grouping by UTC date, filtering status and full text, and showing complete event bodies on request. Loading errors remain explicit; a failed reload labels retained text as unvalidated rather than presenting it as fresh.
+
+The five standalone research pages retain their original main content and scripts. `reading-nav.js` adds a consistent mobile menu and compact contents navigation. The older dashboard has a persistent archive ribbon so historical status language remains contextual.
+
 The latest completed result is the local correction study, published at 09:25 UTC on 4 November. It is distinct from the earlier matched 200-question and token-matched 64-question studies. The eight taught mistakes becoming correct is seen-example fitting, not an established gain on separate questions. OPEN inference diagnostics remain separate from adapter training.
 
 ## Add research without rebuilding the layout
@@ -24,7 +34,7 @@ A new experiment protocol needs a reviewed adapter in `data.js`; do not silently
 ## Checks
 
 ```text
-node --test docs/site/data.test.mjs docs/site/markdown.test.mjs
+node --test docs/site/data.test.mjs docs/site/markdown.test.mjs docs/site/results-state.test.mjs docs/site/journal.test.mjs
 node --check docs/site/app.js
 node --check docs/site/library.js
 node --check docs/site/hero.js
