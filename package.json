@@ -1,0 +1,10 @@
+{
+  "name": "granite-query-web",
+  "private": true,
+  "type": "module",
+  "engines": {"node": "24.x"},
+  "scripts": {
+    "test:gateway": "node --test server/inference-gateway.test.mjs",
+    "test:site": "node --test docs/site/data.test.mjs docs/site/markdown.test.mjs docs/site/results-state.test.mjs docs/site/journal.test.mjs"
+  }
+}

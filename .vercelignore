@@ -1,0 +1,20 @@
+# Deploy from the reviewed GitHub branch, not this shared research workspace.
+*
+!vercel.json
+!package.json
+!api/
+!api/**
+!server/
+!server/inference-gateway.mjs
+!docs/
+!docs/**
+# Drafts, private project metadata and test sources are never static assets.
+docs/demo/
+docs/**/AGENTS.md
+docs/**/README.md
+docs/site/*.test.mjs
+docs/site/*.test.js
+server/*.test.mjs
+.env*
+.vercel/
+.git/
