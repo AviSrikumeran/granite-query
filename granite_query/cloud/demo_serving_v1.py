@@ -33,6 +33,7 @@ LIMITS = dict(max_requests=20, max_input_chars=2400, max_input_tokens=768,
               timeout_seconds=90, startup_timeout_seconds=60,
               scaledown_window_seconds=2, single_use_containers=True,
               cpu_cores=1, memory_mib=12288)
+SUPPORTED_GPUS = ('L4', 'A10G')
 PUBLIC_LIMITS = ('max_requests', 'max_input_chars', 'max_input_tokens',
                  'max_output_tokens', 'context_limit')
 
@@ -165,8 +166,14 @@ def _allowance(value):
     return value
 
 
+def _selected_limits(gpu):
+    if gpu not in SUPPORTED_GPUS:
+        raise DemoRefused('Explicit GPU choice must be L4 or A10G')
+    return dict(LIMITS, gpu=gpu)
+
+
 def prepare(artifact, *, quota_namespace, budget_authorization, serving_allowance,
-            expires_at, now=None):
+            expires_at, now=None, gpu='L4'):
     """Return a new contract without cloud calls or any financial mutation."""
     now = now or utcnow()
     validate_artifact(artifact)
@@ -176,7 +183,7 @@ def prepare(artifact, *, quota_namespace, budget_authorization, serving_allowanc
                  budget_authorization=budget_authorization,
                  serving_allowance_usd=str(_allowance(serving_allowance)),
                  issued_at_utc=stamp(now), expires_at_utc=stamp(expires_at),
-                 limits=copy.deepcopy(LIMITS))
+                 limits=_selected_limits(gpu))
     value['manifest_sha256'] = digest(value)
     return validate_manifest(value, now=now)
 
@@ -188,10 +195,15 @@ def validate_manifest(manifest, *, now=None):
     unsigned = {k: v for k, v in manifest.items() if k != 'manifest_sha256'}
     if not _hash(manifest['manifest_sha256']) or digest(unsigned) != manifest['manifest_sha256']:
         raise DemoRefused('Immutable demo contract hash mismatch')
+    limits = manifest['limits']
+    if not isinstance(limits, dict):
+        raise DemoRefused('Experimental serving limits must be explicit')
+    expected_limits = _selected_limits(limits.get('gpu'))
     if (type(manifest['schema_version']) is not int or manifest['schema_version'] != 1
             or manifest['contract'] != CONTRACT or manifest['experimental'] is not True
             or manifest['checkpoint_improvement_established'] is not False
-            or manifest['limits'] != LIMITS):
+            or limits != expected_limits
+            or any(type(limits[key]) is not type(expected) for key, expected in expected_limits.items())):
         raise DemoRefused('Experimental fixed serving policy changed')
     validate_artifact(manifest['artifact'])
     if manifest['artifact_manifest_sha256'] != digest(manifest['artifact']):
@@ -287,7 +299,7 @@ def public_model(manifest):
                 expires_at_utc=manifest['expires_at_utc'],
                 limits={k: LIMITS[k] for k in PUBLIC_LIMITS},
                 note='Experimental single-variant trial. Development evidence is not a serving benchmark. '
-                     'Cold/warm latency and L4 accuracy are unverified. Failed or cancelled requests consume quota. '
+                     'Cold/warm latency and selected-GPU accuracy are unverified. Failed or cancelled requests consume quota. '
                      'The request envelope is not a provider-enforced invoice cap.')
 
 
@@ -396,6 +408,7 @@ def main():
     prepare_args = sub.add_parser('prepare')
     for arg in ('artifact-manifest', 'quota-namespace', 'budget-authorization', 'serving-allowance-usd', 'expires-at', 'output'):
         prepare_args.add_argument('--' + arg, required=True)
+    prepare_args.add_argument('--gpu', choices=SUPPORTED_GPUS, default='L4')
     validate_args = sub.add_parser('validate')
     validate_args.add_argument('--manifest', required=True)
     args = parser.parse_args()
@@ -405,7 +418,7 @@ def main():
         value = prepare(read(args.artifact_manifest), quota_namespace=args.quota_namespace,
                         budget_authorization=args.budget_authorization,
                         serving_allowance=Decimal(args.serving_allowance_usd),
-                        expires_at=parse_time(args.expires_at))
+                        expires_at=parse_time(args.expires_at), gpu=args.gpu)
         with Path(args.output).open('x', encoding='utf-8', newline='\n') as handle:
             json.dump(value, handle, indent=2, ensure_ascii=False, allow_nan=False)
             handle.write('\n')

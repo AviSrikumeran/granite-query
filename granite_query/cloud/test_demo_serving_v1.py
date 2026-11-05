@@ -12,7 +12,7 @@ import threading
 import unittest
 import uuid
 
-from .demo_serving_v1 import (Admission, BASE_CONFIG_SHA256, MODEL, REVISION, TARGETS,
+from .demo_serving_v1 import (Admission, BASE_CONFIG_SHA256, LIMITS, MODEL, REVISION, TARGETS,
     DemoRefused, digest, prepare, public_model, read, validate_artifact,
     validate_manifest, validate_request, verify_adapter, verify_files)
 
@@ -112,6 +112,32 @@ class ContractTests(unittest.TestCase):
             validate_manifest(value, now=NOW)
         with self.assertRaises(DemoRefused):
             validate_manifest(resign(value), now=NOW)
+
+    def test_a10g_selection_explicit_hash_bound_and_default_l4_compatible(self):
+        original = manifest()
+        alternative = manifest(gpu='A10G')
+        self.assertEqual(original['limits'], LIMITS)
+        self.assertEqual(alternative['limits'], dict(LIMITS, gpu='A10G'))
+        self.assertEqual(validate_manifest(alternative, now=NOW), alternative)
+        self.assertNotEqual(original['manifest_sha256'], alternative['manifest_sha256'])
+        alternative['limits']['gpu'] = 'L4'
+        with self.assertRaises(DemoRefused):
+            validate_manifest(alternative, now=NOW)
+        store = AtomicStore()
+        Admission(store, original).initialize(now=NOW)
+        with self.assertRaises(DemoRefused):
+            Admission(store, manifest(gpu='A10G')).initialize(now=NOW)
+
+    def test_unsupported_gpu_and_changed_non_gpu_envelope_refused(self):
+        for gpu in ('A100', 'T4', 'H100', '', None, []):
+            with self.subTest(gpu=gpu), self.assertRaises(DemoRefused):
+                manifest(gpu=gpu)
+        for key, changed in [('max_requests', 21), ('max_requests', 20.0), ('min_containers', 1),
+                             ('timeout_seconds', 91), ('single_use_containers', 1)]:
+            value = manifest(gpu='A10G')
+            value['limits'][key] = changed
+            with self.subTest(key=key, changed=changed), self.assertRaises(DemoRefused):
+                validate_manifest(resign(value), now=NOW)
         value = manifest()
         value['limits']['max_requests'] = 21
         with self.assertRaises(DemoRefused):
@@ -290,10 +316,15 @@ class ModalSourceTests(unittest.TestCase):
                     for dec in functions[name].decorator_list if isinstance(dec, ast.Call)
                     and isinstance(dec.func, ast.Attribute) and dec.func.attr == kind]
         gpu = keywords('generate_once', 'function')[0]
-        for key, expected in {'gpu': 'L4', 'timeout': 90, 'startup_timeout': 60, 'retries': 0,
+        for key, expected in {'timeout': 90, 'startup_timeout': 60, 'retries': 0,
             'max_containers': 1, 'min_containers': 0, 'buffer_containers': 0,
             'scaledown_window': 2, 'single_use_containers': True}.items():
             self.assertEqual(gpu[key], expected)
+        gpu_decorator = next(dec for dec in functions['generate_once'].decorator_list
+                             if isinstance(dec, ast.Call) and isinstance(dec.func, ast.Attribute)
+                             and dec.func.attr == 'function')
+        gpu_value = next(kw.value for kw in gpu_decorator.keywords if kw.arg == 'gpu')
+        self.assertEqual(ast.unparse(gpu_value), "manifest['limits']['gpu']")
         self.assertEqual(keywords('web', 'asgi_app'), [{'requires_proxy_auth': True}])
         # Modal webhooks reject even an explicit zero RetryPolicy; GPU RPC uses 0.
         self.assertNotIn('retries', keywords('web', 'function')[0])

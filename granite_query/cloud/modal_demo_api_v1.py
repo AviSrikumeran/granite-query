@@ -85,7 +85,7 @@ if adapter_dir and modal.is_local():
         gpu_image = gpu_image.add_local_file(str(adapter_dir / name), '/serving/adapter/' + name)
 
 
-@app.function(image=gpu_image, gpu='L4', cpu=(1, 1), memory=(12288, 12288),
+@app.function(image=gpu_image, gpu=manifest['limits']['gpu'], cpu=(1, 1), memory=(12288, 12288),
               timeout=90, startup_timeout=60, retries=0, max_containers=1,
               min_containers=0, buffer_containers=0, scaledown_window=2,
               single_use_containers=True, volumes={'/models': base_volume})
@@ -119,7 +119,7 @@ def generate_once(body: dict, ticket: dict):
     if encoded['input_ids'].shape[1] > LIMITS['max_input_tokens']:
         raise DemoRefused('Input token limit exceeded', 422)
     preparation_elapsed = time.monotonic() - started
-    # Offline-only adjustment; the 60s cold-preparation guard is unverified on L4.
+    # Offline-only adjustment; the 60s cold-preparation guard is unverified on the selected GPU.
     # The overall 80s generation budget and 90s function timeout remain unchanged.
     if preparation_elapsed > 60:
         raise TimeoutError(json.dumps({
