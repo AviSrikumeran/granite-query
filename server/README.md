@@ -1,87 +1,59 @@
-# Granite Query website API foundation
+# Granite Query website inference integration
 
-The public GitHub Pages design is unchanged. This separate Vercel/Modal integration is disabled by default unless its server configuration is deliberately enabled. The protected preview now serves original Granite through `/try/`: one browser submission completed through Vercel and authenticated Modal, returned the expected answer 15, and used one of the shared 20 trial slots. This is a connectivity check, not a benchmark. Production release and custom-domain DNS remain unverified; the source remains in a draft PR.
+A separate trial interface connects the research website to the pinned original Granite checkpoint. Interactive output is distinct from the published research evidence and does not establish improved accuracy. The implementation is disabled by default and requires deliberate server configuration.
 
-## Intended path
+## Architecture
 
-```text
-granitequery.live (domain registered by the owner at Squarespace)
-  → Vercel static website (docs/) and same-origin /api routes
-  → authenticated Modal Web Function
-  → durable request admission and one pinned experimental checkpoint
-  → real model output, identity, token counts and truncation state
-```
+The browser uses same-origin Vercel API routes. The gateway validates input, model identity and the serving contract before forwarding to an authenticated Modal backend. Backend admission enforces a bounded quota, expiry and duplicate-request protection. Provider credentials remain on the server.
 
-Visitors do not receive provider credentials or need a Modal account. The browser-facing API is still discoverable; origin checks are not user authentication or a spending control. A durable backend quota, expiry and explicit launch allowance are required before enabling inference. No automatic paid retries or indefinite warm GPU pool are intended.
+- `GET /api/model` returns reviewed model metadata and availability.
+- `POST /api/generate` accepts `prompt`, `variant`, a UUID `request_id` and optional `max_new_tokens`.
+- Responses include model/checkpoint identity, generated text, token counts and truncation state.
+- Normalized errors distinguish work that did not start from an uncertain completion. The browser and gateway do not automatically retry generation.
+- One deployment advertises one selected variant. It never silently substitutes a correction adapter for the original model.
+
+The visitor interface is in `docs/try/`. It reads metadata before offering a submission, writes a request receipt to tab-local session storage before dispatch and retains uncertain receipts across reloads. Model output is rendered as text. Question text and answers are not stored in that session receipt.
+
+The earlier `docs/demo/` prototype has a different service contract and is excluded from deployment. Research reports, evaluation data, accepted animation code and Design Lab visibility are independent of this integration.
 
 ## Deployment source
 
-Use the reviewed GitHub branch, with **Project Root at the repository root**, `outputDirectory: docs`, no framework and no install/build command. Root `api/*.mjs` files are Vercel Node functions; shared logic stays in `server/`. The project targets Node 24. The Vercel configuration gives functions 240 seconds; the gateway stops waiting after 170 seconds by default, with a 200-second maximum. These bounds accommodate the prepared backend's 60-second startup and 90-second execution envelope plus web preflight; they are not measured serving latency. A timeout means completion is unknown, not that no GPU work happened.
+Use reviewed GitHub source, with the repository root as the Vercel project root and `docs` as the static output directory. No framework, install command or build command is required. Root `api/*.mjs` files are Node functions and shared gateway logic stays in `server/`. The project targets Node 24.
 
-Do not deploy this shared local working directory wholesale. It contains concurrent unpublished research outputs and demo drafts. `.vercelignore` excludes private research and the unverified demo, but GitHub source and a focused release whitelist remain the authoritative deployment boundary. Never upload model weights, private run records or environment files as website assets.
+Do not deploy the shared research workspace wholesale. Its unpublished outputs are not website assets. `.vercelignore` excludes research artifacts, environment files and local demo drafts. Publish an explicit file whitelist and preserve unrelated remote files.
 
-The Vercel project is accessible. Its protected preview renders the homepage, Results, library and journal, plus the trial form. The unconfigured gateway first returned the expected `not_configured` error; the deliberately configured preview then verified metadata and one actual generation. A temporary preview share link was revoked. The release draft adds only a trial entry link and updates outdated site-level API statuses on existing pages. `granitequery.live` is assigned to this project, but the inspected Squarespace hosting records remain unchanged. Vercel supplied the exact apex A-record target **76.76.21.21**. Verify production release before changing hosting DNS; preserve unrelated email records. Domain assignment is not proof that DNS or public serving is connected. Do not buy or transfer the domain again.
+A custom domain can remain registered and hosted for DNS at its current registrar. Add it to the intended Vercel project, read that project's exact DNS requirements, and change only the required hosting records after release approval. Preserve unrelated records. Domain assignment alone does not establish working DNS or HTTPS.
 
-## Gateway contract
+## Server configuration
 
-- `GET /api/model` returns versioned public model metadata only when the configured private backend matches its pinned checkpoint, revision, expiry and request limits. Unconfigured deployments return HTTP 503 with `error.code: not_configured` and make no upstream call.
-- `POST /api/generate` takes a JSON object containing `prompt`, `variant`, UUID `request_id` and optional integer `max_new_tokens`. Limits are 16 KiB, 1–2400 trimmed prompt characters and 1–512 output tokens. The backend additionally enforces token/context bounds before GPU dispatch.
-- One deployment advertises one explicitly selected variant. The gateway rejects unsupported variants rather than silently substituting the original model or a correction adapter.
-- Success includes actual output, checkpoint and request identity, token counts, elapsed time and truncation. Errors use `error.code`, `message`, `retryable: false` and `completion: not_started | unknown`. No raw provider exception or private path is forwarded.
-- The interface must generate one UUID per deliberate submission and retain it on ambiguous failure. It must not automatically resubmit. Choosing to try another prompt is a new request, not recovery of the earlier result.
+The gateway requires these server-only environment variables:
 
-The earlier local `docs/demo/demo.js` prototype uses a different service identity and variant contract. It remains excluded from deployment. The separate `docs/try/` interface checks metadata once, supports the advertised original checkpoint, retains a UUID receipt before submission and never automatically retries a generation. An uncertain completion stays locked across a tab reload until explicitly acknowledged. Existing public navigation is unchanged.
-
-## Private configuration
-
-Set these in Vercel server environment variables, never in browser code, a public source file or chat:
-
-| Name | Meaning |
+| Variable | Purpose |
 | --- | --- |
-| `GRANITE_INFERENCE_ENABLED` | Must be exactly `true` to allow any upstream call; otherwise inference is disabled. |
-| `PUBLIC_SITE_ORIGIN` | Exact HTTPS origin, for example `https://granitequery.live`. Preview deployments stay disabled until deliberately configured. |
-| `MODAL_INFERENCE_BASE_URL` | Fixed HTTPS base URL for the authenticated app; no username, query or fragment. |
-| `MODAL_PROXY_TOKEN_ID`, `MODAL_PROXY_TOKEN_SECRET` | Modal Web Function proxy token pair. These are separate from workspace deployment credentials. |
-| `GRANITE_MODEL_REVISION` | Pinned Granite revision `4e9c275e232f10211ec88644d106a1f6a1b60e06`. |
-| `GRANITE_CHECKPOINT_ID`, `GRANITE_CHECKPOINT_VARIANT` | Identity of the explicitly approved checkpoint and variant. |
-| `GRANITE_TRIAL_EXPIRES_AT_UTC` | Exact UTC expiry matching the backend manifest. |
-| `GRANITE_DURABLE_ADMISSION_CONFIRMED` | Operator confirmation after verifying backend quota and duplicate-request behavior. Not proof by itself. |
-| `GRANITE_PROXY_AUTH_CONFIRMED` | Operator confirmation after unauthenticated backend requests are verified denied. Not proof by itself. |
+| `GRANITE_INFERENCE_ENABLED` | Explicit enable gate; otherwise no upstream request is made. |
+| `PUBLIC_SITE_ORIGIN` | Exact allowed HTTPS website origin. |
+| `MODAL_INFERENCE_BASE_URL` | Fixed authenticated backend URL. |
+| `MODAL_PROXY_TOKEN_ID`, `MODAL_PROXY_TOKEN_SECRET` | HTTP proxy credentials, separate from deployment credentials. |
+| `GRANITE_MODEL_REVISION` | Pinned model revision. |
+| `GRANITE_CHECKPOINT_ID`, `GRANITE_CHECKPOINT_VARIANT` | Explicit checkpoint and variant identity. |
+| `GRANITE_TRIAL_EXPIRES_AT_UTC` | Expiry matching the backend contract. |
+| `GRANITE_DURABLE_ADMISSION_CONFIRMED` | Operator confirmation after validating admission controls. |
+| `GRANITE_PROXY_AUTH_CONFIRMED` | Operator confirmation after validating backend authentication. |
 
-The backend must enable `requires_proxy_auth=True`; adding credentials to a Vercel fetch does not protect an otherwise public Modal app. Keep the old final-checkpoint selection and serving contracts unchanged. Any experimental correction checkpoint must have a separate, honest selection/serving contract, frozen artifacts and development-only result labels. It is not an improved or final-test-qualified model.
+Origin checks are not visitor authentication or a spending limit. The backend must separately enforce its reviewed admission contract. Verify a credential's actual provider scope before approving it; never assume it is limited to one endpoint or environment. Operator confirmations are gates, not proof by themselves.
 
-## Checks and launch sequence
+Keep live account state, allowances, endpoint URLs, credential identifiers, trial timing, cleanup instructions and verification receipts in the private operator record. They do not belong in public documentation. Never place credential values in browser code or repository files.
+
+## Verification
 
 ```text
 node --test server/inference-gateway.test.mjs
-npm run test:site
+python -B -m unittest granite_query.cloud.test_demo_serving_v1
 ```
 
-Offline tests use explicit mock responses, not live generation. They check disabled configuration, input bounds, origin, private headers, identity validation, response bounds, safe failures, expiry and no retries.
+The gateway and admission suites cover input bounds, disabled configuration, identity and expiry checks, safe error handling, durable admission and replay prevention. These offline tests do not dispatch inference. The browser interface has been checked on desktop and narrow layouts, including keyboard access and fail-closed behavior. A separate private record contains actual end-to-end verification and release readiness; connectivity checks are not accuracy or cost benchmarks.
 
-The current foundation passes **40 offline checks: 18 Node gateway tests and 22 Python contract/admission tests**, plus an offline cross-language metadata check. These checks do not dispatch inference.
+The experimental backend is in `granite_query/cloud/demo_serving_v1.py` and `modal_demo_api_v1.py`. Execute provider commands from `granite_query` using the module path `cloud.modal_demo_api_v1`. An explicit private artifact/admission manifest must exist; no checkpoint, quota or funding is selected automatically. Preserve the older research and final-checkpoint serving contracts.
 
-The owner selected original Granite first and authorized an initial **$30 serving ceiling**. This is a spending authorization, not a provider balance, observed charge or recurring budget. Private receipts record three distinct dispatches on November 5; none was an automatic retry:
-
-1. The first L4 worker passed bundle hashes and tokenization, then failed its original 35-second preparation guard before model loading or generation. Its permit remains consumed.
-2. The second L4 dispatch never entered the worker; provider evidence confirmed unavailable capacity. It produced no answer and remains separate from the first failure.
-3. The third dispatch succeeded on **NVIDIA A10G**, serving the pinned original checkpoint. It returned the expected numeric answer **37**, generated **62 tokens**, and reported **24.012 seconds inside the worker**, including **2.393 seconds loading the model** and **3.104 seconds generating**. The saved diagnostics also report 10.852 seconds hashing, 7.053 seconds runtime setup and 0.355 seconds tokenization.
-
-An earlier UTF-8 preparation attempt ended with empty input and dispatched **zero GPU requests**; it is not a fourth model execution. Unauthenticated HTTP requests during the private tests were rejected with 401. The ephemeral verification app contexts were closed, and the earlier stopped-app observations remain in the private receipts.
-
-The A10G result verifies one private runtime request, not benchmark accuracy, end-to-end website latency, a warm-request measurement or a clean storage-cold baseline. The private model files had already been read for hash verification; storage caching may have affected timing. Worker elapsed time excludes image build, provider queue/container startup and the Vercel/browser path. No request cost is inferred from this timing, and no actual serving-charge total is claimed.
-
-The code includes the explicitly hashed `chat_template.jinja`, omits the SDK-incompatible CPU-webhook retry option, loads weights directly onto CUDA, and records phase/memory diagnostics. The 60-second preparation guard succeeded in the private A10G check within the 80-second work budget and 90-second function timeout. This does not establish L4 feasibility or the longer gateway's HTTP behavior. Live duplicate-claim, dispatch and worker-entry checks each rejected the already-consumed successful request with 409; its used-permit count stayed at one and no new GPU dispatch occurred.
-
-A separate private A10G deployment uses a fresh, explicit 20-request namespace and four-hour expiry, with proxy authentication and no warm GPU pool. It was stopped while credential approval was pending, then resumed without extending expiry or resetting permits. The owner explicitly approved a workspace-wide HTTP proxy token, which Modal Starter cannot restrict to one environment without RBAC. The unused token from the earlier failed environment-association step was deleted. The current pair is stored as sensitive Vercel server variables for this preview branch; it is absent from browser source and run files. Private metadata rejected unauthenticated access with 401 and verified the original checkpoint, expiry and initially unused quota.
-
-One deliberate browser request asked about 24 pencils minus 9. The pinned original checkpoint returned 15, with 42 output tokens, 61 input tokens and no truncation. A fresh gateway metadata check reported 19 of 20 slots remaining. There was no automatic retry. This establishes one browser → Vercel → Modal → response path, not broad accuracy, typical latency or a serving-cost estimate. The interface was checked at 1280 and 375 pixels, including mobile question → answer → connection ordering and keyboard metadata refresh.
-
-The backend expiry is November 5 at **16:01:04.298220 UTC / 10:01:04.298220 America/Chicago**. A one-time local cleanup is scheduled for 10:02 Central to delete the exact token, clear its Vercel values and stop the matching app. This is separate from the backend's enforced admission expiry. Preserve immutable permits; do not replenish quota or extend the trial automatically. Production release remains a separate approval.
-
-The separate experimental backend lives in `granite_query/cloud/demo_serving_v1.py` and `modal_demo_api_v1.py`. Run its offline checks with `python -B -m unittest granite_query.cloud.test_demo_serving_v1` from the repository root. Future Modal execution must use `granite_query` as the working directory and `cloud.modal_demo_api_v1` as the module path. Its private base bundle and explicit variant/allowance manifest must exist before deployment; nothing is auto-selected or auto-funded.
-
-Before public release: approve the reviewed production branch; bind production server configuration to the actual custom-domain origin without displaying credential values; deploy the exact reviewed source; apply only Vercel's verified hosting DNS requirements; and verify HTTPS, page routes and API behavior on that domain. Reuse this trial's existing quota and expiry. Keep timing and cost reconciliation distinct from the private and browser connectivity checks. DNS and public inference are not considered connected until verified.
-
-Official references checked November 5, 2026: [Vercel Node functions](https://vercel.com/docs/functions/runtimes/node-js), [Vercel configuration](https://vercel.com/docs/project-configuration/vercel-json), [Modal proxy authentication](https://modal.com/docs/guide/webhook-proxy-auth), [Squarespace hosting DNS](https://support.squarespace.com/hc/en-us/articles/31119879125645-DNS-records-for-web-hosting).
+Official references: [Vercel Node functions](https://vercel.com/docs/functions/runtimes/node-js), [Vercel project configuration](https://vercel.com/docs/project-configuration/vercel-json), [Modal proxy authentication](https://modal.com/docs/guide/webhook-proxy-auth).
 
