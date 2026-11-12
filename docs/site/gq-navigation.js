@@ -1,4 +1,4 @@
-import {createNavigationMaterial,GLYPH_COUNT} from './gq-block-material.mjs?v=20261111-4';
+import {createNavigationMaterial,GLYPH_COUNT} from './gq-block-material.mjs?v=20261111-5';
 
 // The approved Slow turn treatment is a single rigid artwork. Glyphs never split.
 const instances=new WeakMap();
@@ -31,15 +31,15 @@ header.site-header:has(.gq-logo-link){flex-wrap:wrap;gap:8px 24px;padding-block:
 }
 @media(max-width:1000px){header.site-header:has(.gq-logo-link) nav{flex:0 0 100%;flex-wrap:wrap}}
 @media(max-width:560px){
- header .gq-logo-link{width:min(360px,100%);height:132px;flex-basis:auto}
- header.site-nav:has(.gq-logo-link),.gq-header-inner:has(.gq-logo-link){display:grid;grid-template-columns:minmax(0,1fr);align-items:center;height:200px;min-height:200px;gap:0;padding:8px 18px}
+ header .gq-logo-link{width:min(360px,100%);height:152px;flex-basis:auto}
+ header.site-nav:has(.gq-logo-link),.gq-header-inner:has(.gq-logo-link){display:grid;grid-template-columns:minmax(0,1fr);align-items:center;height:212px;min-height:212px;gap:0;padding:8px 18px}
  header.site-nav:has(.gq-logo-link) .menu-toggle,.gq-header-inner:has(.gq-logo-link) .gq-menu-toggle{justify-self:end;margin:0}
- header.site-nav:has(.gq-logo-link) #main-nav{top:200px}
- .gq-header-inner:has(.gq-logo-link) .gq-site-nav{top:200px}
+ header.site-nav:has(.gq-logo-link) #main-nav{top:212px}
+ .gq-header-inner:has(.gq-logo-link) .gq-site-nav{top:212px}
  header.site-header:has(.gq-logo-link){display:flex;flex-direction:column;align-items:flex-start}
  header.site-header:has(.gq-logo-link) nav{flex-basis:auto}
- .home-page .opening-inner{padding-top:224px}
- html:has(.site-nav .gq-logo-link){scroll-padding-top:212px}
+ .home-page .opening-inner{padding-top:236px}
+ html:has(.site-nav .gq-logo-link){scroll-padding-top:224px}
 }
 `;
 document.head.append(css);
