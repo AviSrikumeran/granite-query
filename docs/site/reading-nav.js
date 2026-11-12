@@ -83,3 +83,6 @@
     else main.append(contents);
   }
 })();
+
+// Shared identity for standalone reading pages; report text remains untouched.
+import('./gq-navigation.js?v=20261111-1').catch(()=>{});
